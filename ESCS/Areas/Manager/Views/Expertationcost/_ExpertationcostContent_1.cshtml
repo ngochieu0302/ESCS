@@ -1,0 +1,88 @@
+﻿<div class="row">
+    <div class="col-12 px-3" style="margin-top:10px;">
+        <div class="card mb-0">
+            <div class="card-body p-0">
+                <div class="d-flex justify-content-between align-items-center py-2 card-title-bg">
+                    <h5 class="m-0">Thông tin chung</h5>
+                </div>
+                <form name="frmThongTinChung" novalidate="novalidate" method="post">
+                    <input type="hidden" name="so_id" value="" />
+                    <input type="hidden" name="so_id_bt" value="" />
+                    <input type="hidden" name="nv" value="" />
+                    <div class="row" id="div_thong_tin_hs">
+                        <div class="col col-12">
+                            <table class="table fixed-header" id="tblThongTinHS">
+                                <tbody id="tblThongTinChung">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-body p-0">
+                <div class="d-flex justify-content-between align-items-center py-2 card-title-bg">
+                    <h5 class="m-0">Thông tin hồ sơ giám định/chi phí giám định</h5>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="table-responsive scrollable" style="max-height:270px" id="tblChiPhiCTiet">
+                            <table id="tbl_chi_phi_gd_ct" class="table table-bordered fixed-header" style="border-collapse: separate; border-spacing: 0;">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th nowrap style="width:20px">STT</th>
+                                        <th nowrap style="width:100px">Ngày phát sinh</th>
+                                        <th nowrap>Tên chi phí</th>
+                                        <th nowrap style="width:100px">Nhóm giám định</th>
+                                        <th nowrap style="width:110px">Chi phí dự kiến</th>
+                                        <th nowrap style="width:110px">Tiền duyệt</th>
+                                        <th nowrap style="width:110px">Chi phí thực tế</th>
+                                        <th nowrap style="width:110px">Tiền thuế</th>
+                                        <th nowrap style="width:110px">Tổng cộng</th>
+                                        <th style="width:30px"></th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbDsChiPhiGD">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                            <a href="#" onclick="themChiPhi(this)">
+                                                <i class="fas fa-plus-square mr-2"></i>Thêm chi phí giám định
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <span id="tong_tien_dx" class="font-weight-bold">0</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span id="tong_tien_duyet" class="font-weight-bold">0</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span id="tong_tien_thoa_thuan" class="font-weight-bold">0</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span id="tong_thue" class="font-weight-bold">0</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span id="tong_tong_cong" class="font-weight-bold">0</span>
+                                        </td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mg-t-5">
+                        <a href="#" class="btn btn-primary btn-sm mt-1 mr-1 wd-90 float-right" id="btnLuuChiPhiGD">
+                            <i class="fas fa-save mr-1"></i> Lưu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

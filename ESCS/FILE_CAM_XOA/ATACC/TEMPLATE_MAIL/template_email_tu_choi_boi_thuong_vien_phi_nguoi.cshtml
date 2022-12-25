@@ -1,0 +1,129 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+    var dsQuyenLoi = data.data_info.data2;
+    string ma_mau = "#035299";
+    if (mail.ma_doi_tac == "ATACC")
+        ma_mau = "#e002ac";
+}
+<html>
+<head>
+    <title>THÔNG BÁO TỪ CHỐI TRẢ TIỀN BẢO HIỂM</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        table {
+            font-family: 'Tahoma';
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="border: 1px solid #035299; border-radius: 5px; background-color: azure; font-family: 'Tahoma'; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <div style="margin-top:20px;">
+                <img style="width:170px" src="@mail.logo_email" alt="Logo" />
+            </div>
+            <h3 style="color: #035299; text-align: center; color: @ma_mau">
+                THÔNG BÁO TỪ CHỐI TRẢ TIỀN BẢO HIỂM
+                <br style="font-family: 'Tahoma'; font-size: 14px; color:red !important" />Hình thức hoàn trả trực tiếp/Hình thức hoàn trả online
+                <br>Số hồ sơ: @mail.so_hs
+                <p style="font-family: 'Tahoma'; font-size: 16px; color:red; margin-top: 5px;">
+                    <i>(Đây là email tự động, Quý khách vui lòng không Reply email này)</i>
+                </p>
+            </h3>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">Kính gửi Ông (Bà): <span style="color: @ma_mau">@mail.nguoi_lh</span></p>
+                @if (mail.ma_doi_tac == "ATACC")
+                {
+                    <p style="margin: 8px 0px;">
+                        Trước tiên, @mail.ten_cong_ty (@mail.ten_cong_ty_tat), xin gửi tới Quý khách cùng toàn thể gia đình lời chúc sức khỏe, hạnh phúc và chúng tôi hi vọng luôn được là người bạn đồng hành tin cậy của Quý khách trong suốt thời gian tham gia bảo hiểm tại @mail.ten_doi_tac_ql.
+                    </p>
+                }
+                @if (mail.ma_doi_tac == "MIC" || mail.ma_doi_tac == "CTYBHABC")
+                {
+                    <p style="font-family: 'Tahoma'; font-size: 14px; margin:5px">
+                        Trước tiên, @mail.ten_cong_ty (@mail.ten_cong_ty_tat) xin gửi tới Quý khách cùng toàn thể gia đình lời chúc sức khỏe, hạnh phúc và chúng tôi hi vọng luôn được là người bạn đồng hành tin cậy của Quý khách trong suốt thời gian tham gia bảo hiểm tại @mail.ten_doi_tac_ql.
+                    </p>
+                }
+
+                <p style="margin: 8px 0px;">
+                    Căn cứ Hồ sơ yêu cầu trả tiền bảo hiểm do Quý khách cung cấp về sự kiện bảo hiểm của Ông/Bà <span style="color: @ma_mau">@mail.nguoi_lh,</span>
+                    sau khi xem xét phạm vi bảo hiểm, @mail.ten_cong_ty_tat rất tiếc phải thông báo <span style="color: #035299">@mail.ma_doi_tac_ql</span> không thể chi trả số tiền bảo hiểm theo đề nghị của Quý khách với các lý do như sau:
+                </p>
+                <p style="margin: 8px 0px;"><i>Nguyên tệ: VNĐ</i></p>
+                <table class="table" style="margin-top: 15px; font-size: 12px;">
+                    <thead>
+                        <tr class="table-active" style="background-color: #f2f2f2;">
+                            <th scope="col" style="text-align: center;">Sự kiện bảo hiểm</th>
+                            <th scope="col" style="text-align: center;">Số tiền phát sinh</th>
+                            <th scope="col" style="text-align: center;">Lý do</th>
+                            <th scope="col" style="text-align: center;">Diễn giải</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (dsQuyenLoi != null && dsQuyenLoi.Count() > 0)
+                        {
+                            foreach (var qloi in dsQuyenLoi)
+                            {
+                                <tr>
+                                    <th scope="row">@qloi.ten_ql</th>
+                                    <td style="font-family: 'Tahoma';text-align: right;">@qloi.tien_yc</td>
+                                    <td style="font-family: 'Tahoma';">@qloi.nguyen_nhan_giam</td>
+                                    <td style="font-family: 'Tahoma';">@qloi.ghi_chu_qloi</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <p style="margin: 8px 0px;">
+                    <b>Để tra cứu tình trạng hồ sơ và quá trình giải quyết, Quý khách vui lòng dùng ứng dụng @mail.ten_cong_ty_tat trên mobile</b>
+                </p>
+                <p style="margin: 8px 0px;">
+                    Mọi thông tin cần làm rõ về phương án giải quyết nêu trên, Quý khách hàng vui lòng liên hệ với chúng tôi theo địa chỉ:
+                </p>
+                <p style="color: @ma_mau; font-family: 'Tahoma'; font-size: 14px; margin: 8px 0px;"><span>@mail.ten_cong_ty</span></p>
+                <ul style="line-height: 20px; margin: 8px 0px; font-family: 'Tahoma'; font-size: 14px;">
+                    <li>Địa chỉ: <span style="color: @ma_mau">@mail.dchi_dt</span></li>
+                    <li>Số điện thoại: <span style="color: @ma_mau">@mail.d_thoai_dt</span></li>
+                    @*<li>Số điện thoại: <span style="color: @ma_mau">@mail.dien_thoai_btv</span></li>*@
+                    @*<li>Tên cán bộ: <span style="color: @ma_mau">@mail.ten_cb</span></li>
+                        <li>Email: <span style="color: @ma_mau">@mail.email_btv</span></li>*@
+                </ul>
+                <p style="margin: 8px 0px; font-weight: bold; color: @ma_mau;">Chúng tôi xin được chia sẻ và rất mong nhận được sự thông cảm từ Quý khách.</p>
+                <p style="margin: 8px 0px; font-weight: bold; color: @ma_mau;">Trân trọng Cảm ơn!</p>
+                <br />
+                <hr />
+                <p style="font-family: 'Tahoma'; font-size: 10px; margin-top: 5px; opacity:0.4;">
+                    <span>
+                        Email này cùng các tệp tin đính kèm là các thông tin bảo mật của @mail.ten_cong_ty_tat và có mục đích chỉ gửi cho những người nhận được nêu tại email.
+                        Nếu Quý vị không phải là người nhận dự kiến của email này cùng các tập tin kèm theo, vui lòng không thực hiện bất cứ hành động nào trên cơ sở email và các tập tin này. Việc chia sẻ hoặc tiết lộ bất cứ nội dung nào của email này hoặc bất kỳ tập tin đính kèm nào là không được phép, trừ khi có sự đồng ý trước bằng văn bản của @mail.ten_cong_ty_tat.
+                        Trường hợp Quý vị nhận được email này do có sự nhầm lẫn hoặc lỗi hệ thống, vui lòng thông báo ngay cho @mail.ten_cong_ty_tat bằng việc phản hồi lại email này, đồng thời xóa email này cùng các tập tin đính kèm khỏi hệ thống của Quý vị.
+                        @mail.ten_cong_ty_tat không chịu bất kỳ trách nhiệm nào về bất cứ sự truyền tải không chính xác, không đầy đủ hay không kịp thời của bất kỳ thông tin nào trong email. Mặc dù @mail.ten_cong_ty_tat đã thực hiện các biện pháp cần thiết để đảm bảo email này không có chứa virus, @mail.ten_cong_ty_tat không chịu trách nhiệm đối với bất cứ thiệt hại hay tổn thất nào phát sinh từ việc nhận hoặc sử dụng email hoặc bất kỳ tệp tin đính kèm nào.
+                    </span>
+                </p>
+                <p style="font-family: 'Tahoma'; font-size: 10px; margin-top: 10px; opacity:0.4;">
+                    <span>
+                        This email and any file transmitted with it are confidential information of @mail.ten_cong_ty_tat and intended solely for the use of the individual or entity to whom they are addressed.
+                        If you are not the intended recipient, please do not take any action in reliance on this email.
+                        Without prior written consent of @mail.ten_cong_ty_tat, any disclosure or distribution of this email or any of its attachments is strictly prohibited.
+                        If you have received this email in error, kindly notify @mail.ten_cong_ty_tat immediately by replying to this email and then delete this email along with all attachments from your system.
+                        @mail.ten_cong_ty_tat shall not take any responsibility for any improper, incomplete or delayed transmission of any information contained in this email. Although @mail.ten_cong_ty_tat has taken reasonable precautions to ensure no viruses are present in this email, @mail.ten_cong_ty_tat shall not accept responsibility for any loss or damage arising from the receipt or use of this email or any attachment.
+                    </span>
+                </p>
+                <hr />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

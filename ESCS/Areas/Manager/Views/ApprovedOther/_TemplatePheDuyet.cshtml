@@ -1,0 +1,296 @@
+﻿@*  Trình duyệt giám đinh XCG *@
+<script type="text/html" id="tblStep3_gd_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(phuong_an, index) { %>
+    <tr>
+        <td class="text-center">
+            @*<input type="hidden" value="<%- JSON.stringify(phuong_an) %>" name="objInfo" />*@
+            <input type="hidden" name="hang_muc" value="<%- phuong_an.hang_muc %>" />
+            <input type="hidden" name="bt" value="<%- phuong_an.bt %>" />
+
+            <%- phuong_an.vu_tt_ten %>
+        </td>
+        <td class="text-left"><%- phuong_an.ten %></td>
+        <td class="text-center"><%- phuong_an.muc_do_ten %></td>
+        <td class="text-center"><%= phuong_an.thay_the_sc_ten %></td>
+        <td class="text-center"><%= phuong_an.chinh_hang_ten %></td>
+        <td class="text-center"><%= phuong_an.thu_hoi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.gia_giam_dinh) %></td>
+        @*<td class="text-right" style="color:blue"><%- ESUtil.formatMoney(phuong_an.gia_duyet) %></td>*@
+        <td class="text-right">
+            <input type="text" name="tien_duyet" class="number floating-input" style="width:100%" value="<%- ESUtil.formatMoney(phuong_an.tien_duyet) %>" />
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="11">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <tr class="text-left card-title-bg">
+        <td class="text-center font-weight-bold" colspan="6">
+            Tổng cộng
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td></td>
+    </tr>
+</script>
+
+
+@*  Trình duyệt giá *@
+<script type="text/html" id="tblStep3_pa_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(phuong_an, index) { %>
+    <tr>
+        <td class="text-center">
+            <input type="hidden" name="hang_muc" value="<%- phuong_an.hang_muc %>" />
+            <input type="hidden" name="bt" value="<%- phuong_an.bt %>" />
+            <input type="hidden" name="tien_duyet" value="<%- phuong_an.tien_duyet %>" />
+            <%- phuong_an.vu_tt_ten %>
+        </td>
+        <td class="text-left"><%- phuong_an.ten %></td>
+        <td class="text-center"><%- phuong_an.muc_do_ten %></td>
+        <td class="text-center"><%= phuong_an.thay_the_sc_ten %></td>
+        <td class="text-center"><%= phuong_an.chinh_hang_ten %></td>
+        <td class="text-center"><%= phuong_an.thu_hoi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tong_cong) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.gia_duyet_dx) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_duyet) %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="11">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <tr class="text-left card-title-bg">
+        <td class="text-center font-weight-bold" colspan="6">
+            Tổng tiền
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_de_xuat) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_duyet) %>
+        </td>
+    </tr>
+</script>
+
+@*  Trình duyệt bảo lãnh *@
+<script type="text/html" id="tblStep3_bl_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(phuong_an, index) { %>
+    <tr>
+        <td class="text-center">
+            <input type="hidden" name="hang_muc" value="<%- phuong_an.hang_muc %>" />
+            <input type="hidden" name="bt" value="<%- phuong_an.bt %>" />
+            <input type="hidden" name="tien_duyet" value="<%- phuong_an.tien_duyet %>" />
+            <%- phuong_an.vu_tt_ten %>
+        </td>
+        <td class="text-left"><%- phuong_an.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.gia_duyet) %></td>
+        <td class="text-center"><%- phuong_an.pt_khau_hao %></td>
+        <td class="text-center"><%- phuong_an.pt_bao_hiem %></td>
+        <td class="text-center"><%- phuong_an.pt_giam_tru %></td>
+        <td class="text-center"><%- ESUtil.formatMoney(phuong_an.giam_tru_khac) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_mien_thuong) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_duyet) %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="11">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <tr class="text-left card-title-bg">
+        <td class="text-center font-weight-bold" colspan="6">
+            Tổng cộng
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td></td>
+    </tr>
+</script>
+
+@*  Trình duyệt bồi thường *@
+<script type="text/html" id="tblStep3_bt_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(phuong_an, index) { %>
+    <tr>
+        <td class="text-center">
+            <input type="hidden" name="hang_muc" value="<%- phuong_an.hang_muc %>" />
+            <input type="hidden" name="bt" value="<%- phuong_an.bt %>" />
+            <input type="hidden" name="tien_duyet" value="<%- phuong_an.tien_duyet %>" />
+            <%- phuong_an.vu_tt_ten %>
+        </td>
+        <td class="text-left"><%- phuong_an.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.gia_duyet) %></td>
+        <td class="text-center"><%- phuong_an.pt_khau_hao %></td>
+        <td class="text-center"><%- phuong_an.pt_bao_hiem %></td>
+        <td class="text-center"><%- phuong_an.pt_giam_tru %></td>
+        <td class="text-center"><%- ESUtil.formatMoney(phuong_an.giam_tru_khac) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_mien_thuong) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_duyet) %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="11">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <tr class="text-left card-title-bg">
+        <td class="text-center font-weight-bold" colspan="2">
+            Thành tiền
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_duyet_gia) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_khau_hao) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_bao_hiem) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_tru) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_tru_khac) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_mien_thuong) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tong_boi_thuong) %>
+        </td>
+        <td></td>
+    </tr>
+</script>
+
+
+
+@*  Trình duyệt từ chối *@
+<script type="text/html" id="tblStep3_tc_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(phuong_an, index) { %>
+    <tr>
+        <td class="text-center">
+            <input type="hidden" name="hang_muc" value="<%- phuong_an.hang_muc %>" />
+            <input type="hidden" name="bt" value="<%- phuong_an.bt %>" />
+            <%- phuong_an.vu_tt_ten %>
+        </td>
+        <td class="text-left"><%- phuong_an.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.gia_duyet) %></td>
+        <td class="text-center"><%- phuong_an.pt_khau_hao %></td>
+        <td class="text-center"><%- phuong_an.pt_bao_hiem %></td>
+        <td class="text-center"><%- phuong_an.pt_giam_tru %></td>
+        <td class="text-center"><%- ESUtil.formatMoney(phuong_an.giam_tru_khac) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_mien_thuong) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(phuong_an.tien_duyet) %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="11">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <tr class="text-left card-title-bg">
+        <td class="text-center font-weight-bold" colspan="6">
+            Tổng cộng
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td class="text-right font-weight-bold">
+            <%- ESUtil.formatMoney(tong.tien_giam_dinh) %>
+        </td>
+        <td></td>
+    </tr>
+</script>
+@*  Danh sách ảnh *@
+<script type="text/html" id="lstImage_template">
+    <% if(arrAnh.length > 0){
+    _.forEach(arrAnh, function(item,index) { %>
+    <div class="pt-2" id="nhom_anh_<%- index %>">
+        <p class="m-0 font-weight-bold"><a href="#" onclick="onToggleImg('<%- index %>')"><%- item.nhom %></a></p>
+    </div>
+    <ul class="docs-pictures clearfix">
+        <% _.forEach(item.children, function(image,index_anh) { %>
+        <li class="p-1">
+            <input type="checkbox" onclick="onClickGDChiTiet(this, <%- JSON.stringify(image, ESUtil.replacerImg) %>)" id="img<%- image.bt %>" class="nhom_anh_ton_that_<%- index %>" value="<%- image.bt %>" name="ds_anh_xe">
+            <p class="fileNameImage"><%- image.ten_file %></p>
+            <% if(_.includes([".jpg", ".png", ".gif",".jpeg"], image.extension)){ %>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+            <% }else if(_.includes([".pdf", ".doc", ".docx"], image.extension)){ %>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="/images/document.png" alt="<%- image.ten_file %>">
+            <% } else if(_.includes([".xml"], image.extension)){%>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="/images/xml.png" alt="<%- image.ten_file %>">
+            <%}%>
+        </li>
+        <% }) %>
+    </ul>
+    <% })} %>
+</script>
+
+
+@*  Danh sách lịch sử trình duyệt *@
+<script type="text/html" id="tblDanhSachTrinhDuyet_template">
+    <% if(trinh_duyet.length > 0){
+    _.forEach(trinh_duyet, function(lich_su_trinh_duyet, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietNguoiTrinh(this, '<%- lich_su_trinh_duyet.noi_dung_duyet %>')">
+        <td class="text-left"><%- lich_su_trinh_duyet.nguoi_duyet %></td>
+        <td class="text-center"><%- lich_su_trinh_duyet.trang_thai_hthi %></td>
+        <td class="text-center"><%- lich_su_trinh_duyet.phe_duyet=='1'?'Duyệt chính':'Kiểm tra' %></td>
+        <td class="text-center"><%= lich_su_trinh_duyet.ngay_duyet %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="4">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/html" id="tblStep3_tubt_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(item,index) { %>
+    <tr>
+        <td class="text-center">
+            <input type="hidden" value="<%- JSON.stringify(item) %>" name="objInfo" />
+            <%- item.pttt %>
+        </td>
+        <td><%- item.ten %></td>
+        <td class="text-center"><%- item.tk_cmt %></td>
+        <td><%- item.ten_nh %></td>
+        <td><%- item.nd %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        <td class="text-center"><%- item.trang_thai_hthi %></td>
+    </tr>
+    <% })}%>
+</script>
+<script type="text/html" id="tblStep3_ntba_template">
+    <% if(pa_khac_phuc.length > 0){
+    _.forEach(pa_khac_phuc, function(item,index) { %>
+    <tr>
+        @*<td class="text-center">
+            <input type="hidden" value="<%- JSON.stringify(item) %>" name="objInfo" />
+            <%- item.so_id_td_ntba %>
+        </td>*@
+        <td><%- item.ten %></td>
+        <td class="text-center"><%- item.dthoai %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        <td><%- item.dia_chi %></td>
+        <td><%- item.ghi_chu %></td>
+    </tr>
+    <% })}%>
+</script>

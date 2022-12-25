@@ -1,0 +1,112 @@
+﻿<div class="row mg-t-10">
+    <div class="col-6">
+        <h5>Danh sách hóa đơn, chứng từ</h5>
+    </div>
+    <div class="col-6">
+        <button class="btn btn-sm btn-primary float-right" id="btnDocOCRHoaDon"><i class="fa fa-qrcode mr-2"></i>OCR hóa đơn</button>
+    </div>
+    <div class="col-12">
+        <div class="table-responsive" style="max-height:250px">
+            <!-- Chứng từ hóa đơn, thanh toán -->
+            <table class="table table-bordered fixed-header">
+                <thead class="font-weight-bold card-title-bg-primary">
+                    <tr class="text-center uppercase">
+                        <th>Ngày CT</th>
+                        <th>Mẫu</th>
+                        <th>Ký hiệu</th>
+                        <th>Số</th>
+                        <th>Nội dung</th>
+                        <th>Số tiền</th>
+                        <th>Thuế</th>
+                        <th>Tổng cộng</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="step4_chung_tu">
+                </tbody>
+                <tfoot>
+                    <tr class="text-left card-title-bg">
+                        <td colspan="2" class="text-left">
+                            <a href="#" id="btnThemHoaDonChungTu" title="Thêm hóa đơn, chứng từ">
+                                <i class="fas fa-plus-square mr-2"></i>Thêm hóa đơn, chứng từ
+                            </a>
+                        </td>
+                        <td colspan="2" class="text-left">
+                            <a href="#" id="btnDocHoaDon" onclick="showPopupDocHoaDonDienTu(this)" title="Đọc hóa đơn điện tử">
+                                <i class="far fa-file-invoice-dollar mr-2"></i>Đọc hóa đơn
+                            </a>
+                        </td>
+                        <td class="text-center font-weight-bold">
+                            Tổng cộng
+                        </td>
+                        <td class="text-right font-weight-bold chung_tu_tong_tien"></td>
+                        <td class="text-right font-weight-bold chung_tu_tong_thue"></td>
+                        <td class="text-right font-weight-bold chung_tu_tong_cong"></td>
+                        <td style="font-weight:bold"></td>
+                        <td style="font-weight:bold"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mg-t-10">
+    <div class="col-6">
+        <h5>Danh sách người thụ hưởng bồi thường</h5>
+    </div>
+    <div class="col-6">
+        <button class="btn btn-sm btn-primary float-right" id="btnCapNhatThue"><i class="fa fa-edit mr-1"></i> Cập nhật lại số tiền thuế</button>
+    </div>
+    <div class="col-12">
+        <div class="table-responsive" style="max-height:250px">
+            <!-- Danh sách người thụ hưởng -->
+            <table id="tblCarCompensationContentStep4_benefit" class="table table-bordered fixed-header">
+                <thead class="font-weight-bold card-title-bg-primary">
+                    <tr class="text-center uppercase">
+                        <th style="width:40px;"></th>
+                        <th>Tên đơn vị thụ hưởng</th>
+                        <th>Số TK</th>
+                        <th>Ngân hàng</th>
+                        <th>Nội dung</th>
+                        <th style="width:100px">Loại</th>
+                        <th style="width:90px">Số tiền</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="step4_thu_huong"></tbody>
+                <tfoot>
+                    <tr class="text-left card-title-bg">
+                        <td colspan="3" class="text-left">
+                            <a href="#" id="btnThemNguoiThuHuong" title="Thêm người thụ hưởng">
+                                <i class="fas fa-plus-square mr-2"></i>Thêm người thụ hưởng
+                            </a>
+                        </td>
+                        <td class="font-weight-bold text-center" colspan="3">
+                            Tổng cộng
+                        </td>
+                        <td class="font-weight-bold text-right thu_huong_tong">
+                        </td>
+                        <td class="font-weight-bold">
+                        </td>
+                        <td class="font-weight-bold">
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row tab-navigator">
+    <div class="col-12 mg-t-10">
+        <button class="btn btn-primary btn-sm escs_pquyen" id="btnChuyenThanhToan">
+            <i class="fas fa-share-square mr-1"></i>Chuyển thanh toán
+        </button>
+        <button class="btn btn-primary btn-sm escs_pquyen" id="btnHuyChuyenThanhToan">
+            <i class="fa fa-undo mr-1"></i>Hủy chuyển thanh toán
+        </button>
+    </div>
+</div>

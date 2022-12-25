@@ -1,0 +1,414 @@
+﻿<style>
+    #tableHangMucGiaTuDong thead tr th {
+        padding: 0.3rem !important;
+    }
+
+    #tableHangMucGiaTuDong tbody tr td {
+        padding: 0.3rem !important;
+    }
+
+    .ul_duyet_gia_tu_dong li {
+        list-style-type: none;
+    }
+
+    .ul_duyet_gia_tu_dong {
+        padding: unset;
+        margin-top: 15px;
+    }
+
+    .modalCHPheDuyetGiaTuDongContent {
+        height: 500px;
+        overflow: auto;
+    }
+
+    .ul_duyet_gia_tu_dong_ngay_ad li {
+        list-style-type: none;
+    }
+
+    .ul_duyet_gia_tu_dong_ngay_ad {
+        padding: unset;
+        margin-top: 15px;
+    }
+
+    .width-dvi {
+        width: 51%;
+        float: left;
+    }
+
+    .width-loai {
+        width: 17%;
+        float: left;
+    }
+
+    .width-tien {
+        width: 10%;
+        float: left;
+        margin-left:3px;
+    }
+
+    .width-ngay {
+        width: 10%;
+        float: left;
+        margin-left: 3px;
+    }
+
+    .width-lan {
+        width: 10%;
+        float: left;
+        margin-left: 3px;
+    }
+
+    .width-quyen-loi {
+        width: 68%;
+        float: left;
+    }
+
+    .width-tien-qloi {
+        width: 15%;
+        float: left;
+        margin-left: 3px;
+    }
+
+    .width-ngay-qloi {
+        width: 15%;
+        float: left;
+        margin-left: 3px;
+    }
+</style>
+<div id="modalCHDuyetBTTuDong" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="max-width:100%">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Cấu hình duyệt bồi thường tự động</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a; padding:0px">
+                <div class="row p-2">
+                    <div class="col-2" style="padding-right:0px;">
+                        <div class="card border mb-0">
+                            <div class="card-body p-2" style="height:73.5vh;overflow-y:auto">
+                                <h6>Ngày áp dụng</h6>
+                                <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="modalCHPheDuyetBoiThuongTuDongNgayAD">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="row p-2" style="padding-top:0px !important">
+                            <div class="col-12" style="padding-left:0px;">
+                                <div class="d-flex justify-content-between" style="background-color:#f8f9fa">
+                                    <ul class="nav nav-pills font-weight-bold" role="tablist" id="modalCHPheDuyetBoiThuongTuDongTabList">
+                                        <li class="nav-item" style="cursor:pointer">
+                                            <a class="nav-link active" data-toggle="tab" id="tabCHDonViBenhVienHSGTMenu" onclick="hienThiTabCHDuyetBoiThuong('tabCHDonViBenhVienHSGT')" role="tab" aria-controls="home" aria-selected="true">
+                                                Đơn vị/bệnh viện/hồ sơ giấy tờ
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style="cursor:pointer">
+                                            <a class="nav-link" data-toggle="tab" role="tab" id="tabCHQuyenLoiMenu" onclick="hienThiTabCHDuyetBoiThuong('tabCHQuyenLoi')" aria-controls="profile" aria-selected="false">
+                                                Quyền lợi tối đa
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 tabCHDonViBenhVienHSGT" style="padding-top:0px !important">
+                            <div class="col-7 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 67.5vh;overflow-y: auto;">
+                                        <div>
+                                            <input type="text" class="form-control" id="modalCHPheDuyetBoiThuongTuDongDviADTkiem" placeholder="Tìm kiếm đơn vị" />
+                                        </div>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetBoiThuongTuDongDviAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 67.5vh;overflow-y: auto;">
+                                        <div>
+                                            <input type="text" class="form-control" id="modalCHPheDuyetBoiThuongTuDongBVADTkiem" placeholder="Tìm kiếm bệnh viện" />
+                                        </div>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetBoiThuongTuDongBVAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 tabCHQuyenLoi" style="padding-top:0px !important">
+                            <div class="col-6 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 67.5vh;overflow-y: auto;">
+                                        <form name="frmQuyenLoi" method="post">
+                                            <div class="row m-0">
+                                                <div class="col-8">
+                                                    <input type="text" class="form-control" id="modalCHPheDuyetBoiThuongTuDongQuyenLoiADTkiem" placeholder="Tìm kiếm quyền lợi" />
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <select class="select2 form-control custom-select" id="san_pham" required name="san_pham" style="width: 100%; height:36px;"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetBoiThuongTuDongQuyenLoiAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 67.5vh;overflow-y: auto;">
+                                        <div>
+                                            <input type="text" class="form-control" id="modalCHPheDuyetBoiThuongTuDongHSGTADTkiem" placeholder="Tìm kiếm hồ sơ giấy tờ" />
+                                        </div>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetBoiThuongTuDongHSGTAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 tabCHSoTienToiDa" style="padding-top:0px !important"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm float-left tabCHDonViBenhVienHSGT" id="btnThemNgayADDuyetBoiThuongTuDong">
+                    <i class="fas fa-plus mr-2"></i>Thêm ngày áp dụng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuCauHinhDuyetBoiThuong">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCHPheDuyetBoiThuongTuDongNhapNgayAD" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Nhập ngày áp dụng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a; padding:0px">
+                <form name="frmCHPheDuyetBoiThuongTuDongNhapNgayAD" method="post">
+                    <div class="row mg-t-6 p-2">
+                        <div class="col col-12">
+                            <div class="form-group">
+                                <label for="ngay_d">Ngày áp dụng</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_ad" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuCHPheDuyetBoiThuongTuDongNhapNgayAD">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalCHPheDuyetBoiThuongTuDongNgayADTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <a class="nav-link" onclick="layChiTietCHDuyetBoiThuongTuDong('<%- item.ngay_ad %>')" style="cursor:pointer" data_ngay_ad="<%- item.ngay_ad %>" data-toggle="pill" role="tab" aria-selected="true">Ngày áp dụng: <b class="font-weight-bold"><%- item.ngay_ad_hthi %></b></a>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetBoiThuongTuDongDviADTemplate">
+    <% if(data.length > 0){%>
+    <div>
+        <div class="width-dvi">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaDviCHDuyetBoiThuong(this)" id="modalCHPheDuyetBoiThuongTuDongDviADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetBoiThuongTuDongDviADTatCa">Áp dụng tất cả</label>
+            </div>
+        </div>
+        <div class="width-loai">
+            Loại
+        </div>
+        <div class="width-tien">
+            Số tiền
+        </div>
+        <div class="width-ngay">
+            Số ngày
+        </div>
+        <div class="width-lan">
+            Số lần
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="modalCHPheDuyetBoiThuongTuDongDviADItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_tat) %>">
+        <div class="width-dvi">
+            <div class="custom-control custom-checkbox">
+                <% if(item.checked == 'C'){%>
+                <input type="checkbox" data_ma_dvi="<%- item.ma %>" checked="checked" id="modalCHPheDuyetBoiThuongTuDongDviADItem_<%- item.ma %>" class="custom-control-input">
+                <% } else {%>
+                <input type="checkbox" data_ma_dvi="<%- item.ma %>" id="modalCHPheDuyetBoiThuongTuDongDviADItem_<%- item.ma %>" class="custom-control-input">
+                <% }%>
+                <label class="custom-control-label" for="modalCHPheDuyetBoiThuongTuDongDviADItem_<%- item.ma %>"><%- item.ten_tat %></label>
+            </div>
+        </div>
+        <div class="width-loai">
+            <div class="form-group">
+                <select class="select2 form-control custom-select" data_ma_dvi="<%- item.ma %>" name="loai" style="width:100%; height:20px">
+                    <option value="" selected>Chọn loại</option>
+                    <option value="BLVP">Bảo lãnh</option>
+                    <option value="HSTT">Trực tiếp</option>
+                    <option value="HSTT;BLVP">Bảo lãnh & Trực tiếp</option>
+                </select>
+            </div>
+        </div>
+        <div class="width-tien">
+            <input type="text" data_ma_dvi="<%- item.ma %>" name="so_tien_yc" style="height:20px" class="number form-control" value="<%- ESUtil.formatMoney(item.so_tien_yc) %>" placeholder="Số tiền tối đa" />
+        </div>
+        <div class="width-ngay">
+            <input type="text" data_ma_dvi="<%- item.ma %>" name="so_ngay_yc" style="height:20px" class="number form-control" value="<%- item.so_ngay_yc %>" placeholder="Số ngày tối đa" />
+        </div>
+        <div class="width-lan">
+            <input type="text" data_ma_dvi="<%- item.ma %>" name="so_lan_yc" style="height:20px" class="number form-control" value="<%- item.so_lan %>" placeholder="Số lần tối đa" />
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetBoiThuongTuDongBVADTemplate">
+    <% if(data.length > 0){%>
+    <div style="height:21px;">
+        <div style="width:50%; float:left;">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaBVCHDuyetBoiThuong(this)" id="modalCHPheDuyetBoiThuongTuDongBVADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetBoiThuongTuDongBVADTatCa">Áp dụng tất cả</label>
+            </div>
+        </div>
+        <div style="width:50%; float:left; text-align:right;">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input checkbox" onchange="onChkHienThiBVAD(this)" id="chkHienThiBVAD">
+                <label class="custom-control-label" for="chkHienThiBVAD">Đang áp dụng</label>
+            </div>
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="row m-0 modalCHPheDuyetBoiThuongTuDongBVItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <div class="col-9 custom-control custom-checkbox">
+            <% if(item.checked == 'C'){%>
+            <input type="checkbox" data_ma_bv="<%- item.ma %>" checked="checked" id="modalCHPheDuyetBoiThuongTuDongBVItem_<%- item.ma %>" class="custom-control-input">
+            <% } else {%>
+            <input type="checkbox" data_ma_bv="<%- item.ma %>" id="modalCHPheDuyetBoiThuongTuDongBVItem_<%- item.ma %>" class="custom-control-input">
+            <% }%>
+            <label class="custom-control-label" for="modalCHPheDuyetBoiThuongTuDongBVItem_<%- item.ma %>"><%- item.ten %></label>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select class="select2 form-control custom-select" data_ma_bv="<%- item.ma %>" name="loai_hinh" style="width:100%; height:20px">
+                    <option value="" selected>Chọn loại</option>
+                    <option value="N">Nội trú</option>
+                    <option value="G">Ngoại trú</option>
+                    <option value="NG">Nội trú & Ngoại trú</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetBoiThuongTuDongQuyenLoiADTemplate">
+    <% if(data.length > 0){%>
+    <div>
+        <div class="width-quyen-loi">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaQuyenLoiCHDuyetBoiThuong(this)" id="modalCHPheDuyetBoiThuongTuDongQuyenLoiADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetBoiThuongTuDongQuyenLoiADTatCa">Áp dụng tất cả</label>
+            </div>
+        </div>
+        <div class="width-tien-qloi">
+            Số tiền
+        </div>
+        <div class="width-ngay-qloi">
+            Số ngày
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="modalCHPheDuyetBoiThuongTuDongQuyenLoiADItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <div class="width-quyen-loi">
+            <div class="custom-control custom-checkbox">
+                <% if(item.checked == 'C'){%>
+                <input type="checkbox" data_quyen_loi="<%- item.ma %>" checked="checked" id="modalCHPheDuyetBoiThuongTuDongQuyenLoiADItem_<%- item.ma %>" class="custom-control-input">
+                <% } else {%>
+                <input type="checkbox" data_quyen_loi="<%- item.ma %>" id="modalCHPheDuyetBoiThuongTuDongQuyenLoiADItem_<%- item.ma %>" class="custom-control-input">
+                <% }%>
+                <label class="custom-control-label" for="modalCHPheDuyetBoiThuongTuDongQuyenLoiADItem_<%- item.ma %>"><%- item.ten %></label>
+            </div>
+        </div>
+        <div class="width-tien-qloi">
+            <input type="text" data_quyen_loi="<%- item.ma %>" name="so_tien_yc" style="height:20px" class="number form-control" value="<%- ESUtil.formatMoney(item.so_tien_yc) %>" placeholder="Số tiền tối đa" />
+        </div>
+        <div class="width-ngay-qloi">
+            <input type="text" data_quyen_loi="<%- item.ma %>" name="so_ngay_yc" style="height:20px" class="number form-control" value="<%- item.so_ngay_yc %>" placeholder="Số ngày tối đa" />
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetBoiThuongTuDongHSGTADTemplate">
+    <% if(data.length > 0){%>
+    <div style="height:21px;">
+        <div style="width:50%; float:left;">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaHSGTCHDuyetBoiThuong(this)" id="modalCHPheDuyetBoiThuongTuDongHSGTADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetBoiThuongTuDongHSGTADTatCa">Áp dụng tất cả</label>
+            </div>
+        </div>
+        <div style="width:50%; float:left; text-align:right">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input checkbox" onchange="onChkHienThiHSGTAD(this)" id="chkHienThiHSGTAD">
+                <label class="custom-control-label" for="chkHienThiHSGTAD">Đang áp dụng</label>
+            </div>
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="row m-0 modalCHPheDuyetBoiThuongTuDongHSGTItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <div class="col-9 custom-control custom-checkbox">
+            <% if(item.checked == 'C'){%>
+            <input type="checkbox" data_hsgt="<%- item.ma %>" checked="checked" id="modalCHPheDuyetBoiThuongTuDongHSGTItem_<%- item.ma %>" class="custom-control-input">
+            <% } else {%>
+            <input type="checkbox" data_hsgt="<%- item.ma %>" id="modalCHPheDuyetBoiThuongTuDongHSGTItem_<%- item.ma %>" class="custom-control-input">
+            <% }%>
+            <label class="custom-control-label" for="modalCHPheDuyetBoiThuongTuDongHSGTItem_<%- item.ma %>"><%- item.ten %></label>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select class="select2 form-control custom-select" data_hsgt="<%- item.ma %>" name="loai_hinh" style="width:100%; height:20px">
+                    <option value="" selected>Chọn loại</option>
+                    <option value="N">Nội trú</option>
+                    <option value="G">Ngoại trú</option>
+                    <option value="NG">Nội trú & Ngoại trú</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>

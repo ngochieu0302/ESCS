@@ -1,0 +1,56 @@
+﻿<div class="card mb-0 h-100" id="navThongTinHoSo">
+    <div class="tab-content border border-top-0 h-100">
+        <div class="card-body px-1 pt-1">
+            <div class="row">
+                <div class="col-12 mt-1">
+                    <h5>Lịch sử cho ý kiến</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive" style="max-height:300px">
+                        <table class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold text-center uppercase">
+                                <tr>
+                                    <th style="width:40px">STT</th>
+                                    <th width="40%">Cán bộ</th>
+                                    <th width="43%">Ngày giờ</th>
+                                    <th style="width:40px"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblLichSuChoYKien">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-6">
+                    <div class="form-group">
+                        <h5>Ý kiến về hồ sơ</h5>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div style="width:100%; background-color:#e9ecef; height: 200px; border-radius:2px; padding:5px; border: 1px solid #ccc" class="scrollable" id="ModalChoYKienNoiDung">
+                        <form name="frmChoYKien" method="post">
+                            <input type="hidden" name="ma_doi_tac" value="" />
+                            <input type="hidden" name="so_id_yk" value="" />
+                            <input type="hidden" name="bt" value="" />
+                            <textarea class="form-control" required placeholder="Nhập ý kiến về hồ sơ" autocomplete="off" name="nd_y_kien" style="height: 185px;"></textarea>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-sm float-right" id="btnLuuChoYKien">
+                        <i class="fa fa-save mr-2"></i>Lưu ý kiến
+                    </button>
+                    <button class="btn btn-primary btn-sm wd-110 float-right mr-2" id="btnThemMoiYKien"><i class="fas fa-plus mr-2"></i>Thêm ý kiến</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

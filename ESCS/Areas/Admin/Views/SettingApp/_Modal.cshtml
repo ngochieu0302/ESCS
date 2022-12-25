@@ -1,0 +1,98 @@
+﻿<div class="modal fade bs-example-modal-lg" id="modalNhapCaiDat" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmLuuThongTinCaiDat" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm cài đặt ứng dụng</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="url_anh">
+                            <!--left col-->
+                            <div class="text-center">
+                                <label for="file_anh" style="cursor: pointer">
+                                    <img id="img_main" src="" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 80px; height: 80px">
+                                </label>
+                                <input type="file" style="display: none" class="text-center center-block mt-5" id="file_anh" name="file_anh">
+                            </div><br>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Mã đối tác</label>
+                                <select class="select2 form-control custom-select" required="" name="ma_doi_tac" style="width: 100%; height: 36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Ứng dụng</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="ma_app" style="width: 100%; height: 36px;">
+                                    <option value="">Chọn ứng dụng</option>
+                                    <option value="WEB" selected="selected">Ứng dụng Web</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên cài đặt</label>
+                                <input type="text" maxlength="250" name="ten" autocomplete="off" required="" class="form-control" placeholder="Nhập vào tên cấu hình cài đặt">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên tắt</label>
+                                <input type="text" maxlength="250" name="ten_tat" autocomplete="off" required class="form-control" placeholder="Nhập vào tên tắt">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Loại</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="loai" style="width: 100%; height: 36px;" required="">
+                                    <option value="" selected="selected">Chọn loại</option>
+                                    <option value="LOGO_WEB_APP">Logo web app</option>
+                                    <option value="LOGO_MAU_IN">Logo mẫu in</option>
+                                    <option value="FAVICON">Favicon</option>
+                                    <option value="LOGO_DANG_NHAP">Logo màn hình đăng nhập</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Chiều rộng</label>
+                                <input type="text" maxlength="250" name="chieu_rong" autocomplete="off" required class="form-control" placeholder="Nhập vào chiều rộng ...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Chiều dài</label>
+                                <input type="text" maxlength="250" name="chieu_dai" autocomplete="off" required class="form-control" placeholder="Nhập vào chiều dài ...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tọa độ x</label>
+                                <input type="text" maxlength="250" name="toa_do_x" autocomplete="off" required class="form-control" placeholder="Nhập vào tọa độ x ...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tọa độ y</label>
+                                <input type="text" maxlength="250" name="toa_do_y" autocomplete="off" required class="form-control" placeholder="Nhập vào tọa độ y ...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnThemMoiCauHinh"><i class="fa fa-save"></i> Thêm mới</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnCapNhatCauHinh"><i class="fa fa-save"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteCauHinh"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ESCS.MODEL.ESCS
+@model ESCS.MODEL.ESCS.bh_bt_kh_xac_nhan_ng
+@{
+    ViewData["Title"] = "Thông tin xác nhận khách hàng";
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+    var logo_login = "images/logo-icon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var cai_dat_logo = setting.cai_dat.Where(n => n.loai == "LOGO_DANG_NHAP").FirstOrDefault();
+        logo_login = cai_dat_logo != null && !string.IsNullOrEmpty(cai_dat_logo.url_anh) ? cai_dat_logo.url_anh : logo_login;
+    }
+}
+<input type="hidden" id="short_link" value="@Model.short_link" />
+<div id="page404" class="d-none" style="position: relative; height: 100vh; overflow-x: hidden;">
+    <section class="main-content-error">
+        <div class="container-xl">
+            <div class="row gy-4">
+                <div class="col-sm-12 col-md-12 col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                        </div>
+                        <h2 class="h1">Không xác định được đường dẫn</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="trang_chu" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container-fuild header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <a class="navbar-brand" href="#">
+                                <img src="/@logo_login" alt="Logo" class="rounded app_logo" style="width:120px">
+                            </a>
+                            <span class="slogan d-block app_ten_cty_bh field-name"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content rounded" style="margin-top: 90px;">
+            <div class="container-xl mx-auto">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-10 col-md-12 col-12 mx-auto px-2">
+                        <div class="text-center my-3">
+                            <h5 class="tieu_de mb-0" style="color: #424D54; font-weight: 600;">Quý khách vui lòng xác nhận thông tin và đánh giá dịch vụ</h5>
+                            <span class="message_error_confirm" style="font-weight:bold; color: green"></span>
+                        </div>
+                        <div class="card border mb-0">
+                            <div class="card-header">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600;"><i class="fa fa-address-book mr-2"></i>Thông tin hồ sơ bồi thường</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinHoSo">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border mb-0">
+                            <div class="card-header">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600;"><i class="fas fa-user mr-2"></i>Thông tin đối tượng bảo hiểm</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinDoiTuongBaoHiem">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-xl mx-auto">
+                <div class="footer-inner col-lg-10 col-sm-10 col-md-12 col-12 p-2 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-lg-6 col-sm-6 col-md-6 col-6 mx-auto text-center pl-0 pr-1">
+                            <a href="#" class="btn btn-button" id="btnXacNhan"><i class="fa fa-check mr-2" aria-hidden="true"></i>Đồng ý</a>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6 col-6 mx-auto text-center pl-1 pr-0">
+                            <a href="#" class="btn btn-button" id="btnYKienKhac"><i class="fa fa-pencil mr-2" aria-hidden="true"></i>Ý kiến khác</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div class="modal fade" id="modalXacNhan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="frmXacNhan" novalidate="novalidate" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group m-0">
+                                <label class="_required" style="font-size: 16px; font-weight: 600; color: #424D54;">Vui lòng nhập ý kiến</label>
+                                <textarea class="form-control" placeholder="Nhập ý kiến của bạn" required autocomplete="off" rows="6" name="ly_do_tu_choi"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 mt-3 border-top">
+                        <div class="col-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn-nhap wd-110 mx-2 p-2" id="btnLuuXacNhan" style="background-color: #0C8242; font-family: 'Roboto'; width:110px;"><i class="fa fa-check mr-2"></i><span id="btnLuuXacNhanText">Gửi ý kiến</span></button>
+                            <button type="button" class="btn-close wd-110 mx-2 p-2" id="btnDongModalXacNhan" style="width: 110px;"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="divThongTinHoSoTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- ho_so.ten_kh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số hồ sơ: <span><%- ho_so.so_hs %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày mở hồ sơ: <span><%- ho_so.ngay_mo_hs %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Cán bộ xử lý: <span><%- ho_so.can_bo_xly %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số tiền duyệt: <span><%- ho_so.so_tien_duyet %> VND</span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Người thụ hưởng: <span><%- ho_so.nguoi_thu_huong %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số tài khoản: <span><%- ho_so.stk %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Ngân hàng: <span><%- ho_so.ngan_hang %></span></p>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinDoiTuongBaoHiemTemplate">
+    <%if(ho_so.nv == 'NG') {%>
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên NĐBH: <span><%- ho_so.ten %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày sinh: <span><%- ho_so.ngay_sinh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Giới tính: <span><%- ho_so.gioi_tinh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số CMT/CCCD: <span><%- ho_so.so_cmt %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Địa chỉ: <span><%- ho_so.dchi %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số điện thoại: <span><%- ho_so.d_thoai %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Email: <span><%- ho_so.email %></span></p>
+        </div>
+    </div>
+    <%}%>
+</script>
+
+
+@section Scripts{
+    <script src="~/js/common/Service.js" asp-append-version="true"></script>
+    <script src="~/js/common/FormService.js" asp-append-version="true"></script>
+    <script src="~/js/common/NotifyService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESLoading.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESUtil.js" asp-append-version="true"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+    <script src="~/js/app/ClaimOnline/CustomerConfirm.js" asp-append-version="true"></script>
+}

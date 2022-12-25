@@ -1,0 +1,223 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutScroll.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-7 col-12 d-flex justify-content-start align-self-center">
+        <h4 class="mb-0 px-3 border-right"><a class="text-themecolor" style="color:blue" href="/home/detail">Phân tích theo địa bàn</a></h4>
+        <h4 class="mb-0 pl-3"><a class="text-subcolor">Phân tích theo đối tượng</a></h4>
+        <h4 class="mb-0 pl-3"><a class="text-subcolor">Tiến trình giải quyết</a></h4>
+    </div>
+    <div class="col-md-5 col-12 align-self-center justify-content-end d-flex">
+        <form class="form-inline" name="frmSearch" method="post">
+            <div class="form-group m-0 mr-3">
+                @*<label for="inputEmail3" class="pr-0 col-sm-4 col-form-label">Đối tác</label>*@
+                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width:200px">
+                    </select>
+            </div>
+            <div class="form-group m-0 mr-3">
+                @*<label for="inputEmail3" class="pr-0 col-sm-4 col-form-label">Chi nhánh</label>*@
+                    <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width:200px">
+                    </select>
+            </div>
+            <div class="form-group m-0">
+                @*<label for="inputEmail3" class="pr-0 col-sm-4 col-form-label">Nhóm</label>*@
+                    <select class="select2 form-control custom-select" name="nhom" style="width:100px">
+                        <option value="TUAN">Tuần</option>
+                        <option value="THANG" selected="selected">Tháng</option>
+                        <option value="NAM">Năm</option>
+                    </select>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row" id="test-control" style="display:none">
+        <div class="col-lg-12 col-md-12 pd-3">
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-primary" id="btnCallDefault">Call mặc định</button>
+                    <button class="btn btn-danger" id="btnCallSDK">Call dùng SDK</button>
+                    <button class="btn btn-info" id="btnCallSDKVideo">Call dùng SDK (Video)</button>
+                    <button class="btn btn-info" id="btnExport"> Export </button>
+                    <button class="btn btn-info" id="btnExportTable"> Export Table</button>
+                    <a href="/home/sendnotifyexample" class="btn btn-info">Test gửi notify</a>
+                    <button class="btn btn-info" id="btnTaoHoSoNhanh"> Tạo hồ sơ GĐ nhanh</button>
+                    <form name="frmImportExcel" method="post">
+                        <input type="text" name="ten" />
+                        <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                        <button type="button" id="btnImport" class="btn btn-primary">Import</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h3 class="card-title">Thống kê theo đơn vị/chi nhánh</h3>
+                        </div>
+                    </div>
+                    <div id="chung_bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h3 class="card-title">Thống kê bồi thường theo mục đích sử dụng xe ô tô</h3>
+                        </div>
+                    </div>
+                    <div id="md_sd_bar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">&nbsp;</h3>
+                    <div id="md_sd_pie"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Thống kê bồi thường khu vực tổn thất</h3>
+                    <div id="khu_vuc_pie"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h3 class="card-title">Thống kê bồi thường theo tuổi xe</h3>
+                        </div>
+                    </div>
+                    <div id="tuoi_xe_pie"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h3 class="card-title">Top 10 hãng xe hay xảy ra tổn thất</h3>
+                        </div>
+                    </div>
+                    <div id="hang_xe"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Top 30 hiệu xe hay xảy ra tổn thất</h3>
+                    <div id="hieu_xe"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Template.cshtml" />
+@section Styles{
+    <style>
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0,0,0,.125);
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1.25rem;
+        }
+
+        .campaign {
+            height: 260px;
+            position: relative;
+        }
+
+            .campaign .ct-series-a .ct-area {
+                fill-opacity: 0.2;
+                fill: url(#gradient);
+            }
+
+            .campaign .ct-series-a .ct-line,
+            .campaign .ct-series-a .ct-point {
+                stroke: #21c1d6;
+                stroke-width: 2px;
+            }
+
+            .campaign .ct-series-b .ct-area {
+                fill: #1e88e5;
+                fill-opacity: 0.1;
+            }
+
+            .campaign .ct-series-b .ct-line,
+            .campaign .ct-series-b .ct-point {
+                stroke: #1e88e5;
+                stroke-width: 2px;
+            }
+
+            .campaign .ct-series-a .ct-point,
+            .campaign .ct-series-b .ct-point {
+                stroke-width: 6px;
+            }
+
+        .table td, .table th {
+            padding: .75rem;
+        }
+
+        .table tbody {
+            font-size: 0.875rem;
+        }
+
+        .row > div {
+            padding-right: 0px;
+        }
+
+        .fixed-header thead th {
+            background-color: white;
+            color: #67757c;
+        }
+
+        .text-content {
+            color: rgb(30, 136, 229);
+        }
+    </style>
+}
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js"></script>
+    <script src="~/libs/highchart/highcharts.src.js"></script>
+    <script src="~/libs/highchart/highcharts-more.js"></script>
+    <script src="~/libs/highchart/highcharts-3d.js"></script>
+    <script src="~/libs/highchart/modules/solid-gauge.js"></script>
+    <script src="~/libs/highchart/modules/wordcloud.js"></script>
+    <script src="~/js/app/Dashboard/services/DashboardService.js"></script>
+    <script src="~/js/app/Dashboard/Detail.js"></script>
+    <script>
+    </script>
+}

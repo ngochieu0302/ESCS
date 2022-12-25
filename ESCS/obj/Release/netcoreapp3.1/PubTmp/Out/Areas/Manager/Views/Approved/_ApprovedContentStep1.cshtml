@@ -1,0 +1,1120 @@
+﻿<style>
+    iframe {
+        display: block;
+        margin: 20px auto;
+    }
+</style>
+<div class="row w-100 m-0 p-0">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-8">
+                <div class="card mb-0">
+                    <div class="card-body p-0">
+                        <div class="border rounded">
+                            <div class="scrollable" id="modalViewFileContent">
+                                <div id="viewHtml" class="text-center mx-auto" style="height:82vh">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 pl-0">
+                <form id="frmDanhSachToTrinh" name="frmDanhSachToTrinh" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <select class="select2 form-control custom-select" name="to_trinh" style="width:100%"></select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb pl-1" id="navNghiepVu" style="margin:unset;margin-bottom:5px; padding-top:3px; padding-bottom:3px;font-size:0.66rem">
+                        </ol>
+                    </nav>
+                </div>
+                <div class="table-responsive" style="max-height:390px">
+                    @*Trình duyệt giám định*@
+                    <div class="TABLE_LOAI_TRINH" id="XE_TRINH_DUYET_GIAM_DINH">
+                        @*Vật chất xe*@
+                        <table class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_GIAM_DINH" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_VCX_XE">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Hạng mục</th>
+                                    <th>Mức độ</th>
+                                    <th style="width:70px">Thay thế</th>
+                                    <th style="width:90px">Chính hãng</th>
+                                    <th style="width:65px">Thu hồi</th>
+                                    <th style="width:110px">Chi phí dự kiến</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_VCX_XE">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="6">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_VCX_XE_CHI_PHI_DU_KIEN">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Người ngồi trên xe*@
+                        <table style="width:128%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_GIAM_DINH" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_NG_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:90px">Mức độ</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:140px">Tiền tổn thất dự kiến</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_NG_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_NG_NGUOI_CHI_PHI_DU_KIEN">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Hàng hóa trên xe*@
+                        <table style="width:130%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_GIAM_DINH" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_HH_HANG_HOA">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th style="width:180px">Mức độ</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:110px">Giá/Đơn vị HH</th>
+                                    <th style="width:110px">Đơn vị tính</th>
+                                    <th style="width:100px">Số lượng TT</th>
+                                    <th style="width:110px">Tiền tổn thất</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_HH_HANG_HOA">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="6">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_HH_HANG_HOA_CHI_PHI_DU_KIEN">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về người*@
+                        <table style="width:128%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_GIAM_DINH" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_TNDS_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:90px">Mức độ</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:140px">Tiền tổn thất dự kiến</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_TNDS_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_TNDS_NGUOI_CHI_PHI_DU_KIEN">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về tài sản*@
+                        <table style="width:168%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_GIAM_DINH" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_TNDS_TAI_SAN">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:180px">Mức độ</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:110px">Giá/Đơn vị HH</th>
+                                    <th style="width:140px">Đơn vị tính</th>
+                                    <th style="width:100px">Số lượng TT</th>
+                                    <th style="width:110px">Tiền tổn thất</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_TNDS_TAI_SAN">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="7">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_GIAM_DINH_TNDS_TAI_SAN_CHI_PHI_DU_KIEN">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    @*Trình duyệt phương án*@
+                    <div class="TABLE_LOAI_TRINH" id="XE_TRINH_DUYET_DUYET_GIA" style="max-height:250px">
+                        @*Vật chất xe*@
+                        <table style="width:180%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_DUYET_GIA" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_VCX_XE">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="">Vụ TT</th>
+                                    <th>Hạng mục tổn thất</th>
+                                    <th>Mức độ</th>
+                                    <th style="">Thay thế</th>
+                                    <th style="">Chính hãng</th>
+                                    <th style="">Thu hồi</th>
+                                    <th style="">Giá TTGĐ</th>
+                                    @*<th style="width:120px">Giá V.Tư đề xuất</th>
+                                    <th style="width:120px">Giá N.Công xuất</th>*@
+                                    <th style="">Giá đề xuất</th>
+                                    @*<th style="width:120px">Giá V.Tư duyệt</th>
+                                    <th style="width:120px">Giá N.Công duyệt</th>
+                                    <th style="width:120px">Tiền sơn duyệt</th>*@
+                                    <th style="">Giá duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_VCX_XE">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="8">Tổng cộng:</td>
+                                    @*<td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_VCX_XE_TIEN_VTU">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_VCX_XE_TIEN_NHAN_CONG">0</td>*@
+                                    @*<td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_VCX_XE_TIEN_KHAC">0</td>*@
+                                    <td class="text-right text-danger" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_VCX_XE_TIEN_DUYET">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Người ngồi trên xe*@
+                        <table style="width:180%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_DUYET_GIA" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_NG_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:130px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:90px">Mức độ</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:90px">Giá TTGĐ</th>
+                                    <th style="width:90px">Giá đề xuất</th>
+                                    <th style="width:90px">Giá duyệt</th>
+                                    @*<th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_NG_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_NG_NGUOI_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_NG_NGUOI_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_NG_NGUOI_TIEN_DUYET">0</td>
+                                    @*<td></td>
+                                    <td></td>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Hàng hóa trên xe*@
+                        <table style="width:210%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_DUYET_GIA" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_HH_HANG_HOA">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:130px">Tên đối tượng</th>
+                                    <th style="width:180px">Mức độ</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:110px">Giá/Đơn vị HH</th>
+                                    <th style="width:140px">Đơn vị tính</th>
+                                    <th style="width:100px">Số lượng TT</th>
+                                    <th style="width:90px">Giá TTGĐ</th>
+                                    <th style="width:90px">Giá đề xuất</th>
+                                    <th style="width:90px">Giá duyệt</th>
+                                    @*<th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_HH_HANG_HOA">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="6">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_HH_HANG_HOA_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_HH_HANG_HOA_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_HH_HANG_HOA_TIEN_DUYET">0</td>
+                                    @*<td></td>
+                                    <td></td>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về người*@
+                        <table style="width:210%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_DUYET_GIA" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:90px">Mức độ</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:90px">Giá TTGĐ</th>
+                                    <th style="width:90px">Giá đề xuất</th>
+                                    <th style="width:90px">Giá duyệt</th>
+                                    @*<th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_TNDS_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_NGUOI_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_NGUOI_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_NGUOI_TIEN_DUYET">0</td>
+                                    @*<td></td>
+                                    <td></td>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về tài sản*@
+                        <table style="width:310%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_DUYET_GIA" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_TAI_SAN">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:180px">Mức độ</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:110px">Giá/Đơn vị HH</th>
+                                    <th style="width:140px">Đơn vị tính</th>
+                                    <th style="width:100px">Số lượng TT</th>
+                                    <th style="width:110px">Tiền tổn thất</th>
+                                    <th style="width:110px">Giá đề xuất</th>
+                                    <th style="width:110px">Giá duyệt</th>
+                                    @*<th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_TNDS_TAI_SAN">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="7">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_TAI_SAN_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_TAI_SAN_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_DUYET_GIA_TNDS_TAI_SAN_TIEN_DUYET">0</td>
+                                    @*<td></td>
+                                    <td></td>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    @*Trình duyệt bảo lãnh*@
+                    <div class="TABLE_LOAI_TRINH" id="XE_TRINH_DUYET_BAO_LANH">
+                        <div>
+                            <span class="mr-3">Số vụ TT: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BAO_LANH_SO_VU_TT">0</span></span>
+                            <span class="mr-3">Khấu trừ: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BAO_LANH_KHAU_TRU">0</span></span>
+                            <span class="mr-3">Miễn thường/vụ: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BAO_LANH_MIEN_THUONG">0</span></span>
+                            <span class="mr-3">Tiền thuế: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BAO_LANH_THUE">0</span></span>
+                            <span class="mr-3">% Thuế: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BAO_LANH_TL_THUE">0</span></span>
+                        </div>
+                        @*Vật chất xe*@
+                        <table style="width:150%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BAO_LANH" id="TABLE_XE_TRINH_DUYET_BAO_LANH_VCX_XE">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Vụ TT</th>
+                                    <th>Hạng mục bồi thường</th>
+                                    <th>Giá Duyệt</th>
+                                    <th>% Khấu hao</th>
+                                    <th>% Bảo hiểm </th>
+                                    <th>% Giảm trừ</th>
+                                    @*<th style="width:60px">ĐKBS</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_VCX_XE"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="2">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    @*<td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>*@
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="9" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BAO_LANH_VCX_XE_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BAO_LANH_VCX_XE_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BAO_LANH_VCX_XE_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BAO_LANH_VCX_XE_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BAO_LANH_VCX_XE_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BAO_LANH_VCX_XE_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Người ngồi trên xe*@
+                        <table style="width:115%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BAO_LANH" id="TABLE_XE_TRINH_DUYET_BAO_LANH_NG_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên đối tượng</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_NG_NGUOI"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="3">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="7" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Hàng hóa trên xe*@
+                        <table style="width:115%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BAO_LANH" id="TABLE_XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên hàng hóa</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Khấu hao</th>
+                                    <th style="width:90px">% Bảo hiểm </th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="2">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="8" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về người*@
+                        <table style="width:115%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BAO_LANH" id="TABLE_XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên đối tượng</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="3">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="7" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về tài sản*@
+                        <table class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BAO_LANH" id="TABLE_XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên đối tượng</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Khấu hao</th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="2">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="7" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    @*Trình duyệt bồi thường*@
+                    <div class="TABLE_LOAI_TRINH" id="XE_TRINH_DUYET_BOI_THUONG" style="max-height:200px">
+                        <div style="width:150%" class="d-none">
+                            <span class="mr-3">Số vụ TT: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BOI_THUONG_SO_VU_TT">0</span></span>
+                            <span class="mr-3">Khấu trừ: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BOI_THUONG_KHAU_TRU">0</span></span>
+                            <span class="mr-3">Miễn thường/vụ: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BOI_THUONG_MIEN_THUONG">0</span></span>
+                            <span class="mr-3">Tiền thuế: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BOI_THUONG_THUE">0</span></span>
+                            <span class="mr-3">% Thuế: <span style="color:red; font-weight:bold;" id="XE_TRINH_DUYET_BOI_THUONG_TL_THUE">0</span></span>
+                        </div>
+                        @*Vật chất xe*@
+                        <table style="width:200%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BOI_THUONG" id="TABLE_XE_TRINH_DUYET_BOI_THUONG_VCX_XE">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Vụ TT</th>
+                                    <th>Hạng mục bồi thường</th>
+                                    <th>Tiền duyệt</th>
+                                    <th>% Khấu hao</th>
+                                    <th>% Bảo hiểm </th>
+                                    <th>% Giảm trừ</th>
+                                    @*<th style="width:">ĐKBS</th>*@
+                                    @*<th style="width:">Nguyên nhân</th>
+                                    <th style="width:"> Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_VCX_XE"></tbody>
+                            <tfoot class="d-none">
+                                <tr class="font-weight-bold">
+                                    <td colspan="2">Tổng cộng:</td>
+                                    <td class="text-right text-danger" id="XE_TRINH_DUYET_BOI_THUONG_TIEN_DUYET_VTU">0</td>
+                                    <td class="text-right text-danger" id="XE_TRINH_DUYET_BOI_THUONG_TIEN_DUYET_NCONG">0</td>
+                                    <td class="text-right text-danger" id="XE_TRINH_DUYET_BOI_THUONG_TIEN_DUYET_KHAC">0</td>
+                                    <td class="text-right" colspan="3"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Người ngồi trên xe*@
+                        <table style="width:150%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BOI_THUONG" id="TABLE_XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên đối tượng</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    @*<th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI"></tbody>
+                            <tfoot class="d-none">
+                                <tr class="font-weight-bold">
+                                    <td colspan="3">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="7" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Hàng hóa trên xe*@
+                        <table style="width: 150%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BOI_THUONG" id="TABLE_XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên hàng hóa</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Khấu hao</th>
+                                    <th style="width:90px">% Bảo hiểm </th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="2">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="8" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về người*@
+                        <table style="width: 150%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BOI_THUONG" id="TABLE_XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên đối tượng</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="3">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="7" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về tài sản*@
+                        <table class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_BOI_THUONG" id="TABLE_XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Tên đối tượng</th>
+                                    <th style="width:110px">Giá Duyệt</th>
+                                    <th style="width:90px">% Khấu hao</th>
+                                    <th style="width:90px">% Giảm trừ</th>
+                                    <th style="width:100px">Nguyên nhân</th>
+                                    <th style="width:75px"> Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN"></tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="2">Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="7" style="font-size:11px; font-style:italic;">
+                                        <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                        <span class="mr-2">Tổng miễn thường: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TONG_MIEN_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng bồi thường: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TONG_BOI_THUONG" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng thuế: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TONG_THUE" style="color:red; font-weight:bold;">0</span></span>
+                                        <span class="mr-2">Tổng chi trả: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TONG_CHI_TRA" style="color:red; font-weight:bold;">0</span></span>
+                                        @*<span class="mr-2">Tổng tạm ứng: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TONG_TAM_UNG" style="color:red; font-weight:bold;">0</span></span>
+                                <span>Tổng chi trả còn lại: <span id="XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TONG_CON_LAI" style="color:red; font-weight:bold;">0</span></span>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    @*Trình duyệt từ chối xe*@
+                    <div class="TABLE_LOAI_TRINH" id="XE_TRINH_DUYET_TU_CHOI" style="max-height: 250px;">
+                        @*Vật chất xe*@
+                        <table style="width:180%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_TU_CHOI" id="TABLE_XE_TRINH_DUYET_TU_CHOI_VCX_XE">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:53px;">Vụ TT</th>
+                                    <th>Hạng mục tổn thất</th>
+                                    <th>Mức độ</th>
+                                    <th style="width:75px">Thay thế</th>
+                                    <th style="width:90px">Chính hãng</th>
+                                    <th style="width:65px">Thu hồi</th>
+                                    <th style="width:110px">Giá TTGĐ</th>
+                                    <th style="width:110px">Giá đề xuất</th>
+                                    <th style="width:110px">Giá duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_VCX_XE">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="6">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_VCX_XE_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_VCX_XE_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_VCX_XE_TIEN_DUYET">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Người ngồi trên xe*@
+                        <table style="width:150%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_TU_CHOI" id="TABLE_XE_TRINH_DUYET_TU_CHOI_NG_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:90px">Mức độ</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:110px">Giá TTGĐ</th>
+                                    <th style="width:110px">Giá đề xuất</th>
+                                    <th style="width:110px">Giá duyệt</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_NG_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_NG_NGUOI_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_NG_NGUOI_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_NG_NGUOI_TIEN_DUYET">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*Hàng hóa trên xe*@
+                        <table style="width:155%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_TU_CHOI" id="TABLE_XE_TRINH_DUYET_TU_CHOI_HH_HANG_HOA">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th style="width:180px">Mức độ</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:110px">Giá/Đơn vị HH</th>
+                                    <th style="width:140px">Đơn vị tính</th>
+                                    <th style="width:100px">Số lượng TT</th>
+                                    <th style="width:110px">Giá TTGĐ</th>
+                                    <th style="width:110px">Giá đề xuất</th>
+                                    <th style="width:110px">Giá duyệt</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_HH_HANG_HOA">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="6">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_HH_HANG_HOA_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_HH_HANG_HOA_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_HH_HANG_HOA_TIEN_DUYET">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về người*@
+                        <table style="width: 150%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_TU_CHOI" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_NGUOI">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:90px">Mức độ</th>
+                                    <th style="width:190px">TL thương tật</th>
+                                    <th style="width:110px">Giá TTGĐ</th>
+                                    <th style="width:110px">Giá đề xuất</th>
+                                    <th style="width:110px">Giá duyệt</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_TNDS_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_NGUOI_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_NGUOI_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_NGUOI_TIEN_DUYET">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*TNDS về tài sản*@
+                        <table style="width:195%" class="table table-bordered fixed-header TABLE_XE_TRINH_DUYET_TU_CHOI" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_TAI_SAN">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Tên đối tượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:180px">Mức độ</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:110px">Giá/Đơn vị HH</th>
+                                    <th style="width:140px">Đơn vị tính</th>
+                                    <th style="width:100px">Số lượng TT</th>
+                                    <th style="width:110px">Tiền tổn thất</th>
+                                    <th style="width:110px">Giá đề xuất</th>
+                                    <th style="width:110px">Giá duyệt</th>
+                                    <th style="width:65px">Mô tả</th>
+                                    <th style="width:70px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_TNDS_TAI_SAN">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="7">Tổng cộng:</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_TAI_SAN_TIEN_TTGD">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_TAI_SAN_TIEN_DE_XUAT">0</td>
+                                    <td class="text-right" id="TABLE_XE_TRINH_DUYET_TU_CHOI_TNDS_TAI_SAN_TIEN_DUYET">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*Trình duyệt bảo lãnh con người*@
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_BAO_LANH">
+                        <table style="width:200%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Nhóm nguyên nhân</th>
+                                    <th>Chẩn đoán</th>
+                                    <th style="width: 34%;">Tên quyền lợi</th>
+                                    <th>Số ngày YC</th>
+                                    <th>Số ngày duyệt</th>
+                                    <th>Tiền yêu cầu</th>
+                                    <th>Tiền giảm</th>
+                                    <th>Tiền duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_BAO_LANH">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="5">Tổng cộng:</td>
+                                    <td class="text-right text-danger" id="TABLE_NG_TRINH_DUYET_BAO_LANH_TIEN_YC">0</td>
+                                    <td class="text-right text-danger" id="TABLE_NG_TRINH_DUYET_BAO_LANH_TIEN_GIAM">0</td>
+                                    <td class="text-right text-danger" id="TABLE_NG_TRINH_DUYET_BAO_LANH_TIEN_DUYET">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-responsive d-none" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_BAO_LANH_CT">
+                        <h5>Danh sách chi phí</h5>
+                        <table style="width:200%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Tên chi phí</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Số tiền giảm trừ</th>
+                                    <th>Nguyên nhân</th>
+                                    <th>Tiền duyệt</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_BAO_LANH_CT">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @*Trình duyệt phương án con người*@
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_DUYET_GIA_LAN_KHAM">
+                        <h5>Danh sách lần khám</h5>
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Lần khám</th>
+                                    <th>Ngày khám</th>
+                                    <th>Nguyên nhân</th>
+                                    <th>Hình thức điều trị</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Tiền giảm</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_DUYET_GIA_LAN_KHAM">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right text-danger TABLE_NG_TRINH_DUYET_TIEN_YC">0</td>
+                                    <td class="text-right text-danger TABLE_NG_TRINH_DUYET_TIEN_GIAM">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_DUYET_GIA_QLOI">
+                        <h5>Danh sách quyền lợi</h5>
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Tên quyền lợi</th>
+                                    <th>Chẩn đoán</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Tiền giảm trừ</th>
+                                    <th>Tiền duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_DUYET_GIA_QLOI">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-responsive d-none" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_DUYET_GIA_QLOI_CT">
+                        <h5>Danh sách chi phí</h5>
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Tên chi phí</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Số tiền giảm trừ</th>
+                                    <th>Nguyên nhân</th>
+                                    <th>Tiền duyệt</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_DUYET_GIA_QLOI_CT">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @*Trình duyệt từ chối con người*@
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_TU_CHOI_LAN_KHAM">
+                        <h5>Danh sách lần khám</h5>
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Lần khám</th>
+                                    <th>Ngày khám</th>
+                                    <th>Nguyên nhân</th>
+                                    <th>Hình thức điều trị</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Tiền giảm</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_TU_CHOI_LAN_KHAM">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4">Tổng cộng:</td>
+                                    <td class="text-right text-danger TABLE_NG_TRINH_DUYET_TIEN_YC">0</td>
+                                    <td class="text-right text-danger TABLE_NG_TRINH_DUYET_TIEN_GIAM">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_TU_CHOI_QLOI">
+                        <h5>Danh sách quyền lợi</h5>
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Tên quyền lợi</th>
+                                    <th>Chẩn đoán</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Tiền giảm trừ</th>
+                                    <th>Tiền duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_TU_CHOI_QLOI">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-responsive d-none" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="NG_TRINH_DUYET_TU_CHOI_QLOI_CT">
+                        <h5>Danh sách chi phí</h5>
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th>Tên chi phí</th>
+                                    <th>Số tiền YC</th>
+                                    <th>Số tiền giảm trừ</th>
+                                    <th>Nguyên nhân</th>
+                                    <th>Tiền duyệt</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_NG_TRINH_DUYET_TU_CHOI_QLOI_CT">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @*Trình duyệt thanh toán*@
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="TRINH_THANH_TOAN">
+                        <table style="width:150%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:150px">Số hồ sơ</th>
+                                    <th style="width:100px">Số tiền</th>
+                                    @*<th style="width:70px">PTTT</th>*@
+                                    <th>Tên thụ hưởng</th>
+                                    @*<th style="width:100px">Số TK/CMT</th>
+                                    <th>Ngân hàng/Địa chỉ nhận</th>
+                                    <th style="width:80px">Diễn giải</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_TRINH_THANH_TOAN">
+                            </tbody>
+                            <tfoot class="d-none">
+                                <tr class="font-weight-bold">
+                                    <td>Tổng cộng:</td>
+                                    <td class="text-right">0</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                @*Trình duyệt tạm ứng bồi thường*@
+                <div class="table-responsive" style="max-height:390px">
+                    <div class="TABLE_LOAI_TRINH" id="XE_TRINH_DUYET_TAM_UNG_BT">
+                        <table style="width:180%" class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th width="6%">PTTT</th>
+                                    <th width="20%">Tên người thụ hưởng</th>
+                                    <th width="8%">Số TK</th>
+                                    <th width="23%">Ngân hàng</th>
+                                    <th width="8%">Số tiền</th>
+                                    <th width="20%">Nội dung</th>
+                                </tr>
+                            </thead>
+                            <tbody id="TABLE_BODY_XE_TRINH_DUYET_TAM_UNG_BT">
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold">
+                                    <td colspan="2" class="text-center">Tổng cộng</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-right" id="tong_tien_yc_tu">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <form name="frmPheDuyet" novalidate="novalidate" method="post">
+                        <div class="form-group mt-2">
+                            <label>Nội dung của cán bộ trình</label>
+                            <textarea class="form-control" disabled="disabled" rows="2" cols="50" name="noi_dung" placeholder="Nội dung trình"></textarea>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="">
+                                Ý kiến duyệt của bạn &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>
+                                    <a href="#" onclick="chonNhanXet(this)">
+                                        <i class="fa fa-bars mr-2"></i>
+                                        Chọn ý kiến đã tạo
+                                    </a>
+                                </span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>
+                                    <a href="#" id="btnThemYKien">
+                                        <i class="fas fa-plus-square mr-2"></i>
+                                        Tạo ý kiến
+                                    </a>
+                                </span>
+                            </label>
+                            <textarea class="form-control" rows="3" cols="50" required name="noi_dung_duyet" placeholder="Ý kiến duyệt"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" id="btnDuyet">
+                        <i class="fas fa-check mr-2"></i>Duyệt
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-100 mg-t-22" id="btnTuChoi">
+                        <i class="fas fa-times-circle mr-1"></i> Từ chối
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-100 mg-t-22" id="btnHuyDuyet">
+                        <i class="fas fa-times-circle mr-2"></i> Hủy Duyệt
+                    </button>
+                    <button type="button" class="btn-outline-primary btn-sm wd-90 mg-t-22" data-dismiss="esmodal">
+                        <i class="fas fa-window-close mr-2"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

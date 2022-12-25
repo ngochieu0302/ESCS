@@ -1,0 +1,634 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>f240adf0-22c1-41b6-a6bb-fcdc3fa4f8f5</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+	<PreserveCompilationContext>true</PreserveCompilationContext>
+	<RazorCompileOnPublish>false</RazorCompileOnPublish>
+	<CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Contract\Views\Package1\**" />
+    <Compile Remove="Areas\MotoClaim\Views\MotorcycleInvestigation\**" />
+    <Compile Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\THU_VIEN_CHUNG\**" />
+    <Compile Remove="FILE_CAM_XOA\MACDINH_GARA\**" />
+    <Compile Remove="wwwroot\libs\tippyjs-master\**" />
+    <Content Remove="Areas\Contract\Views\Package1\**" />
+    <Content Remove="Areas\MotoClaim\Views\MotorcycleInvestigation\**" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\THU_VIEN_CHUNG\**" />
+    <Content Remove="FILE_CAM_XOA\MACDINH_GARA\**" />
+    <Content Remove="wwwroot\libs\tippyjs-master\**" />
+    <EmbeddedResource Remove="Areas\Contract\Views\Package1\**" />
+    <EmbeddedResource Remove="Areas\MotoClaim\Views\MotorcycleInvestigation\**" />
+    <EmbeddedResource Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\THU_VIEN_CHUNG\**" />
+    <EmbeddedResource Remove="FILE_CAM_XOA\MACDINH_GARA\**" />
+    <EmbeddedResource Remove="wwwroot\libs\tippyjs-master\**" />
+    <None Remove="Areas\Contract\Views\Package1\**" />
+    <None Remove="Areas\MotoClaim\Views\MotorcycleInvestigation\**" />
+    <None Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\THU_VIEN_CHUNG\**" />
+    <None Remove="FILE_CAM_XOA\MACDINH_GARA\**" />
+    <None Remove="wwwroot\libs\tippyjs-master\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Contract\Controllers\Package1Controller.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\CarClaim\Views\CarCompensation\_ModalLapPhuongAnSuaChua.cshtml" />
+    <Content Remove="Areas\Manager\Views\Approved\_ApprovedContentStep3.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\MAU_IN\PDF\mau_in_xe_bthuong_bbgd.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_bien_ban_ban_giao.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_bien_ban_giam_dinh.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_bosung_hoso.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_chuyen_hsbt.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_duyet_bao_lanh.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_duyet_boi_thuong.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_duyet_phuong_an.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_hoan_thanh_boi_thuong.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_ho_so_moi.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_ng_duyet_tu_choi_boi_thuong.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_ng_trinh_tu_choi_boi_thuong.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_pheduyet_bao_gia.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_quen_mat_khau.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_bao_lanh.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_duyet.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_duyet_tubt.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_giam_dinh.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_phe_duyet_gd.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_trinh_gd.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_trinh_bao_lanh.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_trinh_boi_thuong.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_trinh_phuong_an.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_tu_choi_phuong_an.cshtml" />
+    <Content Remove="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_xac_nhan_danh_gia_hien_truong.cshtml" />
+    <Content Remove="wwwroot\js\app\Admin\HangXe.js" />
+    <Content Remove="wwwroot\js\app\Admin\services\CompanyInvestigationService.js~RF401c1c.TMP" />
+    <Content Remove="wwwroot\libs\bootstrap\scss\variables4.scss" />
+    <Content Remove="wwwroot\libs\tipped-master.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Demo\app.js" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include=".config\dotnet-tools.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\appsettings.Development.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\appsettings.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\App_Data\storedprocedure.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\ESCS.deps.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\ESCS.runtimeconfig.dev.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\ESCS.runtimeconfig.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\libman.json" />
+    <Content Include="bin\Debug\netcoreapp3.1\Properties\launchSettings.json" />
+    <Content Include="obj\Debug\netcoreapp3.1\ESCS.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\netcoreapp3.1\staticwebassets\ESCS.StaticWebAssets.xml" />
+    <Content Include="obj\ESCS.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AntiVirusScanner" Version="1.0.1" />
+    <PackageReference Include="ClosedXML" Version="0.95.3" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="DeviceDetector.NET.NetCore" Version="3.9.2.2" />
+    <PackageReference Include="DocumentFormat.OpenXml.DotNet.Core" Version="1.0.1" />
+    <PackageReference Include="F23.StringSimilarity" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.7" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.6.0" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.0.0" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.80" />
+    <PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\MotoClaim\Data\" />
+    <Folder Include="Areas\MotoClaim\Models\" />
+    <Folder Include="Areas\CarClaim\Data\" />
+    <Folder Include="Areas\CarClaim\Models\" />
+    <Folder Include="Areas\Contract\Data\" />
+    <Folder Include="Areas\Contract\Models\" />
+    <Folder Include="Areas\HealthClaim\Data\" />
+    <Folder Include="Areas\HealthClaim\Models\" />
+    <Folder Include="Areas\Manager\Data\" />
+    <Folder Include="Areas\Manager\Models\" />
+    <Folder Include="FILE_CAM_XOA\CTYBHABC\MAU_IN\EXCEL\" />
+    <Folder Include="FILE_CAM_XOA\CTYBHABC\THUNG_RAC\" />
+    <Folder Include="FILE_CAM_XOA\CTYBHABC\TAI_LIEU\" />
+    <Folder Include="FILE_CAM_XOA\BIC\" />
+    <Folder Include="FILE_CAM_XOA\XUANTHANH\" />
+    <Folder Include="Logs\" />
+    <Folder Include="wwwroot\app\carclaim\" />
+    <Folder Include="wwwroot\app\healthclaim\" />
+    <Folder Include="wwwroot\ios\" />
+    <Folder Include="wwwroot\manual\" />
+    <Folder Include="wwwroot\unistr\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="FILE_CAM_XOA\CTYBHABC\MAU_IN\PDF\mau_in_xe_bthuong_bbgd.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_duyet_bao_lanh.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_duyet_tubt.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_duyet_boi_thuong.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_ho_so_moi.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_ng_duyet_tu_choi_boi_thuong.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_ng_trinh_tu_choi_boi_thuong.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_trinh_boi_thuong.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_trinh_bao_lanh.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_tu_choi_phuong_an.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_duyet_phuong_an.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_trinh_phuong_an.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_quen_mat_khau.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_bien_ban_ban_giao.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_bien_ban_giam_dinh.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_bosung_hoso.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_chuyen_hsbt.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_hoan_thanh_boi_thuong.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_pheduyet_bao_gia.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_bao_lanh.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_duyet.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_trinh_gd.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_phe_duyet_gd.cshtml" />
+    <None Include="FILE_CAM_XOA\CTYBHABC\TEMPLATE_MAIL\template_email_thong_bao_giam_dinh.cshtml" />
+    <None Include="wwwroot\images\loading.svg" />
+    <None Include="wwwroot\images\nav-left-active.svg" />
+    <None Include="wwwroot\images\nav-right-active.svg" />
+    
+    <None Include="wwwroot\libs\bootstrap\scss\bootstrap-grid.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\bootstrap-reboot.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\bootstrap.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_alert.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_background-variant.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_badge.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_border-radius.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_box-shadow.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_breakpoints.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_buttons.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_caret.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_clearfix.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_float.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_forms.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_gradients.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_grid-framework.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_grid.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_hover.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_image.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_list-group.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_lists.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_nav-divider.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_navbar-align.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_pagination.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_reset-text.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_resize.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_screen-reader.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_size.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_table-row.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_text-emphasis.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_text-hide.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_text-truncate.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_transition.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\mixins\_visibility.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_align.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_background.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_borders.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_clearfix.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_display.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_embed.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_flex.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_float.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_position.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_screenreaders.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_sizing.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_spacing.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_text.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\utilities\_visibility.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\variables4.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_alert.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_badge.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_breadcrumb.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_button-group.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_buttons.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_card.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_carousel.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_close.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_code.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_custom-forms.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_dropdown.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_forms.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_functions.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_grid.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_images.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_input-group.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_jumbotron.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_list-group.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_media.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_mixins.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_modal.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_nav.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_navbar.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_pagination.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_popover.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_print.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_progress.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_reboot.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_root.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_tables.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_tooltip.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_transitions.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_type.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_utilities.scss" />
+    <None Include="wwwroot\libs\bootstrap\scss\_variables.scss" />
+    <None Include="wwwroot\libs\esmail\js\.DS_Store" />
+    <None Include="wwwroot\libs\esmail\js\custom-file-input.js" />
+    <None Include="wwwroot\libs\esmail\js\jquery-v1.min.js" />
+    <None Include="wwwroot\libs\esmail\js\jquery.custom-file-input.js" />
+    <None Include="wwwroot\libs\jquery.bindings-master\jquery.bindings.js" />
+    <None Include="wwwroot\libs\jquery.bindings-master\jquery.bindings.min.js" />
+    <None Include="wwwroot\libs\jquery.bindings-master\minify\minify.js" />
+    <None Include="wwwroot\libs\jquery.bindings-master\minify\minify.sh" />
+    <None Include="wwwroot\libs\jquery.bindings-master\readme.md" />
+    <None Include="wwwroot\libs\jquery.multi-select\Makefile" />
+    <None Include="wwwroot\libs\jquery.multi-select\README.md" />
+    <None Include="wwwroot\libs\jquery.multi-select\src\jquery.multi-select.js" />
+    <None Include="wwwroot\libs\jquery.multi-select\src\jquery.multi-select.min.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.cs-CZ.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.de-DE.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.en-CA.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.en-US.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.fr-FR.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.he-IL.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.hr-HR.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.hu-HU.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.it-IT.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.ja-JP.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.lt.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.ru-RU.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.culture.sa-IN.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\globalization\globalize.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqx-all.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxangular.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxbargauge.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxbulletchart.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxbuttongroup.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxbuttons.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcalendar.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxchart.annotations.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxchart.api.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxchart.core.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxchart.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxchart.rangeselector.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxchart.waterfall.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcheckbox.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcolorpicker.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcombobox.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcomplexinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcore.elements.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxcore.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdata.export.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdata.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdatatable.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdate.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdatetimeinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdocking.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdockinglayout.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdockpanel.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdragdrop.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdraw.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdropdownbutton.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxdropdownlist.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxeditor.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxexpander.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxexport.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxfileupload.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxform.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxformattedinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgauge.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.aggregates.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.chart.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.columnsreorder.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.columnsresize.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.edit.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.export.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.filter.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.grouping.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.pager.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.selection.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.sort.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxgrid.storage.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxheatmap.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqximport.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxkanban.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxknob.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxknockout.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxlayout.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxlistbox.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxlistmenu.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxloader.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxmaskedinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxmaterialcolorpicker.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxmenu.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxnavbar.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxnavigationbar.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxnotification.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxnumberinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxpanel.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxpasswordinput.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxpivot.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxpivotdesigner.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxpivotgrid.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxpopover.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxprogressbar.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxradiobutton.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxrangeselector.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxrating.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxresponse.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxresponsivepanel.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxribbon.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxscheduler.api.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxscheduler.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxscrollbar.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxscrollview.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxslider.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxsortable.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxsplitter.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxswitchbutton.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtabs.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtagcloud.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtextarea.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtimepicker.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtoolbar.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtooltip.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtouch.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtree.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtreegrid.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxtreemap.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxvalidator.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\jqxwindow.js" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\font\jqx-icons.svg" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\font\jqx-icons.woff2" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\colorpicker\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\darkness\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\le-frog\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\lightness\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\overcast\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\redmond\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\smoothness\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\start\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\sunny\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\images\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\jqwidgets\styles\Thumbs.db" />
+    <None Include="wwwroot\libs\jqwidgets\scripts\demos.js" />
+    <None Include="wwwroot\libs\modal-drag\modal-drag.js" />
+    <None Include="wwwroot\libs\tipped-master\.gitattributes" />
+    <None Include="wwwroot\libs\tipped-master\.gitignore" />
+    <None Include="wwwroot\libs\tipped-master\dist\js\tipped.js" />
+    <None Include="wwwroot\libs\tipped-master\dist\js\tipped.min.js" />
+    <None Include="wwwroot\libs\tipped-master\Gruntfile.js" />
+    <None Include="wwwroot\libs\tipped-master\README.md" />
+    <None Include="wwwroot\libs\tipped-master\src\js\api.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\behaviors.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\collection.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\delegate.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\ajaxcache.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\bounds.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\browser.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\color.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\dimensions.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\helpers.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\mouse.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\position.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\requirements.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\spin.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\support.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\helpers\visible.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\options.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\setup.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\skin.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\skins.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\stem.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltips.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\active.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\bind.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\disable.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\display.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\is.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\layout.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\timers.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\tooltip\update.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\umd-head.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\umd-tail.js" />
+    <None Include="wwwroot\libs\tipped-master\src\js\voila\voila.custom.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\.github\FUNDING.yml" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\.github\workflows\npm-publish.yml" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\.gitignore" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\demo\README.md" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\dist\jstree.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\dist\jstree.min.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\gruntfile.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\LICENSE-MIT" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\README.md" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\intro.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.changed.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.checkbox.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.conditionalselect.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.contextmenu.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.dnd.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.massload.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.search.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.sort.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.state.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.types.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.unique.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\jstree.wholerow.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\misc.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\outro.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\sample.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\themes\base.less" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\themes\default-dark\style.less" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\themes\default\style.less" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\themes\main.less" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\themes\mixins.less" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\themes\responsive.less" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\src\vakata-jstree.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\test\unit\libs\qunit.js" />
+    <None Include="wwwroot\libs\tree-js\vakata-jstree\test\unit\test.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ESCS.COMMON\ESCS.COMMON.csproj" />
+    <ProjectReference Include="..\ESCS.MODEL\ESCS.MODEL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleAveragePrice\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleAveragePrice\_Template.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationAddBenefit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationAddGara.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationAddInvoice.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationAdvance.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationCategoryAdd.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationContent.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationContentStep1.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationContentStep2.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationContentStep3.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationContentStep4.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationEbill.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationImageUpload.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationQuotation.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_MotorcycleCompensationReduceReason.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_Modal.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_ModalBoiThuongToanBo.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_ModalLapPhuongAnSuaChua.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\MotorcycleCompensation\_Template.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_AddInfoLicencse.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleClaimCivilLiability.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleClaimCompareData.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleClaimFwdUser.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleClaimListGara.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleClaimTrash.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleCommonCertificate.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_MotorcycleCommonInfo.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ModalBaoCao.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ModalDviTinh.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ModalLoaiHSGT.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ModalMucDoTT.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ModalNguyenNhanGiamTru.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ViewImages.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\MotoClaim\Views\_ViewPDF.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+
+
+</Project>

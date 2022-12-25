@@ -1,0 +1,402 @@
+﻿<script type="text/html" id="tableNhapQLoi_template">
+    <% if(dk.length > 0){ %>
+    <% _.forEach(dk, function(item,index) { %>
+    <% if(item.lh_nv_ct == null){ %>
+    <tr class="item_lhnv" data-lhnv="<%- item.lh_nv %>">
+        <td class="text-center">
+            <input type="hidden" data-lhnv-ct="<%- item.lh_nv %>" value="<%- item.lh_nv_ct %>" />
+            <input type="hidden" data-bt="<%- item.lh_nv %>" value="<%- item.bt %>" />
+            <input type="hidden" data-ten="<%- item.lh_nv %>" value="<%- item.ten %>" />
+            <%- item.sott %>
+        </td>
+        <%if(item.pd==15){
+        %>
+        <td style="padding-left: <%- item.pd %>px"><b style="font-weight:bold"><%- item.ten_hien_thi %></b></td>
+        <%
+        }
+        else
+        {
+        %>
+        <td style="padding-left: <%- item.pd %>px"><%- item.ten_hien_thi %></td>
+        <%
+        }
+        %>
+        <td class="text-right">
+            <input type="text" data-so-lan-ngay="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.so_lan_ngay) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-tien-lan-ngay="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_lan_ngay) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-tien-nam="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_nam) %>" />
+        </td>
+        <td style="display: none" class="text-center"><%- item.lh_nv %></td>
+        <td class="text-right">
+            <input type="text" data-dong-bh="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.dong_bh) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-so-ngay-cho="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- item.so_ngay_cho %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-tl-phi="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tl_phi) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-phi="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.phi) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-ghi-chu="<%- item.lh_nv %>" maxlength="200" class="floating-input" value="<%- item.ghi_chu %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-so-ngay-gia-han="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- item.so_ngay_gia_han %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-quyen-loi="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.quyen_loi %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-loai="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.loai %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-loaiq="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.loaiq %>" />
+        </td>
+    </tr>
+    <% }else if(item.lh_nv_ct.toString().indexOf('.') != -1){ %>
+    <tr class="item_lhnv" data-lhnv="<%- item.lh_nv %>">
+        <td class="text-center">
+            <input type="hidden" data-lhnv-ct="<%- item.lh_nv %>" value="<%- item.lh_nv_ct %>" />
+            <input type="hidden" data-bt="<%- item.lh_nv %>" value="<%- item.bt %>" />
+            <input type="hidden" data-ten="<%- item.lh_nv %>" value="<%- item.ten %>" />
+            <%- item.sott %>
+        </td>
+        <%if(item.pd==15){
+        %>
+        <td style="padding-left: <%- item.pd %>px"><b style="font-style: italic;"><%- item.ten_hien_thi %></b></td>
+        <%
+        }
+        else
+        {
+        %>
+        <td style="padding-left: <%- item.pd%>px; font-style: italic;"><%- item.ten_hien_thi %></td>
+        <%
+        }
+        %>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-so-lan-ngay="<%- item.lh_nv %>" onchange="changeSoLanNgayBac3(this)" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.so_lan_ngay) %>" />
+        </td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-tien-lan-ngay="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_lan_ngay) %>" />
+        </td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-tien-nam="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_nam) %>" />
+        </td>
+        <td style="display: none" class="text-center" style="font-style: italic;"><%- item.lh_nv %></td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-dong-bh="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.dong_bh) %>" />
+        </td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-so-ngay-cho="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.so_ngay_cho) %>" />
+        </td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-tl-phi="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tl_phi) %>" />
+        </td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-phi="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.phi) %>" />
+        </td>
+        <td class="text-right" style="font-style: italic;">
+            <input type="text" data-ghi-chu="<%- item.lh_nv %>" maxlength="200" class="floating-input" value="<%- item.ghi_chu %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-so-ngay-gia-han="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- item.so_ngay_gia_han %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-quyen-loi="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.quyen_loi %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-loai="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.loai %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-loaiq="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.loaiq %>" />
+        </td>
+    </tr>
+    <% }else{ %>
+    <tr class="item_lhnv" data-lhnv="<%- item.lh_nv %>">
+        <td class="text-center">
+            <input type="hidden" data-lhnv-ct="<%- item.lh_nv %>" value="<%- item.lh_nv_ct %>" />
+            <input type="hidden" data-bt="<%- item.lh_nv %>" value="<%- item.bt %>" />
+            <input type="hidden" data-ten="<%- item.lh_nv %>" value="<%- item.ten %>" />
+            <%- item.sott %>
+        </td>
+        <%if(item.pd==15){
+        %>
+        <td style="padding-left: <%- item.pd %>px"><b style="font-weight:bold"><%- item.ten_hien_thi %></b></td>
+        <%
+        }
+        else
+        {
+        %>
+        <td style="padding-left: <%- item.pd %>px"><%- item.ten_hien_thi %></td>
+        <%
+        }
+        %>
+        <td class="text-right">
+            <input type="text" data-so-lan-ngay="<%- item.lh_nv %>" onchange="changeSoLanNgayBac2(this)" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.so_lan_ngay) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-tien-lan-ngay="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_lan_ngay) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-tien-nam="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_nam) %>" />
+        </td>
+        <td style="display: none" class="text-center"><%- item.lh_nv %></td>
+        <td class="text-right">
+            <input type="text" data-dong-bh="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.dong_bh) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-so-ngay-cho="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.so_ngay_cho) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-tl-phi="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.tl_phi) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-phi="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- ESUtil.formatMoney(item.phi) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-ghi-chu="<%- item.lh_nv %>" maxlength="200" class="floating-input" value="<%- item.ghi_chu %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-so-ngay-gia-han="<%- item.lh_nv %>" maxlength="16" class="number floating-input" value="<%- item.so_ngay_gia_han %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-quyen-loi="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.quyen_loi %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-loai="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.loai %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-loaiq="<%- item.lh_nv %>" maxlength="50" class="floating-input" value="<%- item.loaiq %>" />
+        </td>
+    </tr>
+    <% } %>
+    <% })} %>
+    <% if(dk.length < 12){
+    for(var i = 0; i < 12 - dk.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Tab quyền lợi bổ sung*@
+<script type="text/html" id="tableDKBSTemplate">
+    <%if(ds_dkbs.length > 0){
+    _.forEach(ds_dkbs, function(item,index) { %>
+    <tr class="dkbs">
+        <td>
+            <input type="hidden" data-name="ma" data-field="ma" value="<%- item.ma %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>"><%- item.ten %></a>
+        </td>
+        <td>
+            <input type="text" data-name="ghi_chu" autocomplete="off" maxlength="500" class="floating-input" data-field="ghi_chu" value="<%- item.ghi_chu %>" />
+        </td>
+        <td>
+            <input style="text-align:center" type="text" data-name="so_lan_ngay" autocomplete="off" maxlength="18" class="floating-input decimal" data-field="so_lan_ngay" value="<%- item.so_lan_ngay %>" />
+        </td>
+        <td>
+            <input type="text" data-name="tien_lan_ngay" autocomplete="off" maxlength="18" class="number floating-input" data-field="tien_lan_ngay" value="<%- item.tien_lan_ngay %>" />
+        </td>
+        <td>
+            <input type="text" data-name="tien_nam" autocomplete="off" maxlength="18" class="number floating-input" data-field="tien_nam" value="<%- item.tien_nam %>" />
+        </td>
+        <td>
+            <input type="text" data-name="dong_bh" autocomplete="off" maxlength="3" class="floating-input number" data-field="dong_bh" value="<%- item.dong_bh %>" />
+        </td>
+        <td>
+            <input style="text-align:center" type="text" data-name="so_ngay_cho" autocomplete="off" maxlength="18" class="floating-input decimal" data-field="so_ngay_cho" value="<%- item.so_ngay_cho %>" />
+        </td>
+        <td>
+            <input type="text" data-name="phi" autocomplete="off" maxlength="18" class="number floating-input" data-field="phi" value="<%- item.phi %>" />
+        </td>
+        <td>
+            <input type="text" data-name="tl_phi" autocomplete="off" maxlength="3" class="number floating-input" data-field="tl_phi" value="<%- item.tl_phi %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" data-val="<%- item.ma %>" onclick="xoaDKBS(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_dkbs.length < 12){
+    for(var i = 0; i < 12 - ds_dkbs.length; i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Tab ghi chú khác*@
+<script type="text/html" id="tableGhiChuKhacTemplate">
+    <%if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr class="ghiChuKhac">
+        <td>
+            <a href="#" data-field="ma" data-val="<%- item.ma %>"><%- item.ma %></a>
+        </td>
+        <td>
+            <input type="text" data-name="ten" autocomplete="off" maxlength="500" class="floating-input" data-field="ten" value="<%- item.ten %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" data-val="<%- item.ma %>" onclick="xoaGhiChuKhac(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(data.length < 11){
+    for(var i = 0; i < 11 - data.length; i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Tỷ lệ đồng - Thời gian chờ bệnh viện công*@
+<script type="text/html" id="modalThemTyLeDong1_template">
+    <%if(ds_ty_le.length > 0){
+    _.forEach(ds_ty_le, function(item,index) { %>
+    <tr class="tl_dong">
+        <td>
+            <input type="text" name="tl_dong" data-field="tl_dong" maxlength="3" required value="<%- item.tl_dong %>" autocomplete="off" placeholder="Tỷ lệ đồng" class="floating-input decimal" />
+        </td>
+        <td>
+            <input type="text" name="tg_cho" data-field="tg_cho" maxlength="3" required value="<%- item.tg_cho %>" autocomplete="off" placeholder="Thời gian chờ" class="floating-input decimal" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaTyLeDong(this)"></i>
+        </td>
+    </tr>
+    <% })} else { %>
+    <tr class="tl_dong">
+        <td>
+            <input type="text" name="tl_dong" maxlength="3" data-field="tl_dong" required value="" autocomplete="off" placeholder="Tỷ lệ đồng" class="floating-input decimal" />
+        </td>
+        <td>
+            <input type="text" name="tg_cho" maxlength="3" data-field="tg_cho" required value="" autocomplete="off" placeholder="Thời gian chờ" class="floating-input decimal" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaTyLeDong(this)"></i>
+        </td>
+    </tr>
+    <%}%>
+</script>
+
+@*Tỷ lệ đồng - Thời gian chờ bệnh viện tư*@
+<script type="text/html" id="modalThemTyLeDong2_template">
+    <%if(ds_ty_le.length > 0){
+    _.forEach(ds_ty_le, function(item,index) { %>
+    <tr class="tl_dong">
+        <td>
+            <input type="text" name="tl_dong" maxlength="3" data-field="tl_dong" required value="<%- item.tl_dong %>" autocomplete="off" placeholder="Tỷ lệ đồng" class="floating-input decimal" />
+        </td>
+        <td>
+            <input type="text" name="tg_cho" maxlength="3" data-field="tg_cho" required value="<%- item.tg_cho %>" autocomplete="off" placeholder="Thời gian chờ" class="floating-input decimal" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaTyLeDong(this)"></i>
+        </td>
+    </tr>
+    <% })} else { %>
+    <tr class="tl_dong">
+        <td>
+            <input type="text" name="tl_dong" data-field="tl_dong" maxlength="3" required value="" autocomplete="off" placeholder="Tỷ lệ đồng" class="floating-input decimal" />
+        </td>
+        <td>
+            <input type="text" name="tg_cho" data-field="tg_cho" maxlength="3" required value="" autocomplete="off" placeholder="Thời gian chờ" class="floating-input decimal" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaTyLeDong(this)"></i>
+        </td>
+    </tr>
+    <% } %>
+</script>
+
+@*Cấu hình mã bệnh*@
+<script type="text/html" id="modalThemMaBenh_template">
+    <%if(ds_ma_benh.length > 0){
+    _.forEach(ds_ma_benh, function(item,index) { %>
+    <tr class="ma_benh">
+        <td>
+            <input type="hidden" data-name="ma_benh" data-field="ma_benh" value="<%- item.ma_benh %>" />
+            <a href="#" data-field="ma_benh" data-val="<%- item.ma_benh %>"><%- item.ten_v %></a>
+        </td>
+        <td>
+            <input type="text" data-name="tl_dong" maxlength="3" autocomplete="off" class="floating-input number" value="<%- item.tl_dong %>" />
+        </td>
+        <td>
+            <input type="text" data-name="tg_cho" maxlength="3" autocomplete="off" class="floating-input number" value="<%- item.tg_cho %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" data-val="<%- item.ma_benh %>" onclick="xoaMaBenh(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(ds_ma_benh.length < 8){
+    for(var i = 0; i < 8 - ds_ma_benh.length; i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="dsNhomGoiTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr class="item_nhom_goi" style="cursor: pointer;">
+        <td class="text-center"><%- item.ma %></td>
+        <td class="text-center"><%- item.ten %></td>
+        <td class="text-center">
+            <a href="#" onclick="suaNhomGoi('<%- item.ma %>', '<%- item.ten %>')"><i class="fa fa-edit"></i></a>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="xoaNhomGoi('<%- item.ma %>')"><i class="fa fa-trash-alt"></i></a>
+        </td>
+    </tr>
+    <%})}%>
+    <% if(data.length < 5){
+    for(var i = 0; i < 5 - data.length;i++ ){ %>
+    <tr style="cursor: pointer">
+        <td style="height:34.6px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <%}}%>
+</script>

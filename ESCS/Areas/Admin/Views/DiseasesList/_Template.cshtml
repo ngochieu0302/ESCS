@@ -1,0 +1,97 @@
+﻿<script type="text/html" id="templateThongTinBenh">
+    <div class="col-sm-12">
+        <table class="table">
+            <tr>
+                <td>Đối tác</td>
+                <td colspan="5">
+                    <b style="font-weight:bold;"><%- ten_doi_tac %></b>
+                </td>
+            </tr>
+            <tr>
+                <td>Mã cấp trên</td>
+                <td>
+                    <%- ma_ct %>
+                </td>
+            </tr>
+            <tr>
+                <td>Mã bệnh</td>
+                <td>
+                    <%- ma %>
+                </td>
+            </tr>
+            <tr>
+                <td>Tên tiếng anh</td>
+                <td>
+                    <%- ten_e %>
+                </td>
+            </tr>
+            <tr>
+                <td>Tên tiếng việt</td>
+                <td>
+                    <%- ten_v %>
+                </td>
+            </tr>
+            <tr>
+                <td>Mã bộ y tế</td>
+                <td>
+                    <%- ma_byt %>
+                </td>
+            </tr>
+            <tr>
+                <td>Người sử dụng</td>
+                <td>
+                    <%- nsd %>
+                </td>
+            </tr>
+            <tr>
+                <td>Bệnh đặc biệt</td>
+                @*<%- benh_db %>*@
+                <td style="text-align: left;">
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="benh_db">
+                            <label class="custom-control-label" for="benh_db" style="font-size: 11px; font-weight: 600; padding-top: 4px;"></label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Bệnh bẩm sinh</td>
+                @*<%- benh_bs %>*@
+                <td style="text-align: left;">
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="benh_bs">
+                            <label class="custom-control-label" for="benh_bs" style="font-size: 11px; font-weight: 600; padding-top: 4px;"></label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Bệnh tình dục</td>
+                @*<%- benh_td %>*@
+                <td>
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="benh_td">
+                            <label class="custom-control-label" for="benh_td" style="font-size: 11px; font-weight: 600; padding-top: 4px;"></label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Bệnh có sẵn</td>
+                @*<%- benh_cs %>*@
+                <td>
+                    <div class="col-sm-12">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="benh_cs">
+                            <label class="custom-control-label" for="benh_cs" style="font-size: 11px; font-weight: 600; padding-top: 4px;"></label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</script>
+

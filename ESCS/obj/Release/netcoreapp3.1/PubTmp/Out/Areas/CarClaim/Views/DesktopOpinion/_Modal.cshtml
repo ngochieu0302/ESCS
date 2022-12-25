@@ -1,0 +1,25 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div id="inside-modal" class="esmodal fade" tabindex="-1" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="esmodal-dialog">
+        <div class="esmodal-content">
+            <div class="esmodal-header py-1">
+                <div id="thongTinSoHoSo">
+
+                </div>
+                <button type="button" class="close" onclick="hideESModal()" aria-hidden="true">×</button>
+            </div>
+            <div class="esmodal-body py-0" style="background-color:#54667a0a">
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-4 common-tab pr-0" style="height: 84vh" id="divCarCommonInfo">
+                        <partial name="_DesktopOpinionLeftContent" />
+                    </div>
+                    <div class="col-8" id="divCarClaimContent">
+                        <partial name="_DesktopOpinionRightContent" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

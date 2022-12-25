@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/peopleconfiguration/luuthongtincauhinhsla",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20220809183301
+  },
+  "Time": 20220809170325,
+  "Request": "{\"ma_doi_tac\":\"CTYBHABC\",\"nguon\":\"BLVP\",\"ngay_ad\":\"20220101\",\"arr\":[{\"stt\":\"1\",\"ma\":\"1_NGAY_TAO_HS\",\"buoc_thuc_hien\":\"Tạo hồ sơ sức khỏe\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"0\",\"tgian_noti\":\"1\",\"tgian_hanh_chinh\":\"K\"},{\"stt\":\"1\",\"ma\":\"1_NGAY_TAO_HS\",\"buoc_thuc_hien\":\"Tạo hồ sơ sức khỏe\",\"tien_tu\":\"10000000\",\"tien_toi\":\"20000000\",\"tgian\":\"10\",\"tgian_noti\":\"1\",\"tgian_hanh_chinh\":\"K\"},{\"stt\":\"2\",\"ma\":\"1_CHI_DINH_BTV\",\"buoc_thuc_hien\":\"Chỉ định bồi thường viên\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"10\",\"tgian_noti\":\"2\",\"tgian_hanh_chinh\":\"K\"},{\"stt\":\"3\",\"ma\":\"1_NHAN_HO_SO\",\"buoc_thuc_hien\":\"Nhận hồ sơ\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"20\",\"tgian_noti\":\"3\",\"tgian_hanh_chinh\":\"C\"},{\"stt\":\"4\",\"ma\":\"TINH_TOAN_QUYEN_LOI\",\"buoc_thuc_hien\":\"Xử lý quyền lợi hồ sơ\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"30\",\"tgian_noti\":\"4\",\"tgian_hanh_chinh\":\"K\"},{\"stt\":\"5\",\"ma\":\"2_TRINH_PHUONG_AN\",\"buoc_thuc_hien\":\"Trình phương án\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"40\",\"tgian_noti\":\"5\",\"tgian_hanh_chinh\":\"C\"},{\"stt\":\"6\",\"ma\":\"2_DUYET_PHUONG_AN\",\"buoc_thuc_hien\":\"Duyệt phương án\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"50\",\"tgian_noti\":\"6\",\"tgian_hanh_chinh\":\"K\"},{\"stt\":\"7\",\"ma\":\"3_NGAY_NHAN_HOA_DON\",\"buoc_thuc_hien\":\"Nhận hóa đơn\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"60\",\"tgian_noti\":\"7\",\"tgian_hanh_chinh\":\"C\"},{\"stt\":\"8\",\"ma\":\"4_DONG_HO_SO\",\"buoc_thuc_hien\":\"Đóng hồ sơ\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"70\",\"tgian_noti\":\"8\",\"tgian_hanh_chinh\":\"C\"},{\"stt\":\"9\",\"ma\":\"5_THANH_TOAN_BT\",\"buoc_thuc_hien\":\"Thanh toán bồi thường\",\"tien_tu\":\"0\",\"tien_toi\":\"10000000\",\"tgian\":\"80\",\"tgian_noti\":\"9\",\"tgian_hanh_chinh\":\"K\"}]}",
+  "Respone": "{\"state_info\":{\"status\":\"NotOK\",\"message_code\":\"500\",\"message_body\":\"Số tiền không được nằm trong số tiền đã được cấu hình !\",\"signature\":null,\"errors\":null},\"data_info\":null,\"out_value\":null}"
+}

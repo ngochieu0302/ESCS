@@ -1,0 +1,166 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Quản lý kho vật tư thu hồi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Quản lý kho vật tư thu hồi</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Kho vật tư thu hồi</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="">Đơn vị quản lý</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="dvi_qly" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="">Tỉnh thành</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="tinh_thanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label class="">Quận huyện</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="quan_huyen" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-lg-2 d-none">
+                            <div class="form-group">
+                                <label class="">Phường xã</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="xa_phuong" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="text_tk" id="tim" autocomplete="off" spellcheck="false" placeholder="Nhập tên kho hoặc địa chỉ" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-2" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-48p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-49p" title="Thêm mới" id="btnNhapKhoTHVT">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top: 3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewKhoTHVT" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapKhoTHVT" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content col-md-10" style="margin-left: 55px;">
+            <form name="frmSaveKhoTHVT" method="post">
+                <div class="modal-header" style="padding: 10px 5px;">
+                    <h4 class="modal-title">Thông tin kho vật tư thu hồi <span id="modal-user-log" style="font-size: 14px; font-style: italic;"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="padding: 10px 5px;">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select required class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Đơn vị quản lý</label>
+                                <select required class="select2 form-control custom-select select2-hidden-accessible" name="dvi_qly" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select required class="select2 form-control custom-select select2-hidden-accessible" name="trang_thai" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Tỉnh thành</label>
+                                <select required class="select2 form-control custom-select select2-hidden-accessible" name="tinh_thanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Quận huyện</label>
+                                <select required class="select2 form-control custom-select select2-hidden-accessible" name="quan_huyen" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="">Phường xã</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="xa_phuong" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Mã kho</label>
+                                <input required type="text" name="ma" autocomplete="off" spellcheck="false" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Tên kho</label>
+                                <input required type="text" name="ten" autocomplete="off" spellcheck="false" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="_required">Địa chỉ</label>
+                                <input required type="text" name="dchi" autocomplete="off" spellcheck="false" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding: 10px 5px; display: block;">
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaKho"><i class="fas fa-trash-alt"></i> Xóa</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuKho"><i class="fa fa-save"></i> Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/StorageUnitService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/StorageUnit.js" asp-append-version="true"></script>
+}

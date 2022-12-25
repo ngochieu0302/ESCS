@@ -1,0 +1,60 @@
+﻿<div id="modalThemGara" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thêm Gara báo giá</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmThemGara" name="frmThemGara" method="post">
+                    <input type="hidden" name="ma_doi_tac" value="" />
+                    <input type="hidden" name="so_id" value="" />
+                    <input type="hidden" name="bt_gara" value="" />
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Chọn Gara</label>
+                                <div class="input-group">
+                                    <select class="select2 form-control custom-select" required name="gara" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Giờ báo giá</label>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input class="form-control input-small time" required name="gio_bg" type="text" autocomplete="off"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="ti-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Ngày báo giá</label>
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" class="form-control datepicker" display-format="date" value-format="number" required name="ngay_bg" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-save btn-sm wd-85 mg-t-22" id="btnLuuGara"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Lưu</button>
+                <button type="button" class="btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal" id="CarCompensationCarCategoryAddGara_close"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

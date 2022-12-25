@@ -1,0 +1,592 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS
+@model ESCS.MODEL.ESCS.bh_hd_xe_gcn_dgrr
+@{
+    ViewData["Title"] = "Chụp ảnh đánh giá rủi ro";
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var logo = "images/logo-icon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var logo_ung_dung = setting.cai_dat.Where(n => n.loai == "LOGO_DANG_NHAP").FirstOrDefault();
+        logo = logo_ung_dung != null && !string.IsNullOrEmpty(logo_ung_dung.url_anh) ? logo_ung_dung.url_anh : logo;
+    }
+}
+@Html.AntiForgeryToken()
+<input type="hidden" id="ma_doi_tac" value="@Model.ma_doi_tac" />
+<input type="hidden" id="so_id" value="@Model.so_id" />
+<div id="page404" class="d-none" style="position: relative; height: 100vh;">
+    <section class="main-content-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                        </div>
+                        <h2 class="h1">Không xác định được đường dẫn</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="page_ddos" class="d-none" style="position: relative; height: 100vh;">
+    <section class="main-content-error">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdThree"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondTwo"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstOne"></span></div></div>
+                        </div>
+                        <h2 class="h1">Bạn đã truy cập ứng dụng quá nhiều lần trong một khoảng thời gian ngắn. Vui lòng chờ đợi 5 phút để có thể tiếp tục thực hiện.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@*STEP - 1*@
+<div id="trang_chu" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container-fuild header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <a class="navbar-brand" href="javascript:void(0);">
+                                <img src="/@logo" alt="Logo" class="rounded app_logo" style="width:120px">
+                            </a>
+                            <span class="slogan d-block app_ten_cty_bh"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="section-content rounded">
+            <div class="container-xl mx-auto">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-10 col-md-12 col-12 mx-auto px-3">
+                        <div class="card border mb-0" style="border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size:14px;"><i class="fa fa-address-book mr-2"></i>Thông tin hợp đồng bảo hiểm</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinHopDong">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border mb-0 mt-3" style="border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size: 14px;"><i class="fas fa-user mr-2"></i>Thông tin khách hàng</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinKhachHang">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12">
+                            <a href="javascript:void(0);" class="btn btn-button cursor-pointer" id="btnDanhSachXe"><i class="fas fa-cars mr-2"></i>Danh sách xe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+@*STEP - 2*@
+<div id="danh_sach_xe" class="d-none" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between py-1" style="font-size:16px; font-weight: 500;">
+                            <a id="btnTrangChu" class="cursor-pointer" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i> Trang chủ</a>
+                            <span><i class="fa fa-search mr-2" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="section-danh-gia" style="margin-top: 60px !important;">
+            <div class="container-xl mx-auto">
+                <div class="row" id="divThongTinDanhSachXe">
+
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12">
+                            <button id="btnChupAnhDanhGia" class="btn btn-button"><i class="fas fa-camera-alt mr-2"></i> Chụp ảnh đánh giá rủi ro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+@*STEP - 3*@
+<div id="chup_anh_danh_gia" class="d-none" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between py-1" style="font-size:16px; font-weight: 500;">
+                            <a id="btnQuayLaiDSXe" class="cursor-pointer" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Danh sách xe</a>
+                            <span style="margin:unset;">Chụp ảnh</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="row px-3 py-2">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-0" id="navThongTinHinhAnh" role="tablist">
+                        <li class="nav-item text-center" style="background-color: #edeff0; border-radius:5px; width: 33.33%;border-top-right-radius:unset;border-bottom-right-radius:unset;">
+                            <a onclick="showStepHinhAnh('tabHinhAnhHoSo')" style="border-top-right-radius:unset;border-bottom-right-radius:unset;" class="nav-link active p-1 font-weight-bold" id="tabHinhAnh" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-camera mr-2" aria-hidden="true"></i>Hình ảnh</a>
+                        </li>
+                        <li class="nav-item text-center rounded-0 border-left border-right" style="background-color: #edeff0; border-radius: 5px; width: 33.33%;">
+                            <a onclick="showStepHinhAnh('tabVideoHoSo')" class="nav-link p-1 font-weight-bold rounded-0" id="tabVideo" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-video mr-2" aria-hidden="true"></i>Video</a>
+                        </li>
+                        <li class="nav-item text-center" style="background-color: #edeff0; border-radius: 5px; width: 33.33%;border-top-left-radius:unset;border-bottom-left-radius:unset;">
+                            <a onclick="showStepHinhAnh('tabXemHinhAnhHoSo')" style="border-top-left-radius:unset;border-bottom-left-radius:unset;" class="nav-link p-1 font-weight-bold" id="tabXemHinhAnh" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-image mr-2" aria-hidden="true"></i>Xem ảnh</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="section-danh-gia" style="margin-top: 105px;">
+            <div class="container">
+                <form action="/" method="post" name="frmDanhGiaRuiRo" novalidate="novalidate">
+                    <input type="hidden" name="so_id_dt" autocomplete="off" value="" />
+                    <input type="hidden" name="so_id_lan" autocomplete="off" value="" />
+                    <input type="hidden" name="danh_gia" autocomplete="off" value="" />
+                </form>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="tabHinhAnhHoSo" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="row px-2" id="divDanhSachHinhAnhChup">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="tabVideoHoSo" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div id="divDanhSachVideoDanhGiaRuiRo">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="tabXemHinhAnhHoSo" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row divDanhSachHinhAnhDanhGiaRuiRo" id="divDanhSachHinhAnhDanhGiaRuiRo">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12 d-flex align-items-center">
+                            <a href="javascript:void(0);" id="btnUpload" class="btn btn-button"><i class="fas fa-upload mr-2"></i> Tải ảnh</a>
+                            @*<div class="btn-group w-100" role="group" aria-label="Basic example">
+                                <a href="javascript:void(0);" id="btnQuayVideo" class="btn btn-button border-right"><i class="fas fa-video mr-2"></i>Quay video</a>
+                                <a href="javascript:void(0);" id="btnQuayVideoSetting" class="btn btn-button"><i class="fas fa-cog mr-2"></i>Cài đặt</a>
+                            </div>*@
+                            <div class="w-100">
+                                <div class="input-group w-100 d-flex flex-nowrap" role="group" aria-label="Basic example">
+                                    <div class="input-group-prepend flex-fill border-right">
+                                        <a href="javascript:void(0);" id="btnQuayVideo" class="btn btn-button border-right"><i class="fas fa-video mr-2"></i>Quay video</a>
+                                    </div>
+                                    <div class="input-group-append border-left">
+                                        <a href="javascript:void(0);" id="btnQuayVideoSetting" class="btn btn-button"><i class="fas fa-cog"></i>@*Cài đặt*@</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" id="btnDanhGiaRuiRo" class="btn btn-button"><i class="fas fa-edit mr-2"></i> Đánh giá sơ bộ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+@*STEP - 4*@
+<div id="danh_gia" class="d-none" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between py-1" style="font-size:16px; font-weight: 500;">
+                            <a id="btnChupAnh" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i> Chụp ảnh</a>
+                            <span style="margin:unset;">Đánh giá sơ bộ</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="section-danh-gia" style="margin-bottom: 100px !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-sm-10 col-md-12 col-12 mx-auto px-3" id="divThongTinDanhGiaTonThat">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto" style="padding-top: 0px !important;">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12">
+                            <div class="custom-control custom-checkbox py-2">
+                                <input type="checkbox" class="custom-control-input checkbox" id="checkHoanThanh" onclick="onCheckHoanThanh(this)">
+                                <label class="custom-control-label" for="checkHoanThanh" style="cursor:pointer; padding-top:2px; font-size: 13px;">Tôi cam kết các thông tin khai báo trên là trung thực </label>
+                            </div>
+                            <button id="btnHoanThanhDanhGiaSoBo" class="btn btn-button"><i class="fas fa-check mr-2"></i> Hoàn thành đánh giá</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div id="device-detect" class="d-none" style="overflow-x: hidden;">
+    <section class="main-wrapper">
+        <header class="header-personal">
+            <div class="container header-top">
+                <div class="row">
+                    <div class="col-12">
+                        <a class="navbar-brand" href="javascript:void(0);">
+                            <img src="/@logo" alt="logo" class="rounded" width="150" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <img class="img-fluid" src="~/images/warning.png" style="max-width:60px" />
+                    <h5 class="mg-t-25 mg-b-15 font-weight-bold">Thiết bị hỗ trợ không đúng</h5>
+                    <h6>Landing Page đánh giá rủi ro chỉ được sử dụng trên các thiết bị di động</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<partial name="_Template.cshtml" />
+<partial name="_Modal.cshtml" />
+@section Scripts{
+    <script src="~/js/common/Service.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ModalService.js" asp-append-version="true"></script>
+    <script src="~/js/common/FormService.js" asp-append-version="true"></script>
+    <script src="~/js/common/NotifyService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESLoading.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESUtil.js" asp-append-version="true"></script>
+    <script src="~/js/common/CameraService.js" asp-append-version="true"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+    <script src="~/js/app/ClaimOnline/ChupAnhDanhGiaRuiRo.js" asp-append-version="true"></script>
+    @*<script>
+        window.onload = async function () {
+            if (
+                !"mediaDevices" in navigator ||
+                !"getUserMedia" in navigator.mediaDevices
+            ) {
+                console.log('Not support API camera')
+                return;
+            }
+            const video = document.querySelector("#videoDanhGiaRuiRo");
+            const modal = document.querySelector("#modalQuayVideoDanhGiaRuiRo");
+            let countDown = null;
+            let videoStream = null;
+            let useFrontCamera = false; //camera trước
+            let media_recorder = null;
+            let blobs_recorded = [];
+            const constraints = {
+                video: {
+                    width: {
+                        min: 1280,
+                        ideal: 1920,
+                        max: 2560,
+                    },
+                    height: {
+                        min: 720,
+                        ideal: 1080,
+                        max: 1440,
+                    },
+                    aspectRatio: 16 / 9
+                },
+                audio: false
+            };
+            //Quay video
+            $("#btnQuayVideo").click(async function () {
+                _modalQuayVideoDanhGiaRuiRo.show();
+                $("#timeOut").html("");
+                $("#btnPlayCamera").removeClass("is-hidden");
+                $("#btnPauseCamera").addClass("is-hidden");
+                $("#btnUploadVideo").addClass("is-hidden");
+                videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = videoStream;
+                clearInterval(countDown);
+                blobs_recorded = [];
+                if (window.innerHeight < window.innerWidth) {
+                    let videoStreamSettings = videoStream.getVideoTracks()[0].getSettings();
+                    videoStreamSettings.width = window.innerWidth;
+                    videoStreamSettings.height = window.innerHeight;
+                }
+            });
+            function stopVideoStream() {
+                if (videoStream) {
+                    videoStream.getTracks().forEach((track) => {
+                        track.stop();
+                    });
+                }
+            }
+            $("#btnPlayCamera").click(function () {
+                $("#btnPlayCamera").addClass("is-hidden");
+                $("#btnPauseCamera").removeClass("is-hidden");
+                $("#btnUploadVideo").addClass("is-hidden");
+                var counter = 31;
+                countDown = setInterval(function () {
+                    counter--
+                    if (counter < 10) {
+                        counter = "0" + counter;
+                    }
+                    $("#timeOut").html(counter);
+                    if (counter == 0) {
+                        clearInterval(countDown);
+                        $("#timeOut").html("");
+                        $("#btnPauseCamera").trigger("click");
+                    }
+                }, 1000);
+                media_recorder = new MediaRecorder(videoStream, { mimeType: 'video/webm' });
+                media_recorder.addEventListener('dataavailable', function (e) {
+                    blobs_recorded.push(e.data);
+                });
+                media_recorder.addEventListener('stop', function () {
+                    let video_local = URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm' }));
+                });
+                media_recorder.start(1000);
+            });
+            $("#btnPauseCamera").click(function () {
+                media_recorder.stop();
+                video.pause();
+                $("#btnPauseCamera").addClass("is-hidden");
+                $("#btnPlayCamera").removeClass("is-hidden");
+                $("#btnUploadVideo").removeClass("is-hidden");
+            });
+            $("#btnChangeCamera").click(function () {
+                useFrontCamera = !useFrontCamera;
+                initVideo();
+            });
+            $("#btnUploadVideo").click(function () {
+                var obj = _frmDanhGiaRuiRo.getJsonData();
+                let videoRecord = new File(blobs_recorded, 'danh_gia_rui_ro.mp4', { type: 'video/mp4' });
+                var MB = 100;
+                const maxAllowedSize = MB * 1024 * 1024;
+                if (videoRecord.size > maxAllowedSize) {
+                    _notifyService.error("File video không được vượt quá " + MB + "MB");
+                    return;
+                }
+                var formData = new FormData();
+                formData.append('file', videoRecord);
+                formData.append("ma_doi_tac_nsd", $("#ma_doi_tac").val());
+                formData.append("so_id", $("#so_id").val());
+                formData.append("so_id_dt", obj.so_id_dt);
+                formData.append("ten", "Video đánh giá rủi ro");
+                _service.postFormData("/upload/UploadVideoNoneLogin", formData).then(res => {
+                    if (res.state_info.status !== "OK") {
+                        _notifyService.error(res.state_info.message_body);
+                        return;
+                    }
+                    _notifyService.confirmUpload("Tải video thành công", () => {
+                        _modalQuayVideoDanhGiaRuiRo.hide();
+                        layDanhSachVideo();
+                    });
+                });
+            });
+            $("#btnBackCamera").click(function () {
+                showLoading(true, true, "body");
+                setTimeout(function () {
+                    showLoading(false, true, "body");
+                    _modalQuayVideoDanhGiaRuiRo.hide();
+                }, 300);
+                if ($.fullscreen.isFullScreen()) {
+                    $.fullscreen.exit();
+                }
+            });
+            async function initVideo() {
+                stopVideoStream();
+                constraints.video.facingMode = useFrontCamera ? "user" : "environment";
+                try {
+                    videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+                    video.srcObject = videoStream;
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            initVideo();
+        }
+    </script>*@
+}
+<style>
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #0c8241 !important;
+    }
+
+    .video-screenshot {
+        position: relative;
+        height: 100vh;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #videoDanhGiaRuiRo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+    }
+
+    #xemVideoDanhGiaRuiRo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+    }
+
+    .video-change-camera {
+        position: absolute;
+        top: 2%;
+        right: 3%;
+        z-index: 1040;
+    }
+
+    .video-upload {
+        position: absolute;
+        bottom: 6%;
+        transform: translate(0%, -50%);
+        z-index: 1040;
+        right: 3%;
+    }
+
+    .video-back-camera {
+        position: absolute;
+        top: 2%;
+        left: 3%;
+        z-index: 1040;
+    }
+
+    .video-button {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1040;
+    }
+
+    .video-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .icon-undo-camera {
+        color: #fff;
+        font-size: 30px;
+    }
+
+    .icon-back-camera {
+        color: #fff;
+        font-size: 30px;
+    }
+
+    .icon-play-camera {
+        border-radius: 50%;
+        background-color: transparent;
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        color: red;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        outline: #fff solid 5px;
+    }
+
+    .icon-stop-camera {
+        border-radius: 50%;
+        background-color: transparent;
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        color: red;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        outline: #000 solid 5px;
+    }
+
+    .icon-upload {
+        color: #fff;
+        font-size: 15px;
+    }
+
+    .is-hidden {
+        display: none;
+    }
+
+    #timeOut {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        color: #fff;
+        font-size: 13px;
+        left: 36%;
+    }
+</style>

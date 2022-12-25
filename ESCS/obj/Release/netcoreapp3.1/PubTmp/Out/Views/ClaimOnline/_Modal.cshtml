@@ -1,0 +1,151 @@
+﻿<div class="modal fade" id="modalYKienKhachHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="frmYKienKhachHang" novalidate="novalidate" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group m-0">
+                                <label class="_required" style="font-size: 16px; font-weight: 600; color: #424D54;">Vui lòng nhập ý kiến</label>
+                                <textarea class="form-control" placeholder="Nhập ý kiến của bạn" required autocomplete="off" rows="6" name="noi_dung" maxlength="500">Đã bổ sung</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 mt-3 border-top">
+                        <div class="col-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn-nhap wd-110 mx-2 p-2" id="btnLuuYKienKhachHang" style="background-color: #0C8242; font-family: 'Roboto'; width:110px;"><i class="fa fa-check mr-2"></i>Gửi hồ sơ</button>
+                            <button type="button" class="btn-close wd-110 mx-2 p-2" id="btnDongYKienKhachHang" style="width: 110px;"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalXemHinhAnhDanhGiaRuiRo" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;">
+        <div class="modal-dialog modal-lg m-0 px-2" style="width:100%;max-width:unset; top:8%;">
+            <div class="modal-content">
+                <div class="modal-header py-1" style="background-color: #0c8241; cursor: pointer; border: unset; box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; ">
+                    <h6 class="modal-title" style="color:#fff" id="image-title">Hình ảnh chi tiết</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body p-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <div style="height:70vh;" id="modalXemHinhAnhDanhGiaRuiRoView"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="custom-modal">
+    <style>
+        .modal-body{
+            position: fixed !important;
+            top:0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+    </style>
+    <div id="modalQuayVideoDanhGiaRuiRo" class="modal" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999; overflow:hidden !important;">
+        <div class="modal-dialog" style="width: 100%; height: 100%; margin: 0; padding: 0;">
+            <div class="modal-content" style=" height: 100%; min-height: 100%; border-radius: 0; border: 0;">
+                <div class="modal-body p-0 m-0">
+                    <div class="h-100 d-flex flex-column camera-container">
+                        <style>
+                            .media-button{
+                                text-shadow: 0px 0px 5px dimgray;
+                            }
+                        </style>
+                        <div class="w-100 py-3" style="position:absolute; top:0; background-color:transparent;z-index:1;">
+                            <div class="container-fluid d-flex flex-nowrap camera-info">
+                                @*<input type="text" value="0:30" disabled class="form-control" style="width:65px;" />*@
+                                <div class="col-4 col-md-3 py-1 px-2 d-none" style="max-width:100px !important;">
+                                    <div class="progress h-100">
+                                        <div class="progress-bar bg-primary" style="width:100%;" id="recordProgress"></div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="media-button text-danger ml-auto d-none"><i class="fas fa-3x fa-fw fa-video fa-fade"></i></a>
+                                <a href="javascript:void(0);" class="media-button text-white ml-auto"><i class="fas fa-3x fa-fw fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="camera-media flex-fill" style="height:0;">
+                            <video muted playsinline
+                                   style="width:100%;height:100%;background-color:dimgray;">
+                            </video>
+                        </div>
+                        <div class="w-100 py-3" style="position:absolute; bottom:0; background-color:transparent;z-index:1;">
+                            <div class="container-fluid d-flex flex-nowrap camera-control">
+                                <a href="javascript:void(0);" class="media-button text-white ml-auto"><i class="fas fa-3x fa-fw fa-play"></i></a>
+                                <a href="javascript:void(0);" class="media-button text-white ml-auto"><i class="fas fa-3x fa-fw fa-pause"></i></a>
+                                <a href="javascript:void(0);" class="media-button text-white mr-auto ml-4"><i class="fas fa-3x fa-fw fa-circle"></i></a>
+                                <a href="javascript:void(0);" class="media-button text-white mr-auto ml-4"><i class="fas fa-3x fa-fw fa-stop"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalXemVideoDanhGiaRuiRo" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999; overflow:hidden !important;">
+        <div class="modal-dialog" style="width: 100%; height: 100%; margin: 0; padding: 0;">
+            <div class="modal-content" style=" height: auto; min-height: 100%; border-radius: 0; border: 0;">
+                <div class="modal-body p-0 m-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="video-screenshot m-0 p-0">
+                                <div class="video-back-camera">
+                                    <a href="javascript:void(0)" id="btnBackVideo"><i class="fas fa-arrow-left icon-back-camera"></i></a>
+                                </div>
+                                <video autoplay id="xemVideoDanhGiaRuiRo" playsinline controls></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalNhapGhiChu" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog m-0 p-0 w-100 modal-dialog-end" role="document" style="position: fixed; top: auto; right: auto; left: auto; bottom: 0;">
+        <div class="modal-content border-0 rounded-border">
+            <div class="modal-header card-header py-2">
+                <h6 class="modal-title" id="hang-muc-title">Ghi chú hạng mục</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmGhiChuHangMuc" novalidate="novalidate" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group m-0">
+                                <textarea class="form-control" data-id="" placeholder="Ghi chú hạng mục" required autocomplete="off" rows="6" name="ghi_chu" maxlength="500" style="font-size: 0.825rem;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <div class="row w-100 mx-0 mb-3">
+                    <div class="col-6 px-1">
+                        <button type="button" class="btn-close p-2" style="width: 100%;" data-dismiss="modal"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                    </div>
+                    <div class="col-6 px-1">
+                        <button type="button" class="btn-success p-2" style="width: 100%;" id="btnLuuGhiChu" data-dismiss="modal"><i class="fas fa-save mr-2"></i>Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

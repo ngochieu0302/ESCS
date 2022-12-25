@@ -1,0 +1,95 @@
+﻿<style>
+    #modalDeXuatGia table thead th {
+        background-color: #1e88e5;
+        color: #fff;
+    }
+</style>
+<div class="modal fade bs-example-modal-lg" id="modalDeXuatGia" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 85%; margin:15px auto;">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0 15px;">
+                <h4 class="modal-title">Đề xuất giá</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="height: 70vh; padding-top:5px;">
+                <div class="row mt-1" style="margin:0; padding:0">
+                    <div class="col-12 pr-0">
+                        <div class="table-responsive" style="max-height:475px;">
+                            <table class="table table-bordered" style="width: 100%">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th rowspan="2" style="vertical-align: middle;">Hạng mục </th>
+                                        <th colspan="3">Giá của bồi thường viên</th>
+                                        <th colspan="3">Giá của chuyên gia phê duyệt</th>
+                                        <th rowspan="2" style="vertical-align: middle;">Ghi chú</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:97px" class="text-center">Tiền V.tư</th>
+                                        <th style="width:90px" class="text-center">Tiền N.công</th>
+                                        <th style="width:90px" class="text-center">Tiền sơn</th>
+                                        <th style="width:97px" class="text-center">Tiền V.tư</th>
+                                        <th style="width:90px" class="text-center">Tiền N.công</th>
+                                        <th style="width:90px" class="text-center">Tiền sơn</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblDeXuatGia">
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display: block;padding: 0.25rem !important;">
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-1"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm float-right" id="">
+                    <i class="fas fa-save mr-1"></i>Lưu và từ chối
+                </button>
+                <button type="button" class="btn btn-primary btn-sm float-right" id="">
+                    <i class="fas fa-save mr-1"></i>Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="tblDeXuatGiaTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <tr class="tblDeXuatGiaItem">
+        <td><a data-field="hang_muc" data-val="<%- item.hang_muc %>"><%- item.ten_hang_muc %></a></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_vtu) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nhan_cong) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_khac) %></td>
+        <td class="text-right">
+            <input type="text" data-field="tien_vtu_dx" class="decimal floating-input" value="<%- ESUtil.formatMoney(item.tien_vtu_dx) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="tien_nhan_cong_dx" class="decimal floating-input" value="<%- ESUtil.formatMoney(item.tien_nhan_cong_dx) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="tien_khac_dx" class="decimal floating-input" value="<%- ESUtil.formatMoney(item.tien_khac_dx) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="ghi_chu" class="floating-input" value="<%- item.ghi_chu %>" placeholder="VD: Khấu trừ: 10%, giảm trừ 10%..." />
+        </td>
+    </tr>
+    <%})}%>
+    <% if(danh_sach.length < 10){
+    for(var i = 0; i < 10 - danh_sach.length; i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

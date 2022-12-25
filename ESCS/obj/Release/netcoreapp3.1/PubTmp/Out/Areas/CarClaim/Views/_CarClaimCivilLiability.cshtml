@@ -1,0 +1,68 @@
+﻿<!-- Modal thông tin ton that TNDS -->
+<div id="CarClaimCivilLiability" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width:1000px">
+            <div class="modal-header py-1">
+                <h4 class="modal-title" id="CarClaimCivilLiabilityLabel">Thông tin tổn thất Trách nhiệm dân sự</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="_required">Mục tổn thất</label>
+                            <select class="form-control select2" required name="lh_nv" style="width:100%">
+                                <option>Trách nhiệm về tài sản</option>
+                                <option>Trách nhiệm về người</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="_required">Tên đối tượng tổn thất</label>
+                            <input type="text" autocomplete="off" class="form-control number" name="ten">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="_required">Số lượng</label>
+                            <input type="text" autocomplete="off" class="form-control number" name="so_luong">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="_required">Mức độ tổn thất</label>
+                            <select class="form-control select2" required name="muc_do" style="width:100%">
+                                <option>Hư hỏng 1 phần</option>
+                                <option>Hư hỏng toàn bộ</option>
+                                <option>Thương tật</option>
+                                <option>Chết</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="_required">Tên đối tượng tổn thất</label>
+                            <input type="text" autocomplete="off" class="form-control number" name="ten">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="_required">Số lượng</label>
+                            <input type="text" autocomplete="off" class="form-control number" name="so_luong">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-80" id="btnLuuThongTinTNDS"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Lưu</button>
+                <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaThongTinTNDS"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Xóa</button>
+                <button type="button" class="btn btn-outline-primary btn-sm wd-80" data-dismiss="modal" id="btnThongTinTNDS_close"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

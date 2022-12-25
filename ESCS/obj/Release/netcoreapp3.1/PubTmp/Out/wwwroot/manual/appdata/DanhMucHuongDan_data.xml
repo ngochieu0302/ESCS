@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ArrayOfDanhMucHuongDan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DanhMucHuongDan>
+    <id>1</id>
+    <ma_danh_muc>DM1</ma_danh_muc>
+    <thu_tu_hien_thi>1</thu_tu_hien_thi>
+    <ten_danh_muc>(Web) Xe cơ giới</ten_danh_muc>
+  </DanhMucHuongDan>
+  <DanhMucHuongDan>
+    <id>2</id>
+    <ma_danh_muc>DM2</ma_danh_muc>
+    <thu_tu_hien_thi>2</thu_tu_hien_thi>
+    <ten_danh_muc>(Web) Con người</ten_danh_muc>
+  </DanhMucHuongDan>
+  <DanhMucHuongDan>
+    <id>3</id>
+    <ma_danh_muc>DM3</ma_danh_muc>
+    <thu_tu_hien_thi>3</thu_tu_hien_thi>
+    <ten_danh_muc>(Web) Cài đặt</ten_danh_muc>
+  </DanhMucHuongDan>
+  <DanhMucHuongDan>
+    <id>4</id>
+    <ma_danh_muc>DM4</ma_danh_muc>
+    <thu_tu_hien_thi>4</thu_tu_hien_thi>
+    <ten_danh_muc>(Mobile) Xe cơ giới</ten_danh_muc>
+  </DanhMucHuongDan>
+  <DanhMucHuongDan>
+    <id>5</id>
+    <ma_danh_muc>DM5</ma_danh_muc>
+    <thu_tu_hien_thi>5</thu_tu_hien_thi>
+    <ten_danh_muc>(Mobile) Con người</ten_danh_muc>
+  </DanhMucHuongDan>
+</ArrayOfDanhMucHuongDan>

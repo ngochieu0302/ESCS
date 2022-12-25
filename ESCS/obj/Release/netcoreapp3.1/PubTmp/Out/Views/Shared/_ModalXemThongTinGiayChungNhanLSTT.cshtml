@@ -1,0 +1,299 @@
+﻿<div class="modal fade show" id="modalXemThongTinGiayChungNhanLSTT" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document" style="max-width: 75vw; margin-top: 20px">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin giấy chứng nhận</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body px-2 py-0">
+                <div class="row mt-2 w-100 mx-0">
+                    <div class="col-12 p-0">
+                        <div class="card" style="margin-bottom:0px; min-height:580px">
+                            <div class="card mb-0">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row">
+                                        <div class="col-12" id="navThongTinGiayChungNhanLSTT">
+                                            <ul class="nav nav-pills" role="tablist">
+                                                <li class="nav-item mr-2" style="font-weight: bold; background-color: #f8f9fa; border-radius: 5px;">
+                                                    <a class="nav-link active" href="#tabThongTinGiayChungNhan" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                                                        <i class="far fa-file-search mr-2"></i> Thông tin giấy chứng nhận
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" style="font-weight: bold; background-color: #f8f9fa; border-radius: 5px;">
+                                                    <a class="nav-link" href="#tabLichSuBoiThuong" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
+                                                        <i class="fas fa-history mr-2"></i> Lịch sử tổn thất
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane p-0" id="tabThongTinGiayChungNhan" role="tabpanel">
+                                                    <div class="table-responsive" style="max-height: 73vh; overflow-x: hidden;">
+                                                        <div class="card mb-0">
+                                                            <div class="card-body p-2">
+                                                                <div class="row">
+                                                                    <div class="col col-12">
+                                                                        <table class="table" id="tblCarCommonCertificate">
+                                                                            <tr>
+                                                                                <td style="width:15%;">Tên KH</td>
+                                                                                <td data-model="ten_kh" style="width:35%;"></td>
+                                                                                <td style="width:15%;">Biển xe</td>
+                                                                                <td data-model="bien_xe"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Chủ xe</td>
+                                                                                <td data-model="ten_chu_xe"></td>
+                                                                                <td>Hãng xe - hiệu xe</td>
+                                                                                <td>
+                                                                                    <span data-model="hang_xe_ten"></span> - <span data-model="hieu_xe"></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Số khung</td>
+                                                                                <td data-model="so_khung"></td>
+                                                                                <td>Số máy</td>
+                                                                                <td data-model="so_may"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Năm sản xuất</td>
+                                                                                <td data-model="nam_sx"></td>
+                                                                                <td>Giá trị xe</td>
+                                                                                <td data-model="gia_tri"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Loại xe</td>
+                                                                                <td data-model="ten_loai_xe"></td>
+                                                                                <td>Mục đích sử dụng</td>
+                                                                                <td data-model="muc_dich_hthi"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Số chỗ - trọng tải</td>
+                                                                                <td><span data-model="so_cho_hthi"></span> - <span data-model="trong_tai_hthi"></span></td>
+                                                                                <td>Số hợp đồng</td>
+                                                                                <td data-model="so_hd"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Số GCN</td>
+                                                                                <td data-model="gcn"></td>
+                                                                                <td>Tổng phí</td>
+                                                                                <td data-model="tong_phi_hthi"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Loại hình bảo hiểm</td>
+                                                                                <td data-model="loai_bh"></td>
+                                                                                <td>Hiệu lực bảo hiểm</td>
+                                                                                <td data-model="hieu_luc"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Hiệu lực hợp đồng</td>
+                                                                                <td colspan="4" data-model="hieu_luc_hd"></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-2">
+                                                                    <div class="col col-12">
+                                                                        <h6>Loại hình nghiệp vụ tham gia</h6>
+                                                                        <div class="table-responsive">
+                                                                            <table id="" class="table table-bordered fixed-header">
+                                                                                <thead class="font-weight-bold card-title-bg-primary">
+                                                                                    <tr class="text-center uppercase">
+                                                                                        <th style="width:50px">STT</th>
+                                                                                        <th style="width:250px">Sản phẩm tham gia</th>
+                                                                                        <th style="width:110px">Tiền bảo hiểm</th>
+                                                                                        <th style="width:100px">Khấu trừ</th>
+                                                                                        <th style="width:100px">Miễn thường</th>
+                                                                                        <th style="width:200px">Điều khoản bổ sung</th>
+                                                                                        <th style="width:100px">Phí bảo hiểm</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="danhSachNV">
+                                                                                </tbody>
+                                                                                <tfoot>
+                                                                                    <tr class="text-left card-title-bg">
+                                                                                        <td class="font-weight-bold text-center" colspan="2">
+                                                                                            Tổng cộng
+                                                                                        </td>
+                                                                                        <td class="font-weight-bold text-right">
+                                                                                            <b style="font-weight:bold" id="tt_xe_tong_tien_bh">0</b>
+                                                                                        </td>
+                                                                                        <td class="font-weight-bold">
+                                                                                        </td>
+                                                                                        <td class="font-weight-bold text-right">
+                                                                                            <b style="font-weight:bold" id="tt_xe_tong_tien_mien_thuong">0</b>
+                                                                                        </td>
+                                                                                        <td class="font-weight-bold">
+                                                                                        </td>
+                                                                                        <td class="font-weight-bold text-right">
+                                                                                            <b style="font-weight:bold" id="tt_xe_tong_phi">0</b>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tfoot>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-2">
+                                                                    <div class="col col-12">
+                                                                        <h6>Tình trạng thanh toán phí</h6>
+                                                                        <div class="table-responsive">
+                                                                            <table id="tableDSXacMinhPhiLaySoHS" class="table table-bordered fixed-header" style="width:100%">
+                                                                                <thead class="font-weight-bold">
+                                                                                    <tr class="text-center uppercase">
+                                                                                        <th style="width:300px">Tổng phí theo hợp đồng</th>
+                                                                                        <th style="width:115px">Số tiền đã nộp</th>
+                                                                                        <th>Ghi chú</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="dsXacMinhPhiLaySoHS"></tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane p-0" id="tabLichSuBoiThuong" role="tabpanel">
+                                                    <div class="table-responsive" style="max-height: 73vh;">
+                                                        <table class="table table-bordered" style="width:150%">
+                                                            <thead class="font-weight-bold card-title-bg-primary text-center">
+                                                                <tr>
+                                                                    <th>STT</th>
+                                                                    <th>Ngày mở</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Số hồ sơ</th>
+                                                                    <th>BTV</th>
+                                                                    <th>Biển số</th>
+                                                                    <th>Tên khách hàng</th>
+                                                                    <th>Nghiệp vụ</th>
+                                                                    <th>Số tiền</th>
+                                                                    <th>Đơn vị xử lý</th>
+                                                                    <th>Hồ sơ giám định</th>
+                                                                    <th>Hồ sơ bồi thường</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tblLichSuBoiThuongXe">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 px-0 py-2 border-top">
+                        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal">
+                            <i class="fas fa-window-close mr-2"></i>Đóng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="danhSachNV_template">
+    <% if(lhnv.length > 0){
+    _.forEach(lhnv, function(item,index) { %>
+    <tr class="row-item" row-val="<%- item.ma %>" row-vcx="<%- item.vcx %>">
+        <td class="text-center"><%- index+1 %></td>
+        <td><%- item.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        <% if(item.vcx == 'VCX'){ %>
+        <%if(item.ktru=="K"){%>
+        <td class="text-center">Không</td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.mien_thuong) %></td>
+        <% } else { %>
+        <td class="text-center">Có</td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.mien_thuong) %></td>
+        <% } %>
+        <% } else{ %>
+        <td class="text-center">Không</td>
+        <td class="text-right"><%- item.mien_thuong %></td>
+        <% } %>
+        <td>
+            <%- item.dkbs %>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.phi) %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="7">
+            <p class="m-0">Chưa có dữ liệu hiển thị</p>
+        </td>
+    </tr>
+    <% } %>
+</script>
+
+@*Xác minh phí khi lấy số hồ sơ*@
+<script type="text/html" id="dsXacMinhPhiLaySoHS_template">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <tr>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.so_tien) %>
+        </td>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.so_tien_da_tt) %>
+        </td>
+        <td class="<%- item.style %>"><%- item.ghi_chu %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="3">
+            <p class="m-0">Chưa có dữ liệu hiển thị</p>
+        </td>
+    </tr>
+    <% } %>
+</script>
+
+@*Lịch sử tổn thất xe*@
+<script type="text/html" id="tblLichSuBoiThuongXe_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center">
+            <%- item.sott %>
+        </td>
+        <td class="text-center"><%- item.ngay_ht %></td>
+        <td class="text-center"><%- item.trang_thai %></td>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-center"><%- item.nsd %></td>
+        <td class="text-center"><%- item.doi_tuong %></td>
+        <td class="text-center"><%- item.ten_kh %></td>
+        <td class="text-center"><%- item.nv %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        <td class="text-center"><%- item.  m  %></td>
+        <td class="text-center"><a href="#" onclick="ShowInvestigationDisplay('<%- item.ma_doi_tac%>','<%- item.so_id %>', '<%- item.nghiep_vu%>','XEM_CTIET_HO_SO_GD')">HS giám định</a></td>
+        <td class="text-center"><a href="#" onclick="ShowCompensationDisplay('<%- item.ma_doi_tac%>','<%- item.so_id %>', '<%- item.nghiep_vu%>', 'XEM_CTIET_HO_SO_BT')">HS bồi thường</a></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="10">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <% if(data.length < 15){
+    for(var i = 0; i < 15 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:33px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+

@@ -1,0 +1,192 @@
+﻿<div id="modalCarFlowChart" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="overflow-y: scroll; max-height:85%; max-width: 65vw;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Tiến trình giải quyết bồi thường xe ô tô</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h6 class="text-center pb-4">Giám định hiện trường</h6>
+                        <div class="main-timeline" id="giamDinhHienTruong">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="text-center pb-4">Giám định trung tâm</h6>
+                        <div class="main-timeline" id="giamDinhTrungTam">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="text-center pb-4">Bồi thường viên</h6>
+                        <div class="main-timeline" id="boiThuongVien">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #modalCarFlowChart .modal-body {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    #modalCarFlowChart .main-timeline:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    #modalCarFlowChart .main-timeline .timeline {
+        width: 100%;
+        padding: 15px 0px 15px 20px;
+        margin: -20px 0 0 0;
+        border: 10px solid transparent;
+        border-left: 7px solid #ddd;
+        float: right;
+        position: relative;
+    }
+
+        #modalCarFlowChart .main-timeline .timeline:before {
+            content: '';
+            background-color: #71b1e9;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 1px 2px #dddddd;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 40px;
+            left: -10.5px;
+            top: 70%;
+        }
+
+        #modalCarFlowChart  .main-timeline .timeline:after {
+            content: '';
+            background-color: #dddddd;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 20px;
+        }
+
+        #modalCarFlowChart .main-timeline .timeline:after {
+            border-radius: 0px;
+            transform: rotate( 45deg);
+            left: 14px;
+        }
+
+    #modalCarFlowChart .main-timeline .timeline-content {
+        background: #fff;
+        padding: 0 0 20px;
+        color: #fff;
+        border: 1px solid #dddddd;
+        height: 80px;
+        padding: 0 0 20px;
+        border-radius: 5px;
+        display: block;
+        position: relative;
+        z-index: 1;
+    }
+
+        #modalCarFlowChart .main-timeline .timeline-content:hover {
+            text-decoration: none;
+        }
+
+    #modalCarFlowChart .main-timeline .timeline-title {
+        color: #000000;
+        font-size: 12px;
+        font-weight: bold;
+        position: absolute;
+        z-index: 1;
+        text-align: center;
+        height: 20px;
+        width: 100%;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+
+    #modalCarFlowChart .main-timeline .description {
+        max-height: 60px;
+        height: 60px;
+        font-size: 12px;
+        margin: 20px 0 0;
+        padding: 5px;
+        border-top: 1px solid #dddddd;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+</style>
+<script type="text/html" id="templategiamDinhHienTruong">
+    <% if(source.length > 0){
+    _.forEach(source, function(item,index) { %>
+    <div class="main-timeline">
+        <div class="timeline">
+            <div class="timeline-content">
+                <div class="timeline-title" style="background-color:<%- item.bg_header%>">
+                    <span><%- item.tieu_de%></span>
+                </div>
+                <div class="description" style="background-color: <%- item.bg%>;color:<%- item.text_color%>">
+                    Ngày thực hiện: <span><%- item.ngay_thuc_hien%></span><br />
+                    SLA: <span><%- item.kpi%></span> - Thực tế: <span><%= item.thoi_gian_thuc_hien%></span><br />
+                    Đánh giá: <span><%= item.cham%></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% })
+    }%>
+</script>
+<script type="text/html" id="templategiamDinhTrungTam">
+    <% if(source.length > 0){
+    _.forEach(source, function(item,index) { %>
+    <div class="main-timeline">
+        <div class="timeline">
+            <div class="timeline-content">
+                <div class="timeline-title" style="background-color: <%- item.bg_header%>">
+                    <span><%- item.tieu_de%></span>
+                </div>
+                <div class="description" style="background-color: <%- item.bg%>; color: <%- item.text_color%>">
+                    Ngày thực hiện: <span><%- item.ngay_thuc_hien%></span><br />
+                    SLA: <span><%- item.kpi%></span> - Thực tế: <span><%= item.thoi_gian_thuc_hien%></span><br />
+                    Đánh giá: <span><%= item.cham%></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% })
+    }%>
+</script>
+<script type="text/html" id="templateboiThuongVien">
+    <% if(source.length > 0){
+    _.forEach(source, function(item,index) { %>
+    <div class="main-timeline">
+        <div class="timeline">
+            <div class="timeline-content">
+                <div class="timeline-title" style="background-color: <%- item.bg_header%>">
+                    <span><%- item.tieu_de%></span>
+                </div>
+                <div class="description" style="background-color: <%- item.bg%>;color:<%- item.text_color%>">
+                    Ngày thực hiện: <span><%- item.ngay_thuc_hien%></span><br />
+                    SLA: <span><%- item.kpi%></span> - Thực tế: <span><%= item.thoi_gian_thuc_hien%></span><br />
+                    Đánh giá: <span><%= item.cham%></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% })
+    }%>
+</script>
+

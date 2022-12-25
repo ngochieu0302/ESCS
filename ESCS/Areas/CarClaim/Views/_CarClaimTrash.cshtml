@@ -1,0 +1,30 @@
+﻿<div id="modalHuyHoSo" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h5 class="modal-title">Hủy hồ sơ giám định</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-2">
+                <div class="row">
+                    <div class="col col-12">
+                        <form name="frmHuyHoSo" method="post">
+                            <input type="hidden" name="ma_doi_tac" />
+                            <input type="hidden" name="so_id" />
+                            <div class="form-group">
+                                <label class="_required">Nội dung hủy hồ sơ</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" name="nd" required rows="4"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm wd-80 mg-t-22" id="btnLuuHuyHoSo"><i class="fas fa-save"></i>&nbsp;&nbsp;Lưu</button>
+                <button class="btn btn-primary btn-sm wd-80 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

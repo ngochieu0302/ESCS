@@ -1,0 +1,295 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Tiếp nhận hồ sơ trực tiếp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .row-selected {
+        cursor: pointer;
+        font-weight: bold;
+        color: rgb(255, 0, 0);
+    }
+
+    .active-star {
+        color: #FFD700;
+        cursor: pointer;
+    }
+
+        .active-star:hover {
+            color: #FFD700;
+            cursor: pointer;
+        }
+
+    .defaultColor {
+        color: #9e9e9ead;
+    }
+
+        .defaultColor:hover {
+            color: #9e9e9ead;
+        }
+
+    .active-vip {
+        font-weight: bold;
+        color: red;
+    }
+
+    #navChiPhi li.active {
+        font-weight: bold;
+    }
+
+    #modalHealthSearchDsGCN tr.active {
+        background-color: #9ABCEA !important;
+    }
+
+    .progress-bar {
+        opacity: 0.7;
+    }
+    #tblLichSuTonThatConNguoi td {
+        vertical-align: middle;
+    }
+    #tblTop5DanhSachHD tr.active {
+        background-color: #9ABCEA;
+    }
+</style>
+<input type="hidden" id="notify_info" value="@TempData[ESCS.COMMON.Contants.ESCSConstants.NOTIFY_INFO]" />
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 pd-3">
+            <div class="card">
+                <div class="card-body" style="padding-top: 5px;">
+                    <form name="FrmSearch" method="post">
+                        <div class="row row-cols-6">
+                            <div class="col col-1">
+                                <div class="form-group">
+                                    <label for="ngay_d">Ngày tìm kiếm</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" name="ngay_d" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-1">
+                                <div class="form-group">
+                                    <label for="ngay_c">&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" name="ngay_c" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 d-none">
+                                <div class="form-group">
+                                    <label>Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh">Đơn vị xử lý</label>
+                                    <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh_ql">Đơn vị cấp đơn</label>
+                                    <select class="select2 form-control custom-select" name="ma_chi_nhanh_ql" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="nguon">Nguồn tiếp nhận</label>
+                                    <select class="select2 form-control custom-select" name="nguon" style="width:100%">
+                                        <option value="" selected>Chọn nguồn tiếp nhận</option>
+                                        <option value="CTCT">Tổng đài</option>
+                                        <option value="MOBILE">App mobile</option>
+                                        <option value="HSTT">Trực tiếp</option>
+                                        <option value="BLVP">Bảo lãnh viện phí</option>
+                                        <option value="CSYT">Cơ sở y tế bảo lãnh</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="trang_thai_hs_goc">Trạng thái hồ sơ gốc</label>
+                                    <select class="select2 form-control custom-select" name="trang_thai_hs_goc" style="width:100%">
+                                        <option value="" selected>Chọn trạng thái</option>
+                                        <option value="C">Chưa bổ sung</option>
+                                        <option value="D">Đã bổ sung</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Trạng thái hồ sơ</label>
+                                    <select class="select2 form-control custom-select" name="trang_thai" style="width:100%"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-cols-6 mg-t-6">
+                            <div class="col-2">
+                                <div class="input-group" style="cursor:pointer">
+                                    <input type="text" name="blv" style="cursor:pointer;" onclick="chonCanBo(this);" class="form-control" autocomplete="off" placeholder="Click chọn cán bộ tiếp nhận">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="">
+                                            <a href="#" onclick="xoaChonCanBo(this,'')">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" autocomplete="off" name="so_hs" class="form-control" placeholder="Số hồ sơ bồi thường">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input type="text" autocomplete="off" name="ten_kh" class="form-control" placeholder="Tên khách hàng">
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col col-2">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_sinh" display-format="date" value-format="number" placeholder="Ngày sinh">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="padding: 0.1em 0.8em !important;"><span class="ti-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            @*<div class="col col-1 pr-1">
+                                    <div class="form-group">
+                                        <input type="text" name="nd_tim" class="form-control" autocomplete="off" placeholder="Số CMTND/CCCD">
+                                    </div>
+                                </div>
+                                <div class="col col-1 pl-1">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" autocomplete="off" name="so_hd" placeholder="Số HĐ/GCN">
+                                    </div>
+                                </div>*@
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input type="text" name="nd_tim" class="form-control" autocomplete="off" placeholder="Số CMTND/CCCD">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" autocomplete="off" name="so_hd" placeholder="Số HĐ/GCN">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary btn-sm wd-65" id="btnTimKiemHoSo" title="Tìm kiếm hồ sơ">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-65" id="btnThemMoiHoSo" title="Thêm mới hồ sơ">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-65" id="btnBaoCao" title="Báo cáo" @*data-toggle="modal" data-target="#ModalBaoCao"*@>
+                                    <i class="fas fa-file-chart-line"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-12">
+                            <div id="gridViewHoSoBoiThuong" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Modal.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="_ReceiveImageUpload.cshtml" />
+<partial name="../_HealthCommonCertificate.cshtml" />
+<partial name="/Views/Shared/_ModalSendEmail.cshtml" />
+<partial name="../_HealthCommonCertificate.cshtml" />
+<partial name="../_ModalNhaThuoc.cshtml" />
+<partial name="../_HealthGuaranteeAddInvoice.cshtml" />
+<partial name="../_HealthGuaranteeAddBenefit.cshtml" />
+<partial name="../_HealthHoaDonDienTu.cshtml" />
+<partial name="../_ModalChiPhiKhamBenh.cshtml" />
+<partial name="../_ModalChiPhiThuoc.cshtml" />
+<partial name="../_ModalChiPhiKhac.cshtml" />
+<partial name="../_ModalBenhVien.cshtml" />
+<partial name="../_ModalCanBo.cshtml" />
+<partial name="../_ModalChuyenNguoiXuLy.cshtml" />
+<partial name="/Views/Shared/_ModalBaoCao.cshtml" />
+<partial name="/Views/Shared/_ModalLoaiHSGT.cshtml" />
+<partial name="../_LichSuTonThatTemplate.cshtml" />
+<partial name="../_ModalLoaiChiPhi.cshtml" />
+<partial name="_ReceiveAdd.cshtml" />
+<partial name="../_ModalThemHangMucTaiLieu.cshtml" />
+<partial name="../_ModalAddDanhMucBVNT.cshtml" />
+<partial name="../_TemplateCanhBao.cshtml" />
+<partial name="../_ModalXemGCN.cshtml" />
+<partial name="../_ModalQloiDaDung.cshtml" />
+<partial name="/Views/Shared/_ModalXemToanBoThongTin.cshtml" />
+<partial name="/Views/Shared/_ModalOCRHoaDonChungTu.cshtml" />
+<partial name="../_ModalXemThongTinQuyenLoiLSTT.cshtml" />
+<partial name="/Views/Shared/_ModalXemQRCode.cshtml" />
+<partial name="../_ModalUocTonThatNguoi.cshtml" />
+<partial name="../_ModalThongTinLienHe.cshtml" />
+<partial name="../_ModalThongTinGoiBH.cshtml" />
+<partial name="../_HealthClaimCompareData.cshtml" />
+<partial name="/Views/Shared/_FlowSLA.cshtml" />
+<partial name="../_MOdalQuyenLoiMIC.cshtml" />
+<partial name="_ModalNhanHoSoGoc.cshtml" />
+<partial name="/Views/Shared/_ModalLichSuYeuCauBSHS.cshtml" />
+<partial name="../_ModalLHNV.cshtml" />
+
+@section Styles{
+    <link href="~/css/app/CarClaim/CarClaimCommon.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/HospitalService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/StatusListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/AdministrativeUnitsService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BankListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryPersonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ProductHumanService.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/services/HealthClaimCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DiseasesListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarInvestigationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/services/HealthCareGuaranteeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PrintedService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UnitService.js" asp-append-version="true"></script>
+    <script src="~/js/app/ModalBaoCaoService.js" asp-append-version="true"></script>
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CostsListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/HealthClaimCommon.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/services/ReceiveService.js" asp-append-version="true"></script>
+    <script src="~/js/app/ModalXemQRCode.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/Receive.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESSendEmail.js" asp-append-version="true"></script>
+}

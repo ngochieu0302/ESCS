@@ -1,0 +1,130 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Phê duyệt tạm ứng thanh lý, thu đòi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="notify_info" value="@TempData[ESCS.COMMON.Contants.ESCSConstants.NOTIFY_INFO]" />
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Phê duyệt tạm ứng thanh lý, thu đòi</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Tạm ứng thanh lý, thu đòi</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12" style="padding-bottom:15px;">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px">
+                    <form name="frmApprovedOtherSearch" method="post">
+                        <div class="row">
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_d">Ngày tìm kiếm</label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control datepicker" name="ngayd" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_c">&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control datepicker" display-format="date" value-format="number" name="ngayc" placeholder="mm/dd/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-3">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh">Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-3">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh">Đơn vị</label>
+                                    <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height:36px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="nv">Nghiệp vụ</label>
+                                    <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;">
+                                        <option value="">Chọn nghiệp vụ</option>
+                                        <option value="XE">Xe ô tô</option>
+                                        <option value="CN">Con người</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col col-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" autocomplete="off" name="ten_nguoi_trinh" placeholder="Nhập thông tin tên người trình">
+                                </div>
+                            </div>
+                            <div class="col col-3">
+                                <div class="form-group">
+                                    @*<label for="loai_trinh">Loại trình</label>*@
+                                    <select class="select2 form-control custom-select" name="loai_trinh" style="width: 100%; height:36px;">
+                                        <option value="">Chọn loại trình</option>
+                                        <option value="XE_TRINH_DUYET_TAM_UNG_BT">Trình tạm ứng bồi thường</option>
+                                        <option value="XE_TRINH_DUYET_THU_HOI_VAT_TU">Trình thanh lý vật tư</option>
+                                        <option value="XE_TRINH_DUYET_THU_DOI_NTBA">Trình thu đòi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group" style="float:left">
+                                    <button type="button" class="btn btn-primary btn-sm wd-80" id="btnSearch">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:3px">
+                            <div class="col-sm-12">
+                                <div id="gridViewdsPheDuyet" class="table-app" style="height:63vh"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_ApprovedModal.cshtml" />
+<partial name="_TemplatePheDuyet.cshtml" />
+<partial name="/Views/Shared/_FwdApproval.cshtml" />
+
+@section scripts{
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarInvestigationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/StatusListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/jsTrinhDuyet.js" asp-append-version="true"></script>
+
+    <script src="~/js/app/Manager/services/ApprovedOtherService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Manager/ApprovedOther.js" asp-append-version="true"></script>
+
+}

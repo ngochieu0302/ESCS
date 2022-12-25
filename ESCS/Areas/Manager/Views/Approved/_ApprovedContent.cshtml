@@ -1,0 +1,24 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="row mt-1 w-100 m-0 p-0">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb px-1" id="navPheDuyet" style="margin:unset;margin-bottom:5px; padding-top:3px; padding-bottom:3px;">
+                <li class="breadcrumb-item active" id="divToTrinhTabItem"><a href="#" class="btn btn-primary btn-sm" onclick="xemTab('divToTrinh')">Thông tin tờ trình</a></li>
+                <li class="breadcrumb-item" id="divTaiLieuTabItem"><a href="#" class="btn btn-primary btn-sm" onclick="xemTab('divTaiLieu')">Tài liệu phê duyệt</a></li>
+                <li class="breadcrumb-item" id="divToanBoThongTinHoSo"><a href="#" class="btn btn-primary btn-sm" onclick="xemToanBoThongTinHoSoBoiThuong()">Xem toàn bộ thông tin hồ sơ</a></li>
+                <li class="breadcrumb-item d-none" id="divXemThongTinHoSoGD"><a href="#" class="btn btn-primary btn-sm" onclick="ShowInvestigationDisplay()">Hồ sơ giám định</a></li>
+                <li class="breadcrumb-item d-none" id="divXemThongTinHoSoBT"><a href="#" class="btn btn-primary btn-sm" onclick="ShowCompensationDisplay()">Hồ sơ bồi thường</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row tabPheDuyetContent" id="divToTrinh">
+    <div class="col-12">
+        <partial name="_ApprovedContentStep1.cshtml" />
+    </div>
+</div>
+<div class="row tabPheDuyetContent" id="divTaiLieu">
+    <div class="col-12">
+        <partial name="_ApprovedContentStep2.cshtml" />
+    </div>
+</div>

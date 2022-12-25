@@ -1,0 +1,66 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<html>
+<head>
+    <title>THÔNG BÁO NHẬN YÊU CẦU ONLINE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body style="font-family: 'Tahoma';">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center">
+                THÔNG BÁO NHẬN YÊU CẦU ONLINE
+            </h3>
+
+            <p style="font-family: 'Tahoma'; font-size: 14px; text-align:center; font-weight:bold">Mã CV: <span style="color:red">Chưa xác định</span></p>
+
+            <p style="font-family: 'Tahoma'; font-size: 14px; text-align:center; font-weight:bold">Kính gửi Ông (Bà): <span style="color: #035299">@mail.ten_khach</span> </p>
+
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    Vào @mail.gio_vv ngày @mail.ngay_ht, @mail.ten_cong_ty_tat đã nhận được thông tin khai báo online từ Quý khách về Hồ sơ yêu cầu trả tiền bảo hiểm của NĐBH là Ông (Bà) <span style="color: #035299">@mail.ten_ndbh</span> như sau:
+                </p>
+
+                <ul style="line-height: 25px">
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">
+                        Thời gian khám/chữa bệnh: @mail.ngay_vv
+                    </li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">
+                        Cơ sở y tế: @mail.ten_bv
+                    </li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">
+                        Chẩn đoán: @mail.chan_doan
+                    </li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">
+                        Số tiền yêu cầu: @mail.tien_yc VND
+                    </li>
+                </ul>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;"><b>Tiến độ xử lý thông tin:</b></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">
+                    <ul style="font-family: 'Tahoma'; font-size: 14px;">
+                        <li>Quý khách khai báo online trong giờ hành chính: @mail.ten_cong_ty_tat sẽ phản hồi về <span style="color:red">tình trạng hồ sơ hoặc chứng từ cần bổ sung</span> trong vòng 30 phút.</li>
+                        <li>Quý khách khai báo online từ 17h00 đến 21h00: @mail.ten_cong_ty_tat sẽ phản hồi về <span style="color:red">tình trạng hồ sơ hoặc chứng từ cần bổ sung</span> trong vòng 60 phút.</li>
+                        <li>Quý khách khai báo online sau 21h00, @mail.ten_cong_ty_tat sẽ phản hồi về <span style="color:red">tình trạng hồ sơ hoặc chứng từ cần bổ sung</span> vào buổi sáng ngày làm việc tiếp theo.</li>
+                    </ul>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    <span>
+                        Để tra cứu tình trạng hồ sơ và quá trình giải quyết, Ông/Bà <span style="color: #035299">@mail.ten_khach </span>vui lòng truy cập ứng dụng @mail.ten_cong_ty_tat Claim trên mobile theo mã <span style="color:red">số mã cv</span>
+                    </span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold">Trân trọng Cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

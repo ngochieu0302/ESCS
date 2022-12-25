@@ -1,0 +1,148 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Gói bảo hiểm con người";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #treeQuyenLoiGoi{
+        height: 385px;
+    }
+    #treeQuyenLoiSP {
+        height: 385px;
+    }
+    @@media only screen and (max-width: 1366px) {
+        .zoom9 {
+            zoom: .9;
+            -moz-transform: scale(.9);
+            -moz-transform-origin: 0 0;
+        }
+        #treeQuyenLoiGoi {
+            height: 350px;
+        }
+        #treeQuyenLoiSP {
+            height: 350px;
+        }
+    }
+</style>
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Xây dựng gói bảo hiểm</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Gói bảo hiểm con người</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col col-2">
+                            <div class="form-group">
+                                <label for="so_hs">Thông tin tìm kiếm</label>
+                                <input type="text" class="form-control" autocomplete="off" name="tim" placeholder="Nhập mã/tên gói bảo hiểm">
+                            </div>
+                        </div>
+                        <div class="col col-3">
+                            <div class="form-group">
+                                <label for="ma_doi_tac">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-1">
+                            <div class="form-group">
+                                <label for="ma_doi_tac">Giới tính</label>
+                                <select class="select2 form-control custom-select" name="gioi_tinh" style="width: 100%; height:36px;">
+                                    <option value="">Chọn</option>
+                                    <option value="NAM">Nam</option>
+                                    <option value="NU">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-1">
+                            <div class="form-group">
+                                <label for="so_hs">Tuổi từ</label>
+                                <input type="text" class="form-control number" autocomplete="off" name="tuoi_tu" placeholder="Tuổi từ">
+                            </div>
+                        </div>
+                        <div class="col col-1">
+                            <div class="form-group">
+                                <label for="so_hs">Tuổi tới</label>
+                                <input type="text" class="form-control number" autocomplete="off" name="tuoi_toi" placeholder="Tuổi tới">
+                            </div>
+                        </div>
+                        <div class="col col-1">
+                            <div class="form-group">
+                                <label for="ngay_d">Áp dụng từ</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_ad_tu" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-1">
+                            <div class="form-group">
+                                <label for="ngay_d">Áp dụng đến</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_ad_toi" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-2" style="margin-top:1.3rem">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p mr-2" id="btnTimKiem" title="Tìm kiếm">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnThemGoi" title="Thêm mới gói">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewTimKiem" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Modal.cshtml" />
+<partial name="_ModalMaBenh.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+@section Styles{
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+    <style>
+        .vakata-context {
+            z-index: 9999999 !important;
+        }
+    </style>
+}
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/libs/tree-js/vakata-jstree/dist/jstree.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DiseasesListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/HealthService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/PackageService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/Package.js" asp-append-version="true"></script>
+}

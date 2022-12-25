@@ -1,0 +1,54 @@
+﻿<script type="text/html" id="tableNhapGiaGara_template">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr class="row_item">
+        <td style="width: 40px; text-align: center;">
+           <%- index + 1 %>
+        </td>
+        <td>
+            <input readonly type="text" data-field="hang_xe" class="floating-input" value="<%- item.hang_xe %>" />
+        </td>
+        <td>
+            <input readonly type="text" data-field="hieu_xe" class="floating-input" value="<%- item.hieu_xe %>" />
+        </td>
+        <td>
+            <input readonly type="text" data-field="hang_muc" class="floating-input col-value" value="<%- item.ten_hang_muc %>" data-val="<%- item.hang_muc %>" />
+        </td>
+        <td>
+            <input readonly type="text" data-field="muc_do" class="floating-input col-value" value="<%- item.ten_muc_do %>" data-val="<%- item.muc_do %>" />
+        </td>
+        <td>
+            <input type="text" data-field="tien_vtu" autocomplete="off" maxlength="18" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_vtu) %>" />
+        </td>
+        <td>
+            <input type="text" data-field="tien_nhan_cong" autocomplete="off" maxlength="18" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_nhan_cong) %>" />
+        </td>
+        <td>
+            <input type="text" data-field="tien_khac" autocomplete="off" maxlength="18" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_khac) %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer delete-baogia" onclick="xoaBaoGia(this)"></i>
+        </td>
+    </tr>
+    <% }) %>
+    <% }%>
+
+    <% if(data.length < 13){
+    for(var i = 0; i < 13 - data.length;i++ ){
+    %>
+    <tr>
+        <td>
+            <div class="tabulator-cell" role="gridcell" tabulator-field="sott" title="" style="width: 40px; text-align: center; height: 19px;">&nbsp;<div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+

@@ -1,0 +1,490 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Hệ thống báo cáo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .autocomplete-items::-webkit-scrollbar-track {
+        background-color: #fff !important;
+    }
+
+    .placeholder-left::placeholder {
+        text-align: left !important;
+    }
+
+    .tpl-lich b {
+        font-weight: bold !important;
+    }
+</style>
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+
+<div class="d-flex flex-column h-100">
+    <div class="flex-fill d-flex flex-column">
+        <div class="flex-fill" style="height:86vh;">
+            <div class="container-fluid h-100 d-flex flex-column gap-2">
+                <div class="card h-100 shadow">
+                    <div class="card-body d-flex flex-column p-3">
+                        <div class="row flex-fill">
+                            <div class="col-3 h-100 d-flex flex-column">
+                                <div class="card flex-fill mb-0">
+                                    <div class="card-body p-0 d-flex flex-column">
+                                        <div class="border rounded flex-fill">
+                                            <div class="justify-content-between align-items-center p-2">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="frmBaoCao_timKiem" name="ma_mau_in" autocomplete="off" placeholder="Nhập thông tin tên mẫu in">
+                                                            <div class="input-group-append">
+                                                                <label class="input-group-text" for="ma_mau_in">
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fas fa-search" title="Tìm kiếm"></i>
+                                                                    </a>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="tblDanhSachMauIn" class="px-2 scrollable" style="height:70vh; max-height:70vh;">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-9 h-100 d-flex flex-column pl-0">
+                                <div class="card flex-fill mb-0">
+                                    <div class="card-body p-0 d-flex flex-column">
+                                        <div class="border rounded flex-fill">
+                                            <form name="frmBaoCao" method="post">
+                                                <div class="row w-100 m-0 p-2">
+                                                    @*<div class="col-3">
+                                                        <a href="#">Chọn ngày tìm kiếm</a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline ml-3" style="margin-right:unset">
+                                                            <input class="form-check-input material-inputs with-gap" type="radio" required="" name="ngay_tkiem" id="NGAY_MO" value="NGAY_MO">
+                                                            <label class="form-check-label" style="font-size:12px;" for="NGAY_MO">Ngày mở hồ sơ</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline ml-3" style="margin-right:unset">
+                                                            <input class="form-check-input material-inputs with-gap" type="radio" required="" name="ngay_tkiem" id="NGAY_DONG" value="NGAY_DONG">
+                                                            <label class="form-check-label" style="font-size:12px;" for="NGAY_DONG">Ngày đóng hồ sơ</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline ml-3" style="margin-right:unset">
+                                                            <input class="form-check-input material-inputs with-gap" type="radio" required="" name="ngay_tkiem" id="NGAY_DP" value="NGAY_DP">
+                                                            <label class="form-check-label" style="font-size:12px;" for="NGAY_DP">Ngày dự phòng hồ sơ</label>
+                                                        </div>
+                                                    </div>*@
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="san_pham">Loại hình bảo hiểm</label>
+                                                            <select class="select2 form-control custom-select" name="san_pham" style="width: 100%; height:36px;">
+                                                                <option value="">Chọn loại hình bảo hiểm</option>
+                                                                <option value="BB">Bảo hiểm bắt buộc</option>
+                                                                <option value="TN">Bảo hiểm tự nguyện</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="san_pham">Trạng thái hồ sơ</label>
+                                                            <select class="select2 form-control custom-select" name="trang_thai" style="width:100%">
+                                                                <option value="">Chọn trạng thái</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="nhom_nguyen_nhan">Nguyên nhân điều trị</label>
+                                                            <select class="select2 form-control custom-select" name="nhom_nguyen_nhan" style="width:100%">
+                                                                <option value="">Chọn nguyên nhân điều trị</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="hinh_thuc_dtri">Hình thức điều trị</label>
+                                                            <select class="select2 form-control custom-select" name="hinh_thuc_dtri" style="width:100%">
+                                                                <option value="">Chọn hình thức điều trị</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="nhom_nguyen_nhan">Nguyên nhân tai nạn</label>
+                                                            <select class="select2 form-control custom-select" name="nhom_nguyen_nhan" style="width:100%">
+                                                                <option value="">Chọn nhóm nguyên nhân</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="nguon">Nguồn khai báo</label>
+                                                            <select class="select2 form-control custom-select" name="nguon" style="width:100%">
+                                                                <option value="">Chọn nguồn khai báo</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:3px;">
+                                                    <div class="col-12">
+                                                        <div id="gridViewHoSoGiamDinh" class="table-app" style="height: 64vh;"></div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalChonDonViBaoCao" class="modal-drag" style="width:400px; z-index:9999999;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn đơn vị</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="modalChonDonViBaoCaoTimKiem" onclick="onFocus(this)" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalChonDonViBaoCaoTimKiem_ma">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalChonDonViBaoCaoDanhSach"></div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="border-top: 1px solid #e9ecef;">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="ModalBaoCao_btnChonDonVi">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="tblDanhSachMauInTemplate">
+    <% if(data.length > 0){%>
+    <% _.forEach(data, function(item1,index1) { %>
+    <div class="card-header p-2 my-1 rounded" style="background-color: #f5f5f5!important;">
+        <a style="color: #424D54; font-weight: 600; cursor: pointer;" data-toggle="collapse" href="#divCollapseThongTinHoSo<%- item1.nv %>" role="button" aria-expanded="false" aria-controls="divCollapseThongTinHoSo<%- item1.nv %>"><%- item1.ten %></a>
+    </div>
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <% if(item.nv == item1.nv){ %>
+    <div class="collapse multi-collapse show modalChonMauInBaoCaoDanhSachItem" id="divCollapseThongTinHoSo<%- item.nv %>" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <div class="card-body p-0">
+            <div class="custom-control custom-checkbox ml-1">
+                <input type="checkbox" id="mau_in_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonMauInBaoCao single_checked" onclick="onChonMauIn(this)">
+                <label class="custom-control-label" style="cursor:pointer;" for="mau_in_<%- item.ma %>"><%- item.ten %></label>
+            </div>
+        </div>
+    </div>
+    <% }})}%>
+    <%})}%>
+</script>
+
+<script type="text/html" id="modalChonDonViBaoCaoDanhSachTemplate">
+    <div class="border rounded mb-2">
+        <div class="d-flex justify-content-between align-items-center py-1" style="background-color: #f7f7f7;">
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" onchange="onChonTatCa(this)" id="chon_tat_ca" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="chon_tat_ca">Chọn tất cả đơn vị</label>
+            </div>
+        </div>
+    </div>
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox modalChonDonViBaoCaoDanhSachItem ml-2" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_tat) %>">
+        <input type="checkbox" id="dvi_duyet_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonDviBaoCao" onclick="onChonChiNhanh(this)">
+        <label class="custom-control-label" style="cursor:pointer;" for="dvi_duyet_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<div id="modalBenhVien" class="modal-drag" style="width:600px; z-index:9999999;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn bệnh viện</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_BenhVien" type="text" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control item-benhvien">
+                <input type="hidden" id="modalBenhVienElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height: 350px;" id="modalBenhVienDanhSach">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="modalBenhVienDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <% var text_csyt = "" %>
+    <% if(item.bl_noitru == 'C' && item.bl_ngoaitru == 'C' && item.bhyt == 'C'){ %>
+    <% text_csyt = "(Bảo lãnh nội trú / Bảo lãnh ngoại trú / BHYT)" %>
+    <% }else if(item.bl_noitru == 'C' && item.bl_ngoaitru == 'C' && item.bhyt == 'K'){ %>
+    <% text_csyt = "(Bảo lãnh nội trú / Bảo lãnh ngoại trú)" %>
+    <% }else if(item.bl_noitru == 'C' && item.bl_ngoaitru == 'K' && item.bhyt == 'C'){ %>
+    <% text_csyt = "(Bảo lãnh nội trú / BHYT)" %>
+    <% }else if(item.bl_noitru == 'C' && item.bl_ngoaitru == 'K' && item.bhyt == 'K'){ %>
+    <% text_csyt = "(Bảo lãnh nội trú)" %>
+    <% }else if(item.bl_noitru == 'K' && item.bl_ngoaitru == 'C' && item.bhyt == 'C'){ %>
+    <% text_csyt = "(Bảo lãnh ngoại trú / BHYT)" %>
+    <% }else if(item.bl_noitru == 'K' && item.bl_ngoaitru == 'C' && item.bhyt == 'K'){ %>
+    <% text_csyt = "(Bảo lãnh ngoại trú)" %>
+    <% }else if(item.bl_noitru == 'K' && item.bl_ngoaitru == 'K' && item.bhyt == 'C'){ %>
+    <% text_csyt = "(BHYT)" %>
+    <% }else{ %>
+    <% text_csyt = "" %>
+    <% } %>
+    <% if(item.bl_noitru == 'K' && item.bl_ngoaitru == 'K' && item.bhyt == 'K'){ %>
+    <div class="custom-control custom-checkbox dsbv" id="dsbv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <input type="checkbox" id="benh_vien_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-benhvien modalBenhVienItem single_checked" onchange="onChonBenhVien(this)">
+        <label class="custom-control-label" style="cursor:pointer;" for="benh_vien_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% }else{ %>
+    <div class="custom-control custom-checkbox dsbv" id="dsbv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <input type="checkbox" id="benh_vien_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-benhvien modalBenhVienItem single_checked" onchange="onChonBenhVien(this)">
+        <label class="custom-control-label" style="cursor:pointer;" for="benh_vien_<%- item.ma %>"><%- item.ten %> </label> - <label class="text"> <%- text_csyt %> </label>
+    </div>
+    <% }})}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<style>
+    .text {
+        color: red;
+    }
+
+    #modalBenhVienDanhSach label:hover {
+        color: #2d88ff;
+    }
+</style>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BusinessCodeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/StatusListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PrintedService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ProductHumanService.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/services/HealthClaimCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Report/Report.js" asp-append-version="true"></script>
+}
+
+@*<div class="col-lg-6 col-md-6 mx-auto p-0">
+        <div class="card m-0">
+            <div class="card-body">
+                <form id="frmBaoCaoChung" name="frmBaoCaoChung" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Nghiệp vụ báo cáo</label>
+                                <select class="select2 form-control custom-select" required name="nv" style="width:100%">
+                                    <option value="">Chọn nghiệp vụ báo cáo</option>
+                                    <option value="XE" selected>Xe cơ giới</option>
+                                    <option value="NG">Con người</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="mau_bao_cao" class="_required">Biểu mẫu báo cáo</label>
+                                <select class="select2 form-control custom-select" required name="mau_bao_cao" style="width:100%">
+                                    <option value="">Chọn biểu mẫu báo cáo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Chọn ngày tìm kiếm</label>
+                                <select class="select2 form-control custom-select" required name="ngay_tkiem" style="width:100%">
+                                    <option value="">Chọn ngày tìm kiếm</option>
+                                    <option value="NGAY_MO" selected>Tìm theo ngày mở hồ sơ</option>
+                                    <option value="NGAY_DONG">Tìm theo ngày đóng hồ sơ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2" id="rowNgayMoHoSo">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Từ ngày báo cáo</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" required="" name="ngayd" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Tới ngày báo cáo</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" required="" name="ngayc" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-none mt-2" id="rowNgayDuPhongHoSo">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Ngày dự phòng từ</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" required="" name="ngayd_dp" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Ngày dự phòng tới</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" required="" name="ngayc_dp" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width:100%">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Đơn vị</label>
+                                <div class="input-group">
+                                    <input type="text" name="ma_chi_nhanh" data-val="" style="cursor: pointer; background-color: #e9ecef;" class="form-control" autocomplete="off" placeholder="Click chọn chi nhánh" onclick="onChonChiNhanhBaoCao(this)">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text">
+                                            <a href="javascript:void(0)">
+                                                <i class="fas fa-search" title="Chọn đơn vị"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2 d-none" id="rowBenhVien">
+                        <div class="col-12">
+                            <div class="input-group" style="cursor:pointer">
+                                <input type="text" name="benh_vien" style="cursor:pointer;" onclick="chonBenhVien(this);" class="form-control" autocomplete="off" placeholder="Click chọn bệnh viện">
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="">
+                                        <a href="#" onclick="xoaChon(this,'BV')">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="san_pham">Loại hình bảo hiểm</label>
+                                <select class="select2 form-control custom-select" name="san_pham" style="width: 100%; height:36px;">
+                                    <option value="">Chọn loại hình bảo hiểm</option>
+                                    <option value="BB">Bảo hiểm bắt buộc</option>
+                                    <option value="TN">Bảo hiểm tự nguyện</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="san_pham">Trạng thái hồ sơ</label>
+                                <select class="select2 form-control custom-select" name="trang_thai" style="width:100%">
+                                    <option value="">Chọn trạng thái</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2 d-none" id="rowNghiepVuNg">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nhom_nguyen_nhan">Nguyên nhân điều trị</label>
+                                <select class="select2 form-control custom-select" name="nhom_nguyen_nhan" style="width:100%">
+                                    <option value="">Chọn nguyên nhân điều trị</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="hinh_thuc_dtri">Hình thức điều trị</label>
+                                <select class="select2 form-control custom-select" name="hinh_thuc_dtri" style="width:100%">
+                                    <option value="">Chọn hình thức điều trị</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2" id="rowNghiepVuXe">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nhom_nguyen_nhan">Nguyên nhân tai nạn</label>
+                                <select class="select2 form-control custom-select" name="nhom_nguyen_nhan" style="width:100%">
+                                    <option value="">Chọn nhóm nguyên nhân</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nguon">Nguồn khai báo</label>
+                                <select class="select2 form-control custom-select" name="nguon" style="width:100%">
+                                    <option value="">Chọn nguồn khai báo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12" style="text-align:center; margin-top:10px">
+                            <button type="button" class="btn btn-primary btn-sm wd-120" id="btnXuatBaoCaoChung">
+                                <i class="fa fa-download mr-2"></i>Xuất excel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@

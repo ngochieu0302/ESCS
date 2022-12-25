@@ -1,0 +1,39 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body style="font-family: 'Tahoma';line-height: 1.6;font-size:14px;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:6px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center; font-family: 'Tahoma'">THÔNG BÁO KẾT QUẢ TRÌNH PHÊ DUYỆT BẢO LÃNH VIỆN PHÍ</h3>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="margin-top:5px;">Kính gửi: <span style="color: #035299">Bộ phận bồi thường</span></p>
+
+                <p>
+                    Hệ thống thông báo kết quả phê duyệt bảo lãnh viện phí số hồ sơ: <span style="color: #035299"> @mail.so_hs</span>
+                    của khách hàng <span style="color: #4552a2">@mail.ten_kh</span> theo hợp đồng bảo hiểm <span style="color: #035299">@mail.so_hd</span>
+                </p>
+
+                @*<p>Kết quả: </p>*@
+
+                <p>Kết quả:  <span style="color: #4552a2">Đã duyệt</span></p>
+
+                <p>Đề nghị bộ phận bồi thường thực hiện các bước tiếp theo theo quy định.</p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

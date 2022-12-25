@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/usermanagement/savedecentralization",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": "images/users/80c841737ef84b11ad58507c39e5c1be.png",
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20220929125156
+  },
+  "Time": 20220929113602,
+  "Request": "{\"ma_chi_nhanh\":\"000\",\"ma\":\"admin@escs.vn\",\"so_id\":\"20220929003512\",\"nv\":\"NG\",\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_doi_tac\":\"CTYBHABC\",\"btn\":[{\"lh_nv\":\"PAC_LOCAL\",\"tien_phuong_an\":1000000000,\"tien_bao_lanh\":1000000000,\"tien_boi_thuong\":1000000000},{\"lh_nv\":\"CN04\",\"tien_phuong_an\":1000000000,\"tien_bao_lanh\":1000000000,\"tien_boi_thuong\":1000000000},{\"lh_nv\":\"CN01\",\"tien_phuong_an\":1000000000,\"tien_bao_lanh\":1000000000,\"tien_boi_thuong\":1000000000},{\"lh_nv\":\"CN03\",\"tien_phuong_an\":1000000000,\"tien_bao_lanh\":1000000000,\"tien_boi_thuong\":1000000000},{\"lh_nv\":\"HEALTH_MATE\",\"tien_phuong_an\":1000000000,\"tien_bao_lanh\":1000000000,\"tien_boi_thuong\":1000000000},{\"lh_nv\":\"CN02\",\"tien_phuong_an\":1000000000,\"tien_bao_lanh\":1000000000,\"tien_boi_thuong\":1000000000}],\"tien_tam_ung\":\"0\",\"tien_thanh_toan\":\"0\"}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{}}"
+}

@@ -1,0 +1,14 @@
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.DAL.deps.json
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.DAL.dll
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.DAL.pdb
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.COMMON.dll
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.MODEL.dll
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.COMMON.pdb
+D:\ESCS\ESCS.DAL\bin\Debug\netcoreapp3.1\ESCS.MODEL.pdb
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.csprojAssemblyReference.cache
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.AssemblyInfoInputs.cache
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.AssemblyInfo.cs
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.csproj.CoreCompileInputs.cache
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.csproj.CopyComplete
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.dll
+D:\ESCS\ESCS.DAL\obj\Debug\netcoreapp3.1\ESCS.DAL.pdb

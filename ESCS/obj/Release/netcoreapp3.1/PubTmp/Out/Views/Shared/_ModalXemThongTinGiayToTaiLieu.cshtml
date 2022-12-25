@@ -1,0 +1,57 @@
+﻿<style>
+    .pdfobject-container {
+        height: 72vh;
+    }
+    .pdfobject {
+        border: 1px solid #666;
+    }
+</style>
+<div id="modalXemThongTinGiayToTaiLieu" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:90vw">
+        <div class="modal-content">
+            <div class="modal-header py-1 modal-draggable">
+                <h4 class="modal-title">Danh sách tài liệu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a; padding:0px">
+                <div class="row p-2">
+                    <div class="col-3">
+                        <div class="card border mb-0">
+                            <div class="card-body p-3" style="height:80vh;overflow-y:auto">
+                                <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="modalDanhSachGiayToTaiLieu">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9 pl-0">
+                        <div class="card border mb-0">
+                            <div class="card-body" style="height: 80vh;overflow-y: auto; padding: .25rem !important;">
+                                <div class="tab-content" id="modalXemChiTietGiayToTaiLieu"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalDanhSachGiayToTaiLieuTemplate">
+    <% if(data.length > 0){ %>
+    <% var stt = 1 %>
+    <%_.forEach(data, function(item,index) { %>
+    <a class="nav-link modalDanhSachGiayToTaiLieuTabItem" onclick="xemChiTietFile('<%- item.bt %>','<%- item.extension%>', this)" style="cursor:pointer" id="modalDanhSachGiayToTaiLieuTabItem_<%- stt %>" document-id="<%- stt %>" data-toggle="pill" href="#modalXemChiTietGiayToTaiLieuTabContent_<%- stt %>" role="tab" aria-controls="modalDanhSachGiayToTaiLieuTabItem_<%- stt %>" aria-selected="true"><%- item.nhom_anh %></a>
+    <% stt++ %>
+    <% }) %>
+    <% }%>
+</script>
+<script type="text/html" id="modalXemChiTietGiayToTaiLieuTemplate">
+    <% if(data.length > 0){%>
+    <% var stt = 1 %>
+    <%_.forEach(data, function(item,index) { %>
+    <div class="tab-pane fade" id="modalXemChiTietGiayToTaiLieuTabContent_<%- stt %>" style="height: 77vh;width:auto" role="tabpanel" aria-labelledby="modalXemChiTietGiayToTaiLieuTabContent_<%- stt %>"></div>
+    <% stt++ %>
+    <% })
+    }%>
+</script>

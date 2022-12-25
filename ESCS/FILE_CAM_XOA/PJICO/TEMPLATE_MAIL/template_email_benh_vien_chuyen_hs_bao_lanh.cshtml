@@ -1,0 +1,61 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+    string ma_mau = "#035299";
+    if (@mail.ma_doi_tac == "ATACC")
+    {
+        ma_mau = "#e002ac";
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO BỆNH VIỆN CHUYỂN HỒ SƠ BẢO LÃNH SANG CÔNG TY BẢO HIỂM</title>
+</head>
+<body style="font-family: 'Tahoma'; font-size: 14px; line-height:1.6;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <div style="margin-top:20px;">
+                <img style="width:170px" src="@mail.logo_email" alt="Logo" />
+            </div>
+            <h2 style="color: @ma_mau; text-align: center">THÔNG BÁO PHÁT SINH BẢO LÃNH VIỆN PHÍ <br /> Số hồ sơ: @mail.so_hs</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi Bảo lãnh viên: <span style="color:@ma_mau">@mail.ten_btv</span></p>
+
+                <p style="margin-top:5px; font-family: 'Tahoma'; font-size: 14px;">@mail.ngay_ht Hệ thống thông báo @mail.ten_bv đã gửi yêu cầu xác nhận bảo lãnh viện</p>
+
+                <p style="margin-top:5px; font-family: 'Tahoma'; font-size: 14px;">phí, cụ thể như sau:</p> @*@mail.loai_hinh*@
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Người liên hệ: @mail.nguoi_lh</p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Điện thoại:  @mail.dthoai_lhe <span style="margin-left: 40px;">Email: @mail.email_lhe</span></p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Tên NĐBH: @mail.ten_ndbh</p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Số CCCD/Hộ chiếu: @mail.cmt</p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Hợp đồng bảo hiểm: @mail.so_hd</p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Số tiền yêu cầu bảo lãnh: @mail.tien_yc</p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Chẩn đoán: @mail.chan_doan</p>
+
+                <p style="margin-top:5px; margin-left: 20px; font-family: 'Tahoma'; font-size: 14px;">-	Ghi chú: @mail.ghi_chu</p>
+
+                <p style="font-weight: bold; margin-top:5px; font-family: 'Tahoma'; font-size: 14px;">
+                    <span>
+                        Đề nghị Bảo lãnh viên thực hiện các bước tiếp theo theo quy định.
+                    </span>
+                </p>
+
+                <p style="color: @ma_mau; font-weight: bold">Trân trọng cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

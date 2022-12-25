@@ -1,0 +1,133 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Hợp đồng bảo hiểm sức khỏe con người";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .rowSelected {
+        background-color: #f4f4f4;
+    }
+
+        .rowSelected input {
+            background-color: #f4f4f4 !important;
+        }
+</style>
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Hợp đồng bảo hiểm sức khỏe con người</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Hợp đồng bảo hiểm sức khỏe con người</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="nd">Tìm kiếm</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" autocomplete="off" name="nd" placeholder="Số HĐ"> @*placeholder="Số HĐ/Tên khách hàng">*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style= "margin-top: 20px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="ten_ndbh" autocomplete="off" placeholder="Tên NĐBH">
+                            </div>
+                        </div>
+                        <div class="col-1 px-0">
+                            <div class="form-group">
+                                <label for="ngay_d">Từ ngày</label>
+                                <div class="input-group" style="width:105px;">
+                                    <input type="text" autocomplete="off" class="form-control datepicker" display-format="date" value-format="number" name="ngay_d" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text px-2"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1 px-0">
+                            <div class="form-group">
+                                <label for="ngay_c">Đến ngày</label>
+                                <div class="input-group" style="width:105px;">
+                                    <input type="text" autocomplete="off" class="form-control datepicker" display-format="date" value-format="number" name="ngay_c" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text px-2"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="ma_chi_nhanh">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height: 36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="ma_chi_nhanh">Đơn vị</label>
+                                <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height: 36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top: 21px">
+                            <button type="button" class="btn btn-primary btn-sm wd-65" id="btnSearch">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-65" id="btnAdd">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-65" id="btnExportDSHD">
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewHDSucKhoe" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Template.cshtml" />
+<partial name="/Views/Shared/_ModalMap.cshtml" />
+<partial name="_Modal.cshtml" />
+<partial name="_HealthCareSearch.cshtml" />
+<partial name="_ModalDanhSachNDBH.cshtml" />
+<partial name="~/Areas\CarClaim\Views\CarInvestigation\_CarClaimImageUpload.cshtml" />
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+@section Styles{
+    <link href="~/css/app/CarClaim/CarClaimCommon.css" rel="stylesheet" />
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/PackageService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DepartmentListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DepartmentListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CarManufacturerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryPersonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/HieuXeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/RangeVehicleService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BusinessCodeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CustomerService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/HealthService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/Health.js" asp-append-version="true"></script>
+}

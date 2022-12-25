@@ -1,0 +1,39 @@
+﻿<div id="modalViewFile" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg" style="max-width: unset; width:880px">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Xem file</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" id="modalViewFileContent" style="height:550px;">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Duyệt</button>
+                <button type="button" class="btn-outline-primary btn-sm wd-90 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+    #modalViewFileContent::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    #modalViewFileContent::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    #modalViewFileContent::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+        /* Handle on hover */
+        #modalViewFileContent::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+</style>

@@ -1,0 +1,59 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="card border mb-0" style="height:unset">
+    <div class="card-body p-1" style="padding:0px; height: 83vh !important;" id="navChiPhiGiamDinh">
+        <ul class="nav nav-pills" role="tablist" style="background-color:#f8f9fa;">
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link active" data-toggle="tab" href="#tabThongTinChiPhiGiamDinh" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-align-justify mr-2"></i>Thông tin hồ sơ
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="tab" onclick="layDsTaiLieu()" href="#tabHoSoGiayTo" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-file-image  mr-2"></i>Hồ sơ, giấy từ yêu cầu
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="tab" href="#tabThuHuongChungTu" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-money-bill-alt  mr-2"></i>Thông tin thụ hưởng, hóa đơn
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="border: unset;">
+            <div class="tab-pane active" role="tabpanel" id="tabThongTinChiPhiGiamDinh">
+                <partial name="_ExpertationcostContent_1" />
+            </div>
+            <div class="tab-pane" role="tabpanel" id="tabHoSoGiayTo">
+                <partial name="_ExpertationcostContent_2" />
+            </div>
+            <div class="tab-pane" role="tabpanel" id="tabThuHuongChungTu">
+                <partial name="_ExpertationcostContent_3" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tab-navigator">
+    <div class="col-12 mg-t-10 px-2">
+        <a href="javascript:void(0)" id="btnTrinhGiamDinh" class="escs_pquyen mr-2" data-toggle="modal">
+            <i class="fas fa-share-square mr-1"></i> Trình giám định
+        </a>
+        <a href="javascript:void(0)" id="btnChuyenThanhToan" class="escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i> Chuyển thanh toán
+        </a>
+        <a href="#" id="btnHuyChuyenThanhToan" class="escs_pquyen mr-2">
+            <i class="fas fa-undo mr-1"></i> Hủy chuyển thanh toán
+        </a>
+        <a href="javascript:void(0)" id="btnHuyHoSo" class="escs_pquyen mr-2">
+            <i class="fas fas-trash-alt mr-1"></i> Hủy hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnGoHuyHoSo" class="escs_pquyen mr-2">
+            <i class="fas fa-undo-square mr-1"></i> Gỡ hủy hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnGuiEmailThongBao" class="escs_pquyen mr-2" data-toggle="modal">
+            <i class="fas fa-envelope mr-1"></i> Gửi email
+        </a>
+        <a href="#" id="btnPrint" class="mr-3">
+            <i class="fas fa-print mr-1"></i> In ấn
+        </a>
+    </div>
+</div>

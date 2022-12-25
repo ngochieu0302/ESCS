@@ -1,0 +1,211 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS.ModelView
+@{
+    ViewData["Title"] = "Tiếp nhận bồi thường";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string key_google = ESCS.Common.EscsUtils.dv_google == null ? "" : ESCS.Common.EscsUtils.dv_google.key;
+}
+<style>
+    #modalCarSearchDsGCN tr.active {
+        background-color: #9ABCEA !important;
+    }
+
+    .active-star {
+        color: #FFD700;
+        cursor: pointer;
+    }
+
+        .active-star:hover {
+            color: #FFD700;
+            cursor: pointer;
+        }
+
+    .defaultColor {
+        color: #9e9e9ead;
+    }
+
+        .defaultColor:hover {
+            color: #9e9e9ead;
+        }
+
+    #navLuongXuLy li.active a {
+        font-weight: bold;
+    }
+
+    #ban_do_gdv:hover {
+        cursor: pointer;
+    }
+</style>
+<input type="hidden" id="notify_info" value="@TempData[ESCS.COMMON.Contants.ESCSConstants.NOTIFY_INFO]" />
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12" style="padding-bottom:15px;">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px">
+                    <form name="frmTimKiemHoSo" method="post">
+                        <div class="row">
+                            <div class="col col-1">
+                                <div class="form-group">
+                                    <label for="ngay_d">Ngày tìm kiếm</label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control datepicker" name="ngay_d" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-1">
+                                <div class="form-group">
+                                    <label for="ngay_c">&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="text" autocomplete="off" class="form-control datepicker" name="ngay_c" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-2 d-none">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh">Đơn vị xử lý</label>
+                                    <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height:36px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh_ql">Đơn vị cấp đơn</label>
+                                    <select class="select2 form-control custom-select" name="ma_chi_nhanh_ql" style="width: 100%; height:36px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="nv">Nghiệp vụ</label>
+                                    <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;">
+                                        <option value="" selected>Nghiệp vụ</option>
+                                        <option value="XE">Xe ô tô</option>
+                                        <option value="XE_MAY">Xe máy</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="trang_thai">Trạng thái</label>
+                                    <select class="select2 form-control custom-select" name="trang_thai" style="width: 100%; height:36px;">
+                                        <option value="" selected>Trạng thái</option>
+                                        <option value="D">Đã chuyển</option>
+                                        <option value="C">Chưa chuyển</option>
+                                        <option value="H">Hủy bỏ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="gcn">Số GCN</label>
+                                    <input type="text" autocomplete="off" class="form-control" name="gcn" placeholder="Giấy chứng nhận">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:6px">
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <input type="text" autocomplete="off" class="form-control" name="bien_xe" placeholder="Biển xe">
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <input type="text" autocomplete="off" fn-validate="validatePhoneControl" class="form-control" name="dien_thoai" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                            <div class="col col-4">
+                                <div class="form-group">
+                                    <input type="text" autocomplete="off" class="form-control" name="ten_kh" placeholder="Tên khách hàng">
+                                </div>
+                            </div>
+
+                            <div class="col col-2">
+                                <button type="button" class="btn btn-primary btn-sm wd-40p mr-2" id="btnTimKiemHoSo">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnThemMoiHoSo">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-12">
+                            <div id="gridViewThanhToan" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Modal.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="/Views/Shared/_ModalMap.cshtml" />
+<partial name="/Views/Shared/_ModalXemThongTinGiayChungNhanLSTT.cshtml" />
+<partial name="_ModalHangGPLX.cshtml" />
+
+@section Styles{
+    <link href="~/css/app/CarClaim/CarClaimCommon.css" rel="stylesheet" />
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    @if (!string.IsNullOrEmpty(key_google))
+    {
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=@key_google&callback=initAutocomplete&libraries=places&v=weekly" type="text/javascript"></script>
+    }
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BusinessCodeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BankListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/GaraListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DamageLevelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/StatusListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarClaimCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CarContractService.js"></script>
+    <script src="~/js/app/Contact/services/ContactService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarInvestigationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CarManufacturerListService.js"asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/HieuXeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/RangeVehicleService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contact/Contact.js" asp-append-version="true"></script>
+}

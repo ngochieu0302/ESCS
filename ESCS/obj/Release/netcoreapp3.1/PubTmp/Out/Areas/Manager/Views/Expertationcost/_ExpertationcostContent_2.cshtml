@@ -1,0 +1,147 @@
+﻿<div class="row m-0" id="divClaimContentStep3HinhAnh">
+    <div class="col-9 px-0">
+        <div class="card mb-0">
+            <div class="card-body p-0">
+                <div class="border rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                        <h5 class="m-0">Hồ sơ giấy tờ yêu cầu</h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="img-container" style="height:67vh"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-3 pr-0">
+        <div class="card m-0">
+            <div class="card-body p-0">
+                <div class="border rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+
+                        <div class="btn-group float-right" style="color: #2d88ff;">
+                            <a class="btn btn-light rounded py-0" id="btnAnhHopDong">
+                                <i class="fas fa-file-contract" title="Click để xem ảnh hợp đồng"></i>
+                            </a>
+                            <a class="btn btn-light rounded py-0" id="btnTransImageView">
+                                <i class="fas fa-th"></i>
+                            </a>
+                            <a class="btn btn-light rounded py-0" id="btnDocOCR">
+                                OCR <i class="fas fa-qrcode" title="Click để đọc OCR tài liệu"></i>
+                            </a>
+                        </div>
+                        <div class="btn-group float-right">
+                            <a class="btn btn-light rounded py-0 d-none" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                <i class="fal fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right border" id="dsNhomAnh">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid scrollable" id="lstImage" style="height: 435px;">
+                        <div class="row">
+                            <div class="col-12 px-2 list-pictures" id="dsAnhTonThat">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="btn-group btn-group-justified" role="group">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" title="Phân loại danh mục" id="btnPhanLoaiTonThat">
+                        <i class="fas fa-atlas"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" title="Tải xuống" id="btnDownLoadAnhDGTT">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" title="Tải lên" id="btnUpLoadAnhDGTT">
+                        <i class="fas fa-upload"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" title="In" id="btnXemTaiLieu">
+                        <i class="fas fa-print"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" title="Xóa" id="btnXoaLoadAnhDGTT">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .divAnhPhanLoai img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .divAnhPhanLoai:hover {
+        border: 2px solid #009efb;
+    }
+
+    .divAnhPhanLoai.active .divAnhPhanLoaiCheck {
+        display: block;
+    }
+
+    .divAnhPhanLoai.active {
+        border: 2px solid #009efb;
+    }
+
+    .divAnhPhanLoai {
+        width: 62px;
+        height: 62px;
+        border-radius: 10px;
+        border: 1px solid #e9ecef;
+        float: left;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .divAnhPhanLoaiCheck {
+        width: 16px;
+        font-size: 16px;
+        position: absolute;
+        bottom: -3px;
+        right: 2px;
+        color: #00CC66;
+        display: none;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .icon_plhm.active {
+        color: #009efb;
+        opacity: 1;
+    }
+
+    .icon_plhm {
+        opacity: 0.5;
+    }
+
+    .plhm_mucdo_con {
+        padding-left: 15px;
+    }
+
+    #tbDsPhanLoaiNhanh tr {
+        cursor: pointer;
+    }
+
+    #divPhanLoaiXemAnh {
+        position: relative;
+    }
+
+    .img-container-plhm {
+        width: 95% !important;
+        height: 100% !important;
+    }
+</style>

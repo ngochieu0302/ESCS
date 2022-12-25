@@ -1,0 +1,118 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div id="modalAddOCR" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="max-width:1100px">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Cấu hình dịch vụ OCR</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmAddOCR" name="frmAddOCR" method="post" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" id="ma_doi_tac" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">GPLX</label>
+                                <input type="text" maxlength="20" name="hm_gplx" autocomplete="off" required class="form-control" placeholder="Nhập giấy phép lái xe">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Đăng ký xe</label>
+                                <input type="text" maxlength="20" name="hm_dky_xe" autocomplete="off" required class="form-control" placeholder="Nhập đăng ký xe">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Đăng kiểm xe</label>
+                                <input type="text" maxlength="20" name="hm_dkiem_xe" autocomplete="off" required class="form-control" placeholder="Nhập đăng kiểm xe">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive" style="max-height:900px">
+                                <table id="tblCauHinh" class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold">
+                                        <tr class="text-center uppercase">
+                                            <th width="17%" class="_required">Chi nhánh</th>
+                                            <th width="15%" class="_required">Base Url</th>
+                                            <th width="18%" class="_required">Api Key</th>
+                                            <th width="15%" class="_required">Ngày hiệu lực</th>
+                                            <th width="15%" class="_required">Ngày kết thúc</th>
+                                            <th width="9%" class="_required">Trạng thái</th>
+                                            <th width="6%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modalAddConfig_body">
+                                        <tr>
+                                            <td>
+                                                <input type="hidden" name="ap_dung" class="ap_dung" value="1" />
+                                                <select class="select2 form-control custom-select select2-hidden-accessible ma_chi_nhanh_dv" name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                                            </td>
+                                            <td>
+                                                <input type="text" autocomplete="off" required name="base_url" class="form-control base_url_dv" placeholder="Nhập thông tin base url">
+                                            </td>
+                                            <td>
+                                                <input type="text" autocomplete="off" required name="api_key" class="form-control api_key_dv" placeholder="Nhập thông tin api key">
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" autocomplete="off" class="form-control datepicker ngay_hl_dv" name="ngay_hl" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" autocomplete="off" class="form-control datepicker ngay_kt_dv" name="ngay_kt" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-success btn-sm check_config" title="Đang sử dụng">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-outline-danger btn-sm remove_config" title="Ngưng sử dụng">
+                                                    <i class="ti-close"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="card-title-bg">
+                                            <td colspan="7">
+                                                <a href="javascript:void(0)" id="btnAddConfig">
+                                                    <i class="fa fa-plus mr-2"></i>Thêm dịch vụ
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-80 ml-2" id="btnSaveConfig">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

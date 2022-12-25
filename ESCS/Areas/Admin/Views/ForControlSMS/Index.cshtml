@@ -1,0 +1,167 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục đối sóa tin nhắn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Đối soát tin nhắn</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Đối soát tin nhắn</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate" data-select2-id="20">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin mã, tên trạng thái hồ sơ" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="NG">Con người</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                    <option value="XE">Xe cơ giới</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Phần mềm</label>
+                                <select class="select2 form-control custom-select" name="pm" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>                       
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Trạng thái</label>
+                                <select class="select2 form-control custom-select" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đã gửi</option>
+                                    <option value="C">Chưa gửi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridView" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalDoiSoatSMS" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmLuuThongTinDoiSoatSMS" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin đối soát SMS</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                    <option value="NG">Con người</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Phần mềm</label>
+                                <select class="select2 form-control custom-select" name="pm" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Số điện thoại nhận</label>
+                                <input type="text" maxlength="20" placeholder="Số điện thoại nhận" name="sdt_nhan" autocomplete="off" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Ngày</label>
+                                <input type="text" placeholder="Ngày gửi" name="ngay" autocomplete="off" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Trạng thái</label>
+                                <select class="select2 form-control custom-select" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đã gửi</option>
+                                    <option value="C">Chưa gửi</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="">Nội dung</label>
+                                <textarea class="form-control" placeholder="Nội dung tin nhắn" autocomplete="off" rows="3" name="noi_dung"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+  
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ForControlSMSService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ForControlSMS.js" asp-append-version="true"></script>
+}
+

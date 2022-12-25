@@ -1,0 +1,114 @@
+﻿@using ESCSPARTNER.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<GaraBaoGia>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>BIÊN BẢN BÀN GIAO XE Ô TÔ</title>
+    <style>
+        body {
+            font-family: Arial, Times, serif;
+        }
+
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="page">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-12 col-sm-12">
+                <p style="text-align: center; font-size: 22px; font-weight: bold; color: #436aa8; margin-top:15px;">THÔNG BÁO GỬI BIÊN BẢN BÀN GIAO XE Ô TÔ</p>
+                <p style="text-align: center; font-size: 16px; font-weight: 500; color: #436aa8; margin-top:3px;">Số hóa đơn: @mail.so_id</p>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+            <div style="margin-left: 10px; font-size: 14px;">
+                <p style="color: #273aa6; font-weight: bold;font-size: 16px !important;">
+                    Kính gửi Anh/Chị :
+                    <span style="color: #4552a2 !important; font-weight: 500 !important;">@mail.ten_kh</span>
+                </p>
+                <p style="margin-top:3px"><span class="name_body" style="color: #4552a2">@mail.ma_chi_nhanh</span> xin trân trọng gửi tới Quý Khách hàng thông tin bàn giao xe ô tô như sau:</p>
+                <p style="color: #000000; font-weight: bold;font-size: 16px !important;">Bên giao:</p>
+                <div style="margin-left: 10px;">
+                    <table style="width:100%">
+                        <tr>
+                            <td><p>Ngày giao xe: <span style="color: #4552a2">@mail.ngay_bg</span></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>Mã số thuế: <span style="color: #4552a2">Chưa có dữ liệu</span></p></td>
+                            <td><p>Đại diện bên giao: <span style="color: #4552a2">@mail.ten_gara</span></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>Địa điểm giao xe: <span style="color: #4552a2">@mail.dia_chi_gara</span></p></td>
+                            <td><p>Số điện thoại: <span style="color: #4552a2">@mail.dien_thoai_gara</span></p></td>
+                        </tr>
+                    </table>
+                </div>
+                <p style="color: #000000; font-weight: bold;font-size: 16px !important;">Bên nhận:</p>
+                <div style="margin-left: 10px;">
+                    <table style="width:100%">
+                        <tr>
+                            <td><p>Đại diện bên nhận: <span style="color: #4552a2">@mail.ten_kh</span></p></td>
+                            <td><p>Chứng minh thư: <span style="color: #4552a2">@mail.cmt_kh</span></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>Số điện thoại: <span style="color: #4552a2">@mail.dien_thoai</span></p></td>
+                            <td><p>Email: <span style="color: #4552a2">@mail.email</span></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>Địa chỉ: <span style="color: #4552a2">@mail.dchi</span></p></td>
+                        </tr>
+                    </table>
+                </div>
+                <p style="color: #000000; font-weight: bold;font-size: 16px !important;">
+                    Thông tin xe:
+                </p>
+                <table id="table" style="width:100%;border-collapse:collapse;text-align: center;" ; border="1">
+                    <tbody>
+                        <tr style="background-color: #E8E8E8;margin:auto;">
+                            <th style="padding:5px;width:5%;">STT</th>
+                            <th style="padding:5px;width:15%">Hãng xe</th>
+                            <th style="padding:5px;width:15%">Hiệu xe</th>
+                            <th style="padding:5px;width:15%">Số khung</th>
+                            <th style="padding:5px;width:15%">Số máy</th>
+                            <th style="padding:5px;width:12%">Biển xe</th>
+                            <th style="padding:5px;width:12%">Năm SX</th>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center">1</td>
+                            <td style="text-align:center">@mail.hang_xe</td>
+                            <td style="text-align:center">@mail.hieu_xe</td>
+                            <td style="text-align:center">@mail.so_khung</td>
+                            <td style="text-align:center">@mail.so_may</td>
+                            <td style="text-align:center">@mail.bien_xe</td>
+                            <td style="text-align:center">@mail.nam_sx</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 10px;">
+                    <p>Mọi thông tin xin liên hệ: <span style="color: #4552a2">@mail.ten_gara</span></p>
+                    <p>Email cán bộ phụ trách: <span style="color: #4552a2">@mail.email_gara</span></p>
+                    <p>Trường hợp cần hỗ trợ thêm, vui lòng liên hệ hotline: <span style="color: #4552a2">@mail.dien_thoai_gara</span></p>
+                    <p style="margin-top:10px; font-size:13px; color: #436aa8;"><i><b>Trân Trọng,</b></i></p>
+                </div>
+            </div>
+            <div style="margin-top: 10px; font-size: 14px; background-color: #E8E8E8; padding: 10px;">
+                <p>
+                    <span style="font-weight:700"><i>Gara: </i></span><span style="color:red"><i>Hồng Hạnh</i></span><br>
+                    <span style="font-weight:700"><i>Địa chỉ: </i></span><i>218 Đội Cấn, Ba Đình, Hà Nội</i><br>
+                    <span style="font-weight:700"><i>Website: </i></span><a href="" target="_blank"><i>www.escs.vn</i></a><br>
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

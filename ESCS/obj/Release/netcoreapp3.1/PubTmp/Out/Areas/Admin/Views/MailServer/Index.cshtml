@@ -1,0 +1,128 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Đơn vị hành chính";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Mail Server</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Mail Server</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tìm kiếm" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnNhapMailServer">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewMailServer" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapMailServer" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmLuuMailServer" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Mail Server</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <select class="select2 form-control custom-select" required name="ma" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">SMTP Server</label>
+                                <input type="text" maxlength="50" name="smtp_server" autocomplete="off" required class="form-control" placeholder="SMTP Server">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">SMTP Port</label>
+                                <input type="text" maxlength="20" name="smtp_port" autocomplete="off" class="form-control" placeholder="SMTP port">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <label class="_required">Tên</label>
+                                <input type="text" maxlength="100" name="ten" autocomplete="off" required class="form-control" placeholder="Tên">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Áp dụng</label>
+                                <select class="select2 form-control custom-select" required name="ap_dung" style="width: 100%; height:36px;">
+                                    <option value="">Chọn kiểu áp dụng</option>
+                                    <option value="0">Không áp dụng</option>
+                                    <option value="1">Có áp dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuMailServer"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaMailServer"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/MailServerService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/MailServer.js" asp-append-version="true"></script>
+}

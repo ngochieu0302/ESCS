@@ -1,0 +1,175 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Quản lý người dùng mobile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Quản lý người dùng mobile</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Người dùng mobile</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tên/sdt/cmt/email người dùng" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnNhapThongTinCustomer">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewCustomer" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalSaveCustomer" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 55%;">
+        <div class="modal-content">
+            <form name="frmSaveCustomer" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin người dùng</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="_required">Họ và tên</label>
+                                <input type="text" maxlength="250" autocomplete="off" name="ho_ten" placeholder="Tên người sử dụng" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required" for="ngay_sinh">Ngày sinh</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" required autocomplete="off" display-format="date" value-format="number" name="ngay_sinh" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Điện thoại</label>
+                                <input type="text" maxlength="10" fn-validate="validatePhoneControl" autocomplete="off" name="dien_thoai" placeholder="Số điện thoại" required class="form-control phone">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Số CMT</label>
+                                <input type="text" maxlength="12" fn-validate="validateCMTControl" autocomplete="off" name="cmt" placeholder="Số chứng minh thư" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Email</label>
+                                <input type="text" maxlength="100" fn-validate="validateEmailControl" autocomplete="off" name="email" placeholder="Email" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mật khẩu</label>
+                                <input type="password" maxlength="100" autocomplete="off" name="mat_khau" placeholder="Mật khẩu" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select" required name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đang sử dụng</option>
+                                    <option value="N">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Tỉnh thành</label>
+                                <select class="select2 form-control custom-select" name="tinh_thanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Quận huyện</label>
+                                <select class="select2 form-control custom-select" name="quan_huyen" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Xã phường</label>
+                                <select class="select2 form-control custom-select" name="xa_phuong" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 3px;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="">Địa chỉ</label>
+                                <input type="text" maxlength="250" autocomplete="off" name="dia_chi" placeholder="VD: Số nhà/xã phường/quận huyện/thành phố..." class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnSaveCustomer"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteCustomer"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/AdministrativeUnitsService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CustomerAccountService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/CustomerAccount.js" asp-append-version="true"></script>
+}

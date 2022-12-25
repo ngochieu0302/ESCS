@@ -1,0 +1,75 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@using RazorEngine.Text;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body style="font-family: 'Tahoma';">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center">
+                THÔNG BÁO BỔ SUNG HỒ SƠ
+                <br>Số hồ sơ: @mail.so_hs
+                <br>Loại hình bảo hiểm: @mail.ten_lhnv
+            </h3>
+
+            <div style="padding: 8px; text-align: justify;">
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    Kính gửi:
+                    <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_bv</span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    Trước tiên, @mail.ten_cong_ty,
+                    xin gửi tới <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_bv</span> lời chúc sức khỏe, hạnh phúc và thành công.
+                </p>
+                <br />
+                <p style="font-family: 'Tahoma'; font-size: 14px">
+                    Công ty chúng tôi đã nhận được hồ sơ Bảo lãnh viện phí của NĐBH là ông (bà)
+                    <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_khach</span>
+                    tham gia bảo hiểm chăm sóc sức khỏe tại @mail.ten_cong_ty_tat.
+                </p>
+                <br />
+                <p style="font-family: 'Tahoma'; font-size: 14px">
+                    Sau khi xem xét hồ sơ do
+                    <span style="color: #035299">@mail.ten_bv</span>
+                    cung cấp, Chúng tôi kính đề nghị <span style="color: #035299">@mail.ten_bv</span>
+                    bổ sung những chứng từ dưới đây trong thời gian sớm nhất để chúng tôi có đủ cơ sở xem xét và thanh toán chi phí bảo lãnh cho
+                    <span style="color: #035299">@mail.ten_bv</span> theo đúng quy định.
+                </p>
+
+                @*<div style="font-family: 'Tahoma'; font-size: 14px; margin-left: 18px; margin-top: 8px; margin-bottom: 8px;">
+                        <p><span style="color:#035299">@mail.yeu_cau_bs</span></p>
+                    </div>*@
+
+                <div style="font-family: 'Tahoma'; font-size: 14px; color: #4552a2; margin-top: 5px; margin-left: 10px; ">
+                    @(new RawString(mail.yeu_cau_bs))
+                </div>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Mọi thắc mắc về hồ sơ cần giải đáp hoặc hỗ trợ, vui lòng liên hệ:</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold">
+                    <span style="font-family: 'Tahoma'; font-size: 14px;">@mail.ten_cong_ty</span>
+                </p>
+
+                <ul style="font-family: 'Tahoma'; font-size: 14px; line-height: 20px">
+                    <li>Địa chỉ:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.dchi_dt</span></li>
+                    <li>Số điện thoại:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.d_thoai_dt</span></li>
+                    <li>Email:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.email_dt</span></li>
+                </ul>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold">Rất mong nhận được hồi âm của Quý khách</p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold">Trân trọng Cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

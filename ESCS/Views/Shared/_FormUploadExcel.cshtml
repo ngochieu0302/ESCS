@@ -1,0 +1,50 @@
+﻿<div id="modalUploadExcel" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg" style="max-width: 900px;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Upload excel</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmImportExcel" method="post">
+                    <input type="file" style="display:none" id="frmImportExcelFile" onchange="xemNoiDungFile(this)" name="file" value="" />
+                </form>
+                <i class="dtbh" id="frm_bh_hd_update_nd" style="font-weight: bold;color: red;"></i>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive scrollable" style="max-height:300px">
+                            <table id="table_import_excel" class="table table-bordered fixed-header text-nowrap">
+                                <thead class="font-weight-bold text-center uppercase">
+                                    <tr></tr>
+                                </thead>
+                                <tbody id="PreviewImportExcel">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnUploadExcel">
+                            <i class="fa fa-save"></i>&nbsp;&nbsp;Upload
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnSaveExcel">
+                            <i class="fas fa-save"></i>&nbsp;&nbsp;Lưu
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnNewExcel">
+                            <i class="fas fa-sync"></i>&nbsp;&nbsp;Mới
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnTaiTemplate">
+                            <i class="fas fa-download mr-2"></i>Tải Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/CommonService.js"></script>
+}

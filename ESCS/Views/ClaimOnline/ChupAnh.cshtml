@@ -1,0 +1,278 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS
+@model ESCS.MODEL.ESCS.bh_bt_ho_so_giay_to_link
+@{
+    ViewData["Title"] = "Chụp ảnh";
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var logo = "images/logo-icon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var logo_ung_dung = setting.cai_dat.Where(n => n.loai == "LOGO_DANG_NHAP").FirstOrDefault();
+        logo = logo_ung_dung != null && !string.IsNullOrEmpty(logo_ung_dung.url_anh) ? logo_ung_dung.url_anh : logo;
+    }
+}
+@Html.AntiForgeryToken()
+<input type="hidden" id="short_link" value="@Model.short_link" />
+<div id="page404" class="d-none" style="position: relative; height: 100vh;">
+    <section class="main-content-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                        </div>
+                        <h2 class="h1">Không xác định được đường dẫn</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="page_ddos" class="d-none" style="position: relative; height: 100vh;">
+    <section class="main-content-error">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdThree"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondTwo"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstOne"></span></div></div>
+                        </div>
+                        <h2 class="h1">Bạn đã truy cập ứng dụng quá nhiều lần trong một khoảng thời gian ngắn. Vui lòng chờ đợi 5 phút để có thể tiếp tục thực hiện.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@*STEP - 1*@
+<div id="trang_chu" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container-fuild header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <a class="navbar-brand" href="javascript:void(0);">
+                                <img src="/@logo" alt="Logo" class="rounded app_logo" style="width:120px">
+                            </a>
+                            <span class="slogan d-block app_ten_cty_bh"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="section-content rounded">
+            <div class="container-xl mx-auto">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-10 col-md-12 col-12 mx-auto px-3">
+                        <div class="card border mb-0" style="border-radius: 15px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size:14px;"><i class="fa fa-address-book mr-2"></i>Thông tin hồ sơ bồi thường</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinHoSo">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border mb-0 mt-3" style="border-radius: 15px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size: 14px;"><i class="fas fa-user mr-2"></i>Thông tin đối tượng bảo hiểm</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinDoiTuongBaoHiem">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12">
+                            <a href="javascript:void(0);" class="btn btn-button cursor-pointer" id="chupAnh"><i class="fas fa-camera-alt mr-2"></i>Chụp ảnh</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div id="hinh_anh" class="d-none">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between py-1" style="font-size:16px; font-weight: 500;">
+                            <a id="btnQuayLai" class="cursor-pointer" href="javascript:void(0);"><i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Trang chủ</a>
+                            <span style="margin:unset;">Danh sách hình ảnh</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" id="divDanhSachHinhAnh">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12">
+                            <a href="javascript:void(0);" id="btnUpload" class="btn btn-button"><i class="fas fa-upload mr-2"></i> Tải ảnh</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+<div id="device-detect" class="d-none">
+    <section class="main-wrapper">
+        <header class="header-personal">
+            <div class="container header-top">
+                <div class="row">
+                    <div class="col-12">
+                        <a class="navbar-brand" href="javascript:void(0);">
+                            <img src="/@logo" alt="logo" class="rounded" width="150" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <img class="img-fluid" src="~/images/warning.png" style="max-width:60px" />
+                    <h5 class="mg-t-25 mg-b-15 font-weight-bold">Thiết bị hỗ trợ không đúng</h5>
+                    <h6>Landing Page đánh giá rủi ro chỉ được sử dụng trên các thiết bị di động</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/html" id="divThongTinHoSoTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- ho_so.ten_kh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Điện thoại: <span><%- ho_so.dthoai %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số hồ sơ: <span><%- ho_so.so_hs %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày mở hồ sơ: <span><%- ho_so.ngay_mo_hs %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Cán bộ xử lý: <span><%- ho_so.can_bo_xly %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số điện thoại tổng đài: <span><%- ho_so.sdt_tong_dai %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy lẻ cán bộ hỗ trợ: <span><%- ho_so.dthoai_lhe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Email cán bộ hỗ trợ: <span><%- ho_so.email_lhe %></span></p>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="divThongTinDoiTuongBaoHiemTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên chủ xe: <span><%- ho_so.ten_chu_xe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Biển số xe: <span><%- ho_so.bien_xe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số khung: <span><%- ho_so.so_khung %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy: <span><%- ho_so.so_may %></span></p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-6 px-0">
+            <p class="field-name">Hãng xe: <span><%- ho_so.hang_xe %></span></p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-6 px-0">
+            <p class="field-name">Hiệu xe: <span><%- ho_so.hieu_xe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Hiệu lực: <span><%- ho_so.hieu_luc %></span></p>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="divDanhSachHinhAnhTemplate">
+    <% if(hinh_anh.length > 0){
+    _.forEach(hinh_anh, function(item, index) { %>
+    <div class="section-header">
+        <h3 class="field-name px-2 font-weight-bold" style="font-size: 14px;"><%- item.ten %></h3>
+        <div class="take-photo">
+            <div class="take-photo-feed d-flex flex-wrap" id="divHinhAnh<%- item.ma %>">
+                <% if(item.files.length > 0){
+                _.forEach(item.files, function(file, index) { %>
+                <input class="d-none" onchange="onChangeAnh(this)" data-ma="<%- item.ma %>" id="<%- file.file_name %>" name="<%- file.file_name %>" type="file" accept="image/*" multiple="multiple" capture>
+                <div class="take-photo-item col-6">
+                    <a onclick="chupAnh('<%- file.file_name %>')">
+                        <img class="img-fluid img-item" id="img_<%- file.file_name %>" src="~/images/images-default.jpg" alt="img-title" style="width:165px; height:124px;" />
+                    </a>
+                </div>
+                <% })}%>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>
+<script type="text/html" id="divHinhAnhTemplate">
+    <input class="d-none" onchange="onChangeAnh(this)" data-ma="<%- ma %>" id="<%- file_name %>" name="<%- file_name %>" type="file" accept="image/*">
+    <div class="take-photo-item col-6">
+        <a onclick="chupAnh('<%- file_name %>')">
+            <img class="img-fluid img-item" id="img_<%- file_name %>" src="~/images/images-default.jpg" alt="img-title" style="width:165px; height:124px;" />
+        </a>
+    </div>
+</script>
+
+@section Scripts{
+    <script src="~/js/common/Service.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ModalService.js" asp-append-version="true"></script>
+    <script src="~/js/common/FormService.js" asp-append-version="true"></script>
+    <script src="~/js/common/NotifyService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESLoading.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESUtil.js" asp-append-version="true"></script>
+    <script src="~/js/app/ClaimOnline/TakePhotoOnline.js" asp-append-version="true"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+}

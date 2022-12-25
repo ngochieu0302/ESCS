@@ -1,0 +1,222 @@
+﻿<script type="text/html" id="tblLichSuTonThatConNguoi_template">
+    <% if(arrHoSo.length > 0){ %>
+    <% _.forEach(arrHoSo, function(item,index) { %>
+    <tr class="text-center lichSuTonThat" id="lichSuTonThat_<%- item.so_id %>_<%- item.lhnv %>" data-search="<%- item.nd_tim %>">
+        <td><%- item.ngay_ht %></td>
+        <td>
+            <% if(item.loai == 'HSTT'){ %>
+            <a href="#" onclick="TransReceiveDisplay('<%- item.ma_doi_tac%>','<%- item.so_id%>')"><%- item.so_hs %></a>
+            <%}%>
+            <% if(item.loai == 'BLVP'){ %>
+            <a href="#" onclick="TransHealthguaranteeDisplay('<%- item.ma_doi_tac%>','<%- item.so_id%>')"><%- item.so_hs%></a>
+            <%}%>
+        </td>
+        <td><%= item.loai_ten%></td>
+        <td><%- item.ngay_vv %></td>
+        <td><%- item.ngay_rv %></td>
+        <td><%- item.hinh_thuc_ten %></td>
+        <td><%- item.ten_nguyen_nhan %></td>
+        <td class="text-left"><%- item.quyen_loi_ten %></td>
+        <td class="text-left"><%- item.ten_benh_vien %></td>
+        <td class="text-left"><%- item.chan_doan %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_duyet) %></td>
+        <td class="text-right"><%- item.so_ngay_duyet %></td>
+        <td class="text-center"><%- item.trang_thai %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null && item.nguyen_nhan != '' && item.nguyen_nhan != undefined){ %>
+            <a href="#" data-field="nguyen_nhan" data-val="<%- item.nguyen_nhan %>" onclick="showNguyenNhanGiamTru(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Lý do giảm trừ"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhanGiamTru(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Lý do giảm trừ"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu != '' && item.ghi_chu != undefined){ %>
+            <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu %>" onclick="showGhiChuLSTT(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="ghi_chu" data-val="" onclick="showGhiChuLSTT(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+
+    <% if(arrHoSo.length < 11){
+    for(var i = 0; i < 11 - arrHoSo.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="tblLichSuTonThatConNguoiGroup_template">
+    <% if(arrHoSo.length > 0){ %>
+    <% _.forEach(arrHoSo, function(item,index) { %>
+    <tr class="text-center lichSuTonThat" id="lichSuTonThat_<%- item.so_id %>_<%- item.lhnv %>" data-search="<%- item.nd_tim %>">
+        <td class="text-left"><%- item.quyen_loi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_duyet) %></td>
+        <td class="text-right"><%- item.so_ngay_duyet %></td>
+    </tr>
+    <% })}%>
+
+    <% if(arrHoSo.length < 4){
+    for(var i = 0; i < 4 - arrHoSo.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@* Lấy danh sách top 5 hợp đồng tái tục *@
+<script type="text/html" id="tblTop5DanhSachHD_template">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr class="hop_dong_tai_tuc" id="hop_dong_tai_tuc_<%- item.so_id_hd %>" onclick="xemLSTTTop5('<%- item.so_id_hd %>')">
+        <td class="text-center"><%- item.so_hd %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_duyet) %></td>
+        <td class="text-center"><%- item.so_ngay_duyet %></td>
+    </tr>
+    <% })}%>
+
+    <% if(data.length < 4){
+    for(var i = 0; i < 4 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@* Lấy lịch sử tổn thất top 5 *@
+<script type="text/html" id="tblLichSuTonThatConNguoiTop5_template">
+    <% if(arrHoSo.length > 0){ %>
+    <% _.forEach(arrHoSo, function(item,index) { %>
+    <tr class="text-center lichSuTonThat" id="lichSuTonThat_<%- item.so_id %>_<%- item.lhnv %>" data-search="<%- item.nd_tim %>">
+        <td><%- item.ngay_ht %></td>
+        <td>
+            <% if(item.loai == 'HSTT'){ %>
+            <a href="#" onclick="TransReceiveDisplay('<%- item.ma_doi_tac%>','<%- item.so_id%>')"><%- item.so_hs %></a>
+            <%}%>
+            <% if(item.loai == 'BLVP'){ %>
+            <a href="#" onclick="TransHealthguaranteeDisplay('<%- item.ma_doi_tac%>','<%- item.so_id%>')"><%- item.so_hs %></a>
+            <%}%>
+        </td>
+        <td><%- item.so_hd %></td>
+        <td><%= item.loai_ten%></td>
+        <td><%- item.ngay_vv %></td>
+        <td><%- item.ngay_rv %></td>
+        <td><%- item.hinh_thuc_ten %></td>
+        <td><%- item.ten_nguyen_nhan %></td>
+        <td class="text-left"><%- item.quyen_loi_ten %></td>
+        <td class="text-left"><%- item.ten_benh_vien %></td>
+        <td class="text-left"><%- item.chan_doan %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_duyet) %></td>
+        <td class="text-right"><%- item.so_ngay_duyet %></td>
+        <td class="text-center"><%- item.trang_thai %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null && item.nguyen_nhan != '' && item.nguyen_nhan != undefined){ %>
+            <a href="#" data-field="nguyen_nhan" data-val="<%- item.nguyen_nhan %>" onclick="showNguyenNhanGiamTru(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Lý do giảm trừ"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhanGiamTru(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Lý do giảm trừ"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu != '' && item.ghi_chu != undefined){ %>
+            <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu %>" onclick="showGhiChuLSTT(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="ghi_chu" data-val="" onclick="showGhiChuLSTT(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+
+    <% if(arrHoSo.length < 4){
+    for(var i = 0; i < 4 - arrHoSo.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@* Lấy lịch sử tổn thất theo quyền lợi top 5 *@
+<script type="text/html" id="tblLichSuTonThatConNguoiGroupTop5_template">
+    <% if(arrHoSo.length > 0){ %>
+    <% _.forEach(arrHoSo, function(item,index) { %>
+    <tr class="text-center lichSuTonThat" id="lichSuTonThat_<%- item.so_id %>_<%- item.lhnv %>" data-search="<%- item.nd_tim %>">
+        <td class="text-left"><%- item.quyen_loi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_duyet) %></td>
+        <td class="text-right"><%- item.so_ngay_duyet %></td>
+    </tr>
+    <% })}%>
+
+    <% if(arrHoSo.length < 4){
+    for(var i = 0; i < 4 - arrHoSo.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+

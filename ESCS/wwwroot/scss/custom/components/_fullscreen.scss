@@ -1,0 +1,16 @@
+// ###############################################
+// Wizard
+// ###############################################
+#CarCompensationContentStep4Tab1:fullscreen > .card{
+	padding:20px;
+	height:100vh;
+}
+#CarCompensationContentStep4Tab1:fullscreen .step4btn {
+	display: none;
+}
+#CarCompensationContentStep4Tab1:not(:fullscreen) #tblTinhToan {
+	max-height: 227px;
+}
+#CarCompensationContentStep4Tab1:fullscreen #tblTinhToan {
+	max-height: 65vh;
+}

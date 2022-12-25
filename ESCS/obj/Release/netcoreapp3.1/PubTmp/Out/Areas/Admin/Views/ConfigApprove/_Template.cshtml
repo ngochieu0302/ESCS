@@ -1,0 +1,93 @@
+﻿<script type="text/html" id="ds_chi_nhanh_tkiem_template">
+    <% _.forEach(cnhanh, function(item, index) { %>
+    <% var ma_chi_nhanh = cnhanh[index].ma.trim().replace(/[^a-zA-Z0-9]/g, '') %>
+    <div class="custom-control custom-checkbox chi_nhanh" id="chi_nhanh_<%- ma_chi_nhanh%>">
+        <%
+        if(item.chon=='1')
+        {
+        %>
+        <input type="checkbox" onchange="chonChiNhanh(this)" id="chi_nhanh_ma_<%- item.ma %>" value="<%- item.ma %>" checked="checked" class="custom-control-input item-chi-nhanh-duyet">
+        <%
+        }
+        else
+        {
+        %>
+        <input type="checkbox" onchange="chonChiNhanh(this)" id="chi_nhanh_ma_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-chi-nhanh-duyet">
+        <%
+        }
+        %>
+        <label class="custom-control-label" for="chi_nhanh_ma_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <%})%>
+</script>
+
+<script type="text/html" id="ds_can_bo_tkiem_template">
+    <% _.forEach(nsd_duyet, function(item, index) { %>
+    <% var ma_cb = nsd_duyet[index].ma.trim().replace(/[^a-zA-Z0-9]/g, '') %>
+    <tr data-nhom-chi-nhanh="<%- item.ma_chi_nhanh %>" data-ma-cb="<%- ma_cb %>" class="ma_cb" id="ma_cb_<%- ma_cb%>">
+        <td style="width:30px">
+            <%
+            if(item.chon=='1')
+            {
+            %>
+            <div style="width:16px; margin:0 auto">
+                <input type="checkbox" onchange="chonCanBoDuyet(this, '<%- item.ma_chi_nhanh %>')" data-chi-nhanh="<%- item.ma_chi_nhanh %>" value="<%- item.ma %>" checked class="form-control item-chon" />
+            </div>
+            <%
+            }
+            else
+            {
+            %>
+            <div style="width:16px; margin:0 auto">
+                <input type="checkbox" onchange="chonCanBoDuyet(this, '<%- item.ma_chi_nhanh %>')" data-chi-nhanh="<%- item.ma_chi_nhanh %>" value="<%- item.ma %>" class="form-control item-chon" />
+            </div>
+            <%
+            }
+            %>
+        </td>
+        <td style="padding: 7px 10px"><%- item.ten %></td>
+        <td>
+            <% if(item.chon == '1'){ %>
+            <input style="text-align:center" type="text" data-stt="<%- item.ma_chi_nhanh + '/' + item.ma + '/stt' %>" class="decimal floating-input" value="<%- item.stt %>" />
+            <% }else{ %>
+            <input style="text-align:center" type="text" readonly="readonly" data-stt="<%- item.ma_chi_nhanh + '/' + item.ma + '/stt' %>" class="decimal floating-input" value="<%- item.stt %>" />
+            <% } %>
+        </td>
+        <td>
+            <% if(item.chon == '1'){ %>
+            <input style="text-align:center" type="text" data-thu-tu-duyet="<%- item.ma_chi_nhanh + '/' + item.ma + '/thu_tu_duyet' %>" class="decimal floating-input" value="<%- item.thu_tu_duyet %>" />
+            <% }else{ %>
+            <input style="text-align:center" type="text" readonly="readonly" data-thu-tu-duyet="<%- item.ma_chi_nhanh + '/' + item.ma + '/thu_tu_duyet' %>" class="decimal floating-input" value="<%- item.thu_tu_duyet %>" />
+            <% } %>
+        </td>
+        <td style="width:87px">
+            <%
+            if(item.phe_duyet=='1' && item.chon=='1')
+            {
+            %>
+            <div style="width:16px; margin:0 auto">
+                <input type="checkbox" onchange="chonPheDuyet(this)" data-phe-duyet="<%- item.ma_chi_nhanh+'/'+item.ma %>" checked="checked" class="form-control" />
+            </div>
+            <%
+            }
+            else if(item.phe_duyet=='0' && item.chon=='1')
+            {
+            %>
+            <div style="width:16px; margin:0 auto">
+                <input type="checkbox" onchange="chonPheDuyet(this)" class="form-control" data-phe-duyet="<%- item.ma_chi_nhanh+'/'+item.ma %>" />
+            </div>
+            <%
+            }
+            else
+            {
+            %>
+            <div style="width:16px; margin:0 auto">
+                <input type="checkbox" onchange="chonPheDuyet(this)" disabled="disabled" class="form-control" data-phe-duyet="<%- item.ma_chi_nhanh+'/'+item.ma %>" />
+            </div>
+            <%
+            }
+            %>
+        </td>
+    </tr>
+    <%})%>
+</script>

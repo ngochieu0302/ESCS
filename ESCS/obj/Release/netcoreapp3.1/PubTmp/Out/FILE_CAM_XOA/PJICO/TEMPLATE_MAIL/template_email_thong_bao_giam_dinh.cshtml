@@ -1,0 +1,62 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO LỊCH GIÁM ĐỊNH</title>
+</head>
+<body style="font-family: 'Tahoma'">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO LỊCH GIÁM ĐỊNH</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p>Kính gửi : <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">Quý khách hàng / Giám định viên</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">@mail.ten_cty, xin gửi tới Quý Khách hàng, giám định viên hiện trường lịch giám định xe <span class="name_body" style="color: #4552a2">@mail.doi_tuong</span> theo hợp đồng bảo hiểm <span class="name_body" style="color: #4552a2">@mail.so_hd</span> như sau:</p>
+                
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:10px;">Số hồ sơ: <span style="color: #4552a2">@mail.so_hs</span></p>
+                
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">Ngày giờ giám định: <span style="color: #4552a2">@mail.ngay_gd</span></p>
+                
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">Nơi giám định: <span style="color: #4552a2">@mail.dia_diem</span></p>
+                
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">Thông tin cán bộ giám định: <span style="color: #4552a2">@mail.thong_tin_gdv</span></p>
+                
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">
+                    Thông tin liên hệ khách hàng: <span style="color: #4552a2">
+                        @mail.nguoi_lhe - @mail.dthoai_lhe @if (!string.IsNullOrEmpty(mail.email_lhe))
+                        {<span>- @mail.email_lhe</span>}
+                    </span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-weight: bold; margin-top: 10px;">
+                    <span>
+                        * Đề nghị Quý khách chuẩn bị các giấy tờ cần thiết (giấy đăng ký xe, giấy đăng kiểm xe, bằng lái xe, giấy chứng nhận bảo hiểm) để thực hiện giám định theo đúng lịch đã hẹn.
+                    </span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-weight: bold; margin-top: 10px;">
+                    <span>
+                        * Đề nghị Giám định viên @mail.ten_dvi_cap liên hệ với Trung tâm Giám định trước khi chụp ảnh tổn thất để được hướng dẫn chi tiết.
+                    </span>
+                </p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 3px;">Trường hợp cần hỗ trợ thêm, vui lòng liên hệ hotline <span style="color: #4552a2">@mail.dthoai_cty</span></p>
+
+                <ul style="font-family: 'Tahoma'; font-size: 14px; line-height: 20px">
+                    <li>Công ty:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_cty</span></li>
+                    <li>Địa chỉ:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.dia_chi_cty</span></li>
+                    <li>Website:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299"><a href="@mail.website_cty">@mail.website_cty</a></span></li>
+                </ul>
+                <p style="color: #035299; font-weight: bold">Trân trọng Cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

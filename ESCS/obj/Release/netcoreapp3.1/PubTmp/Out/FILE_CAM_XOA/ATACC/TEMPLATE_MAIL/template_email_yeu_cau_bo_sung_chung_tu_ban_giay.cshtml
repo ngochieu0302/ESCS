@@ -1,0 +1,99 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@using RazorEngine.Text;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+    var dsBenhVien = data.data_info.data1;
+    string ma_mau = "#035299";
+    if (mail.ma_doi_tac == "ATACC")
+        ma_mau = "#e002ac";
+}
+<html>
+<head>
+    <title>THÔNG BÁO YÊU CẦU BỔ SUNG CHỨNG TỪ BẢN GIẤY</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        table {
+            font-family: 'Tahoma';
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="border: 1px solid #035299; border-radius: 5px; background-color: azure; font-family: 'Tahoma'; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <div style="margin-top:20px;">
+                <img style="width:170px" src="@mail.logo_email" alt="Logo" />
+            </div>
+            <h3 style="color: @ma_mau; text-align: center">
+                THÔNG BÁO YÊU CẦU BỔ SUNG CHỨNG TỪ BẢN GIẤY
+                <br>Số hồ sơ: @mail.so_hs
+                <p style="font-family: 'Tahoma'; font-size: 16px; color:red; margin-top: 5px;">
+                    <i>(Đây là email tự động, Quý khách vui lòng không Reply email này)</i>
+                </p>
+            </h3>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">
+                    Kính gửi Ông (Bà): <span style="color: @ma_mau">@mail.ten_khach</span>
+                </p>
+                <p style="margin: 8px 0px;">
+                    Ngày @mail.ngay_ht, @mail.ten_cong_ty_tat đã nhận được hồ sơ bổ sung online của Quý khách.
+                </p>
+                <p style="margin: 8px 0px;">
+                    Sau khi xem xét hồ sơ do Quý khách cung cấp, để có đủ cơ sở xem xét và giải quyết quyền lợi bảo hiểm đúng quy định, @mail.ten_cong_ty_tat kính đề nghị Quý khách <span class="font-weight-bold">
+                        In mail Thông báo này kèm bản giấy các chứng từ
+                        được yêu cầu bổ sung và gửi chuyển phát hành hoặc trực tiếp đến:
+                    </span>
+                </p>
+                <ul style="line-height: 20px; margin: 8px 0px;">
+                    <li>
+                        Nơi nhận hồ sơ: <span style="color: @ma_mau">@mail.ten_cong_ty</span>
+                    </li>
+                    <li>
+                        Địa chỉ: <span style="color: @ma_mau">@mail.dchi_dt</span>
+                    </li>
+                </ul>
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">
+                    Trong mọi trường hợp cần thiết, @mail.ten_cong_ty_tat có thể tiếp tục đề nghị Qúy khách bổ sung thêm chứng từ để làm rõ phạm vi bảo hiểm và hồ sơ
+                    chỉ được thông báo phương án giải quyết sau khi @mail.ten_cong_ty_tat nhận được đầy đủ hồ sơ bản giấy.
+                </p>
+                <p style="color:red">Sau 30 ngày, nếu @mail.ten_cong_ty_tat chưa nhận được chứng từ bổ sung của Quý khách, hồ sơ sẽ được giải quyết bồi thường dựa trên chứng từ hiện có.</p>
+                <p>
+                    Để tra cứu tình trạng hồ sơ và quá trình giải quyết, Ông/Bà <span style="color: @ma_mau">@mail.ten_khach</span> vui lòng truy cập ứng dụng @mail.ten_cong_ty_tat trên mobile
+                </p>
+                <p style="margin: 8px 0px; font-weight: bold; color: @ma_mau;">Trân trọng Cảm ơn!</p>
+                <br />
+                <hr />
+                <p style="font-family: 'Tahoma'; font-size: 10px; margin-top: 5px; opacity:0.4;">
+                    <span>
+                        Email này cùng các tệp tin đính kèm là các thông tin bảo mật của @mail.ten_cong_ty_tat và có mục đích chỉ gửi cho những người nhận được nêu tại email.
+                        Nếu Quý vị không phải là người nhận dự kiến của email này cùng các tập tin kèm theo, vui lòng không thực hiện bất cứ hành động nào trên cơ sở email và các tập tin này. Việc chia sẻ hoặc tiết lộ bất cứ nội dung nào của email này hoặc bất kỳ tập tin đính kèm nào là không được phép, trừ khi có sự đồng ý trước bằng văn bản của @mail.ten_cong_ty_tat.
+                        Trường hợp Quý vị nhận được email này do có sự nhầm lẫn hoặc lỗi hệ thống, vui lòng thông báo ngay cho @mail.ten_cong_ty_tat bằng việc phản hồi lại email này, đồng thời xóa email này cùng các tập tin đính kèm khỏi hệ thống của Quý vị.
+                        @mail.ten_cong_ty_tat không chịu bất kỳ trách nhiệm nào về bất cứ sự truyền tải không chính xác, không đầy đủ hay không kịp thời của bất kỳ thông tin nào trong email. Mặc dù @mail.ten_cong_ty_tat đã thực hiện các biện pháp cần thiết để đảm bảo email này không có chứa virus, @mail.ten_cong_ty_tat không chịu trách nhiệm đối với bất cứ thiệt hại hay tổn thất nào phát sinh từ việc nhận hoặc sử dụng email hoặc bất kỳ tệp tin đính kèm nào.
+                    </span>
+                </p>
+                <p style="font-family: 'Tahoma'; font-size: 10px; margin-top: 10px; opacity:0.4;">
+                    <span>
+                        This email and any file transmitted with it are confidential information of @mail.ten_cong_ty_tat and intended solely for the use of the individual or entity to whom they are addressed.
+                        If you are not the intended recipient, please do not take any action in reliance on this email.
+                        Without prior written consent of @mail.ten_cong_ty_tat, any disclosure or distribution of this email or any of its attachments is strictly prohibited.
+                        If you have received this email in error, kindly notify @mail.ten_cong_ty_tat immediately by replying to this email and then delete this email along with all attachments from your system.
+                        @mail.ten_cong_ty_tat shall not take any responsibility for any improper, incomplete or delayed transmission of any information contained in this email. Although @mail.ten_cong_ty_tat has taken reasonable precautions to ensure no viruses are present in this email, @mail.ten_cong_ty_tat shall not accept responsibility for any loss or damage arising from the receipt or use of this email or any attachment.
+                    </span>
+                </p>
+                <hr />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

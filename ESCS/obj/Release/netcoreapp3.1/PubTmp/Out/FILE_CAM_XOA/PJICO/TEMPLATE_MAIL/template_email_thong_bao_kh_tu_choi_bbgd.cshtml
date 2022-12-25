@@ -1,0 +1,44 @@
+﻿@using ESCS.COMMON.Response;
+@using RazorEngine.Templating;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO KHÁCH HÀNG TỪ CHỐI BIÊN BẢN GIÁM ĐỊNH</title>
+</head>
+<body style="font-family: 'Tahoma';font-size: 14px;line-height: 1.6;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO KHÁCH HÀNG TỪ CHỐI BIÊN BẢN GIÁM ĐỊNH</h2>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi : <span style="color: #035299">Bộ phận giám định</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    Hệ thống thông báo khách hàng đã phản hồi về từ chối biên bản giám định, số hồ sơ: <span style="color: #035299">@mail.so_hs - @mail.doi_tuong</span>
+                    theo hợp đồng bảo hiểm <span style="color: #035299">@mail.so_hd</span>
+
+                    <ul style="font-family: 'Tahoma'; font-size: 14px;">
+                        <li>Người liên hệ : <span style="color: #4552a2">@mail.nguoi_lhe</span></li>
+                        <li>Số điện thoại: <span style="color: #4552a2">@mail.dthoai_lhe</span></li>
+                        <li>
+                            Email: @if (!string.IsNullOrEmpty(mail.email_lhe))
+                            {<span style="color: #4552a2">@mail.email_lhe</span>}
+                        </li>
+                    </ul>
+
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Đề nghị bộ phận giám định/bồi thường thực hiện các bước tiếp theo theo quy định.</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold; margin-top: 5px;">Trân trọng Cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

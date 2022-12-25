@@ -1,0 +1,101 @@
+﻿<div class="row mx-0 pos-relative">
+    <div class="col-12 pr-0 pl-0">
+        <div class="table-responsive" style="max-height: 23vh;">
+            <table style="width:100%;" class="table table-bordered fixed-header">
+                <thead class="text-center font-weight-bold">
+                    <tr>
+                        <th width="40%">Số hợp đồng</th>
+                        <th width="20%">Tổng tiền yêu cầu</th>
+                        <th width="20%">Tổng tiền duyệt</th>
+                        <th width="20%">Tổng số ngày duyệt</th>
+                    </tr>
+                </thead>
+                <tbody id="tblTop5DanhSachHD">
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered fixed-header">
+                <tr style="background-color: #f8f9fa;">
+                    <td class="p-1">
+                        <div class="form-group m-0">
+                            <div class="input-group">
+                                <div style="width:20%">
+                                    <select id="kieuXemLSTTTop5" class="select2 form-control custom-select" name="nguon" style="width:100%">
+                                        <option value="KIEU1" selected>Kiểu 1</option>
+                                        <option value="KIEU2">Kiểu 2</option>
+                                    </select>
+                                </div>
+                                <input type="text" autocomplete="off" class="form-control" id="inputSearch_LichSuTonThatTop5" placeholder="Nhập tên quyền lợi bảo hiểm">
+                                <div class="input-group-append">
+                                    <label class="input-group-text">
+                                        <a href="#" id="btnExportExcelLSTTTop5">
+                                            <i class="fas fa-download" title="Export lịch sử tổn thất"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive" style="max-height: 39.5vh;" id="div_kieu_1_top_5">
+            <table style="width:300%;" class="table table-bordered fixed-header">
+                <thead class="text-center font-weight-bold">
+                    <tr>
+                        <th>Ngày mở</th>
+                        <th>Số hồ sơ</th>
+                        <th>Số hợp đồng</th>
+                        <th>Loại</th>
+                        <th>Ngày vv</th>
+                        <th>Ngày rv</th>
+                        <th>Hình thức điều trị</th>
+                        <th>Nguyên nhân</th>
+                        <th>Quyền lợi</th>
+                        <th>Cơ sở y tế</th>
+                        <th style="width: 25%;">Chẩn đoán</th>
+                        <th>Tiền yêu cầu</th>
+                        <th>Tiền duyệt</th>
+                        <th>Số ngày duyệt</th>
+                        <th>Trạng thái</th>
+                        <th>Lý do giảm trừ</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody id="tblLichSuTonThatConNguoiTop5">
+                </tbody>
+                <tfoot>
+                    <tr class="font-weight-bold text-center">
+                        <td colspan="11">Tổng cộng</td>
+                        <td class="text-right font-weight-bold text-danger" id="tongTienYeuCauLSTTTop5"></td>
+                        <td class="text-right font-weight-bold text-danger" id="tongTienDuyetLSTTTop5"></td>
+                        <td colspan="4"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="table-responsive" style="max-height: 39.5vh;" id="div_kieu_2_top_5">
+            <table style="width:100%;" class="table table-bordered fixed-header">
+                <thead class="text-center font-weight-bold">
+                    <tr>
+                        <th>Quyền lợi</th>
+                        <th>Tổng tiền yêu cầu</th>
+                        <th>Tổng tiền duyệt</th>
+                        <th>Tổng số ngày duyệt</th>
+                    </tr>
+                </thead>
+                <tbody id="tblLichSuTonThatConNguoiGroupTop5">
+                </tbody>
+                <tfoot>
+                    <tr class="font-weight-bold text-center">
+                        <td>Tổng cộng</td>
+                        <td class="text-right font-weight-bold text-danger" id="tongTienYeuCauLSTTGroupTop5"></td>
+                        <td class="text-right font-weight-bold text-danger" id="tongTienDuyetLSTTGroupTop5"></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

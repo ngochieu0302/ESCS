@@ -1,0 +1,56 @@
+﻿<script type="text/html" id="bodyTableDsVatTuTemplate">
+    <% if(data_info.length > 0){
+    _.forEach(data_info, function(item, index) { %>
+    <tr class="ntba-row thuhoi-item-<%- item.bt %>">
+        <td>
+            <% if(item.so_id_tl == null || item.so_id_tl == 0){
+            if(item.chon != undefined && item.chon != null && item.chon==true)
+            {
+            %>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" checked="checked" data-tien="<%- item.tien %>" data-bt="<%- item.bt %>" data-info="<%- JSON.stringify(item) %>" onchange="checkItem(this)" class="custom-control-input thuhoi-item" value="<%- item.bt %>" id="tableDsNguoiThuDoiCheck_<%- item.bt %>" />
+                <label class="custom-control-label" for="tableDsNguoiThuDoiCheck_<%- item.bt %>"><b style="font-weight:bold">&nbsp;</b></label>
+            </div>
+            <%
+            }
+            else
+            {
+            %>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" data-tien="<%- item.tien %>" data-bt="<%- item.bt %>" data-info="<%- JSON.stringify(item) %>" onchange="checkItem(this)" class="custom-control-input thuhoi-item" value="<%- item.bt %>" id="tableDsNguoiThuDoiCheck_<%- item.bt %>" />
+                <label class="custom-control-label" for="tableDsNguoiThuDoiCheck_<%- item.bt %>"><b style="font-weight:bold">&nbsp;</b></label>
+            </div>
+            <%
+            }} else {%>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" checked="checked" disabled="disabled" data-tien="<%- item.tien %>" data-bt="<%- item.bt %>" data-info="<%- JSON.stringify(item) %>" onchange="checkItem(this)" class="custom-control-input thuhoi-item" value="<%- item.bt %>" id="tableDsNguoiThuDoiCheck_<%- item.bt %>" />
+                <label class="custom-control-label" for="tableDsNguoiThuDoiCheck_<%- item.bt %>"><b style="font-weight:bold">&nbsp;</b></label>
+            </div>
+            <% }%>
+        </td>
+        <td><span id="bodyTableDsVatTu_SoHS_<%- item.bt %>"><%- item.so_hs %></span></td>
+        <td>
+            <input type="hidden" id="bodyTableDsVatTu_HangMuc_<%- item.bt %>" name="name" value="<%- item.hang_muc %>" />
+            <span id="bodyTableDsVatTu_Ten_<%- item.bt %>"><%- item.ten %></span>
+        </td>
+        <td class="text-right">
+            <input type="text" class="number wd-80-f floating-input" onchange="tinhLaiTien(this,'<%- item.bt %>')" id="bodyTableDsVatTu_Tien_<%- item.bt %>" value="<%- ESUtil.formatMoney(item.tien) %>" />
+        </td>
+        <td><input type="text" class="wd-360-f floating-input" id="bodyTableDsVatTu_GhiChu_<%- item.bt %>" value="<%- item.ghi_chu %>" /></td>
+    </tr>
+    <% })} %>
+
+    <% if(data_info.length < 6){
+    for(var i = 0; i < 6 - data_info.length;i++ ){
+    %>
+    <tr>
+        <td>
+            <div class="tabulator-cell" role="gridcell" tabulator-field="sott" title="" style="width: 55px; text-align: center; height: 19px;">&nbsp;<div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

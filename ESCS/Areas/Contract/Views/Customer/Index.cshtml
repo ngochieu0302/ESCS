@@ -1,0 +1,206 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Quản lý khách hàng</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Khách hàng</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin mã/tên/sdt khách hàng" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Chi nhánh</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Loại khách hàng</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="loai_kh" style="width: 100%; height:36px;">
+                                    <option value="">Chọn khách hàng</option>
+                                    <option value="T">Tổ chức</option>
+                                    <option value="C">Cá nhân</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnNhapQLKH">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div id="gridViewQLKH" class="table-app" style="height: 64vh;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapQLKH" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmSaveQLKH" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin khách hàng</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <input type="hidden" name="so_id" />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Chi nhánh</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Loại khách hàng</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="loai_kh" style="width: 100%; height:36px;">
+                                    <option value="">Chọn khách hàng</option>
+                                    <option value="T">Tổ chức</option>
+                                    <option value="C">Cá nhân</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Mã khách hàng</label>
+                                <input type="text" maxlength="20" required name="ma" autocomplete="off" class="form-control" placeholder="VD: KH001">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên khách hàng</label>
+                                <input type="text" maxlength="250" name="ten" autocomplete="off" required class="form-control" placeholder="VD: Nguyễn Văn A">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="_required">Địa chỉ</label>
+                                <input type="text" maxlength="250" autocomplete="off" required name="dchi" placeholder="VD: Xã/phường/quận/thành phố..." class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-sm-4" id="mst_cn">
+                            <div class="form-group">
+                                <label class="_required">Mã số thuế</label>
+                                <input type="text" maxlength="20" name="mst" autocomplete="off" required class="form-control text" placeholder="Mã số thuế">
+                            </div>
+                        </div>
+                        <div class="col-sm-4" id="cmt_cn">
+                            <div class="form-group">
+                                <label class="_required">Chứng minh thư</label>
+                                <input type="text" fn-validate="validateCMTControl" maxlength="20" name="cmt" autocomplete="off" required class="form-control" placeholder="Chứng minh thư">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Email</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validateEmailControl" autocomplete="off" required name="email" maxlength="250" class="form-control email-inputmask" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Điện thoại</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" autocomplete="off" maxlength="20" required name="d_thoai" placeholder="VD: 0968xxxxxx">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Liên hệ</label>
+                                <input type="text" maxlength="100" name="lhe" autocomplete="off" class="form-control" placeholder="Liên hệ">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Email liên hệ</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validateEmailControl" autocomplete="off" name="email_lhe" maxlength="250" class="form-control email-inputmask" im-insert="true" placeholder="Email liên hệ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Điện thoại liên hệ</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" autocomplete="off" maxlength="20" name="dthoai_lhe" im-insert="true" placeholder="VD: 0968xxxxxx">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-sm-12">
+                            <div class="form-group green-border-focus">
+                                <label>Nội dung</label>
+                                <textarea class="form-control" maxlength="1000" autocomplete="off" name="nd" placeholder="Nội dung..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnSaveQLKH"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteQLKH"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CustomerService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/Customer.js" asp-append-version="true"></script>
+}

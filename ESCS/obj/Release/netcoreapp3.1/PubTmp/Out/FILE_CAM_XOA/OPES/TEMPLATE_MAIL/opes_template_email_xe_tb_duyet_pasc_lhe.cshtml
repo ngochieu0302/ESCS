@@ -1,0 +1,79 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO DUYỆT PHƯƠNG ÁN SỮA CHỮA</title>
+</head>
+<body style="font-family: 'Tahoma'">
+    <div>
+        <div style="width: 810px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO DUYỆT PHƯƠNG ÁN SỮA CHỮA </h2>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    Kính gửi: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">Quý khách hàng</span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Phương án khắc phục thiệt hại cho xe ô tô <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.doi_tuong</span> của Quý khách
+                    đã được duyệt.
+                    Quý khách vui lòng xem thông tin chi tiết ở file đính kèm (att phương án sửa chữa được duyệt)
+                </p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Quý khách lưu ý, phương án sửa chữa này là chi phí khắc phục thiệt hại hợp lý và chưa phải là phương
+                    án bồi thường chính thức.
+                    Phương án bồi thường chính thức sẽ được thông báo tới Quý khách trong thời gian sớm nhất.
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Nếu có thắc mắc cần giải đáp quý khách vui lòng liên hệ GĐV phụ trách <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_gdv</span>
+                    số điện thoại liên hệ <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.dthoai_gdv</span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Quý khách vui lòng liên hệ tổng đài <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.sdt_tong_dai</span> nếu cần
+                    thêm thông tin chi tiết.
+                </p>
+
+                <br />
+                <p style="color: #035299; font-weight: bold">Trân trọng cảm ơn!</p>
+                <br />
+                <div>
+                    <div style="width:280px; float:left">
+                        <img style=" max-width: 160px; margin-top:20px" src="@mail.logo_email" />
+                    </div>
+                    <div style="float:left;">
+                        <p style="font-family: 'Tahoma'; font-size: 14px; font-weight: bold">
+                            <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.slogan</span>
+                        </p>
+                        <p style="color: #00CCCC; margin: 8px 0px; font-weight: bold; margin-left: 3px;"><span>@mail.ten_cty</span></p>
+
+                        <p style="font-family: 'Tahoma'; font-size: 14px; color:#FF7F50; margin:unset;">
+                            Địa chỉ: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.dia_chi_cty</span>
+                        </p>
+                        <p style="font-family: 'Tahoma'; font-size: 14px; color:#FF7F50; margin:unset;">
+                            Tổng đài: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.sdt_tong_dai <span>(Miễn phí)</span></span>
+                        </p>
+                        <p style="font-family: 'Tahoma'; font-size: 14px; color:#FF7F50; margin:unset;">
+                            Fax: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.fax</span>
+                        </p>
+                        <p style="font-family: 'Tahoma'; font-size: 14px; color:#FF7F50; margin:unset;">
+                            Website: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.website_cty</span>
+                        </p>
+                        <p style="font-family: 'Tahoma'; font-size: 14px; color:#FF7F50; margin:unset;">
+                            Email: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.email_cty</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

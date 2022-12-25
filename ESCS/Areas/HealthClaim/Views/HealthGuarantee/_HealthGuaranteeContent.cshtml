@@ -1,0 +1,106 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="card border mb-0 p-2" style="height:unset">
+    <div class="card-body p-1" style="padding:0px; height: 83vh !important;" id="navBoiThuong">
+        <ul class="nav nav-pills" id="navHealthCareContent" role="tablist" style="background-color:#f8f9fa;">
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="collapse" href="#sidebar_info" role="button" id="main_collapse">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link active" data-toggle="tab" href="#tabThongTinBaoLanh" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-align-justify mr-2"></i>Thông tin bảo lãnh
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="tab" onclick="layDsTaiLieu()" href="#tabHoSoGiayTo" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-file-image  mr-2"></i>Hồ sơ yêu cầu bảo hiểm
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="tab" onclick="layThongTinChungTu()" href="#tabThongTinChungTu" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fal fa-money-bill-alt mr-2"></i>Thông tin thanh toán, thụ hưởng
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="tab" onclick="layLichSuTonThat()" href="#tabLichSuTonThat" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-history mr-2"></i>Lịch sử tổn thất
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link" data-toggle="tab" onclick="layLichSuTonThatTop5()" href="#tabLichSuTonThatTop5" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-layer-group mr-2"></i>Top 5 HĐ tái tục
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="border: unset;">
+            <div class="tab-pane active" role="tabpanel" id="tabThongTinBaoLanh">
+                <partial name="_HealthGuaranteeContent_1" />
+            </div>
+            <div class="tab-pane" role="tabpanel" id="tabHoSoGiayTo">
+                <partial name="_HealthGuaranteeContent_2" />
+            </div>
+            <div class="tab-pane" role="tabpanel" id="tabThongTinChungTu">
+                <partial name="_HealthGuaranteeContent_3" />
+            </div>
+            <div class="tab-pane pl-0" role="tabpanel" id="tabLichSuTonThat" style="position: absolute; width:100%;">
+                <partial name="_HealthGuaranteeContent_4" />
+            </div>
+            <div class="tab-pane pl-0" role="tabpanel" id="tabLichSuTonThatTop5" style="position: absolute; width:100%;">
+                <partial name="_HealthGuaranteeContent_5" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row tab-navigator">
+    <div class="col-12 mg-t-10 px-2">
+        <a href="javascript:void(0)" id="btnXemQRCode" class="mr-2">
+            <i class="fas fa-qrcode mr-1"></i> Xem QRCode
+        </a>
+        <a href="#" class="escs_pquyen step4btn mr-2" id="btnNhanHoSo">
+            <i class="fas fa-files-medical mr-1"></i> Nhận hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnYeuCauBoSungHoSo" class="escs_pquyen mr-2">
+            <i class="fas fa-file-plus mr-1"></i> Yêu cầu bổ sung hồ sơ
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnTrinhPhanCap">
+            <i class="fas fa-share-square mr-1"></i> Trình bảo lãnh
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnTrinhTuChoi">
+            <i class="fas fa-share-square mr-1"></i> Trình từ chối bảo lãnh
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnDuyetLanBaoLanh">
+            <i class="fas fa-check mr-1"></i> Duyệt bảo lãnh
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnTuChoiboithuong">
+            <i class="fas fa-regular fa-ban mr-1"></i> Từ chối bảo lãnh
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnHuyDuyetLanBaoLanh">
+            <i class="fas fa-times-circle mr-1"></i> Hủy duyệt bảo lãnh
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnXoaTuChoiboithuong">
+            <i class="fas fa-times-circle mr-1"></i> Gỡ từ chối bảo lãnh
+        </a>
+        <a href="#" id="btnCopyLanBaoLanh" class="escs_pquyen mr-2">
+            <i class="far fa-copy mr-1"></i> Copy lần bảo lãnh
+        </a>
+        <a href="#" id="btnChuyenboithuong" class="escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i> Chuyển thanh toán
+        </a>
+        <a href="#" id="btnHuychuyenboithuong" class="escs_pquyen mr-2">
+            <i class="fas fa-undo mr-1"></i> Hủy chuyển thanh toán
+        </a>
+        <a href="#" id="btnCopyHoSo" class="escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i> Yêu cầu trả thêm tiền bảo hiểm
+        </a>
+        <a href="#" id="btnXemQlMIC" class="mr-2">
+            <i class="fas fa-file-search mr-1"></i> Xem quyền lợi MIC
+        </a>
+        <a href="#" id="btnGuiMailTab1" class="escs_pquyen mr-2">
+            <i class="fas fa-envelope mr-1"></i> Gửi Email
+        </a>
+        <a href="#" id="btnPrint" class="mr-2">
+            <i class="fas fa-print mr-1"></i> In ấn
+        </a>
+    </div>
+</div>

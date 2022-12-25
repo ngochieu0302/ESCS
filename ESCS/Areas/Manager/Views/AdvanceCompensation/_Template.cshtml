@@ -1,0 +1,46 @@
+﻿<script type="text/html" id="tblTamUngBT_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" data-field="ma_doi_tac" value="<%- item.ma_doi_tac %>" />
+            <input type="hidden" data-field="ma_chi_nhanh" value="<%- item.ma_chi_nhanh %>" />
+            <input type="hidden" data-field="so_tien" value="<%- item.so_tien %>" />
+            <div class="custom-control custom-checkbox" style="padding-left: 1.9rem;">
+                <input type="checkbox" <% if(item.checked){ %>checked<% } %> data-field="so_id" value="<%- item.so_id%>" onchange="onChon(this)" id="ttbt_<%- item.so_id%>" class="custom-control-input ttbt_item single_checked">
+                <label class="custom-control-label" style="cursor:pointer;" for="ttbt_<%- item.so_id%>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center"><%= item.trang_thai %></td>
+        <td class="text-center">
+            <a href="#" onclick="xemToanBoThongTinHoSoBoiThuong('<%- item.ma_doi_tac %>','<%- item.ma_chi_nhanh %>','<%- item.ma_chi_nhanh_ql %>','<%- item.so_id %>','<%- item.so_id_hd %>','<%- item.so_id_dt %>','XE')"><%- item.so_hs %></a>
+        </td>
+        <td class="text-center"><%- item.doi_tuong %></td>
+        <td><%- item.ten_kh %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_gia) %></td>
+        <td class="text-center"><%- item.nsd %></td>
+        <td class="text-center"><%- item.nv %></td>
+        <td class="text-center"><%- item.so_hd %></td>
+        <td class="text-center"><%- item.gcn %></td>
+    </tr>
+    <% })} %>
+
+    <% if(data.length < 6){
+    for(var i = 0; i < 6 - data.length;i++ ){
+    %>
+    <tr>
+        <td>
+            <div class="tabulator-cell" role="gridcell" tabulator-field="sott" title="" style="width: 50px; text-align: center; height: 20px;">&nbsp;<div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

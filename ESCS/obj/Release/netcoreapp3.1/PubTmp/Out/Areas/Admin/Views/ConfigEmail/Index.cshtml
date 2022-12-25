@@ -1,0 +1,252 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục mẫu mail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Cấu hình mẫu email</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Mẫu email</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tên/mã/mã action api" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="NG">Con người</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnAddMauMail">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div id="gridViewMauMail" class="table-app" style="height: 64vh;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapMauMail" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="margin-bottom:unset; margin-top:10px;">
+        <div class="modal-content">
+            <form name="frmLuuThongTinMauMail" method="post">
+                <input type="hidden" name="ma_doi_tac_nsd" value="" />
+                <input type="hidden" name="ma_chi_nhanh_nsd" value="" />
+                <input type="hidden" name="nsd" value="" />
+                <input type="hidden" name="pas" value="" />
+                <div class="modal-header">
+                    <h4 class="modal-title">Cấu hình mẫu email</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" name="nv" required style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="NG">Con người</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã action api</label>
+                                <input type="text" maxlength="100" name="action" autocomplete="off" required class="form-control" placeholder="VD: RZSX2K8N3NJDHCAS8">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" maxlength="50" name="ma" autocomplete="off" required class="form-control" placeholder="VD: TEMPLATE_EMAIL_BBGD">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên mẫu mail</label>
+                                <input type="text" maxlength="200" name="ten" autocomplete="off" required class="form-control" placeholder="VD: Mẫu email biên bản giám định">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tài khoản gửi</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="tai_khoan_gui" style="width: 100%; height:36px;">
+                                    <option value="">Chọn tài khoản</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Phần mềm</label>
+                                <select class="select2 form-control custom-select" name="pm" required style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="ap_dung" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="_required">Số lần lặp</label>
+                                <input type="text" maxlength="20" name="so_lan_lap" required autocomplete="off" class="form-control decimal" placeholder="Số lần lặp">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="_required">Số phút lặp lại</label>
+                                <input type="text" maxlength="20" name="tg_lap_p" required autocomplete="off" class="form-control decimal" placeholder="Số phút lặp lại">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Gửi từ hệ thống đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="tu_ht_dt" style="width: 100%; height:36px;">
+                                    <option value="">Chọn gửi từ hệ thống đối tác</option>
+                                    <option value="C">Có</option>
+                                    <option value="K">Không</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="url" value="" />
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Mã file</label>
+                                <input type="text" name="file_dinh_kem"  autocomplete="off" class="form-control" placeholder="Mã file đính kèm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive border" style="max-height: 200px">
+                                <table id="tabDoiTacQL" class="table table-bordered fixed-header" style="border-collapse: separate; border-spacing: 0;">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th width="65%">Đối tác quản lý</th>
+                                            <th width="30%">Tài khoản gửi</th>
+                                            <th width="5%">Xóa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyDanhSachDoiTacQL">
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                <a href="#" id="themDoiTacQL">
+                                                    <i class="fas fa-plus-square mr-2"></i>Thay đổi đối tác gửi email
+                                                </a>
+                                            </td>
+                                            <td colspan="2">
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinMauMail"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalDoiTacQL" class="modal-drag" style="width:500px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn đối tác quản lý</span> <span data-dismiss="modal-drag" style="margin-right:10px;" id="closeModalDoiTacQL"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_DoiTacQL" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalDoiTacQLElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalDoiTacQLDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="height: 32px; border-top: 1px solid #eaeaea; margin:0px 0px 10px 0px;">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnChonDoiTacQL">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<partial name="_Template.cshtml" />
+
+@section Styles{
+    <link href="~/css/app/CarClaim/CarClaimCommon.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/ConfigEmailService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/AccountEmailService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ConfigEmail.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,137 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Hạng mục tổn thất AI";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập mã/tên hạng mục tổn thất" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnNhapThongTinHangMucAI">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Export" id="btnExportExcelHangMucAI">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewXeHangMucAI" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapHangMucAI" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin hạng mục tổn thất AI<span id="modal-user-log" style="font-size: 14px; font-style: italic;"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form name="frmLuuThongTinHangMucAI" method="post">
+                    <div class="row">
+                        <div class="col-sm-4 d-none">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" name="ma" maxlength="30" autocomplete="off" required class="form-control" placeholder="Mã hạng mục">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Tên</label>
+                                <input type="text" name="ten" maxlength="250" autocomplete="off" class="form-control" placeholder="Tên hạng mục">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">STT</label>
+                                <input type="text" name="stt" maxlength="18" autocomplete="off" class="form-control number" placeholder="Số thứ tự">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã hạng mục AI</label>
+                                <input type="text" name="ma_ai" maxlength="30" autocomplete="off" required class="form-control" placeholder="Mã hạng mục">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Tên hạng mục AI</label>
+                                <input type="text" name="ten_ai" maxlength="250" autocomplete="off" class="form-control" placeholder="Tên hạng mục AI">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Vị trí AI</label>
+                                <input type="text" name="vi_tri_ai" maxlength="250" autocomplete="off" class="form-control" placeholder="Vị trí AI">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="display:block;">
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinHangMucAI"><i class="fa fa-save"></i> Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleAIService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/CategoryvehicleAI.js" asp-append-version="true"></script>
+}
+

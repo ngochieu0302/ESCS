@@ -1,0 +1,37 @@
+﻿<div id="modalNguyenNhanGiamTru" class="modal-drag" style="width:500px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn nguyên nhân giảm trừ</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content py-1">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_NguyenNhanGiamTru" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalChonNguyenNhanGiamTruElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalChonNguyenNhanGiamTruDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="height: 32px; border-top: 1px solid #eaeaea; margin:0px 0px 10px 0px;">
+        <button type="button" class="btn-outline-primary btn-sm wd-85" id="btnBoChonNguyenNhanGiamTru">
+            <i class="fas fa-times mr-1"></i> Bỏ chọn
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnChonNguyenNhanGiamTru">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalChonNguyenNhanGiamTruDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox nngt" id="nngt_<%- item.ma %>">
+        <input type="checkbox" id="nguyen_nhan_giam_tru_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonNguyenNhanGiamTruItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="nguyen_nhan_giam_tru_<%- item.ma %>"><%- item.ma %> - <%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

@@ -1,0 +1,193 @@
+﻿<div class="modal fade show" id="modalXemThongTinQuyenLoiLSTT" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document" style="max-width: 95vw; margin-top:10px;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title" id="titleXemThongTinQuyenLoiLSTT">Thông tin quyền lợi bảo hiểm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body px-2 py-0">
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="card border mb-2">
+                            <div class="card mb-0">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row">
+                                        <div class="col-12" id="navThongTinQuyenLoiLSTT">
+                                            <ul class="nav nav-pills border-bottom" role="tablist" style="background-color:#f8f9fa">
+                                                <li class="nav-item" style="font-weight:bold">
+                                                    <a class="nav-link active" href="#tabQuyenLoiBaoHiem" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                                                        <i class="far fa-file-search mr-2"></i> Quyền lợi bảo hiểm
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" style="font-weight:bold">
+                                                    <a class="nav-link" href="#tabLichSuBoiThuong" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
+                                                        <i class="fas fa-history mr-2"></i> Lịch sử bồi thường
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane px-0" id="tabQuyenLoiBaoHiem" role="tabpanel">
+                                                    <div class="table-responsive" style="max-height:71vh">
+                                                        <table class="table table-bordered" style="border-collapse: separate; border-spacing: 0;">
+                                                            <thead class="font-weight-bold card-title-bg-primary" style="position: sticky; top: 0;">
+                                                                <tr>
+                                                                    <th rowspan="2" style="text-align:center; width:400px; vertical-align:middle;">Tên Quyền lợi bảo hiểm</th>
+                                                                    <th colspan="5" style="text-align:center">Quyền lợi bảo hiểm gốc</th>
+                                                                    <th colspan="2" style="text-align:center">Quyền lợi đã sử dụng</th>
+                                                                    <th colspan="2" style="text-align:center">Quyền lợi còn lại</th>
+                                                                </tr>
+                                                                <tr class="text-center uppercase">
+                                                                    <th>Số lần(ngày)/năm</th>
+                                                                    <th>Số tiền giới hạn(ngày)/năm</th>
+                                                                    <th>Quyền lợi/năm</th>
+                                                                    <th>Tỷ lệ đồng</th>
+                                                                    <th>Số ngày chờ</th>
+                                                                    <th>Số lần(ngày)</th>
+                                                                    <th>Quyền lợi/năm</th>
+                                                                    <th>Số lần(ngày)</th>
+                                                                    <th>Quyền lợi/năm</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tblDanhSachQuyenLoiGoc">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane px-0" id="tabLichSuBoiThuong" role="tabpanel">
+                                                    <div class="table-responsive" style="max-height:70vh">
+                                                        <table style="width:180%;" class="table table-bordered fixed-header">
+                                                            <thead class="text-center font-weight-bold">
+                                                                <tr class="text-center uppercase">
+                                                                    <th>Ngày mở</th>
+                                                                    <th>Số hồ sơ</th>
+                                                                    <th>Loại</th>
+                                                                    <th>Ngày vv</th>
+                                                                    <th>Ngày rv</th>
+                                                                    <th>Hình thức điều trị</th>
+                                                                    <th>Nguyên nhân</th>
+                                                                    <th style="width: 30%;">Quyền lợi</th>
+                                                                    <th>Cơ sở y tế</th>
+                                                                    <th style="width: 20%;">Chẩn đoán</th>
+                                                                    <th>Tiền yêu cầu</th>
+                                                                    <th>Tiền duyệt</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ghi chú</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tblDanhSachLichSuBoiThuong">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="tblDanhSachLichSuBoiThuongTemplate">
+    <% if(arrHoSo.length > 0){ %>
+    <% _.forEach(arrHoSo, function(item,index) { %>
+    <tr class="text-center">
+        <td><%- item.ngay_ht %></td>
+        <td><%- item.so_hs %></td>
+        <td><%= item.loai_ten%></td>
+        <td><%- item.ngay_vv %></td>
+        <td><%- item.ngay_rv %></td>
+        <td><%- item.hinh_thuc_ten %></td>
+        <td><%- item.ten_nguyen_nhan %></td>
+        <td><%- item.quyen_loi_ten %></td>
+
+        <td class="text-left"><%- item.ten_benh_vien %></td>
+        <td class="text-left"><%- item.chan_doan %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.so_tien_duyet) %></td>
+        <td class="text-center"><%- item.trang_thai %></td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu != '' && item.ghi_chu != undefined){ %>
+            <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu %>" onclick="showGhiChuLSTT(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="ghi_chu" data-val="" onclick="showGhiChuLSTT(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+
+    <% if(arrHoSo.length < 13){
+    for(var i = 0; i < 13 - arrHoSo.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="tblDanhSachQuyenLoiGocTemplate">
+    <% _.forEach(lstQlg, function(item, index) { %>
+    <% var thu_tu_cha_con = item.lh_nv.split('.').length - 1 %>
+    <% if(thu_tu_cha_con == 0){ %>
+    <tr>
+        <td style="font-weight: bold">
+            <%= item.ten_hien_thi %>
+        </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.dong_bh %> % </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_ngay_cho %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } else{ %>
+    <% var pd = thu_tu_cha_con * 15 %>
+    <tr>
+        <td style="font-style: italic; padding-left: <%- pd %>px">
+            <%= item.ten_hien_thi %>
+        </td>
+        <td style="font-style: italic;" class="text-center"><%- item.so_lan_ngay %></td>
+        <td style="font-style: italic;" class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td style="font-style: italic;" class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td style="font-style: italic;" class="text-center"><%- item.dong_bh %> % </td>
+        <td style="font-style: italic;" class="text-center"><%- item.so_ngay_cho %></td>
+        <td style="font-style: italic;" class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td style="font-style: italic;" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td style="font-style: italic;" class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td style="font-style: italic;" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } %>
+    <%})%>
+</script>
+
+
+

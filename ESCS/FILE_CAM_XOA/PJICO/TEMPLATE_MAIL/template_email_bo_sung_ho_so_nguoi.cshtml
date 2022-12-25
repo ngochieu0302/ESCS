@@ -1,0 +1,59 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@using RazorEngine.Text;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<html>
+<head>
+    <title>THÔNG BÁO BỔ SUNG HỒ SƠ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <div style="border:1px solid #035299; border-radius:5px; background-color:azure; font-family: 'Tahoma' ; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center">
+                THÔNG BÁO BỔ SUNG HỒ SƠ
+                <br>Số hồ sơ: @mail.so_hs
+            </h3>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">Kính gửi: <span style="color: #035299;">@mail.ten_bv</span></p>
+                <p style="margin: 8px 0px;">
+                    Lời đầu tiên, @mail.ten_cong_ty (@mail.ten_cong_ty_tat), xin gửi lời cảm ơn chân thành tới Quý đối tác vì sự hợp tác bền vững quý báu và lời chúc sức khỏe, thịnh vượng.
+                </p>
+                <p style="margin: 8px 0px;">
+                    Công ty chúng tôi đã nhận được hồ sơ bảo lãnh viện phí của NĐBH là Ông(bà) <span style="color: #035299;">@mail.ten_khach</span> có tham gia bảo hiểm chăm sóc sức khỏe của @mail.ma_doi_tac_ql.
+                </p>
+                <p style="margin: 8px 0px;">
+                    Sau khi xem xét hồ sơ do Quý đối tác cung cấp, để chúng tôi có đủ cơ sở xem xét và thanh toán chi phí đã xác nhận bảo lãnh viện phí theo đúng quy định, kính đề nghị Quý đối tác bổ sung những chứng từ dưới đây trong thời gian sớm nhất:
+                </p>
+                <div style="margin-left: 10px;color: #035299;">
+                    @(new RawString(mail.yeu_cau_bs))
+                </div>
+                @*<div style="font-family: 'Tahoma'; font-size: 14px; color: red; font-weight: bold; margin-top: 10px">
+                    <span>
+                        Vui lòng click vào đường link để <a href="@mail.short_link">bổ sung </a> thông tin
+                    </span>
+                </div>*@
+                <p style="margin: 8px 0px;">Mọi vướng mắc về hồ sơ cần giải đáp hoặc hỗ trợ, vui lòng liên hệ:</p>
+                <p style="color: #035299; margin: 8px 0px;"><span>@mail.ten_cong_ty</span></p>
+                <ul style="line-height: 20px; margin: 8px 0px;">
+                    <li>Địa chỉ: <span style="color: #035299">@mail.dchi_dt</span></li>
+                    <li>Số điện thoại: <span style="color: #035299">@mail.d_thoai_dt</span></li>
+                    <li>Tên cán bộ: <span style="color: #035299">@mail.ten_cb</span></li>
+                    <li>Email: <span style="color: #035299">@mail.email_dt</span></li>
+                </ul>
+                <p style="margin: 8px 0px;">Rất mong sớm nhận được phản hồi của Quý đối tác.</p>
+                <p style="margin: 8px 0px;">
+                    Để tra cứu tình trạng hồ sơ và quá trình giải quyết, Quý khách vui lòng dùng ứng dụng @mail.ten_cong_ty_tat CLAIM trên mobile để tra cứu theo mã: <span style="color: #035299;">@mail.ma_cv</span>
+                </p>
+                <p style="margin: 8px 0px; color: #035299; font-weight: bold">Trân trọng cảm ơn !</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

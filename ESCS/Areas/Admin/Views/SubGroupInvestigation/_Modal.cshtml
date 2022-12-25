@@ -1,0 +1,140 @@
+﻿<div id="modalNhomGD" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg" style="max-width:65%">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Phân nhóm giám định</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="padding: 10px 20px;">
+                <form name="frmSearchNhomGD" id="frmSearchNhomGD" method="post">
+                    <div class="row">
+                        <div class="col col-4">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;" required></select>
+                            </div>
+                        </div>
+                        <div class="col col-4">
+                            <div class="form-group">
+                                <label class="">Chi nhánh</label>
+                                <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height:36px;" required></select>
+                            </div>
+                        </div>
+                        <div class="col-4 table-responsive">
+                            <div class="form-group">
+                                <label class="">Nội dung tìm kiếm</label>
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" class="form-control" name="tim" id="tim" placeholder="Nhập mã/tên cán bộ">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="tim">
+                                            <a href="#" id="btnTKiemNhomGD"><i class="fal fa-search" title="Tìm kiếm"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12 table-responsive mt-2">
+                        <div id="gridViewTkiemCanBo" class="table-app">
+                            <div class="table-responsive" style="height:260px">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold">
+                                        <tr class="text-center uppercase">
+                                            <th style="width: 6%;"></th>
+                                            <th style="width: 22%;">Mã cán bộ</th>
+                                            <th style="width: 32%;">Tên cán bộ</th>
+                                            <th style="width: 12%;">Trưởng nhóm</th>
+                                            <th style="width: 30%;">Đơn vị</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblNhomGD">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="tblNhomGD_pagination" class="mt-2"></div>
+                            <div class="col-12 p-0 mt-2">
+                                <h6>Xem danh sách cán bộ: <span style="font-size:12px; font-style:italic">(<a href="#" onclick="xemDanhSachCanBo()">Có <span id="txtDanhSachCanBo">0</span> cán bộ được chọn</a>)</span></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin: 5px 0px;" />
+                <div class="row">
+                    <div class="col-12">
+                        <form name="frmNhomGD" method="post">
+                            <input type="hidden" name="bt" value="" />
+                            <div class="row">
+                                <div class="col-3 d-none">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="_required">Đối tác</label>
+                                            <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;" required></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="_required">Chi nhánh</label>
+                                            <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height:36px;" required></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="_required">Tên nhóm</label>
+                                            <input type="text" autocomplete="off" required class="form-control" name="ten_nhom" placeholder="Nhập tên nhóm">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label class="">Số thứ tự</label>
+                                        <input type="text" maxlength="5" name="stt" autocomplete="off" placeholder="Số thứ tự hiển thị" class="form-control decimal">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label class="_required">Nghiệp vụ</label>
+                                        <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;" required>
+                                            <option value="">Chọn nghiệp vụ</option>
+                                            <option value="XE" selected>Xe ô tô</option>
+                                            <option value="XE_MAY">Xe máy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label class="_required">Trạng thái</label>
+                                        <select class="select2 form-control custom-select" name="trang_thai" style="width: 100%; height:36px;" required>
+                                            <option value="">Chọn trạng thái</option>
+                                            <option value="D" selected>Đang sử dụng</option>
+                                            <option value="N">Ngưng sử dụng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 5px; display: block;">
+                <button type="button" class="btn btn-outline-primary btn-sm wd-80 mg-t-22 ml-3" id="btnXoaNhomGD">
+                    <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Xóa
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22 float-right mr-3" data-dismiss="modal" id="modalCarSearch_close">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22 float-right" id="btnLuuNhomGD">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-110 mg-t-22 float-right" id="btnLuuVaDongNhomGD">
+                    <i class="fa fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

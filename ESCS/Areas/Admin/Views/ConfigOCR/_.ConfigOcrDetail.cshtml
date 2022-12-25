@@ -1,0 +1,69 @@
+﻿<style>
+    .text {
+        font-weight: bold;
+    }
+</style>
+<script type="text/html" id="templateThongTinDvOcr">
+    <div class="col-sm-12">
+        <table class="table">
+            <tr>
+                <td class="text">Đơn vị</td>
+                <td colspan="5">
+                    <b><%- ten_doi_tac %></b>
+                </td>
+            </tr>
+            <tr>
+                <td class="text">Chi nhánh</td>
+                <td colspan="6">
+                    <%- ten_cnhanh %>
+                </td>
+            </tr>
+            <tr>
+                <td class="text">Ngày hệ thống</td>
+                <td>
+                    <%- ngay_ht_hthi %>
+                </td>
+                <td class="text">Ngày hiệu lực</td>
+                <td>
+                    <%- ngay_hl_hthi %>
+                </td>
+                <td class="text">Ngày kết thúc</td>
+                <td>
+                    <%- ngay_kt_hthi %>
+                </td>
+            </tr>
+            <tr>
+                <td class="text">GPLX</td>
+                <td>
+                    <%- hm_gplx %>
+                </td>
+                <td class="text">Đăng ký xe</td>
+                <td>
+                    <%- hm_dky_xe %>
+                </td>
+                <td class="text">Đăng kiểm xe</td>
+                <td>
+                    <%- hm_dkiem_xe %>
+                </td>
+            </tr>
+            <tr>
+                <td class="text">Base Url</td>
+                <td colspan="6">
+                    <%- base_url %>
+                </td>
+            </tr>
+            <tr>
+                <td class="text">Api Key</td>
+                <td colspan="6">
+                    <%- api_key %>
+                </td>
+            </tr>
+            <tr>
+                <td class="text">Trạng thái</td>
+                <td colspan="6">
+                    <%- ap_dung_hthi %>
+                </td>
+            </tr>
+        </table>
+    </div>
+</script>

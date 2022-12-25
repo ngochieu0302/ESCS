@@ -1,0 +1,577 @@
+﻿<div class="row mg-t-10">
+    <div class="col-12" id="navDanhGiaTonThat">
+        <div class="d-flex justify-content-between">
+            <ul class="nav nav-pills font-weight-bold" id="CarCompensationContent4Tab" role="tablist">
+                <li class="nav-item mr-2" style="font-weight: bold; background-color: #f8f9fa; border-radius: 5px;">
+                    <a class="nav-link active" data-toggle="tab" href="#tabDGTTKhaiBaoHangMuc" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fas fa-align-justify mr-2"></i>Đánh giá thiệt hại chi tiết
+                    </a>
+                </li>
+                <li class="nav-item mr-2" style="font-weight: bold; background-color: #f8f9fa; border-radius: 5px;">
+                    <a class="nav-link" data-toggle="tab" onclick="xemThongTinXacNhan(); layThongTinDanhGia();" href="#tabDGTTThongTinChung" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="fas fa-info-circle mr-2"></i>Đánh giá chung
+                    </a>
+                </li>
+                <li class="nav-item" style="font-weight: bold; background-color: #f8f9fa; border-radius: 5px;">
+                    <a class="nav-link" data-toggle="tab" href="#tabDGTTHoSoGiayTo" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="far fa-file-alt mr-2"></i>Hồ sơ giấy tờ
+                    </a>
+                </li>
+            </ul>
+            <div class="btn btn-light rounded font-weight-bold" style="display:none">
+                <a href="#" id="CarInvestigationModalLabel_fullsreen">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </div>
+        </div>
+        <div class="tab-content">
+            <!-- Hạng mục tổn thất -->
+            <div class="tab-pane active" id="tabDGTTKhaiBaoHangMuc" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col-12 px-1">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb px-1" id="navDanhGiaNghiepVu" style="margin:unset;margin-bottom:5px; padding-top:3px; padding-bottom:3px; font-size: 11px;">
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaVCX">
+                        <div class="table-responsive" style="max-height:360px">
+                            <table id="tableDsHMTT" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold text-center uppercase">
+                                    <tr>
+                                        <th style="width:125px;">Đối tượng tổn thất</th>
+                                        <th>Hạng mục bồi thường</th>
+                                        <th>Mức độ</th>
+                                        <th style="width:100px">Phương án</th>
+                                        <th style="width:120px">Nơi sửa chữa</th>
+                                        <th style="width:110px">Thu hồi</th>
+                                        <th style="width:110px">Dự kiến chi phí</th>
+                                        <th style="width:40px"></th>
+                                        <th style="width:40px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatVCX">
+                                </tbody>
+                                <tfoot class="font-weight-bold">
+                                    <tr>
+                                        <td class="p-1" colspan="2">
+                                            <div class="form-group m-0">
+                                                <div class="input-group">
+                                                    <input type="text" autocomplete="off" class="form-control inputSearchHangMucGiamDinh" placeholder="Tìm kiếm hạng mục">
+                                                    <div class="input-group-append">
+                                                        <label class="input-group-text">
+                                                            <a href="#">
+                                                                <i class="fas fa-search" title="Tìm kiếm hạng mục"></i>
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td colspan="4" class="text-center" style="vertical-align: middle;">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right" style="vertical-align: middle;" id="modalChiTietTonThatVCXTongTienTT">
+                                            0
+                                        </td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaNNTX">
+                        <div class="table-responsive" style="max-height:335px">
+                            <table id="tableChiTietTonThatNGUOI" data-nhom="NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:200px">Tên đối tượng</th>
+                                        <th style="width:65px">Địa chỉ</th>
+                                        <th style="width:100px">Số CMND</th>
+                                        <th>Tỉ lệ thương tật</th>
+                                        <th style="width:95px">Tiền tổn thất</th>
+                                        <th style="width:110px">Tiền thỏa thuận</th>
+                                        <th style="width:65px">Mô tả</th>
+                                        <th style="width:65px">Ghi chú</th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatNGUOI">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="4" class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold" id="modalChiTietTonThatNNTXTongTienTT"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaHANGHOA">
+                        <div class="table-responsive" style="max-height:335px">
+                            <table id="tableChiTietTonThatHANGHOA" style="width:120%" data-nhom="HANG_HOA" class="table table-bordered fixed-header tableChiTietTonThat">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th>Tên đối tượng</th>
+                                        <th style="width:57px">Địa chỉ</th>
+                                        <th style="width:170px">Mức độ TT</th>
+                                        <th style="width:72px">ĐV tính</th>
+                                        <th style="width:85px">Giá trị/đ.vị</th>
+                                        <th style="width:82px">S.lượng TT</th>
+                                        <th style="width:85px">Tiền v.tư</th>
+                                        <th style="width:85px">Tiền n.công</th>
+                                        <th style="width:93px">Tổng tiền</th>
+                                        <th style="width:110px">Tiền thỏa thuận</th>
+                                        <th style="width:55px">Mô tả</th>
+                                        <th style="width:65px">Ghi chú</th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatHANGHOA">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="8" class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold" id="modalChiTietTonThatHANGHOATongTienTT"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaTNDSNGUOI">
+                        <div class="table-responsive" style="max-height:335px">
+                            <table id="tableChiTietTonThatTNDSNGUOI" data-nhom="TNDS_NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:200px">Tên đối tượng</th>
+                                        <th style="width:65px">Địa chỉ</th>
+                                        <th style="width:100px">Số CMND</th>
+                                        <th>Tỉ lệ thương tật</th>
+                                        <th style="width:95px">Tiền tổn thất</th>
+                                        <th style="width:110px">Tiền thỏa thuận</th>
+                                        <th style="width:65px">Mô tả</th>
+                                        <th style="width:65px">Ghi chú</th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatTNDSNGUOI">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="4" class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold" id="modalChiTietTonThatTNDSNGUOITongTienTT"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaTNDSNGUOI_HK">
+                        <div class="table-responsive" style="max-height:335px">
+                            <table id="tableChiTietTonThatTNDSNGUOI_HK" data-nhom="TNDS_NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:200px">Tên đối tượng</th>
+                                        <th style="width:65px">Địa chỉ</th>
+                                        <th style="width:100px">Số CMND</th>
+                                        <th>Tỉ lệ thương tật</th>
+                                        <th style="width:95px">Tiền tổn thất</th>
+                                        <th style="width:110px">Tiền thỏa thuận</th>
+                                        <th style="width:65px">Mô tả</th>
+                                        <th style="width:65px">Ghi chú</th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatTNDSNGUOI_HK">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="4" class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold" id="modalChiTietTonThatTNDSNGUOI_HKTongTienTT"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaLPHU_XE">
+                        <div class="table-responsive" style="max-height:335px">
+                            <table id="tableChiTietTonThatLPHU_XE" data-nhom="NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:200px">Tên đối tượng</th>
+                                        <th style="width:65px">Địa chỉ</th>
+                                        <th style="width:100px">Số CMND</th>
+                                        <th>Tỉ lệ thương tật</th>
+                                        <th style="width:95px">Tiền tổn thất</th>
+                                        <th style="width:110px">Tiền thỏa thuận</th>
+                                        <th style="width:65px">Mô tả</th>
+                                        <th style="width:65px">Ghi chú</th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatLPHU_XE">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="4" class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold" id="modalChiTietTonThatLPHU_XETongTienTT"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaTNDSTAISAN">
+                        <form name="frmDanhGiaTNDSTAISAN" method="post">
+                            <div class="row">
+                                <div class="col-3" id="frmDanhGiaTNDSTAISAN_loai_tai_san">
+                                    <div class="form-group">
+                                        <select class="select2 form-control custom-select" name="loai_tai_san" style="width:100%">
+                                            <option value="KHAC" selected>Tài sản khác</option>
+                                            <option value="XE">Tài sản là xe ô tô bên thứ 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3 pl-0" id="frmDanhGiaTNDSTAISAN_doi_tuong_xe">
+                                    <div class="form-group">
+                                        <select class="select2 form-control custom-select" name="doi_tuong_xe" style="width:100%"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="table-responsive" style="max-height:335px">
+                            <table id="tableChiTietTonThatTNDS_TAI_SAN" style="width:120%" data_loai_ts="KHAC" data-nhom="TNDS_TAI_SAN" class="table table-bordered fixed-header tableChiTietTonThat">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th>Tên đối tượng</th>
+                                        <th style="width:57px">Địa chỉ</th>
+                                        <th style="width:170px">Mức độ TT</th>
+                                        <th style="width:72px">ĐV tính</th>
+                                        <th style="width:85px">Giá trị/đ.vị</th>
+                                        <th style="width:82px">S.lượng TT</th>
+                                        <th style="width:85px">Tiền v.tư</th>
+                                        <th style="width:85px">Tiền n.công</th>
+                                        <th style="width:93px">Tổng tiền</th>
+                                        <th style="width:110px">Tiền thỏa thuận</th>
+                                        <th style="width:55px">Mô tả</th>
+                                        <th style="width:65px">Ghi chú</th>
+                                        <th style="width:30px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatTNDS_TAI_SAN">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="8" class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold" id="modalChiTietTonThatTNDS_TAI_SANTongTienTT"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <table id="tableChiTietTonThatTNDS_TAI_SAN_XE" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold text-center uppercase">
+                                    <tr>
+                                        <th>Đối tượng tổn thất</th>
+                                        <th>Hạng mục bồi thường</th>
+                                        <th>Mức độ</th>
+                                        <th style="width:100px">Phương án</th>
+                                        <th style="width:120px">Nơi sửa chữa</th>
+                                        <th style="width:110px">Thu hồi</th>
+                                        <th style="width:110px">Dự kiến chi phí</th>
+                                        <th style="width:40px"></th>
+                                        <th style="width:40px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalChiTietTonThatTNDS_TAI_SAN_XE">
+                                </tbody>
+                                <tfoot class="font-weight-bold">
+                                    <tr>
+                                        <td class="p-1" colspan="2">
+                                            <div class="form-group m-0">
+                                                <div class="input-group">
+                                                    <input type="text" autocomplete="off" class="form-control inputSearchHangMucGiamDinh_TNDS_TAI_SAN_XE" placeholder="Tìm kiếm hạng mục">
+                                                    <div class="input-group-append">
+                                                        <label class="input-group-text">
+                                                            <a href="#">
+                                                                <i class="fas fa-search" title="Tìm kiếm hạng mục"></i>
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td colspan="4" class="text-center" style="vertical-align: middle;">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right" style="vertical-align: middle;" id="modalChiTietTonThatTNDS_TAI_SAN_XETongTienTT">
+                                            0
+                                        </td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1 divDanhGiaItem" id="divDanhGiaKhongXacDinh">
+                        <div class="alert alert-danger" role="alert">
+                            Không xác định được loại hình nghiệp vụ tổn thất/ đối tượng tổn thất
+                        </div>
+                    </div>
+                    <div class="col-12 p-0 mt-2 ml-2">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnLapPhuongAnGia">
+                            <i class="fas fa-files-medical mr-2"></i>Lấy báo giá gara
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnLapPASC">
+                            <i class="fas fa-paste mr-2"></i>Lập phương án giá
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" id="btnThemChiPhiKhac">
+                            <i class="fas fa-usd-circle mr-2"></i>Chi phí khác
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-85 d-none escs_pquyen" id="btnLuuCTGiamDinh">
+                            <i class="fa fa-save mr-2"></i>Lưu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Thông tin chung -->
+            <div class="tab-pane" id="tabDGTTThongTinChung" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card mb-0 modal-main-content" style="height: 62vh;">
+                    <div class="row">
+                        <div class="col-12 px-1">
+                            <form name="frmDanhGiaTonThat" method="post">
+                                <input type="hidden" name="so_id" />
+                                <input type="hidden" name="gara" />
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>Thông tin khách hàng xác nhận biên bản giám định</h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="font-weight-bold">Trạng thái xác nhận: </span><span class="font-weight-bold" id="bbgd_trang_thai">Chưa gửi xác nhận</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="font-weight-bold">Hình thức xác nhận: </span><span class="font-weight-bold" id="bbgd_hinh_thuc">Chưa xác định</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="font-weight-bold">Ngày xác nhận: </span><span class="font-weight-bold" id="bbgd_ngay_xac_nhan">Chưa xác định</span>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <h4>Thông tin đánh giá</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="_required">Nghiệp vụ đánh giá</label>
+                                            <select class="form-control select2" name="lh_nv" style="width:100%"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="_required">Ước tổn thất</label>
+                                            <input type="text" class="form-control number" autocomplete="off" name="uoc_ton_that" placeholder="Ước tổn thất">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="_required">Sau khi giám định công ty BH đánh giá</label>
+                                            <textarea class="form-control" required autocomplete="off" name="danh_gia_gdv" id="danh_gia_gdv" placeholder="Kiến nghị khác" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 d-none">
+                                        <div class="form-group">
+                                            <label for="gara">Lựa chọn Gara đề xuất</label>
+                                            <div class="input-group">
+                                                <select class="select2 form-control custom-select" name="gara" id="gara" style="width:100%"> </select>
+                                                <div class="input-group-append">
+                                                    <label class="input-group-text" for="gara">
+                                                        <a href="#" id="btnTKiemGara">
+                                                            <i class="fas fa-list-ul" title="Tìm kiếm gara"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mg-t-10">
+                                        <div class="form-group">
+                                            <label>
+                                                <span class="mr-3 _required">Kiến nghị hướng giải quyết của công ty BH</span>
+                                                <span class="mr-2">
+                                                    <a href="#" onclick="chonKienNghi(this)">
+                                                        <i class="fa fa-bars mr-1"></i>
+                                                        Chọn kiến nghị
+                                                    </a>
+                                                </span>
+                                                <span>
+                                                    <a href="#" id="btnThemKienNghi">
+                                                        <i class="fas fa-plus-square mr-1"></i>
+                                                        Tạo kiến nghị
+                                                    </a>
+                                                </span>
+                                            </label>
+                                            <textarea class="form-control" required autocomplete="off" name="y_kien" id="y_kien" placeholder="Kiến nghị khác" rows="7"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mg-t-10">
+                                        <div class="form-group">
+                                            <label><span class="mr-3">Kiến nghị hướng giải quyết của Khách hàng</span> </label>
+                                            <textarea class="form-control" autocomplete="off" name="y_kien_kh" id="y_kien_kh" placeholder="Kiến nghị khác" rows="7"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary btn-sm wd-85 d-none escs_pquyen float-right" id="btnLuuDanhGiaTonThat">
+                                <i class="fa fa-save mr-2"></i>Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Ho so giay to -->
+            <div class="tab-pane" id="tabDGTTHoSoGiayTo" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card mb-0 modal-main-content" style="height: 63vh;">
+                    <div class="row">
+                        <div class="col-12 px-1">
+                            <div class="table-responsive" style="max-height: 400px;">
+                                <table id="tableDsHoSoGiayTo" class="table table-bordered fixed-header" style="width:127%">
+                                    <thead class="font-weight-bold text-center uppercase">
+                                        <tr>
+                                            <th>Tên đối tượng giấy tờ</th>
+                                            <th>Đối tượng</th>
+                                            <th style="width: 105px">Ngày cung cấp</th>
+                                            <th>Hợp lệ</th>
+                                            <th>Loại</th>
+                                            <th>YC bổ sung</th>
+                                            <th style="width: 100px">Gara thu hộ</th>
+                                            <th>Ghi chú</th>
+                                            <th style="width: 100px">NSD</th>
+                                            <th>Nguồn PS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyDsHoSoGiayTo">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2 px-1">
+                            @*d-none escs_pquyen*@
+                            <button type="button" class="btn btn-primary btn-sm mr-1" id="btnLichSuYeuCauBsGiayTo">
+                                <i class="fas fa-history mr-2"></i>Lịch sử yêu cầu BSHS
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btnLuuYeuCauBsGiayTo">
+                                <i class="fa fa-save mr-2"></i>Lưu yêu cầu BSHS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row tab-navigator">
+    <div class="col-12 mg-t-5">
+        <a href="#" class="btnXemQRCode mr-2">
+            <i class="fa fa-qrcode mr-1"></i>Xem QRCode
+        </a>
+        <a href="#" id="btnGuiMailBBGD" class="mr-2">
+            <i class="fas fa-envelope mr-1"></i>Gửi email BBGĐ
+        </a>
+        <a href="#" class="mr-2" id="btnXinYKienBBGD">
+            <i class="fas fa-comment-medical mr-1"></i>Xin ý kiến
+        </a>
+        <a href="#" id="btnKetthucLanGiamDinh" class="mr-2">
+            <i class="fas fa-pause-circle mr-1"></i>Kết thúc lần GĐ
+        </a>
+        <a href="#" id="btnKetthucgiamdinh" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-stop-circle mr-1"></i>Kết thúc HSGĐ
+        </a>
+        <a href="#" id="btnHuyKetthucgiamdinh" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-stop-circle mr-1"></i>Hủy kết thúc GĐ
+        </a>
+        @*<a href="#" id="btnXacNhanKyTayBBGD" class="mr-2">
+            <i class="fas fa-check mr-1"></i>Xác nhận KH ký tay BBGD
+        </a>*@
+        @*<a href="#" id="btnHuyDuyetBCGD" class="mr-2">
+            <i class="fas fa-stop-circle mr-1"></i>Hủy duyệt báo cáo GĐ
+        </a>
+        <a href="#" id="btnHuyDuyetBBGD" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-stop-circle mr-1"></i>Hủy duyệt BBGD
+        </a>
+        <a href="#" id="btnDuyetBCGD" class="mr-2">
+            <i class="fas fa-check mr-1"></i>Duyệt báo cáo GĐ
+        </a>
+        <a href="#" id="btnDuyetgiamdinh" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-check mr-1"></i>Duyệt BBGĐ
+        </a>*@
+
+        <a href="#" id="btnTrinhphancapBCGD" class="mr-2">
+            <i class="fas fa-share-square mr-1"></i>Trình BCGĐ
+        </a>
+        @*<a href="#" id="btnTrinhTuChoiBT" class="d-none mr-2">
+            <i class="fas fa-share-square mr-1"></i>Trình từ chối BT
+        </a>*@
+        <a href="#" id="btnTrinhphancap" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i>Trình phân cấp BBGD
+        </a>
+        <a href="#" id="btnChuyenboithuong" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i>Chuyển hồ sơ sang tính toán
+        </a>
+        <a href="#" id="btnHuyChuyenboithuong" class="d-none escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i>Lấy lại hồ sơ GĐ
+        </a>
+        <a href="#" id="btnBoSungHoSo" class="mr-2">
+            <i class="fas fa-file-medical mr-1"></i>Yêu cầu BSHS
+        </a>
+        <a href="#" onclick="xemDsDoiTuongTonThat()" class="mr-2">
+            <i class="fas fa-car-crash mr-1"></i>Đối tượng tổn thất
+        </a>
+        <a href="#" id="btnIn" data-toggle="dropdown" aria-labelledby="dropdownPrinterStep4" class="mr-2">
+            <i class="fas fa-print mr-1"></i>In ấn
+        </a>
+        <a href="#" onclick="TransCompensationDisplay()" class="mr-2">
+            <i class="fas fa-angle-double-right mr-1"></i> Hồ sơ bồi thường
+        </a>
+    </div>
+</div>

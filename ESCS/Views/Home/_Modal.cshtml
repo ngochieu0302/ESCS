@@ -1,0 +1,203 @@
+﻿<style>
+    #tblDanhSachHoSoTon {
+        color: #333;
+        font-size: 12px;
+    }
+    #tableDanhSachHoSoTon table th {
+        padding: 0.5rem !important;
+    }
+    #tableDanhSachHoSoTon table td {
+        padding: 0.5rem !important;
+    }
+    .card-title-bg-primary {
+        background-color: #1e88e5;
+        color: white;
+    }
+</style>
+
+<div id="modalDanhSachHoSoTon" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width:unset;width:90%;">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h4 class="modal-title">Danh sách hồ sơ tồn</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="card border mb-0 p-2">
+                <div class="card-body" style="padding:0px;">
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel">
+                            <form action="/" method="post" name="frmTimKiemHoSoTon" novalidate="novalidate">
+                                <div class="row mx-0 w-100">
+                                    <div class="col-2 px-2">
+                                        <div class="form-group">
+                                            <label for="ma_doi_tac">Đối tác</label>
+                                            <select class="select2 form-control custom-select" name="ma_doi_tac" style="width:100%">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-2">
+                                        <div class="form-group">
+                                            <label for="ma_chi_nhanh">Chi nhánh</label>
+                                            <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width:100%">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-2">
+                                        <div class="form-group">
+                                            <label for="nguon">Tiêu chí tìm kiếm</label>
+                                            <select class="select2 form-control custom-select" name="nhom" style="width:100%">
+                                                <option value="TUAN">Tuần</option>
+                                                <option value="THANG">Tháng</option>
+                                                <option value="NAM">Năm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-2 nhom">
+                                        <div class="form-group">
+                                            <label for="nguon">Loại</label>
+                                            <select class="select2 form-control custom-select" name="trang_thai_ton" style="width:100%">
+                                                <option value="" selected>Chọn trạng thái</option>
+                                                <option value="TON_NGAY">Hồ sơ tồn theo ngày</option>
+                                                <option value="TON_GIAM_DINH_HT">Hồ sơ tồn ở hiện trường</option>
+                                                <option value="TON_GIAM_DINH">Hồ sơ tồn ở bộ phận giám định</option>
+                                                <option value="TON_BOI_THUONG">Hồ sơ tồn ở bộ phận bồi thường</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-2 khung">
+                                        <div class="form-group">
+                                            <label for="khung">Số ngày</label>
+                                            <select class="select2 form-control custom-select" name="stt" style="width:100%">
+                                                <option value="" selected>Chọn số ngày</option>
+                                                <option value="0">0-3 ngày</option>
+                                                <option value="4">4-7 ngày</option>
+                                                <option value="8">8-15 ngày</option>
+                                                <option value="16">16-30 ngày</option>
+                                                <option value="31">> 31 ngày</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 px-2 ma_nsd">
+                                        <div class="form-group">
+                                            <label for="nsd">Tên cán bộ</label>
+                                            <select class="select2 form-control custom-select" name="ma_nsd" style="width:100%">
+                                                <option value="" selected>Chọn cán bộ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row mx-0 w-100">
+                                <div class="col-12 mt-2 px-2">
+                                    <div class="table-responsive" id="tableDanhSachHoSoTon" style="max-height: 510px;">
+                                        <table class="table table-bordered" style="width:180%">
+                                            <thead class="font-weight-bold card-title-bg-primary text-center">
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Ngày mở</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Số hồ sơ</th>
+                                                    <th>BTV</th>
+                                                    <th>Biển số</th>
+                                                    <th>Tên khách hàng</th>
+                                                    <th>Nghiệp vụ</th>
+                                                    <th>Số HĐBH</th>
+                                                    <th>Số GCN</th>
+                                                    <th>Đơn vị xử lý</th>
+                                                    <th>Hồ sơ giám định</th>
+                                                    <th>Hồ sơ bồi thường</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblDanhSachHoSoTon">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-0 w-100">
+                <div class="col-12 p-3">
+                    <div id="tblDanhSachHoSoTon_pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/html" id="tblDanhSachHoSoTon_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center">
+            <%- item.sott %>
+        </td>
+        <td class="text-center"><%- item.ngay_ht %></td>
+        <td class="text-center"><%- item.trang_thai %></td>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-center"><%- item.nsd %></td>
+        <td class="text-center"><%- item.doi_tuong %></td>
+        <td class="text-center"><%- item.ten_kh %></td>
+        <td class="text-center"><%- item.nv %></td>
+        <td class="text-center"><%- item.so_hd %></td>
+        <td class="text-center"><%- item.gcn %></td>
+        <td class="text-center"><%- item.ten_chi_nhanh_xly %></td>
+        <td class="text-center"><a href="#" onclick="ShowInvestigationDisplay('<%- item.ma_doi_tac%>','<%- item.so_id %>','XEM_CTIET_HO_SO_GD')">HS giám định</a></td>
+        <td class="text-center"><a href="#" onclick="ShowCompensationDisplay('<%- item.ma_doi_tac%>','<%- item.so_id %>','XEM_CTIET_HO_SO_BT')">HS bồi thường</a></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="10">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <% if(data.length < 11){
+    for(var i = 0; i < 11 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

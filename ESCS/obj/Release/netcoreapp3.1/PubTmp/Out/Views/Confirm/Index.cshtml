@@ -1,0 +1,369 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ESCS.COMMON.Auth.user_login_escs
+@using ESCS.MODEL.ESCS
+@{
+    ViewData["Title"] = "Thông tin xác nhận khách hàng";
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var logo_login = "images/logo-icon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var cai_dat_logo = setting.cai_dat.Where(n => n.loai == "LOGO_DANG_NHAP").FirstOrDefault();
+        logo_login = cai_dat_logo != null && !string.IsNullOrEmpty(cai_dat_logo.url_anh) ? cai_dat_logo.url_anh : logo_login;
+    }
+}
+<div id="page404" class="d-none" style="position: relative; height: 100vh; overflow-x: hidden;">
+    <section class="main-content-error">
+        <div class="container-xl">
+            <div class="row gy-4">
+                <div class="col-sm-12 col-md-12 col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                        </div>
+                        <h2 class="h1">Không xác định được đường dẫn</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="trang_chu" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container-fuild header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <a class="navbar-brand" href="javascript:void(0);">
+                                <img src="/@logo_login" alt="Logo" class="rounded app_logo" style="width:120px">
+                            </a>
+                            <span class="slogan d-block app_ten_cty_bh"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content-confirm rounded">
+            <div class="container-xl mx-auto">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-10 col-md-12 col-12 mx-auto px-3">
+                        <div class="text-center mt-4 mb-2">
+                            <h6 class="tieu_de mb-0" style="color: #424D54; font-weight: 600;"></h6>
+                            <span class="message_error" style="font-weight:bold; color: green"></span>
+                        </div>
+                        <div class="card border mb-0" style="border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size:14px;"><i class="fa fa-address-book mr-2"></i>Thông tin hợp đồng bảo hiểm</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinHoSoXe">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border mb-0 mt-3" style="border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size: 14px;"><i class="fas fa-user mr-2"></i>Thông tin khách hàng</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="divThongTinDoiTuongBaoHiemXe">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border mb-0 mt-3" id="divThongTinTinhToan" style="border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;">
+                            <div class="card-header bg-transparent">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size: 14px;"><i class="fas fa-calculator-alt mr-2"></i>Thông tin tính toán bồi thường</h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="divThongTinTinhToanBoiThuong">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-fuild mx-auto">
+                <div class="footer-inner col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4 px-3">
+                        <div class="col-12">
+                            <a href="javascript:void(0);" class="btn btn-button cursor-pointer" id="btnXacNhan"><i class="fas fa-check mr-2"></i>Xác nhận</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div class="modal fade" id="modalXacNhan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered mx-3" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="frmXacNhan" novalidate="novalidate" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group m-0">
+                                <label class="_required" style="font-size: 16px; font-weight: 600; color: #424D54;">Nhập ý kiến</label>
+                                <textarea class="form-control" placeholder="Nhập ý kiến của bạn" required autocomplete="off" rows="5" name="ly_do_tu_choi"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 mt-3 border-top">
+                        <div class="col-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn-nhap wd-110 mx-2 p-2" id="btnLuuXacNhan" style="background-color: #0C8242; font-family: 'Roboto'; width:110px;"><i class="fa fa-check mr-2"></i>Xác nhận</button>
+                            <button type="button" class="btn-close wd-110 mx-2 p-2" style="width: 110px;" data-dismiss="modal"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="divThongTinHopDongXeTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- ho_so.ten_kh %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số hợp đồng: <span><%- ho_so.so_hd %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Cán bộ kiểm tra: <span><%- ho_so.can_bo_xly %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Email - Số điện thoại: <span><%- ho_so.email_sdt %></span></p>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinKhachHangTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- ho_so.ten_kh %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Biển số xe: <span><%- ho_so.bien_xe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số khung: <span><%- ho_so.so_khung %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy: <span><%- ho_so.so_may %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hãng xe: <span><%- ho_so.hang_xe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hiệu xe: <span><%- ho_so.hieu_xe %></span></p>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinHoSoXeTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- ho_so.ten_kh %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số hồ sơ: <span><%- ho_so.so_hs %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày mở hồ sơ: <span><%- ho_so.ngay_mo_hs %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Cán bộ xử lý: <span><%- ho_so.can_bo_xly %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số điện thoại tổng đài: <span><%- ho_so.sdt_tong_dai %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy lẻ cán bộ hỗ trợ: <span><%- ho_so.dthoai_lhe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Email cán bộ hỗ trợ: <span><%- ho_so.email_lhe %></span></p>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="divThongTinDoiTuongBaoHiemXeTemplate">
+    <%if(ho_so.nv == 'XE') {%>
+    <div class="row w-100 mx-0">
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên chủ xe: <span><%- ho_so.ten_chu_xe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Biển số xe: <span><%- ho_so.bien_xe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số khung: <span><%- ho_so.so_khung %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy: <span><%- ho_so.so_may %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hãng xe: <span><%- ho_so.hang_xe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hiệu xe: <span><%- ho_so.hieu_xe %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hiệu lực: <span><%- ho_so.hieu_luc %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 boi-thuong">
+            <p class="field-name">Gara sửa chữa: <span><%- ho_so.gara %></span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 pa-gia boi-thuong">
+            <p class="field-name">Số tiền gara báo giá: <span><%- ho_so.tien_gara_bao_gia %> VND</span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 pa-gia boi-thuong">
+            <p class="field-name">Số tiền CTYBH phê duyệt: <span><%- ho_so.so_tien_duyet %> VND</span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 pa-boi-thuong boi-thuong">
+            <p class="field-name">Số tiền bồi thường (trước thuế): <span><%- ho_so.tien_duyet %> VND</span></p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 pa-boi-thuong boi-thuong">
+            <p class="field-name">Thuế VAT: <span><%- ho_so.thue %></span> VND</p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 pa-boi-thuong boi-thuong">
+            <p class="field-name">Tổng số tiền bồi thường: <span><%- ho_so.so_tien_duyet %></span> VND</p>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-md-6 col-12 px-0 pa-boi-thuong boi-thuong">
+            <p class="field-name mb-0">Số tiền KH phải trả: <span><%- ho_so.tien_kh_chi_tra_chua_vat %> VND</span></p>
+        </div>
+    </div>
+    <%}%>
+</script>
+<script type="text/html" id="divThongTinTinhToanBoiThuong_template">
+    <table class="table field-name mb-0 align-center">
+        <tbody>
+            <tr style="background-color: #f7f7f7;">
+                <td>I. TỔNG TIỀN DUYỆT GIÁ</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tong_gia_duyet) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr style="background-color: #f7f7f7;">
+                <td>II. KHẤU HAO, GIẢM TRỪ, GIẢM GIÁ</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tong_giam_chua_ktru) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>1. Khấu hao phụ tùng thay mới</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_khau_hao) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>2. Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_bao_hiem) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>3. Giảm trừ bồi thường</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_giam_tru) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>4. Giảm giá phụ tùng thay thế</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_giam_gia_vtu) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>5. Giảm giá chi phí nhân công sửa chữa</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_giam_gia_nhan_cong) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>6. Giảm giá chi phí sơn</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_giam_gia_khac) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr style="background-color: #f7f7f7;">
+                <td>III. KHẤU TRỪ THEO HĐ, QUY TẮC BH</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tong_ktru) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>1. Khấu trừ theo % số tiền bồi thường</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_ktru_bh) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>2. Khấu trừ theo số tiền/vụ (miễn thường)</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.tien_mien_thuong) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr style="background-color: #f7f7f7;">
+                <td>IV. CHI PHÍ CẨU KÉO</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tong_cp_khac) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>1. Chi phí cẩu xe</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.cp_cau) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>2. Chi phí kéo xe</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.cp_keo) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>3. Chi phí khác</td>
+                <td class="text-right"><%- ESUtil.formatMoney(vcx.cp_khac) %></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr style="background-color: #f7f7f7;">
+                <td colspan="3">SỐ TIỀN BỒI THƯỜNG</td>
+            </tr>
+            <tr>
+                <td>STBT TRƯỚC THUẾ (I-II-III+IV)</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tien_bt_chua_vat) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>THUẾ VAT</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tien_thue) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>CTYBH CHI TRẢ(GỒM THUẾ)</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tien_bt_gom_vat) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+            <tr>
+                <td>TỔNG TIỀN KH CHI TRẢ(CHƯA VAT)</td>
+                <td class="text-right"><span class="text-primary"><%- ESUtil.formatMoney(vcx.tien_kh_chi_tra_chua_vat) %></span></td>
+                <td class="text-center">VND</td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+
+@section Scripts{
+    <script src="~/js/common/Service.js" asp-append-version="true"></script>
+    <script src="~/js/common/FormService.js" asp-append-version="true"></script>
+    <script src="~/js/common/NotifyService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/confirm/services/ConfirmService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESLoading.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESUtil.js" asp-append-version="true"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+    <script src="~/js/confirm/Confirm.js" asp-append-version="true"></script>
+}
+<style>
+    #divThongTinTinhToanBoiThuong .table td {
+        padding: 0.5rem !important;
+    }
+</style>

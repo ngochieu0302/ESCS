@@ -1,0 +1,279 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ESCS.MODEL.ESCS.ModelView.nsd_y_kien;
+@using ESCS.MODEL.ESCS
+@{
+    ViewData["Title"] = "Xin ý kiến trước khi trình";
+    Layout = "~/Views/Shared/_LayoutOpinion.cshtml";
+    var hashcode = TempData["hashcode"];
+}
+<input type="hidden" id="hashcode" value="@hashcode" />
+<div id="trang_chu">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container-fuild header-top">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <a class="navbar-brand" href="#">
+                                <img class="rounded app_logo" src="~/images/logo.png" alt="logo" style="width:120px" />
+                            </a>
+                            <span class="slogan d-block app_ten_cty_bh">CÔNG TY CỔ PHẦN GIẢI PHÁP CÔNG NGHỆ ESCS</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content rounded">
+            <div class="container-xl mx-auto">
+                <div class="row gy-4">
+                    <div class="col-12">
+                        <div class="widget">
+                            <div class="widget-header text-left">
+                                <h5 class="widget-title"><i class="fas fa-info-circle mr-2 text-primary"></i>Thông tin hồ sơ bồi thường</h5>
+                            </div>
+                            <div id="accordion" class="accordions">
+                                <div class="mb-2 accordion-item">
+                                    <div class="bg-transparent accordion-title" data-tab="thongTinHoSo">
+                                        <h5 class="mb-0">Thông tin hồ sơ<i class="fas fa-chevron-down ml-3"></i></h5>
+                                    </div>
+                                    <div id="thongTinHoSo" class="accordion-content border-top">
+                                        <div class="col-sm-12">
+                                            <div id="divThongTinHoSo">
+                                                <p style="font-weight: bold;">THÔNG TIN HỒ SƠ</p>
+                                                <p>Tên khách hàng: <span></span></p>
+                                                <p>Số HSBT: <span></span></p>
+                                                <p>Ngày mở hồ sơ: <span></span></p>
+                                                <p>Cán bộ xử lý: <span></span></p>
+                                                <p style="font-weight: bold;">THÔNG TIN ĐỐI TƯỢNG BẢO HIỂM</p>
+                                                <p>Biển số xe: <span></span></p>
+                                                <p>Số khung: <span></span></p>
+                                                <p>Số máy: <span></span></p>
+                                                <p>Hãng xe: <span></span></p>
+                                                <p>Hiệu xe: <span></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Thông tin tổn thất-->
+                                <div class="mb-2 accordion-item">
+                                    <div class="bg-transparent accordion-title" data-tab="thongTinTonThat">
+                                        <h5 class="mb-0">Thông tin tổn thất<i class="fas fa-chevron-down ml-3"></i></h5>
+                                    </div>
+                                    <div id="thongTinTonThat" class="accordion-content border-top">
+                                        <div class="col-sm-12">
+                                            <div id="divThongTinTonThat">
+                                                <p style="font-weight: bold;">THÔNG TIN TỔN THẤT</p>
+                                                <p>Thời gian: <span></span></p>
+                                                <p>Địa điểm: <span></span></p>
+                                                <p>Nguyên nhân: <span></span></p>
+                                                <p>Hậu quả: <span></span></p>
+                                                <p>Họ tên lái xe: <span></span></p>
+                                                <p>Số GPLX: <span></span></p>
+                                                <p>Hạng: <span></span></p>
+                                                <p>Hiệu lực: <span></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Thông tin giám định-->
+                                <div class="mb-2 accordion-item">
+                                    <div class="bg-transparent accordion-title" data-tab="thongTinGiamDinh">
+                                        <h5 class="mb-0">Thông tin giám định<i class="fas fa-chevron-down ml-3"></i></h5>
+                                    </div>
+                                    <div id="thongTinGiamDinh" class="accordion-content border-top">
+                                        <div class="col-sm-12">
+                                            <div id="divThongTinGiamDinh">
+                                                <p style="font-weight: bold;">THÔNG TIN GIÁM ĐỊNH</p>
+                                                <p>Thời gian: <span></span></p>
+                                                <p>Địa điểm: <span></span></p>
+                                                <p>Đơn vị giám định: <span></span></p>
+                                                <p>Cán bộ giám định: <span></span></p>
+                                                <p>Đối tượng giám định: <span></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Thông tin hồ sơ giấy tờ-->
+                                <div class="mb-2 accordion-item">
+                                    <div class="bg-transparent accordion-title" data-tab="thongTinHoSoGiayTo">
+                                        <h5 class="mb-0">Thông tin hồ sơ giấy tờ<i class="fas fa-chevron-down ml-3"></i></h5>
+                                    </div>
+                                    <div id="thongTinHoSoGiayTo" class="accordion-content border-top">
+                                        <div class="col-sm-12 px-2">
+                                            <div id="divThongTinHoSoGiayTo">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="p-1 align-items-center text-center" style="width:45%;">Tên tài liệu</th>
+                                                                <th class="p-1 align-items-center text-center" style="width:25%;">Trạng thái</th>
+                                                                <th class="p-1 align-items-center text-center" style="width:30%;">Ngày BS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                        <tfoot class="d-none">
+                                                            <tr>
+                                                                <td class="p-1 text-center" colspan="3">Chưa có dữ liệu</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-12">
+                        <div class="form-group">
+                            <label class="_required">Nhập mã xác thực</label>
+                            <input class="form-control" autocomplete="off" required type="text" placeholder="Nhập mã xác thực OTP" name="" id="" value="">
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-xl mx-auto">
+                <div class="footer-inner">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-md-12 col-sm-12 col-12 text-center">
+                            <a href="#" class="btn btn-button" id="btnChoYKien">Ý kiến về hồ sơ <i class="far fa-share-square ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div id="y_kien" class="d-none">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-between" style="font-size:20px;">
+                            <div>
+                                <a id="btnQuayLai" href="#"><i class="fas fa-arrow-left mr-1"></i> Quay lại</a>
+                            </div>
+                            <div>
+                                <p style="margin:unset;">Ý kiến về hồ sơ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content">
+            <div class="container-xl mx-auto px-3">
+                <div class="widget-header text-left">
+                    <h5 class="widget-title"><i class="fas fa-user mr-2 text-primary opacity-g"></i>Thông tin người xin ý kiến</h5>
+                </div>
+                <form action="/" method="post" name="frmSaveOpinion" id="frmSaveOpinion" novalidate="novalidate" class="contact-form">
+                    <input type="hidden" name="so_id_yk" value="" />
+                    <input type="hidden" name="bt" value="" />
+                    <div class="row">
+                        <div class="column col-md-6">
+                            <div class="form-group mb-1">
+                                <label>Cán bộ xin ý kiến</label>
+                                <input type="text" class="form-control" readonly id="ten_nsd_xin_yk" placeholder="Cán bộ xin ý kiến">
+                            </div>
+                        </div>
+                        <div class="column col-md-6">
+                            <div class="form-group mb-1">
+                                <label>Email</label>
+                                <input type="text" class="form-control" readonly id="email_nsd_xin_yk" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="column col-md-12">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" readonly id="dthoai_nsd_xin_yk" placeholder="Số điện thoại">
+                            </div>
+                        </div>
+                        <div class="widget-header text-left px-3">
+                            <h5 class="widget-title"><i class="fad fa-user-edit mr-2 text-primary opacity-g"></i>Vui lòng cho ý kiến</h5>
+                        </div>
+                        <div class="column col-md-12">
+                            <div class="form-group">
+                                <textarea name="nd_y_kien" id="nd_y_kien" class="form-control" rows="12" placeholder="Nhập ý kiến về hồ sơ" required="required"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <footer>
+            <div class="container-xl">
+                <div class="footer-inner">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-md-12">
+                            <a href="#" id="btnGuiYKien" class="btn btn-button"><i class="fas fa-upload mr-2"></i>Gửi ý kiến</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div id="page404" class="d-none">
+    <section class="main-content-error">
+        <div class="container-xl">
+            <div class="row gy-4">
+                <div class="col-sm-12 col-md-12 col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                        </div>
+                        <h2 class="h1">Không xác định được đường dẫn</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="device_detect" class="d-none">
+    <section class="main-wrapper">
+        <header class="header-personal">
+            <div class="container header-top">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- site logo-->
+                        <a class="navbar-brand" href="#">
+                            <img src="~/images/logo.png" alt="logo" class="rounded" width="150" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section class="main-content">
+        <div class="container-xl">
+            <div class="row gy-4">
+                <div class="col-lg-12 text-center py-5">
+                    <img class="img-fluid" src="~/images/warning.png" style="max-width:60px" />
+                    <p class="mg-t-25 mg-b-15 font-weight-bold">Thiết bị hỗ trợ không đúng</p>
+                    <p>Website chỉ được sử dụng trên thiết bị di động như : điện thoại, máy tính bảng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<partial name="_Template.cshtml" />
+@section Scripts{
+    <script src="~/js/common/Service.js" asp-append-version="true"></script>
+    <script src="~/js/common/FormService.js" asp-append-version="true"></script>
+    <script src="~/js/common/NotifyService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Opinion/services/OpinionService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESLoading.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESUtil.js" asp-append-version="true"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+    <script src="~/js/app/Opinion/Opinion.js" asp-append-version="true"></script>
+}

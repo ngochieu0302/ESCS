@@ -1,0 +1,29 @@
+﻿<div id="modalHangGPLX" class="modal-drag" style="width:250px; z-index:9999999;">
+    <div class="modal-drag-header border-bottom px-2">
+        <h5><span class="modal-drag-title px-2">Chọn hạng giấy phép lái xe</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12 mt-2 d-flex scrollable" style="max-height:250px; flex-wrap: wrap" id="modalHangGPLXDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer border-top">
+        <button type="button" class="btn btn-primary btn-sm wd-80" id="btnChonHangGPLX">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalHangGPLXDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox col-6" data-text="">
+        <input type="checkbox" id="hang_gplx_<%- item.hang_gplx %>" value="<%- item.hang_gplx %>" class="custom-control-input modalHangGPLXItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="hang_gplx_<%- item.hang_gplx %>"><%- item.hang_gplx %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>34

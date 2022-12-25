@@ -1,0 +1,213 @@
+﻿<div id="modalHoaDonChungTu" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thêm hóa đơn, chứng từ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmHoaDonChungTu" id="frmHoaDonChungTu" method="post">
+                    <input type="hidden" name="so_id" />
+                    <input type="hidden" name="bt" />
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Đơn vị phát hành</label>
+                                <select class="select select2 form-control custom-select" required name="dvi_ph" style="width:100%">
+                                    <option value="">Chọn đơn vị phát hành</option>
+                                    <option value="BENH_VIEN">Bệnh viện</option>
+                                    <option value="NHA_THUOC">Nhà thuốc</option>
+                                    <option value="KHAC">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label class="_required">Tên đơn vị phát hành</label>
+                                <input type="text" autocomplete="off" class="form-control" placeholder="Tên đơn vị phát hành" required name="ten_dvi_phat_hanh">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Mã số thuế</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Mã số thuế" required name="mst_dvi_phat_hanh">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label class="_required">Địa chỉ</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Địa chỉ" required name="dchi_dvi_phat_hanh">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Ngày phát hành</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" value-format="number" required name="ngay_ct" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Mẫu hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" required name="mau_hdon" placeholder="GT00001...">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Ký hiệu hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" required name="ky_hieu_hdon" placeholder="AP/20...">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Số hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" required name="so_hdon" placeholder="0000001">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Nội dung</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Nội dung" required name="dien_giai">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Số tiền</label>
+                                <input type="text" class="form-control number" autocomplete="off" placeholder="Số tiền" required name="tien">
+                            </div>
+                        </div>
+                        @*<div class="col-3">
+                            <div class="form-group">
+                                <label class="_required">Tỷ lệ thuế (%)</label>
+                                <select class="select select2 form-control custom-select" autocomplete="off" required name="tl_thue" style="width:100%">
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="">Tiền thuế</label>
+                                <input type="text" class="form-control number" autocomplete="off" placeholder="Thuế" required name="thue">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Tổng cộng</label>
+                                <input type="text" class="form-control number" autocomplete="off" placeholder="Tổng tiền" readonly required name="tong_cong">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label>Tên đơn vị nhận hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Tên đơn vị nhận hóa đơn" name="ten_dvi_nhan">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>MST đơn vị nhận hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="MST đơn vị nhận hóa đơn" name="mst_dvi_nhan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Địa chỉ đơn vị nhận hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Địa chỉ đơn vị nhận hóa đơn" name="dchi_dvi_nhan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label>Website tra cứu hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Website tra cứu hóa đơn" name="website_tra_cuu">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Mã tra cứu hóa đơn</label>
+                                <input type="text" class="form-control" autocomplete="off" placeholder="Mã tra cứu hóa đơn" name="ma_tra_cuu">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 ml-2" id="btnLuuHoaDonChungTu">
+                    <i class="fas fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-110" id="btnLuuDongHoaDonChungTu">
+                    <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+                <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Thông tin chứng từ*@
+<script type="text/html" id="step3_chung_tu_template">
+    <% if(chung_tu.length > 0){
+    _.forEach(chung_tu, function(item,index) { %>
+    <tr>
+        <td class="text-center">
+            <input type="hidden" value="<%- JSON.stringify(item) %>" name="objInfo" />
+            <%- item.ngay_ct %>
+        </td>
+        <td class="text-center"><%- item.mau_hdon %></td>
+        <td class="text-center"><%- item.ky_hieu_hdon %></td>
+        <td class="text-center"><%- item.so_hdon %></td>
+        <td><%- item.dien_giai %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.thue) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_cong) %></td>
+        <td class="text-center">
+            @* class="edit_chung_tu" data-toggle="modal" data-target="#" data-backdrop="static" data-keyboard="false" *@
+            <a href="#" onclick="suaHoaDonChungTu(this)">
+                <i class="far fa-file-alt" title="Xem/sửa chi tiết chứng từ"></i>
+            </a>
+        </td>
+        <td class="text-center">
+            @* class="xoaChungTu" *@
+            <a href="#" onclick="xoaHoaDonChungTu(this)">
+                <i class="fas fa-trash-alt" title="Xóa chứng từ"></i>
+            </a>
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(chung_tu.length < 3){
+    for(var i = 0; i < 3 - chung_tu.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+
+</script>
+

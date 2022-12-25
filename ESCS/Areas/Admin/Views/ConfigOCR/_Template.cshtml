@@ -1,0 +1,49 @@
+﻿<script type="text/html" id="dich_vu_ocr_template">
+    <tr>
+        <td>
+            <input type="hidden" name="ap_dung" class="ap_dung" value="1"/>
+            <select class="select2 form-control custom-select ma_chi_nhanh_dv" required="" style="height:36px;">
+                <option value="">Chọn chi nhánh</option>
+                <% if(ma_chi_nhanh.length > 0){
+                _.forEach(ma_chi_nhanh, function(item,index) { %>
+                <option value="<%- item.ma %>"><%- item.ten_tat %></option>
+                <% })} %>
+            </select>
+        </td>
+        <td>
+            <input type="text" autocomplete="off" placeholder="Nhập thông tin base url" class="form-control base_url_dv">
+        </td>
+        <td>
+            <input type="text" autocomplete="off" placeholder="Nhập thông tin api key" class="form-control api_key_dv">
+        </td>
+        <td>
+            <div class="input-group">
+                <input type="text" autocomplete="off" class="form-control datepicker ngay_hl_dv" name="ngay_hl" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                <div class="input-group-append">
+                    <span class="input-group-text"><span class="ti-calendar"></span></span>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                <input type="text" autocomplete="off" class="form-control datepicker ngay_kt_dv" name="ngay_kt" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                <div class="input-group-append">
+                    <span class="input-group-text"><span class="ti-calendar"></span></span>
+                </div>
+            </div>
+        </td>
+        <td class="text-center">
+            @*<button type="button" class="btn btn-outline-danger btn-sm remove_config" title="Không sử dụng">
+                <i class="ti-close"></i>
+            </button>*@
+            <button type="button" class="btn btn-outline-success btn-sm check_config" title="Đang sử dụng">
+                <i class="fas fa-check"></i>
+            </button>
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-outline-primary btn-sm delete_config" title="Xóa dịch vụ">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>
+    </tr>
+</script>

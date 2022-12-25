@@ -1,0 +1,53 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="card border mb-0 p-2 h-100 d-flex flex-column" id="cardCarCompensationContent">
+    <div class="card-body p-1 flex-fill" style="padding:0px;" id="navBoiThuong">
+        <div style="float:left;padding:6px 2px">
+            <a href="#" style="display: block;height: 33.2px;padding: 7px 2px;" id="btnAnHienTabCommon"><i class="fas fa-angle-left"></i></a>
+        </div>
+        <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist" style="padding-left:0px">
+            <li role="presentation" onclick="showStep('MotoCompensationContentStep1')">
+                <a href="#Tab_MotoCompensationContentStep1" aria-controls="MotoCompensationContentStep1" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-motorcycle mr-2"></span>Thông tin giám định
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('MotoCompensationContentStep2')">
+                <a href="#Tab_MotoCompensationContentStep2" aria-controls="MotoCompensationContentStep2" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-camera-retro mr-2"></span>Tài liệu, hình ảnh hồ sơ
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('MotoCompensationContentStep3')">
+                <a href="#Tab_MotoCompensationContentStep3" aria-controls="MotoCompensationContentStep3" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-tools mr-2"></span>Lập phương án
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('MotoCompensationContentStep4')">
+                <a href="#Tab_MotoCompensationContentStep4" aria-controls="MotoCompensationContentStep4" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-calculator-alt mr-2"></span>Tính toán bồi thường
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('MotoCompensationContentStep5')">
+                <a href="#Tab_MotoCompensationContentStep5" aria-controls="MotoCompensationContentStep5" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-file-invoice mr-2"></span>Chứng từ hóa đơn
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="border:unset;">
+            <div role="tabpanel" style="padding-top: 0px;" class="tab-pane" id="MotoCompensationContentStep1">
+                <partial name="_MotoCompensationContentStep1" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px;" class="tab-pane" id="MotoCompensationContentStep2">
+                <partial name="_MotoCompensationContentStep2" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px; height: 100vh;" class="tab-pane" id="MotoCompensationContentStep3">
+                <partial name="_MotoCompensationContentStep3" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px; height: 100vh;" class="tab-pane" id="MotoCompensationContentStep4">
+                <partial name="_MotoCompensationContentStep4" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px;" class="tab-pane" id="MotoCompensationContentStep5">
+                <partial name="_MotoCompensationContentStep5" />
+            </div>
+        </div>
+    </div>
+</div>

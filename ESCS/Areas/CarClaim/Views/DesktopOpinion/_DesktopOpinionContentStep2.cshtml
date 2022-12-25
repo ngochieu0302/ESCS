@@ -1,0 +1,72 @@
+﻿<style>
+    #dropdownGDVHT {
+        border: 1px solid rgb(233, 236, 239);
+        width: 250px;
+        box-shadow: rgb(106, 160, 201) -2px 4px 10px 0px;
+        position: absolute;
+        left: 0px;
+        transform: translate3d(593px, -103px, 0px);
+        top: 0px;
+        will-change: transform;
+    }
+
+    #dropdownGDVTT {
+        border: 1px solid rgb(233, 236, 239);
+        width: 250px;
+        box-shadow: rgb(106, 160, 201) -2px 4px 10px 0px;
+        position: absolute;
+        left: -50px;
+        transform: translate3d(593px, -103px, 0px);
+        top: 35px;
+        will-change: transform;
+    }
+</style>
+<div class="row">
+    <div class="col-9 pr-0">
+        <div class="card mb-0 modal-main-content">
+            <div class="card-body px-0" style="padding-top:0 !important">
+                <div class="border rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                        <h5 class="m-0">Hình ảnh hồ sơ</h5>
+                        <div class="btn-group float-right">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="img-container" style="height:69vh"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card m-0">
+            <div class="card-body p-0">
+                <div class="border rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                        <div class="btn-group float-right" style="color:#009efb">
+                            <a class="btn btn-light rounded py-0" id="btnTransImageView">
+                                <i class="fas fa-th"></i>
+                            </a>
+                        </div>
+                        <div class="btn-group float-right">
+                            <a class="btn btn-light rounded py-0 d-none" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                <i class="fal fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right border" id="dsNhomAnh">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid scrollable" id="lstImage" style="height: 69vh;">
+                        <div class="row">
+                            <div class="col-12 px-1 list-pictures" id="dsAnhTonThat">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

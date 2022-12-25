@@ -1,0 +1,84 @@
+﻿<div class="row">
+    <div class="col-12 px-0">
+        <div class="card mb-0">
+            <div class="card-body p-0">
+                <div class="d-flex justify-content-between align-items-center py-2 card-title-bg">
+                    <h5 class="m-0">Thông tin các lần tiếp nhận</h5>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive table-app" style="max-height:179px">
+                            <table id="tbl_lan_bao_lanh" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:75px">Lần khám</th>
+                                        <th>Ngày khám</th>
+                                        <th>Nguyên nhân</th>
+                                        <th>Hình thức điều trị</th>
+                                        <th style="width:90px">Số tiền YC</th>
+                                        <th style="width:90px">Tiền giảm</th>
+                                        <th style="width:160px">Số tiền duyệt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblLanBaoLanh">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">
+                                        </td>
+                                        <td class="font-weight-bold text-right" id="tblQloiLanTiepNhanTongTienYC"></td>
+                                        <td class="font-weight-bold text-right" id="tblQloiLanTiepNhanTongGiamTru"></td>
+                                        <td class="font-weight-bold text-right" id="tblQloiLanTiepNhanTongTienDuyet"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-0" id="divQuyenLoi">
+            <div class="card-body p-0">
+                <div class="d-flex justify-content-between align-items-center py-2 card-title-bg">
+                    <h5 class="m-0">Thông tin chi tiết quyền lợi khám/chữa bệnh lần <span class="so_lan"></span></h5>
+                    <span>
+                        <a href="javascript:void(0)" id="btnXemQuyenLoiChiTiet" class="font-weight-bold">
+                            <i class="fas fa-file-search"></i> Xem quyền lợi chi tiết GCN bảo hiểm
+                        </a>
+                    </span>
+                </div>
+                <div class="table-responsive" style="max-height:283px">
+                    <table id="tbl_lan_bao_lanh_quyen_loi" class="table table-bordered fixed-header">
+                        <thead class="font-weight-bold card-title-bg-primary">
+                            <tr class="text-center uppercase">
+                                <th>Quyền lợi</th>
+                                <th>Chẩn đoán</th>
+                                <th style="width:90px">Tiền YC</th>
+                                <th style="width:90px">Giảm trừ</th>
+                                <th style="width:90px">Tiền Duyệt</th>
+                                <th style="width:35px;"></th>
+                                <th style="width:35px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblQloiLan">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="#" id="btnThemQuyenLoi">
+                                        <i class="fas fa-plus-square mr-2"></i>Thêm quyền lợi
+                                    </a>
+                                </td>
+                                <td class="font-weight-bold text-right" id="tblQloiLanTongTienYC">0</td>
+                                <td class="font-weight-bold text-right" id="tblQloiLanTongGiamTru">0</td>
+                                <td class="font-weight-bold text-right" id="tblQloiLanTongTienDuyet">0</td>
+                                <td class="text-right" colspan="2">
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

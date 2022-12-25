@@ -1,0 +1,163 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục các loại chi phí";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Danh mục các loại chi phí</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Loại chi phí</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" autocomplete="off" name="tim" id="tim" placeholder="Nhập thông tin mã/tên các loại chi phí" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Loại</label>
+                                <select class="select2 form-control custom-select" name="loai" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnThemMoi">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewChiPhi" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalNhapChiPhi" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-modal="true" role="dialog">
+    <div class="modal-dialog" style="max-width: 45%;">
+        <div class="modal-content">
+            <form name="frmLuuChiPhi" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Danh mục các loại chi phí <span id="modal-user-log" style="font-size: 14px; font-style: italic;"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required" id="loai">Loại</label>
+                                <select class="select2 form-control custom-select" required="" name="loai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn loại </option>
+                                    <option value="KB">Khám bệnh</option>
+                                    <option value="TH">Thuốc</option>
+                                    <option value="KH">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select" required="" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đang sử dụng</option>
+                                    <option value="N">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Mã cấp trên</label>
+                                <select class="select2 form-control custom-select" name="ma_ct" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" maxlength="20" name="ma" autocomplete="off" required class="form-control" placeholder="Mã chi phí">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Thứ tự hiển thị</label>
+                                <input type="text" min="0" maxlength="5" autocomplete="off" placeholder="Thứ tự hiển thị" name="stt" class="form-control decimal">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="_required">Tên chi phí</label>
+                                <input type="text" maxlength="250" name="ten" autocomplete="off" required class="form-control" placeholder="Tên các loại chi phí">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cp_thuoc" class="row d-none" style="margin-top: 5px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Đơn vị tính</label>
+                                <select class="select2 form-control custom-select" name="dvi_tinh" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Giá thuốc</label>
+                                <input type="text" maxlength="20" name="gia" autocomplete="off" class="form-control number" placeholder="Giá chi phí thuốc">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuTTChiPhi"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaTTChiPhi"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UnitService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CostsListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/CostsList.js" asp-append-version="true"></script>
+}

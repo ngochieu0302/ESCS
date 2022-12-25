@@ -1,0 +1,166 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Cấu hình dịch vụ Video call - Voice call";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Video call - Voice call</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Video call - Voice call</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin sđt/nsd dịch vụ call" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Chi nhánh</label>
+                                <select class="select2 form-control custom-select" required name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnAddConfigCall">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewConfigCall" class="table-app"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalAdd" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmSaveConfigCall" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Video call - Voice call</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Chi nhánh</label>
+                                <select class="select2 form-control custom-select" required name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">SID</label>
+                                <input type="text" autocomplete="off" required maxlength="200" name="sid" class="form-control" placeholder="Nhập SID">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Secret</label>
+                                <input type="text" autocomplete="off" required maxlength="200" name="secret" class="form-control" placeholder="Nhập Secret">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Điện thoại</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validatePhoneControl" class="form-control phone" maxlength="20" required="" name="sdt" im-insert="true" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select" required name="ap_dung" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" required autocomplete="off" display-format="date" value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" required autocomplete="off" display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnSaveConfig"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteConfig"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ConfigCallService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ConfigCall.js" asp-append-version="true"></script>
+}

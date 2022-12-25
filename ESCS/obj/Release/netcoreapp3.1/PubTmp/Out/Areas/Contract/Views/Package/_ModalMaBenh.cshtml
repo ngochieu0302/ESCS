@@ -1,0 +1,70 @@
+﻿@*Cấu hình mã bệnh*@
+<div id="modalCauHinhMaBenh" class="modal-drag" style="width:350px; z-index:9999999; position:absolute; top:500px !important;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn mã bệnh</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_CauHinhMaBenh" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalCauHinhMaBenhElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalCauHinhMaBenhDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnChonCauHinhMaBenh">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+<script type="text/html" id="modalCauHinhMaBenhDanhSachTemplate">
+    <% if(ds_cau_hinh_ma_benh.length > 0){
+    _.forEach(ds_cau_hinh_ma_benh, function(item,index) { %>
+    <div class="custom-control custom-checkbox chmb" id="chmb_<%- item.ma %>" data-text="<%- item.ten_v %>">
+        <input type="checkbox" id="ma_benh_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonCauHinhMaBenhItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="ma_benh_<%- item.ma %>"><%- item.ten_v %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+@*Quyền lợi bổ sung - DKBS*@
+<div id="modalCauHinhDKBS" class="modal-drag" style="width:600px; z-index:9999999; position:absolute; top:500px !important; margin-left:120px !important;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn điều khoản bổ sung</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_CauHinhDKBS" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalCauHinhDKBSElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalCauHinhDKBSDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnChonCauHinhDKBS">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalCauHinhDKBSDanhSachTemplate">
+    <% if(ds_cau_hinh_dkbs.length > 0){
+    _.forEach(ds_cau_hinh_dkbs, function(item,index) { %>
+    <div class="custom-control custom-checkbox dkbs" id="dkbs_<%- item.ma %>" data-text="<%- item.ten %>">
+        <input type="checkbox" id="ma_dkbs_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonCauHinhDKBSItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="ma_dkbs_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

@@ -1,0 +1,190 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục mức độ tổn thất";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Mức độ tổn thất</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Mức độ tổn thất</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập mã/tên mức độ tổn thất" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="BB">Bắt buộc</option>
+                                    <option value="TN">Tự nguyện</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnNhapThongTinMucDoTT">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Export" id="btnExportExcelMucDoTT">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewMucDoTT" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapMucDoTT" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <form name="frmLuuThongTinMucDoTT" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin mức độ tổn thất</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Nhóm</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="nhom" required="" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nhóm</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                    <option value="NG">Con người</option>
+                                    <option value="TAI_SAN">Tài sản</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="BB">Bắt buộc</option>
+                                    <option value="TN">Tự nguyện</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Mã cấp trên</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_ct" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" required maxlength="20" name="ma" class="form-control" autocomplete="off" placeholder="Mã mức độ tổn thất">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="_required">Tên</label>
+                                <input type="text" maxlength="50" name="ten" required class="form-control" autocomplete="off" placeholder="Tên mức độ tổn thất">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Phương án khắc phục</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="pa_khac_phuc" style="width: 100%; height:36px;">
+                                    <option value="">Chọn phương án</option>
+                                    <option value="T">Thay thế</option>
+                                    <option value="S">Sửa chữa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Ký hiệu</label>
+                                <input type="text" maxlength="20" name="ky_hieu" autocomplete="off" class="form-control" placeholder="Ký hiệu">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Số thứ tự</label>
+                                <input type="text" min="0" maxlength="5" placeholder="Số thứ tự hiển thị" name="stt" autocomplete="off" class="form-control decimal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block;">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinMucDoTT"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaThongTinMucDoTT"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DamageLevelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/DamageLevel.js" asp-append-version="true"></script>
+}
+
+
+

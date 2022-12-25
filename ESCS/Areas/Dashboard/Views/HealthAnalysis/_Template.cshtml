@@ -1,0 +1,52 @@
+﻿<script type="text/html" id="tong_hop_template">
+    <% _.forEach(data, function(item,index) { %>
+    <div class="col">
+        <div class="card">
+            <div class="card-body p-1">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg text-white d-inline-block text-center rounded-circle bg-info">
+                        <i class="fal fa-sigma"></i>
+                    </div>
+                    <div class="ml-2 align-self-center wd-60p">
+                        <p class="text-muted mb-0"><%- item.ten_nhom %></p>
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <h4 class="mb-0 font-weight-light" id="tong_ho_so"><%- item.sl %></h4>
+                            <p class="mb-0" id="tong_ho_so_tien"><%- ESUtil.formatMoney(item.tien) %> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%})%>
+</script>
+@* Số tiền list *@
+<!--<script type="text/html" id="so_tien_list_template">
+    <% _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-content"><%- item.nhom %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+    </tr>
+    <%})%>
+</script>-->
+@* Top 10 hồ sơ có số tiền cao nhất *@
+<!--<script type="text/html" id="top_10_list_template">
+    <% _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-content"><%- item.doi_tuong %></td>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+    </tr>
+    <%})%>
+</script>-->
+@* Top 30 hạng mục hay xảy ra tổn thất *@
+<!--<script type="text/html" id="top_30_hang_muc_template">
+    <% _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-content"><%- item.hang_muc %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+    </tr>
+    <%})%>
+</script>-->

@@ -1,0 +1,48 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO XÁC NHẬN BIÊN BẢN GIÁM ĐỊNH</title>
+</head>
+<body style="font-family: 'Tahoma'">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO XÁC NHẬN BIÊN BẢN GIÁM ĐỊNH</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi : <span style="color: #035299">Quý khách hàng</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">@mail.ten_cty, xin gửi tới Quý Khách hàng biên bản giám định tổn thất xe <span style="color: #4552a2">@mail.doi_tuong</span> theo hợp đồng bảo hiểm số <span style="color: #4552a2">@mail.so_hd</span> như sau:</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">Ngày giờ giám định: <span style="color: #4552a2">@mail.ngay_gd</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">Nơi giám định: <span style="color: #4552a2">@mail.dia_diem</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:3px;">Đã được cán bộ giám định: <span style="color: #4552a2">@mail.thong_tin_gdv</span> giám định chi tiết tổn thất.</p>
+
+                @*<p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 3px;">Trường hợp cần hỗ trợ thêm, vui lòng liên hệ hotline <span style="color: #4552a2">@mail.dthoai_cty</span></p>*@
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: red; font-weight: bold; margin-top: 10px">@mail.url_xac_nhan</p>
+
+                <div style="font-family: 'Tahoma'; font-size: 14px; color: red; font-weight: bold; margin-top: 10px">
+                    <span>
+                        Quý khách hàng Vui lòng click vào đường link để <a href="@mail.short_link">xác nhận </a> biên bản giám định
+                    </span>
+                </div>
+                
+                <p style="color: #035299; font-weight: bold">Trân trọng Cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

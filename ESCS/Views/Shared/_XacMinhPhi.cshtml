@@ -1,0 +1,59 @@
+﻿<div id="modalXacMinhPhi" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title" id="">Tình trạng đóng phí bảo hiểm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color: #54667a0a; ">
+                <div class="table-responsive" style="max-height:205px">
+                    <table id="tableDSXacMinhPhi" class="table table-bordered fixed-header" style="width:100%">
+                        <thead class="font-weight-bold">
+                            <tr class="text-center uppercase">
+                                <th width="10%">Kỳ thanh toán</th>
+                                <th width="8%">Số tiền</th>
+                                <th width="10%">Ngày đóng phí</th>
+                                <th width="8%">Số tiền</th>
+                                <th width="20%">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center" id="dsXacMinhPhi"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm wd-90" data-dismiss="modal" id="btnXacMinhPhi_close">
+                    <i class="fas fa-window-close"></i>&nbsp;Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="dsXacMinhPhi_template">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <tr>
+        <td><%- item.ky_tt %></td>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.so_tien) %>
+        </td>
+        <td><%- item.ngay_tt %></td>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.so_tien_da_tt) %>
+        </td>
+        <td class="text-left"><%- item.ghi_chu %></td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 2){
+    for(var i = 0; i < 2 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

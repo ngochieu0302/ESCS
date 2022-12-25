@@ -1,0 +1,36 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>THÔNG BÁO HỒ SƠ CHUYÊN KẾ TOÁN TỰ ĐỘNG</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+    <div style="border: 1px solid #035299; border-radius: 5px; background-color: azure; font-family: 'Tahoma'; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center;">
+                THÔNG BÁO HỒ SƠ CHUYÊN KẾ TOÁN TỰ ĐỘNG
+                <br>Số hồ sơ: @mail.so_hs
+            </h3>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">
+                    Kính gửi:
+                    <span style="color: #035299;">
+                        Bồi thường viên @mail.ten_btv
+                    </span>
+                </p>
+                <p style="margin: 8px 0px;">Hệ thống thông báo  hồ sơ @mail.so_hs theo Hợp đồng bảo hiểm @mail.so_hd đã được chuyển tự động sang bộ phận kế toán.</p>
+                <p style="margin: 8px 0px;">Đề nghị anh/chị bồi thường viên @mail.ten_btv thực hiện các bước tiếp theo trong quy định.</p>
+
+                <p style="font-weight: bold; color: #035299; margin: 8px 0px;">Trân trọng cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

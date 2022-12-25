@@ -1,0 +1,45 @@
+﻿<div id="popoverTyLeThuongTat" class="popover popover-x popover-default" style="display:none; max-width:unset;width:750px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" onclick="dongBangTyLeThuongTat()" data-dismiss="popover-x">&times;</span>Bảng thông tin tỷ lệ thương tật
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="frmTkiemTLThuongTat" method="post">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group">
+                        <select class="select2 form-control custom-select" name="nhom" style="width:100%">
+                            <option value="BYT" selected>Bảng TL thương tật bộ y tế</option>
+                            <option value="NB">Bảng TL thương tật nội bộ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputTimKiemTyLeThuongTat" placeholder="Tìm kiếm tỷ lệ thương tật" value="" onclick="onSearchTyLeThuongTat(this)" />
+                        <div class="input-group-append">
+                            <label class="input-group-text">
+                                <a href="javascript:void(0)" id="btnChuyenXemDanhSach" onclick="chuyenXemDanhSach(this)">
+                                    <i class="fas fa-th"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-12">
+                <div style="height: 500px" class="scrollable" id="treeTLTT"></div>
+            </div>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal" id="btnLuuDongTyLeThuongTat">
+            <i class="fa fa-save mr-2"></i>Lưu
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal" id="btnDongTyLeThuongTat">
+            <i class="fas fa-window-close mr-2"></i>Đóng
+        </button>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Cấu hình dịch vụ Google Maps";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Google Maps</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Google Maps</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin key google maps" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;">
+                                    <option value="">Chọn đối tác</option>
+                                    <option value="CTYBHABC">Công ty bảo hiểm ABC</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Chi nhánh</label>
+                                <select class="select2 form-control custom-select" required name="ma_chi_nhanh" style="width: 100%; height:36px;">
+                                    <option value="">Chọn chi nhánh</option>
+                                    <option value="TSC">Trụ sở chính</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnAddConfigMap">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewConfigMap" class="table-app"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalAdd" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmSaveConfigMaps" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cấu hình dịch vụ Google Maps</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Chi nhánh</label>
+                                <select class="select2 form-control custom-select" required name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">KEY</label>
+                                <input type="text" autocomplete="off" required maxlength="500" name="key" class="form-control" placeholder="Nhập Key google maps">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select" required name="ap_dung" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:3px">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" required autocomplete="off" display-format="date" value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" required autocomplete="off" display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnSaveConfigMaps"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteConfigMaps"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ConfigMapService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ConfigMap.js" asp-append-version="true"></script>
+}

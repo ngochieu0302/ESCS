@@ -1,0 +1,30 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    <div class="col-12 mt-1" id="navDanhGiaTonThat">
+        <div class="d-flex justify-content-between" style="background-color:#f8f9fa">
+            <ul class="nav nav-pills font-weight-bold" id="CarCompensationContent4Tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#stepVuTT" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="far fa-book mr-2"></i>Thông tin hồ sơ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#stepHinhAnhHoSo" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="far fa-file-alt mr-2"></i>Tài liệu, hình ảnh hồ sơ
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <!-- Hạng mục tổn thất -->
+            <div class="tab-pane active pl-0" id="stepVuTT" role="tabpanel" aria-labelledby="home-tab">
+                <partial name="_DesktopOpinionContentStep1" />
+            </div>
+            <!-- Thông tin chung -->
+            <div class="tab-pane  pl-0" id="stepHinhAnhHoSo" role="tabpanel" aria-labelledby="profile-tab">
+                <partial name="_DesktopOpinionContentStep2" />
+            </div>
+        </div>
+    </div>
+</div>

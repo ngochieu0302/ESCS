@@ -1,0 +1,10 @@
+﻿<script type="text/html" id="dsNhomQuyenTemplate">
+    <% _.forEach(nhom_quyen, function(item, index) {%>
+    <div class="col-6">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="menu_nhom_quyen_<%- item.nhom_chuc_nang %>" value="<%- item.nhom_chuc_nang %>" onchange="chonNhomQuyen(this)" class="custom-control-input menu_nhom_quyen">
+            <label class="custom-control-label" for="menu_nhom_quyen_<%- item.nhom_chuc_nang %>" style="padding-top:2px"><%- item.ten_chuc_nang %></label>
+        </div>
+    </div>
+    <%})%>
+</script>

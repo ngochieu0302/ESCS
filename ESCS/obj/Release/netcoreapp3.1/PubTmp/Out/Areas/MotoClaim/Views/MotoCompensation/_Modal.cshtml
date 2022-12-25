@@ -1,0 +1,1688 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!-- Modal thông tin chi tiết Hồ sơ bồi thường -->
+<div id="MotoCompensationModal" class="esmodal fade" tabindex="-1" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="esmodal-dialog">
+        <div class="esmodal-content">
+            <div class="esmodal-header py-1">
+                <div id="MotoCompensationModalLabel">
+
+                </div>
+                <div id="divThongBaoCanhBao">
+
+                </div>
+            </div>
+            <div class="esmodal-body" style="background-color: #54667a0a; height: 100vh;">
+                <div class="row">
+                    <div class="col-3 common-tab pr-0" id="divCommonTab">
+                        <partial name="../_MotoCommonInfo" />
+                    </div>
+                    <div class="col-9 info-tab" id="divInfoTab">
+                        <partial name="_MotoCompensationContent" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dsGaraHopTac" class="popover popover-x popover-default" style="display:none; width:370px; max-width:unset;">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        <span>Danh sách gara hợp tác</span>
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="frmGaraHopTac" method="post">
+            <div style="width:100%">
+                <div class="form-group">
+                    <label class="_required">Chọn đối tượng tổn thất</label>
+                    <div class="input-group">
+                        <select class="select2 form-control custom-select" required name="so_id_doi_tuong" style="width:100%">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div style="width:100%">
+            <input type="text" id="inputSearchGaraHopTac" class="form-control" placeholder="Tìm gara hợp tác" />
+        </div>
+        <div class="scrollable pd-t-10" style="max-height:170px" id="divGaraHopTac">
+
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="btnLuuChonGara">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalDocHoaDonDienTu" style="width:350px;height:190px; left: 40%; top: 18%;" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width:unset;margin: unset;">
+            <div class="modal-content" style="border: 2px solid rgb(30, 136, 229); box-shadow: rgb(106, 160, 201) 1px 8px 10px 0px; height: auto;">
+                <div class="modal-header py-1" style="background-color: #0069d9; cursor: pointer; border: unset;">
+                    <h5 class="modal-title" style="color:#fff">Đọc hóa đơn điện tử</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="padding-bottom:0px">
+                    <form name="frmDocHoaDonDT" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="_required">Đơn vị phát hành</label>
+                                    <select class="select select2 form-control custom-select" required name="dvi_ph" style="width:100%">
+                                        <option value="">Chọn đơn vị phát hành</option>
+                                        <option value="GARA">Gara sửa chữa</option>
+                                        <option value="CUUHO">Đơn vị cứu hộ</option>
+                                        <option value="KHACHHANG">Khách hàng</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label id="fileNameHoaDonDienTu"></label>
+                                <input style="display:none" id="frmImportHoaDon" accept="text/xml" type="file" name="file" value="" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="padding:0px">
+                    <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnUploadHoaDon">
+                        <i class="fas fa-upload"></i> Chọn file
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnDocHoaDonXML">
+                        <i class="fas fa-save"></i> Đọc file
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="themBaoGia" class="popover popover-x popover-default" style="display:none; max-width:400px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        <span>Thêm báo giá gara</span>
+    </h3>
+    <div class="popover-body popover-content">
+        <form id="frmThemGara" name="frmThemGara" method="post">
+            <input type="hidden" name="ma_doi_tac" value="" />
+            <input type="hidden" name="so_id" value="" />
+            <input type="hidden" name="bt_gara" value="" />
+            <input type="file" style="display:none;" accept=".xls,.xlsx" name="file_upload_bao_gia" id="file_upload_bao_gia" />
+            <input type="file" style="display:none;" accept=".xls,.xlsx" name="file_upload_bao_gia_doc" id="file_upload_bao_gia_doc" />
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="_required">Chọn đối tượng tổn thất</label>
+                        <div class="input-group">
+                            <select class="select2 form-control custom-select" required name="so_id_doi_tuong" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="_required">Chọn Gara</label>
+                        <div class="input-group">
+                            <select class="select2 form-control custom-select" required name="gara" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:8px">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="_required">Giờ báo giá</label>
+                        <div class="input-group bootstrap-timepicker timepicker">
+                            <input class="form-control input-small time" required name="gio_bg" type="text" autocomplete="off" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <span class="ti-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="_required">Ngày báo giá</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" value-format="number" required name="ngay_bg" placeholder="mm/dd/yyyy">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><span class="ti-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="btnLuuGara">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div id="popoverDKBS" class="popover popover-x popover-default" style="display:none; width:600px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Chọn điều khoản bổ sung
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="row">
+            <div class="col-12" id="divDKBS">
+            </div>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="chonDKBS">
+            <i class="far fa-check mr-2"></i>Chọn
+        </button>
+    </div>
+</div>
+
+<div id="popoverHangMucBoSung" class="popover popover-x popover-default" style="display:none; width:450px; max-width:unset">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Thông tin hạng mục bổ sung
+    </h3>
+    <div class="popover-body popover-content">
+        <form id="frmHangMucBoSung" name="frmHangMucBoSung" method="post">
+            <input type="hidden" name="hang_muc_goc" value="" />
+            <div class="row">
+                <div class="col col-12">
+                    <div class="form-group">
+                        <label for="" class="_required">Hạng mục tổn thất</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control autocomplete" autocomplete="off" id="frmHangMucBoSung_hang_muc" placeholder="Tìm kiếm hạng mục" required name="hang_muc" value="" />
+                            <div class="input-group-append">
+                                <label class="input-group-text" for="frmHangMucBoSung_hang_muc">
+                                    <a href="#" id="btnXoaInputHangMucBoSung">
+                                        <i class="fas fa-times" title="Xóa tìm kiếm"></i>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-6">
+                    @*<div class="form-group">
+                            <label for="" class="_required">Mức độ tổn thất</label>
+                            <input type="text" id="frmHangMucBoSung_muc_do" autocomplete="off" class="form-control" required name="muc_do" value="" />
+                        </div>*@
+                    <div class="form-group">
+                        <label for="" class="_required">Mức độ tổn thất</label>
+                        <select class="select2 form-control custom-select" name="muc_do" style="width:100%">
+                            <option value="" selected>Chọn mức độ tổn thất</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-6">
+                    <div class="form-group">
+                        <label for="" class="_required">Phương án khắc phục</label>
+                        <select class="select2 form-control custom-select" name="thay_the_sc" style="width:100%">
+                            <option value="" selected>Chọn phương án khắc phục</option>
+                            <option value="T">Thay thế</option>
+                            <option value="S">Sửa chữa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer mx-2">
+        <button type="button" class="btn btn-primary btn-sm wd-85 float-left mb-1" id="xoaHangMucBoSung">
+            <i class="fas fa-times mr-2"></i>Xóa
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85 float-right mb-1" id="chonHangMucBoSung">
+            <i class="fas fa-mouse-pointer mr-2"></i>Chọn
+        </button>
+    </div>
+</div>
+
+<div id="popoverNguyenNhan" class="popover popover-x popover-default" style="display:none; width:600px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Nguyên nhân giảm trừ
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="row">
+            <div class="col-12" id="divNguyenNhan">
+            </div>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="chonNguyenNhan">
+            <i class="fas fa-mouse-pointer mr-2"></i>Chọn
+        </button>
+    </div>
+</div>
+
+<div id="popoverXemGhiChuGD" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x">&times;</span>Nội dung ghi chú
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="row">
+            <div class="col-12">
+                <textarea class="form-control" id="divXemGhiChuGD" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popoverGhiChu" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Nội dung ghi chú
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="frmGhiChuHangMuc" method="post">
+            <input type="hidden" name="hang_muc" value="" />
+            <div class="row">
+                <div class="col-12" id="divGhiChu">
+                    <textarea class="form-control" id="divGhiChu_NoiDung" rows="4"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="chonGhiChu">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div id="popoverGhiChuBaoGia" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Nội dung ghi chú
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="row">
+            <div class="col-12" id="divGhiChuBaoGia">
+                <textarea class="form-control" id="divGhiChuBaoGia_NoiDung" rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="chonGhiChuBaoGia">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div id="popoverGhiChuChiTietHM" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span id="close_popGhiChu" class="close pull-right" data-dismiss="popover-x">&times;</span>Nội dung ghi chú
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="" method="post">
+            <div class="row">
+                <div class="col-12" id="divGhiChuChiTietHM">
+                    <textarea class="form-control" id="divGhiChuChiTietHM_NoiDung" rows="4"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="luuGhiChu">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div id="popoverMoTa" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span id="close_popMoTa" class="close pull-right" data-dismiss="popover-x">&times;</span>Nội dung mô tả
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="frmMoTaDGNV" method="post">
+            <div class="row">
+                <div class="col-12" id="divMoTa">
+                    <textarea class="form-control" id="divMoTa_NoiDung" rows="4"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="luuMoTa">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div id="popoverDiaChi" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span id="close_popDiaChi" class="close pull-right" data-dismiss="popover-x">&times;</span>Thông tin địa chỉ
+    </h3>
+    <div class="popover-body popover-content">
+        <form method="post">
+            <div class="row">
+                <div class="col-12" id="divDiaChi">
+                    <textarea class="form-control" id="divDiaChi_NoiDung" rows="4"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="luuDiaChi">
+            <i class="far fa-check mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div id="popoverAddHoSoGiayTo" class="popover popover-x popover-default" style="display:none; max-width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x">&times;</span>Bổ sung hồ sơ giấy tờ
+    </h3>
+    <div class="popover-body popover-content">
+        <form id="frmAddHoSoGiayTo" name="frmAddHoSoGiayTo" method="post">
+            <input type="hidden" name="so_id" value="" />
+            <input type="hidden" name="pm" value="BT" />
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="_required">Loại hồ sơ, giấy tờ</label>
+                        <div class="input-group">
+                            <select class="select2 form-control custom-select" required name="ma_hs" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="_required">Trạng thái</label>
+                        <div class="input-group">
+                            <select class="form-control custom-select" required name="trang_thai" style="width:100%">
+                                <option value="C" selected>Chưa bổ sung</option>
+                                <option value="D">Đã bổ sung</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="_required">Ngày bổ sung</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" value-format="number"
+                                   required data-drops="up" name="ngay_bs" placeholder="mm/dd/yyyy">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><span class="ti-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" id="btnLuuAddHoSoGiayTo">
+            <i class="fa fa-save"></i>&nbsp;&nbsp;Lưu
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal" id="btnLuuAddHoSoGiayToDong" style="width:120px">
+            <i class="fa fa-hdd"></i>&nbsp;&nbsp;Lưu & đóng
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal" id="btnCloseAddHoSoGiayTo">
+            <i class="fa fa-window-close"></i>&nbsp;&nbsp;Đóng
+        </button>
+    </div>
+</div>
+
+<div id="modalThemHMTT" class="modal face" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" data-select2-id="132">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Phân loại tài liệu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmThemHMTT" name="frmThemHMTT" novalidate="novalidate" data-select2-id="frmThemHMTT" method="post">
+                    <input type="hidden" name="index" value="">
+                    <input type="hidden" name="bt" value="">
+                    <input type="hidden" name="pm" value="BT">
+                    <input type="hidden" name="hanh_dong" value="them_moi">
+                    <div class="row">
+                        <div class="col-12" id="frmThemHMTT_loai">
+                            <div class="form-group">
+                                <label class="_required">Nhóm tài liệu</label>
+                                <select class="form-control select2" required="" name="loai" style="width:100%">
+                                    <option value="TL">Giấy tờ, tài liệu</option>
+                                    <option value="TT">Ảnh tổn thất</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Đối tượng</label>
+                                <select class="form-control select2" required="" name="so_id_doi_tuong" style="width:100%"></select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Hạng mục sửa chữa/thay thế</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control autocomplete" autocomplete="off" id="frmThemHMTT_hang_muc" placeholder="Click và tìm kiếm hạng mục" required="" name="hang_muc" value="">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="frmThemHMTT_hang_muc">
+                                            <a href="#" id="btnXoaInputHangMuc">
+                                                <i class="fas fa-times" title="Xóa tìm kiếm"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" name="ghi_chu" placeholder="Ghi chú" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" id="btnLuuHMTT">
+                    <i class="fas fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm mg-t-22" id="btnLuuDongHMTT">
+                    <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal" id="CarClaimCarCategoryAdd_close">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalXemThongTinChungNhan" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg" style="max-width:60%;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin chứng nhận bảo hiểm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="max-height: 75vh; overflow: auto">
+                <div class="row">
+                    <div class="col col-12">
+                        <table class="table" id="tblCarCommonCertificate">
+                            <tr>
+                                <td>Tên KH</td>
+                                <td data-model="ten_kh"></td>
+                                <td>Biển xe</td>
+                                <td data-model="bien_xe"></td>
+                            </tr>
+                            <tr>
+                                <td>Chủ xe</td>
+                                <td data-model="ten_chu_xe"></td>
+                                <td>Hãng xe - hiệu xe</td>
+                                <td>
+                                    <span data-model="hang_xe_ten"></span> - <span data-model="hieu_xe"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Số khung</td>
+                                <td data-model="so_khung"></td>
+                                <td>Số máy</td>
+                                <td data-model="so_may"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Năm sản xuất</td>
+                                <td data-model="nam_sx"></td>
+                                <td>Giá trị xe</td>
+                                <td data-model="gia_tri"></td>
+                            </tr>
+                            <tr>
+                                <td>Loại xe</td>
+                                <td data-model="ten_loai_xe"></td>
+                                <td>Mục đích sử dụng</td>
+                                <td data-model="muc_dich_hthi"></td>
+                            </tr>
+                            <tr>
+                                <td>Số chỗ - trọng tải</td>
+                                <td><span data-model="so_cho_hthi"></span> - <span data-model="trong_tai_hthi"></span></td>
+                                <td>Số hợp đồng</td>
+                                <td data-model="so_hd"></td>
+                            </tr>
+                            <tr>
+                                <td>Số GCN</td>
+                                <td data-model="gcn"></td>
+                                <td>Tổng phí</td>
+                                <td data-model="tong_phi_hthi"></td>
+                            </tr>
+                            <tr>
+                                <td>Loại hình bảo hiểm</td>
+                                <td data-model="loai_bh"></td>
+                                <td>Hiệu lực bảo hiểm</td>
+                                <td data-model="hieu_luc"></td>
+                            </tr>
+                            <tr>
+                                <td>Đơn vị cấp</td>
+                                <td data-model="ma_chi_nhanh_cap"></td>
+                                <td>Hiệu lực hợp đồng</td>
+                                <td data-model="hieu_luc_hd"></td>
+                            </tr>
+                            <tr>
+                                <td>Mã giới thiệu</td>
+                                <td data-model="ma_gt"></td>
+                                <td>Tên giới thiệu</td>
+                                <td data-model="ten_gt"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col col-12">
+                        <h6>Loại hình nghiệp vụ tham gia</h6>
+                        <div class="table-responsive">
+                            <table id="" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:50px">STT</th>
+                                        <th style="width:250px">Sản phẩm tham gia</th>
+                                        <th style="width:110px">Tiền bảo hiểm</th>
+                                        <th style="width:100px">Khấu trừ</th>
+                                        <th style="width:100px">Miễn thường</th>
+                                        <th style="width:200px">Điều khoản bổ sung</th>
+                                        <th style="width:100px">Phí bảo hiểm</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="danhSachNV">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="text-left card-title-bg">
+                                        <td class="font-weight-bold text-center" colspan="2">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="font-weight-bold text-right">
+                                            <b style="font-weight:bold" id="tt_xe_tong_tien_bh">0</b>
+                                        </td>
+                                        <td class="font-weight-bold">
+                                        </td>
+                                        <td class="font-weight-bold text-right">
+                                            <b style="font-weight:bold" id="tt_xe_tong_tien_mien_thuong">0</b>
+                                        </td>
+                                        <td class="font-weight-bold">
+                                        </td>
+                                        <td class="font-weight-bold text-right">
+                                            <b style="font-weight:bold" id="tt_xe_tong_phi">0</b>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col col-12">
+                        <h6>Tình trạng thanh toán phí</h6>
+                        <div class="table-responsive">
+                            <table id="tableDSXacMinhPhiLaySoHS" class="table table-bordered fixed-header" style="width:100%">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:170px">Tổng phí theo hợp đồng</th>
+                                        <th style="width:150px">Số tiền đã nộp</th>
+                                        <th>Ghi chú</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dsXacMinhPhiLaySoHS"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" style="display:block">
+                <button class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal" id="CarCommonCertificate_close"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnSuaGCN" title="Sửa thông tin giấy chứng nhận"><i class="fa fa-edit"></i> Sửa thông tin đối tượng BH</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalSuaGCN" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin chứng nhận bảo hiểm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalSuaGCNFormNhap">
+                    <form id="frmSuaGCN" name="frmSuaGCN_BT" method="post">
+                        <input type="hidden" name="ma_doi_tac" />
+                        <input type="hidden" name="so_id" />
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Biển xe</label>
+                                    <input type="text" name="bien_xe" autocomplete="off" required="" class="form-control upper" placeholder="VD: 29k1-xx.xxx">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Loại xe</label>
+                                    <select class="select2 form-control custom-select" name="loai_xe" required style="width: 100%; height:36px;">
+                                        <option value="">Chọn loại xe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Hãng xe</label>
+                                    <select class="select2 form-control custom-select" name="hang_xe" required style="width: 100%; height:36px;">
+                                        <option value="">Chọn hãng xe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Hiệu xe</label>
+                                    <select class="select2 form-control custom-select" name="hieu_xe" required style="width: 100%; height:36px;">
+                                        <option value="">Chọn hiệu xe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Năm sản xuất</label>
+                                    <select class="select2 form-control custom-select" name="nam_sx" required style="width: 100%; height:36px;">
+                                        <option value="">Chọn hiệu xe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Mục đích sử dụng</label>
+                                    <select class="select2 form-control custom-select" required name="md_sd" style="width: 100%; height:36px;">
+                                        <option value="">Chọn mục đích sử dụng</option>
+                                        <option selected value="K">Không kinh doanh</option>
+                                        <option value="C">Có kinh doanh</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row border-top mt-1">
+                            <div class="col-12" style="margin-top:10px">
+                                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                                    <i class="fas fa-window-close mr-2"></i>Đóng
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-85 mr-2 float-right" id="btnLuuGCN">
+                                    <i class="fa fa-save mr-2"></i>Lưu
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-140 float-left" id="btnXemGCN"><i class="fa fa-eye mr-2"></i>Xem GCN</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalThemChiTietTNDS" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="max-width:1100px">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin đối tượng tổn thất</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmThemTNDS" name="frmThemTNDS" novalidate="novalidate" data-select2-id="frmThemHMTT" method="post">
+                    <input type="hidden" name="ma_doi_tac" value="">
+                    <input type="hidden" name="so_id" value="">
+                    <input type="hidden" name="pm" value="">
+                    <input type="hidden" name="hang_muc" value="">
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:400px">
+                            <table id="tblCauHinhTNDS" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th width="20%" class="">Tên</th>
+                                        <th width="20%" class="">Địa chỉ</th>
+                                        <th width="8%" class="">Số lượng</th>
+                                        <th width="10%" class="">Tình trạng</th>
+                                        <th width="10%" class="">Tiền tổn thất</th>
+                                        <th width="10%" class="">Tiền đề xuất</th>
+                                        <th width="18%" class="">Ghi chú</th>
+                                        <th width="6%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalThemTNDS_body">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="8">
+                                            <a href="javascript:void(0)" id="btnThemTNDS">
+                                                <i class="fa fa-plus mr-2"></i>Thêm đối tượng tổn thất
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 ml-2" id="btnLuuTNDS">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalThemChiTietTNDSNguoi" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="max-width:1300px">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin đối tượng tổn thất</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmThemTNDSNguoi" name="frmThemTNDSNguoi" novalidate="novalidate" method="post">
+                    <input type="hidden" name="ma_doi_tac" value="">
+                    <input type="hidden" name="so_id" value="">
+                    <input type="hidden" name="pm" value="">
+                    <input type="hidden" name="hang_muc" value="">
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:400px">
+                            <table id="tblCauHinhTNDSNguoi" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th width="12%" class="">Tên</th>
+                                        <th width="20%" class="">Địa chỉ</th>
+                                        <th style="width:125px" class="">Tình trạng</th>
+                                        <th width="18%" class="">Đánh giá</th>
+                                        <th width="8%" class="">TL thương tật</th>
+                                        <th width="10%" class="">Tiền tổn thất</th>
+                                        <th width="10%" class="">Tiền đề xuất</th>
+                                        <th class="">Ghi chú</th>
+                                        <th style="width:40px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalThemTNDSNguoi_body">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                        <td colspan="9">
+                                            <a href="javascript:void(0)" id="btnThemTNDSNguoi">
+                                                <i class="fa fa-plus mr-2"></i>Thêm đối tượng tổn thất
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 ml-2" id="btnLuuTNDSNguoi">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalThuHoiVatTu" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin thu hồi vật tư</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmThuHoiVatTu" id="frmThuHoiVatTu" method="post">
+                    <input type="hidden" name="ma_doi_tac" />
+                    <input type="hidden" name="so_id" />
+                    <input type="hidden" name="bt" />
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Chọn kho lưu trữ</label>
+                                <select class="select select2 form-control custom-select" required name="ma_kho" style="width:100%">
+                                    <option value="">Chọn kho lưu trữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Chọn vật tư</label>
+                                <select class="select select2 form-control custom-select" required name="hang_muc" style="width:100%">
+                                    <option value="">Chọn vật tư</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Số tiền dự kiến</label>
+                                <input type="text" class="form-control number" placeholder="Nhập số tiền" autocomplete="off" required name="tien">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <textarea type="text" rows="6" placeholder="Nội dung ghi chú" class="form-control" name="ghi_chu"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 ml-2" id="btnThuHoiVatTuLuu">
+                    <i class="fas fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnThuHoiVatTuLuuDong">
+                    <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+                <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalThuDoiNTBA" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin thu đòi người thứ 3</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmThuDoiNTBA" id="frmThuDoiNTBA" method="post">
+                    <input type="hidden" name="so_id" />
+                    <input type="hidden" name="bt" />
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="_required">Tên</label>
+                                <input type="text" class="form-control" placeholder="Tên" autocomplete="off" required name="ten">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="_required">Điện thoại</label>
+                                @*<input type="text" maxlength="11" fn-validate="validatePhoneControl" class="form-control" placeholder="Điện thoại" autocomplete="off" required name="dthoai">*@
+                                <input type="text" autocomplete="off" fn-validate="validatePhoneControl" class="form-control phone" required="" name="dthoai" placeholder="VD: 0972xxxxxx">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="_required">Số tiền dự kiến</label>
+                                <input type="text" class="form-control number" placeholder="Nhập số tiền" autocomplete="off" required name="tien">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Địa chỉ</label>
+                                <input type="text" class="form-control" placeholder="Địa chỉ" autocomplete="off" required name="dia_chi">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <textarea type="text" rows="6" placeholder="Nội dung ghi chú" class="form-control" name="ghi_chu"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 ml-2" id="btnThuDoiNTBA">
+                    <i class="fas fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnThuDoiNTBADong">
+                    <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+                <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalBaoGiaGara" style="width: 1400px; top: 77px !important; left: 62px !important;" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width:unset;margin: unset;">
+            <div class="modal-content" style="border:1px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1" style="background-color:#1e88e5; cursor:pointer;border:unset;">
+                    <h4 class="modal-title" style="color:#fff">Thông tin báo giá</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="frmBaoGiaGara" method="post">
+                        <div class="row" style="margin-bottom:10px">
+                            <input type="hidden" name="so_id_bg" value="" />
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Gara báo giá</label>
+                                    <select class="select2 form-control custom-select" name="gara" style="width: 100%"></select>
+                                </div>
+                            </div>
+                            <div class="col-2 pl-0">
+                                <div class="form-group">
+                                    <label>Người báo giá</label>
+                                    <input type="text" autocomplete="off" readonly="readonly" class="form-control" name="ten_nsd_gara" value="" />
+                                </div>
+
+                            </div>
+                            <div class="col-2 pl-0">
+                                <div class="form-group">
+                                    <label>Điện thoại</label>
+                                    <input type="text" fn-validate="validatePhoneControl" readonly="readonly" class="form-control" name="dthoai_nsd_gara" value="" />
+                                </div>
+                            </div>
+                            <div class="col-2 pl-0">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" fn-validate="validateEmailControl" readonly="readonly" class="form-control" name="email_nsd_gara" value="" />
+                                </div>
+                            </div>
+                            <div class="col-2 pl-0">
+                                <div class="form-group">
+                                    <label>Trạng thái báo giá</label>
+                                    <input type="text" autocomplete="off" readonly="readonly" class="form-control" name="trang_thai_bg_hthi" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="card-body p-0">
+                                <div class="border rounded">
+                                    <div class="table-responsive" style="height:40vh">
+                                        <table class="table table-bordered fixed-header" style="border-bottom:1px solid #e8eef3;width:163%">
+                                            <thead class="font-weight-bold card-title-bg-primary">
+                                                <tr class="text-center">
+                                                    <th>Hạng mục</th>
+                                                    <th>Mức độ</th>
+                                                    <th style="width:82px">Phương án</th>
+                                                    <th style="width:83px">Chính hãng</th>
+
+                                                    <th style="width:71px; color:#ffc107">SL (Gara)</th>
+                                                    <th style="width:110px; color:#ffc107">Tiền V.Tư (Gara)</th>
+                                                    <th style="width:118px; color:#ffc107">Nhân công (Gara)</th>
+                                                    <th style="width:118px; color:#ffc107">Tiền sơn (Gara)</th>
+                                                    <th style="width:117px; color:#ffc107">Tổng cộng (Gara)</th>
+                                                    <th style="width:102px; color:#ffc107">Ghi chú (Gara)</th>
+
+                                                    <th style="width:40px">SL</th>
+                                                    <th style="width:90px">Tiền V.Tư</th>
+                                                    <th style="width:85px">Nhân công</th>
+                                                    <th style="width:85px">Tiền sơn</th>
+                                                    <th style="width:90px">Tổng ĐX</th>
+                                                    <th style="width:150px">Ghi chú</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="modalBaoGiaGara_lan_ct">
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="card-title-bg font-weight-bold">
+                                                    <td colspan="4">
+                                                        Tổng cộng
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTienVatTuGara"></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTienCongGara"></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTienKhacGara"></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTongCongGara"></td>
+                                                    <td></td>
+
+                                                    <td></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTienVatTu"></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTienCong"></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTienKhac"></td>
+                                                    <td class="text-right" id="modalBaoGiaGaraTongTongCong"></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-3 pl-0">
+                            <div class="card-body p-0">
+                                <div class="border rounded">
+                                    <div class="table-responsive" style="height: 40vh">
+                                        <table class="table table-bordered fixed-header" style="border-bottom:1px solid #e8eef3;">
+                                            <thead class="font-weight-bold card-title-bg-primary">
+                                                <tr>
+                                                    <th class="text-center" style="width:70px">Lần BG</th>
+                                                    <th class="text-center" style="width:90px">Ngày BG</th>
+                                                    <th class="text-center">Trạng thái</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="modalBaoGiaGara_lan">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-180 float-left d-none" id="btnYeuCauSuaChua">
+                        <i class="fas fa-wrench mr-1"></i>Gửi yêu cầu sửa chữa
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-sm wd-150 mg-t-22" id="btnBGChapNhan">
+                        <i class="fas fa-check mr-2"></i>Đồng ý giá gara báo
+                    </button>
+                    @*<button type="button" class="btn btn-primary btn-sm 150 mg-t-22" id="btnBGTuChoi">
+                            <i class="fab fa-creative-commons-nc mr-2"></i>Từ chối báo giá
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm 150 mg-t-22" id="btnBGYeuCauMoi">
+                            <i class="fas fa-plus mr-2"></i>Tạo lần báo giá mới
+                        </button>*@
+
+                    <button type="button" class="btn btn-primary btn-sm 150 mg-t-22" id="btnBGLuu">
+                        <i class="fas fa-save mr-2"></i> Lưu
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-sm 150 mg-t-22" id="btnBGChuyenGara">
+                        <i class="fas fa-share mr-2"></i> Chuyển giá đề xuất
+                    </button>
+
+                    <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22 float-right" data-dismiss="modal" id="CarClaimCarCategoryAdd_close">
+                        <i class="fas fa-window-close mr-2"></i>Đóng
+                    </button>
+                    <button type="button" class="btn btn-warning btn-sm 150 mg-t-22 float-right" id="btnBGHuy" style="color:#fff;">
+                        <i class="fas fa-calendar-times mr-2"></i>Hủy báo giá
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalTuChoiBT" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Từ chối bồi thường</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="form-group">
+                            <label class="_required">Nội dung từ chối bồi thường</label>
+                            <div class="input-group">
+                                <textarea class="form-control" id="ndTuChoiBT" name="nd" required rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm wd-120 mg-t-22" id="btnLuuTuChoiBT"><i class="fas fa-check mr-2"></i>&nbsp;&nbsp;Chấp nhận</button>
+                <button class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close mr-2"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalDeXuatGiaiQuyet" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @*id="modalDocumentTitle"*@
+            <div class="modal-header py-1 modal-draggable">
+                <h4 class="modal-title">Đề xuất giải quyết</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmDeXuatGiaiQuyet" style="width:100%;" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea id="frmNoiDungDeXuatGiaiQuyet" name="noi_dung" required rows="3" placeholder="Nội dung"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85" id="btnLuuDeXuatGiaiQuyet">
+                    <i class="fas fa-save mr-2"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-85" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popoverBangGiaChiTiet" class="popover popover-x popover-default" style="display:none; width:550px; max-width:unset">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Bảng giá chi tiết
+    </h3>
+    <div class="popover-body popover-content" id="modalBangTinhToanChiTiet">
+        <!--<div style="max-height:440px; overflow: auto;">
+            <h6 style="font-size:13px; color:red; margin-top: 0.5rem;" class="font-weight-bold text-center">NGHIỆP VỤ VẬT CHẤT XE</h6>
+            <table class="table table-bordered fixed-header table-bang-gia">
+                <tbody>
+                    <tr>
+                        <td class="text-center font-weight-bold">I</td>
+                        <td colspan="3" class="font-weight-bold">TỔNG TIỀN DUYỆT GIÁ (CHƯA VAT)</td>
+                        <td class="text-right font-weight-bold tinhToanNVTienDuyetGia">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-weight-bold">II</td>
+                        <td colspan="5" class="font-weight-bold">KHẤU HAO, GIẢM TRỪ BỒI THƯỜNG, GIẢM GIÁ</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_T">
+                        <td class="text-center">1</td>
+                        <td>Giảm giá phụ tùng thay thế</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienGiamGiaVtu">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_T">
+                        <td class="text-center">2</td>
+                        <td>Giảm giá chi phí nhân công sửa chữa</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienGiamGiaNhanCong">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_T">
+                        <td class="text-center">3</td>
+                        <td>Giảm giá chi phí sơn</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienGiamGiaKhac">0</td>
+                    </tr>
+
+                    <tr class="tblTinhToanVCX_T">
+                        <td class="text-center">4</td>
+                        <td>Khấu hao phụ tùng thay mới</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTienKhauHao"></td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_T">
+                        <td class="text-center">5</td>
+                        <td>Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienBH">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_T">
+                        <td class="text-center">6</td>
+                        <td>Giảm trừ bồi thường</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVGiamTru">0</td>
+                    </tr>-->
+        @*----------------*@
+        <!--<tr class="tblTinhToanVCX_S">
+                        <td class="text-center">1</td>
+                        <td>Khấu hao phụ tùng thay mới</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTienKhauHao"></td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_S">
+                        <td class="text-center">2</td>
+                        <td>Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienBH">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_S">
+                        <td class="text-center">3</td>
+                        <td>Giảm trừ bồi thường</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVGiamTru">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_S">
+                        <td class="text-center">4</td>
+                        <td>Giảm giá phụ tùng thay thế</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienGiamGiaVtu">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_S">
+                        <td class="text-center">5</td>
+                        <td>Giảm giá chi phí nhân công sửa chữa</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienGiamGiaNhanCong">0</td>
+                    </tr>
+                    <tr class="tblTinhToanVCX_S">
+                        <td class="text-center">6</td>
+                        <td>Giảm giá chi phí sơn</td>
+                        <td class="text-center">%</td>
+                        <td class="text-center text-danger"></td>
+                        <td class="text-right tinhToanNVTienGiamGiaKhac">0</td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG KHẤU HAO, GIẢM TRỪ, GIẢM GIÁ: 1+2+3+4+5+6+7</td>
+                        <td class="text-right font-weight-bold tinhToanNVTongKhauHaoGiamTruGiamGia">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-weight-bold">III</td>
+                        <td colspan="5" class="font-weight-bold">KHẤU TRỪ THEO HĐ, QUY TẮC BH</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="2">Khấu trừ theo % số tiền bồi thường</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTienKhauTruPTBoiThuong">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td colspan="2">Khấu trừ theo số tiền/vụ (miễn thường)</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVMienThuong">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG KHẤU TRỪ THEO HĐ, QUY TẮC BH: 1+2</td>
+                        <td class="text-right font-weight-bold tinhToanNVTongKhauTru">454.545</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-weight-bold">IV</td>
+                        <td colspan="5" class="font-weight-bold">CHI PHÍ CẨU KÉO (GỒM GIẢM TRỪ NẾU CÓ)</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="2">Chi phí cẩu xe</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVChiPhiCau">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td colspan="2">Chi phí kéo xe</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVChiPhiKeo">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td colspan="2">Chi phí khác</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVChiPhiKhac">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG CHI PHÍ CẨU KÉO: 1+2+3</td>
+                        <td class="text-right font-weight-bold tinhToanNVTongChiPhi">0</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <h6 style="font-size:13px; color:red; margin-top: 0.5rem;" class="font-weight-bold text-center">NGHIỆP VỤ HÀNG HÓA TRÊN XE</h6>
+            <table class="table table-bordered fixed-header table-bang-gia">
+                <tbody>
+                    <tr>
+                        <td class="text-center font-weight-bold">I</td>
+                        <td colspan="3" class="font-weight-bold">TỔNG TIỀN TỔN THẤT (CHƯA VAT)</td>
+                        <td class="text-right tinhToanNVHHTienTT">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="2">Số tiền khấu khao</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVHHTienKhauHao">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td colspan="2">Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVHHTienBaoHiem">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td colspan="2">Giảm trừ bồi thường</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVHHTienGiamTru">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG KHẤU HAO, GIẢM TRỪ</td>
+                        <td class="text-right font-weight-bold tinhToanNVHHTienBoiThuong">0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6 style="font-size:13px; color:red; margin-top: 0.5rem;" class="font-weight-bold text-center">NGHIỆP VỤ NGƯỜI NGỒI TRÊN XE</h6>
+            <table class="table table-bordered fixed-header table-bang-gia">
+                <tbody>
+                    <tr>
+                        <td class="text-center font-weight-bold">I</td>
+                        <td colspan="3" class="font-weight-bold">TỔNG TIỀN TỔN THẤT (CHƯA VAT)</td>
+                        <td class="text-right tinhToanNVNNTXTienTT">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="2">Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVNNTXTienBaoHiem">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td colspan="2">Giảm trừ bồi thường</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVNNTXTienGiamTru">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG KHẤU HAO, GIẢM TRỪ</td>
+                        <td class="text-right font-weight-bold tinhToanNVNNTXTienBoiThuong">0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6 style="font-size:13px; color:red; margin-top: 0.5rem;" class="font-weight-bold text-center">NGHIỆP VỤ TNDS VỀ NGƯỜI</h6>
+            <table class="table table-bordered fixed-header table-bang-gia">
+                <tbody>
+                    <tr>
+                        <td class="text-center font-weight-bold">I</td>
+                        <td colspan="3" class="font-weight-bold">TỔNG TIỀN TỔN THẤT (CHƯA VAT)</td>
+                        <td class="text-right tinhToanNVTNDS_NGTienTT">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="2">Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTNDS_NGTienBaoHiem">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td colspan="2">Giảm trừ bồi thường</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTNDS_NGTienGiamTru">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG KHẤU HAO, GIẢM TRỪ</td>
+                        <td class="text-right font-weight-bold tinhToanNVTNDS_NGTienBoiThuong">0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h6 style="font-size:13px; color:red; margin-top: 0.5rem;" class="font-weight-bold text-center">NGHIỆP VỤ TNDS VỀ TÀI SẢN</h6>
+            <table class="table table-bordered fixed-header table-bang-gia">
+                <tbody>
+                    <tr>
+                        <td class="text-center font-weight-bold">I</td>
+                        <td colspan="3" class="font-weight-bold">TỔNG TIỀN TỔN THẤT (CHƯA VAT)</td>
+                        <td class="text-right tinhToanNVTNDS_TSTienTT">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td colspan="2">Số tiền khấu khao</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTNDS_TSTienKhauHao">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td colspan="2">Giảm trừ theo tỷ lệ giá trị tham gia</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTNDS_TSTienBaoHiem">0</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td colspan="2">Giảm trừ bồi thường</td>
+                        <td class="text-center"></td>
+                        <td class="text-right tinhToanNVTNDS_TSTienGiamTru">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="font-weight-bold">TỔNG KHẤU HAO, GIẢM TRỪ</td>
+                        <td class="text-right font-weight-bold tinhToanNVTNDS_TSTienBoithuong">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6 style="font-size:13px; color:red; margin-top: 0.5rem;" class="font-weight-bold text-center">SỐ TIỀN BỒI THƯỜNG</h6>
+        <table class="table table-bordered fixed-header table-bang-gia">
+            <tbody>-->
+        @*<tr style="background-color:#eef5f9">
+                <td colspan="6" class="text-center font-weight-bold">SỐ TIỀN BỒI THƯỜNG</td>
+            </tr>*@
+        <!--<tr>
+                    <td colspan="4" class="font-weight-bold">SỐ TIỀN BỒI THƯỜNG TRƯỚC THUẾ (I-II-III+IV)</td>
+                    <td class="text-right font-weight-bold tinhToanNVTienBoiThuongChuaVAT"></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="font-weight-bold">THUẾ VAT</td>
+                    <td class="text-right font-weight-bold tinhToanNVTongThue"></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="font-weight-bold">TỔNG CÔNG TY BẢO HIỂM CHI TRẢ(BAO GỒM THUẾ)</td>
+                    <td class="text-right font-weight-bold tinhToanNVTienBoiThuongBaoGomVAT">0</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="font-weight-bold">TỔNG TIỀN KHÁCH HÀNG CHI TRẢ(CHƯA VAT)</td>
+                    <td class="text-right font-weight-bold tinhToanNVTienKHChiTra">3.441.374</td>
+                </tr>
+            </tbody>
+        </table>-->
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" data-dismiss="modal" id="btnDongBangGiaChitiet">
+            <i class="fa fa-window-close mr-2"></i>Đóng
+        </button>
+    </div>
+</div>
+
+<div id="popoverBoiThuongVienDanhGia" class="popover popover-x popover-default" style="display: none; width: 600px; max-width: unset;">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Đánh giá của bồi thường viên
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="col-12 p-2">
+            <form name="frmBoiThuongVienDanhGia" id="frmBoiThuongVienDanhGia" method="post">
+                <input type="hidden" name="pt_gt_tham_gia_bh" value="" />
+                <input type="hidden" name="pt_che_tai" value="" />
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="font-weight-bold">Đánh giá, nhận xét cán bộ BTV  - <span class="text-danger" id="modalDanhGiaBoiThuongVienTrangThai">Chưa thực hiện</span></h6>
+                    </div>
+                    <div class="col-5">
+                        <a href="#">Hồ sơ (GPLX, GCNBH, ĐK…)</a>
+                    </div>
+                    <div class="col-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="ho_so_day_du" id="ho_so_day_du_d" class="custom-control-input">
+                            <label class="custom-control-label" for="ho_so_day_du_d" style="cursor:pointer; padding-top:2px">Đầy đủ, hợp lệ</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="ho_so_day_du" id="ho_so_day_du_k" class="custom-control-input">
+                            <label class="custom-control-label" for="ho_so_day_du_k" style="cursor:pointer; padding-top:2px">Không đủ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <a href="#">Nguyên nhân tai nạn</a>
+                    </div>
+                    <div class="col-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="nguyen_nhan" id="nguyen_nhan_d" class="custom-control-input">
+                            <label class="custom-control-label" for="nguyen_nhan_d" style="cursor:pointer; padding-top:2px">Đúng, rõ ràng</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="nguyen_nhan" id="nguyen_nhan_k" class="custom-control-input">
+                            <label class="custom-control-label" for="nguyen_nhan_k" style="cursor:pointer; padding-top:2px">Không đúng</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <a href="#">Tổn thất thuộc phạm vi bảo hiểm</a>
+                    </div>
+                    <div class="col-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="pham_vi_tt" id="pham_vi_tt_c" class="custom-control-input">
+                            <label class="custom-control-label" for="pham_vi_tt_c" style="cursor:pointer; padding-top:2px">Có</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="pham_vi_tt" id="pham_vi_tt_k" class="custom-control-input">
+                            <label class="custom-control-label" for="pham_vi_tt_k" style="cursor:pointer; padding-top:2px">Không</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <a href="#">Giá trị xe tham gia bảo hiểm</a>
+                    </div>
+                    <div class="col-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="gt_tham_gia_bh" id="gt_tham_gia_bh_d" class="custom-control-input">
+                            <label class="custom-control-label" for="gt_tham_gia_bh_d" style="cursor:pointer; padding-top:2px">Đúng giá trị</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="gt_tham_gia_bh" id="gt_tham_gia_bh_k" class="custom-control-input">
+                            <label class="custom-control-label" for="gt_tham_gia_bh_k" style="cursor:pointer; padding-top:2px">Dưới giá trị (<span id="pt_gt_tham_gia_bh"></span>%)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <a href="#">Tuân thủ của đơn vị cấp BH</a>
+                    </div>
+                    <div class="col-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="tuan_thu" id="tuan_thu_c" class="custom-control-input">
+                            <label class="custom-control-label" for="tuan_thu_c" style="cursor:pointer; padding-top:2px">Có</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="tuan_thu" id="tuan_thu_k" class="custom-control-input">
+                            <label class="custom-control-label" for="tuan_thu_k" style="cursor:pointer; padding-top:2px">Không (Ghi rõ)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <a href="#">Thời hạn khai báo của khách hàng</a>
+                    </div>
+                    <div class="col-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="thoi_han_khai_bao" id="thoi_han_khai_bao_d" class="custom-control-input">
+                            <label class="custom-control-label" for="thoi_han_khai_bao_d" style="cursor:pointer; padding-top:2px">Đúng</label>
+                        </div>
+                    </div>
+                    <div class="col-4 pr-0">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="thoi_han_khai_bao" id="thoi_han_khai_bao_k" class="custom-control-input">
+                            <label class="custom-control-label" for="thoi_han_khai_bao_k" style="cursor:pointer; padding-top:2px">Không đúng (Chế tài <span id="pt_che_tai"></span>%)</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-130" data-dismiss="modal" id="btnLuuDongBoiThuongVienDanhGia">
+            <i class="fa fa-hdd mr-2"></i>Lưu & đóng
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85" data-dismiss="modal" id="btnDongBoiThuongVienDanhGia">
+            <i class="fas fa-window-close mr-2"></i>Đóng
+        </button>
+    </div>
+</div>
+
+<div id="popoverNhapTenFile" class="popover popover-x popover-default" style="display:none; width:500px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span id="close_popNhapTenFile" class="close pull-right" data-dismiss="popover-x">&times;</span>Nhập tên
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="frmNhapTenFile" method="post">
+            <div class="row">
+                <div class="col-12" id="divNhapTenFile">
+                    <input type="text" id="inputNhapTenFile" class="form-control" placeholder="Mời nhập tên file" maxlength="200" name="name" value="" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="luuNhapTenFile">
+            <i class="far fa-check mr-2"></i>Lưu
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVideoDGRRHD" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="min-width:75vw;">
+        <div class="modal-content  overflow-hidden">
+            <div class="modal-header p-2">
+                <h5 class="modal-title">Xem video</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalVideoDGRRHDClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-2 d-flex flex-nowrap bg-light" style="gap:0.5rem;">
+                <div class="d-flex flex-column">
+                    <div class="flex-fill card border mb-0" style="min-width:250px;max-width:300px;height:0">
+                        <div class="card-body p-2 d-flex flex-column" style="gap:0.5rem;">
+                            <div class="flex-fill overflow-auto" style="height:0" id="modalVideoDanhSachDGRRHD">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-fill card border mb-0">
+                    <div class="card-body p-2">
+                        <div class="videoContent">
+                            <video controls autoplay style="width:100%" id="modalVideoViewDGRRHD" src=""></video>
+                            <form name="frmModalVideoUploadDGRRHD" method="post">
+                                <input style="display:none" id="inputModalVideoUploadDGRRHD" accept="video/mp4,video/x-m4v,video/*" type="file" name="file" value="" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

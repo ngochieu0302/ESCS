@@ -1,0 +1,40 @@
+﻿<script type="text/html" id="tblNhomGD_template">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item, index) { %>
+    <tr class="divItemDsCanBo" data-nhom-chi-nhanh="<%- item.ma_chi_nhanh %>" data-ma-cb="<%- item.nsd %>" data-text="<%- item.nsd+item.ten_can_bo %>">
+        <td style="width:30px; padding:0;">
+            <div style="width:16px; margin:0 auto">
+                <input type="hidden" data-field="ma_doi_tac" data-val="<%- item.ma_doi_tac %>" class="form-control" />
+                <input type="hidden" data-field="ma_chi_nhanh" data-val="<%- item.ma_chi_nhanh %>" class="form-control" />
+                <input type="hidden" data-field="ten_can_bo" data-val="<%- item.ten_can_bo %>" class="form-control" />
+                <input type="hidden" data-field="ten_don_vi" data-val="<%- item.ten_don_vi %>" class="form-control" />
+                <input type="checkbox" onchange="chonCanBo(this)" data-field="nsd" data-val="<%- item.nsd %>" class="form-control input-canbo" />
+            </div>
+        </td>
+        <td style="padding: 7px 10px" class="text-left"><%= item.nsd %></td>
+        <td style="padding: 7px 10px" class="text-left"><%- item.ten_can_bo %></td>
+        <td style="padding: 7px 10px" class="text-center">
+            <input type="text" onkeyup="chonTruongNhom(this)" max="3" maxlength="1" data-ma-doi-tac="<%- item.ma_doi_tac%>" data-ma-chi-nhanh="<%- item.ma_chi_nhanh%>" data-nsd="<%- item.nsd %>" data-field="truong_nhom" value="<%- item.truong_nhom %>" class="floating-input number" data-val="<%- item.truong_nhom %>" disabled="disabled"/>
+        </td>
+        <td class="text-left"><%- item.ten_don_vi %></td>
+    </tr>
+    <% })}else{ %>
+    <tr style="cursor: pointer;">
+        <td colspan="5" class="text-center">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td>
+            <div class="tabulator-cell" role="gridcell" tabulator-field="sott" title="" style="width: 50px; text-align: center; height: 20px;">&nbsp;<div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

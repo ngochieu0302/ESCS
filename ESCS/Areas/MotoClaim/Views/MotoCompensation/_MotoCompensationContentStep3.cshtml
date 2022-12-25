@@ -1,0 +1,270 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div class="card mb-0 modal-main-content">
+            <div class="row">
+                <div class="col-3">
+                    <span>Tổng hợp tiền phương án khắc phục</span>
+                </div>
+                <div class="col-9 text-right">
+                    <span class="mr-3" style="font-size:.8rem">Tổng tiền giám định: <span class="spanPATongTienTTGD" style="color:red; font-weight:bold;">0</span></span>
+                    <span class="mr-3" style="font-size:.8rem">Tổng tiền đề xuất: <span class="spanPATongTienDX" style="color:red; font-weight:bold;">0</span></span>
+                    <span style="font-size:.8rem">Tổng tiền duyệt: <span class="spanPATongTienDuyet" style="color:red; font-weight:bold;">0</span></span>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb px-1" id="navDanhGiaNghiepVu" style="margin:unset;margin-bottom:5px; padding-top:3px; padding-bottom:3px; font-size: 11px;">
+                        </ol>
+                    </nav>
+                </div>
+                @*Vật chất xe*@
+                <div class="col-12 divDanhGiaItem" id="divDanhGiaVCX">
+                    <div class="table-responsive" style="max-height:450px;">
+                        <table class="table table-bordered fixed-header">
+                            <thead class="font-weight-bold card-title-bg-primary">
+                                <tr class="text-center uppercase">
+                                    <th style="width:55px">Vụ TT</th>
+                                    <th>Hạng mục bồi thường</th>
+                                    <th>Mức độ</th>
+                                    <th style="width:75px">Thay thế</th>
+                                    <th style="width:120px">Chính hãng</th>
+                                    <th style="width:100px">Thu hồi</th>
+                                    <th style="width:100px">Giá TTGĐ</th>
+                                    <th style="width:100px">Giá ĐX</th>
+                                    <th style="width:100px">Giá Duyệt</th>
+                                    <th style="width:65px">Ghi chú</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblPhuongAnVCX">
+                            </tbody>
+                            <tfoot>
+                                <tr class="text-left card-title-bg">
+                                    <td colspan="2" class="p-1">
+                                        <div class="form-group m-0">
+                                            <div class="input-group">
+                                                <input type="text" autocomplete="off" class="form-control inputSearchHangMucGiamDinh" placeholder="Tìm kiếm hạng mục">
+                                                <div class="input-group-append">
+                                                    <label class="input-group-text">
+                                                        <a href="#">
+                                                            <i class="fas fa-search" title="Tìm kiếm hạng mục"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="font-weight-bold" colspan="4" style="vertical-align: middle;">
+                                        Tổng cộng
+                                    </td>
+                                    <td class="text-right font-weight-bold" style="vertical-align: middle;" id="tblPhuongAnVCXTienGiamDinh"></td>
+                                    <td class="text-right font-weight-bold" style="vertical-align: middle;" id="tblPhuongAnVCXTienDeXuat"></td>
+                                    <td class="text-right font-weight-bold" style="vertical-align: middle;" id="tblPhuongAnVCXTienDuyet"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*Người ngồi trên xe*@
+                <div class="col-12 divDanhGiaItem" id="divDanhGiaNNTX">
+                    <div class="table-responsive" style="max-height:450px;">
+                        <table id="tableChiTietTonThatNGUOI" data-nhom="NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                            <thead class="font-weight-bold">
+                                <tr class="text-center uppercase">
+                                    <th style="width:200px">Tên</th>
+                                    <th>Địa chỉ</th>
+                                    <th>TL thương tật</th>
+                                    <th style="width:100px">Tiền GĐ</th>
+                                    <th style="width:110px">Tiền thỏa thuận</th>
+                                    <th style="width:100px">Tiền đề xuất</th>
+                                    <th style="width:100px">Tiền duyệt</th>
+                                    <th style="width:50px">Mô tả</th>
+                                    <th style="width:63px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalChiTietTonThatNGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="text-left card-title-bg">
+                                    <td class="font-weight-bold" colspan="4">
+                                        Tổng cộng:
+                                    </td>
+                                    <td id="tableChiTietTonThatNGUOITienTT" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatNGUOITienDx" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatNGUOITienDuyet" class="text-right font-weight-bold"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*Hàng hóa trên xe*@
+                <div class="col-12 divDanhGiaItem" id="divDanhGiaHANGHOA">
+                    <div class="table-responsive" style="max-height:430px;">
+                        <table id="tableChiTietTonThatHANGHOA" class="table table-bordered fixed-header tableChiTietTonThat">
+                            <thead class="font-weight-bold">
+                                <tr class="text-center uppercase">
+                                    <th>Tên</th>
+                                    <th style="width:170px">Mức độ TT</th>
+                                    <th style="width:75px">Số lượng</th>
+                                    <th style="width:90px">Đơn vị tính</th>
+                                    <th style="width:100px">Giá</th>
+                                    <th style="width:90px">Số lượng TT</th>
+                                    <th style="width:100px">Tiền GĐ</th>
+                                    <th style="width:100px">Tiền đề xuất</th>
+                                    <th style="width:100px">Tiền duyệt</th>
+                                    <th style="width:50px">Mô tả</th>
+                                    <th style="width:63px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalChiTietTonThatHANGHOA">
+                            </tbody>
+                            <tfoot>
+                                <tr class="text-left card-title-bg">
+                                    <td class="font-weight-bold" colspan="6">
+                                        Tổng cộng:
+                                    </td>
+                                    <td id="tableChiTietTonThatHANGHOATienTT" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatHANGHOATienDx" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatHANGHOATienDuyet" class="text-right font-weight-bold"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*TNDS về người*@
+                <div class="col-12 divDanhGiaItem" id="divDanhGiaTNDSNguoi">
+                    <div class="table-responsive" style="max-height:450px;">
+                        <table id="tableChiTietTonThatTNDS_NGUOI" data-nhom="NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                            <thead class="font-weight-bold">
+                                <tr class="text-center uppercase">
+                                    <th style="width:200px">Tên</th>
+                                    <th>Địa chỉ</th>
+                                    <th>TL thương tật</th>
+                                    <th style="width:100px">Tiền GĐ</th>
+                                    <th style="width:110px">Tiền thỏa thuận</th>
+                                    <th style="width:100px">Tiền đề xuất</th>
+                                    <th style="width:100px">Tiền duyệt</th>
+                                    <th style="width:50px">Mô tả</th>
+                                    <th style="width:63px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalChiTietTonThatTNDS_NGUOI">
+                            </tbody>
+                            <tfoot>
+                                <tr class="text-left card-title-bg">
+                                    <td class="font-weight-bold" colspan="3">
+                                        Tổng cộng:
+                                    </td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienTT" class="text-right font-weight-bold">0</td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienThoaThuan" class="text-right font-weight-bold">0</td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienDx" class="text-right font-weight-bold">0</td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienDuyet" class="text-right font-weight-bold">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*TNDS về hành khách*@
+                <div class="col-12 divDanhGiaItem" id="divDanhGiaHanhKhach">
+                    <div class="table-responsive" style="max-height:450px;">
+                        <table data-nhom="NGUOI" class="table table-bordered fixed-header tableChiTietTonThat">
+                            <thead class="font-weight-bold">
+                                <tr class="text-center uppercase">
+                                    <th style="width:200px">Tên</th>
+                                    <th>Địa chỉ</th>
+                                    <th>TL thương tật</th>
+                                    <th style="width:100px">Tiền GĐ</th>
+                                    <th style="width:110px">Tiền thỏa thuận</th>
+                                    <th style="width:100px">Tiền đề xuất</th>
+                                    <th style="width:100px">Tiền duyệt</th>
+                                    <th style="width:50px">Mô tả</th>
+                                    <th style="width:63px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalChiTietTonThatTNDS_NGUOI_HK">
+                            </tbody>
+                            <tfoot>
+                                <tr class="text-left card-title-bg">
+                                    <td class="font-weight-bold" colspan="3">
+                                        Tổng cộng:
+                                    </td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienTT" class="text-right font-weight-bold">0</td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienThoaThuan" class="text-right font-weight-bold">0</td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienDx" class="text-right font-weight-bold">0</td>
+                                    <td id="tableChiTietTonThatTNDS_NGUOITienDuyet" class="text-right font-weight-bold">0</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                @*TNDS về tài sản*@
+                <div class="col-12 divDanhGiaItem" id="divDanhGiaTNDSTaiSan">
+                    <div class="table-responsive" style="max-height:430px;">
+                        <table id="tableChiTietTonThatTNDS_TAI_SAN" data-nhom="TNDS_TAI_SAN" class="table table-bordered fixed-header tableChiTietTonThat">
+                            <thead class="font-weight-bold">
+                                <tr class="text-center uppercase">
+                                    <th>Tên</th>
+                                    <th>Địa chỉ</th>
+                                    <th style="width:170px">Mức độ TT</th>
+                                    <th style="width:50px">SL</th>
+                                    <th style="width:90px">Đơn vị tính</th>
+                                    <th style="width:100px">Giá</th>
+                                    <th style="width:90px">Số lượng TT</th>
+                                    <th style="width:100px">Tiền GĐ</th>
+                                    <th style="width:110px">Tiền thỏa thuận</th>
+                                    <th style="width:100px">Tiền đề xuất</th>
+                                    <th style="width:100px">Tiền duyệt</th>
+                                    <th style="width:50px">Mô tả</th>
+                                    <th style="width:63px">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalChiTietTonThatTNDS_TAI_SAN">
+                            </tbody>
+                            <tfoot>
+                                <tr class="text-left card-title-bg">
+                                    <td class="font-weight-bold" colspan="7">
+                                        Tổng cộng:
+                                    </td>
+                                    <td id="tableChiTietTonThatTNDS_TAI_SANTienTT" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatTNDS_TAI_SANTienThoaThuan" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatTNDS_TAI_SANTienDx" class="text-right font-weight-bold"></td>
+                                    <td id="tableChiTietTonThatTNDS_TAI_SANTienDuyet" class="text-right font-weight-bold"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                    <button type="button" class="btn btn-primary btn-sm mt-1" id="btnMotoCompensationQuotation">
+                        <i class="fas fa-files-medical mr-2"></i>Lấy báo giá gara
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm mt-1" id="btnLapPASC">
+                        <i class="fas fa-paste mr-2"></i>Lập phương án
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm mt-1" id="btnChiPhiKhac">
+                        <i class="fas fa-usd-circle mr-2"></i>Chi phí khác
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm mt-1 float-right" id="btnXinYKienPABT">
+                        <i class="fas fa-comment-medical mr-2"></i>Xin ý kiến
+                    </button>
+                    <button type="button" class="escs_pquyen mr-1 btn btn-primary btn-sm mt-1 float-right" id="btnMotoCompensationContentStep3_print" data-toggle="modal" data-target="#print-modal">
+                        <i class="fas fa-print mr-2"></i>In ấn
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

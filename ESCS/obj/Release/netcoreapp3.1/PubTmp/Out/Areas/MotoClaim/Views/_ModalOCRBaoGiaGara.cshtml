@@ -1,0 +1,480 @@
+﻿<div class="custom-modal">
+    <div id="modalXemHinhAnhCTiet" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;width:1000px;top: 5%; left: 18%;">
+        <div class="modal-dialog modal-lg" style="width:90%;max-width:unset">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h5 class="modal-title" style="color:#fff">Hình ảnh chi tiết</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-9 modal-hien-thi">
+                            <div class="card mb-0">
+                                <div class="card-body p-0" style="height: 65vh; text-align:center">
+                                    <div id="img-hang-muc-detail" style="height: 65vh;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" id="accordion">
+                            <div class="card mb-1">
+                                <div class="card-header p-2" style="border:none">
+                                    <input type="text" placeholder="Tìm kiếm theo hạng mục" class="form-control inputSearchHangMuc" readonly>
+                                </div>
+                                <div class="">
+                                    <div class="card-body p-1">
+                                        <div style="width:100%; vertical-align:middle;max-height: 65vh;" class="scrollable">
+                                            <div style="width:100%" id="dsHinhAnhHangMucCTiet" class="list-pictures-detail">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal thông tin bao gia -->
+<div id="modalDocOCRBaoGiaGara" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 98%; margin:10px auto;">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h5 class="modal-title">
+                    Gara sửa chữa:
+                    <a href="#" class="font-size-12" onclick="showChonGaraBaoGia(this)" id="tenGaraSuaChua" data-id-doi-tuong="" data-gara="">Chọn gara sửa chữa</a>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-1">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="frmDocOCRBaoGiaGara" name="frmDocOCRBaoGiaGara" novalidate="novalidate" method="post">
+                            <input type="hidden" name="so_id_doi_tuong" value="" />
+                            <input type="hidden" name="gara" value="" />
+                            <input type="hidden" name="bt_gara" value="" />
+                            <input type="hidden" name="gio_bg" value="" />
+                            <input type="hidden" name="ngay_bg" value="" />
+                        </form>
+                    </div>
+                    <div class="col-10 px-1">
+                        <div class="table-responsive" style="max-height:580px;">
+                            <table id="tableDuLieuOCRBaoGiaGara" class="table table-bordered">
+                                <thead class="font-weight-bold card-title-bg-primary" style="position: sticky; top:0; z-index:999999;">
+                                    <tr class="text-center uppercase">
+                                        <th rowspan="2" style="vertical-align:middle; width:40px;">STT</th>
+                                        <th colspan="3">Dữ liệu OCR báo giá</th>
+                                        <th rowspan="2" style="vertical-align:middle; width: 250px;">Chọn nhóm hạng mục</th>
+                                        <th colspan="4">Hạng mục hệ thống</th>
+                                        <th rowspan="2" style="width: 50px;">Tỉ lệ khớp</th>
+                                        <th rowspan="2" style="width: 40px;"></th>
+                                    </tr>
+                                    <tr class="text-center uppercase">
+                                        <th style="width: 250px;">Tên hạng mục báo giá</th>
+                                        <th style="width: 50px;">SL</th>
+                                        <th style="width: 100px; ">Đơn giá</th>
+                                        <th>Tên hạng mục hệ thống</th>
+                                        <th style="width: 50px;">SL</th>
+                                        <th style="width: 100px; ">Thành tiền</th>
+                                        <th style="width: 100px; ">Tiền duyệt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblDuLieuOCRBaoGiaGara">
+                                </tbody>
+                                <tfoot style="position: sticky; bottom: 0;">
+                                    <tr class="card-title-bg">
+                                        <td colspan="4" class="p-1">
+                                            <div class="form-group m-0">
+                                                <div class="input-group">
+                                                    <input type="text" autocomplete="off" class="form-control" id="inputSearchHangMucOCRBaoGia" placeholder="Nhập tên hạng mục báo giá">
+                                                    <div class="input-group-append">
+                                                        <label class="input-group-text">
+                                                            <a href="#">
+                                                                <i class="fas fa-search" title="Tìm kiếm hạng mục báo giá"></i>
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="font-weight-bold text-center" colspan="3">
+                                            Tổng tiền
+                                        </td>
+                                        <td class="font-weight-bold text-right text-danger" id="tongSoTienBaoGia"></td>
+                                        <td class="font-weight-bold text-right text-danger" id="tongSoTienDuyet"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-2 pl-0 pr-1">
+                        <div class="card m-0">
+                            <div class="card-body p-0">
+                                <div class="border rounded">
+                                    <div class="justify-content-between align-items-center p-2 card-title-bg border-bottom">
+                                        <div class="btn-group float-left" style="color: #009efb;">
+                                            <a class="btn btn-light rounded py-0" id="btnToggleImageView">
+                                                <i class="fas fa-th"></i>
+                                            </a>
+                                        </div>
+                                        <p class="m-0 font-weight-bold text-center">
+                                            DANH SÁCH HÌNH ẢNH
+                                        </p>
+                                    </div>
+                                    <div class="container-fluid scrollable p-2" id="dsAnhBaoGiaGara" style="height: 510px;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row text-center">
+                                <div class="btn-group btn-group-justified" role="group">
+                                    <button type="button" class="btn-sm wd-60 btn-outline-primary" data-toggle="tooltip" title="Tải xuống" id="btnDownLoadAnhBaoGia">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button type="button" class="btn-sm wd-60 btn-outline-primary" data-toggle="tooltip" title="Tải ảnh báo giá" id="btnUpLoadAnhBaoGia">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    <button type="button" class="btn-sm wd-60 btn-outline-primary" data-toggle="tooltip" title="In ảnh báo giá" id="btnInAnhBaoGia">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                    <button type="button" class="btn-sm wd-60 btn-outline-primary" data-toggle="tooltip" title="Xóa ảnh báo giá" id="btnXoaAnhBaoGia">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer px-1" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-130 float-right" id="btnDocOCRBaoGia">
+                    <i class="fas fa-qrcode mr-2"></i>Đọc báo giá
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-130 float-right" id="btnLuuDocOCRBaoGiaGara">
+                    <i class="fas fa-save mr-2"></i>Lưu báo giá
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalChonLoaiTien" class="modal-drag" style="width:250px; z-index:9999999; left: 120px;">
+    <div class="modal-drag-header px-2">
+        <h6><span class="modal-drag-title">Chọn loại tiền</span><span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h6>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalChonLoaiTienDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="height: 30px; border-top: 1px solid #eaeaea; margin:0px 0px 10px 0px;">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="btnChonLoaiTien">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+        <button type="button" class="btn-primary btn-sm wd-85 float-right" id="btnBoChonLoaiTien">
+            <i class="fas fa-times mr-1"></i> Bỏ chọn
+        </button>
+    </div>
+</div>
+
+<div id="modalBaoGiaChonHangMucTonThat" class="modal-drag" style="width: 450px; z-index: 9999999; margin-top: 57px; margin-left: 750px;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn hạng mục</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <ul class="nav nav-pills d-none" id="navHangMucContent" role="tablist" style="background-color: #f2f2f2;">
+            <li class="nav-item font-weight-bold p-1" style="width: 100%; text-align: center;">
+                <a class="nav-link active p-1" data-toggle="tab" href="#tabBaoGiaHangMucGiamDinh" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-image mr-2"></i> Hạng mục bồi thường
+                </a>
+            </li>
+            <li class="nav-item font-weight-bold p-1 d-none" style="width: 50%; text-align: center;">
+                <a class="nav-link p-1" data-toggle="tab" href="#tabBaoGiaHangMucHeThong" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-file-pdf mr-2"></i> Hạng mục hệ thống
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="border: unset;">
+            <div class="tab-pane active p-0" role="tabpanel" id="tabBaoGiaHangMucGiamDinh">
+                <div class="card-body p-0">
+                    <div class="col-12 p-0">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputTimKiemHangMucGiamDinh" autocomplete="off" placeholder="Tìm kiếm hạng mục" value="" />
+                            <input type="hidden" id="inputTimKiemHangMucGiamDinh_ma" />
+                            <div class="input-group-append">
+                                <label class="input-group-text">
+                                    <a href="javascript:void(0)" onclick="getPagingBaoGiaHangMucGiamDinh(1)">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 scrollable py-2 px-0" style="max-height:400px;" id="modalDanhSachHangMucGiamDinh">
+
+                    </div>
+                    <div id="modalDanhSachHangMucGiamDinh_pagination" class="mt-2 p-0 pt-2 border-top"></div>
+                </div>
+            </div>
+            <div class="tab-pane p-0" role="tabpanel" id="tabBaoGiaHangMucHeThong">
+                <div class="card-body p-0">
+                    <div class="col-12 p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputTimKiemHangMucHeThong" autocomplete="off" placeholder="Tìm kiếm hạng mục" value="" />
+                            <input type="hidden" id="inputTimKiemHangMucHeThong_ma" />
+                            <div class="input-group-append">
+                                <label class="input-group-text">
+                                    <a href="javascript:void(0)" onclick="getPagingBaoGiaHangMucHeThong(1)">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 scrollable p-2" style="max-height:400px;" id="modalDanhSachHangMucTonThat">
+
+                    </div>
+                    <div id="modalDanhSachHangMucTonThat_pagination" class="mt-2 px-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popoverThemBaoGiaBaoGia" class="popover popover-x popover-default" style="display: none; width: 450px; max-width: unset; margin-top: 12px; margin-left: 6px; ">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Gara sửa chữa
+    </h3>
+    <div class="popover-body popover-content">
+        <form name="frmThemGaraBaoGia" id="frmThemGaraBaoGia" method="post">
+            <input type="hidden" name="ma_doi_tac" value="" />
+            <input type="hidden" name="so_id" value="" />
+            <input type="hidden" name="bt_gara" value="" />
+            <input type="hidden" name="gio_bg" value="" />
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="_required">Chọn đối tượng tổn thất</label>
+                        <div class="input-group">
+                            <select class="select2 form-control custom-select" required name="so_id_doi_tuong" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="_required">Ngày báo giá</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" value-format="number" required name="ngay_bg" placeholder="mm/dd/yyyy">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><span class="ti-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="_required">Chọn Gara sửa chữa</label>
+                        <div class="input-group">
+                            <select class="select2 form-control custom-select" required name="gara" style="width:100%">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="btnLuuThemGaraBaoGia">
+            <i class="fas fa-save mr-2"></i>Lưu
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85" data-dismiss="modal" id="btnDongThemGaraBaoGia">
+            <i class="fas fa-window-close mr-2"></i>Đóng
+        </button>
+    </div>
+</div>
+
+
+@*Template OCR báo gía"*@
+<script type="text/html" id="tblDuLieuOCRBaoGiaGaraTemplate">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item, index) { %>
+    <tr class="dsBaoGiaGaraOCRItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_ocr) %>" data-rowindex="<%- index + 1 %>">
+        <td class="text-center">
+            <a data-field="bt_bao_gia" data-val="<%- index + 1 %>" class="d-none combobox"></a>
+            <a data-field="bt" data-val="<%- item.bt %>" class="d-none combobox"></a>
+            <a data-field="ten_hang_muc_ocr" data-val="<%- item.ten_hang_muc_ocr %>" class="d-none combobox"></a>
+            <a data-field="hang_muc" data-val="<%- item.ma_hang_muc_he_thong %>" class="d-none combobox"></a>
+            <a data-field="ma_hang_muc_he_thong" data-val="<%- item.ma_hang_muc_he_thong %>" class="d-none combobox"></a>
+            <a data-field="ten_hang_muc_he_thong" data-val="<%- item.ten_hang_muc_he_thong %>" class="d-none combobox"></a>
+            <a data-field="pt_giam_gia" data-val="<%- item.pt_giam_gia %>" class="d-none combobox"></a>
+            <a data-field="giam_gia" data-val="<%- item.giam_gia %>" class="d-none combobox"></a>
+            <a data-field="mapping" data-val="<%- item.mapping %>" class="d-none combobox"></a>
+            <%- index + 1%>
+        </td>
+        <td>
+            <a class="combobox" data-field="ten_hang_muc" title="<%- item.ten_hang_muc %>" data-val="<%- item.ten_hang_muc %>"><%- ESUtil.rutGonText(45, item.ten_hang_muc) %></a>
+        </td>
+        <td class="text-center">
+            <input type="text" data-field="so_luong" onchange="onChangeSoLuong(this)" class="number floating-input" data-val="<%- item.so_luong %>" value="<%- item.so_luong %>">
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="don_gia" onchange="onChangeDonGia(this)" class="number floating-input" data-val="<%- item.don_gia %>" value="<%- ESUtil.formatMoney(item.don_gia) %>">
+        </td>
+        <td class="text-center">
+            <%if(item.loai_tien == 'TIEN_VAT_TU'){%>
+            <div class="custom-control custom-checkbox custom-control-inline mr-2">
+                <input class="custom-control-input TIEN_VAT_TU_<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %> <%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" data-field="loai_tien" type="checkbox" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" id="TIEN_VAT_TU_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>" data-val="TIEN_VAT_TU" value="TIEN_VAT_TU" onclick="chonLoaiTien(this,'TIEN_VAT_TU', '<%- item.ma_hang_muc_he_thong%>','<%- index + 1%>')" checked="checked">
+                <label class="custom-control-label" for="TIEN_VAT_TU_<%- item.ma_hang_muc_he_thong %>_<%- index + 1%>">Vật tư</label>
+            </div>
+            <%}else{%>
+            <div class="custom-control custom-checkbox custom-control-inline mr-2">
+                <input class="custom-control-input TIEN_VAT_TU_<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %> <%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" data-field="loai_tien" type="checkbox" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" id="TIEN_VAT_TU_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>" data-val="TIEN_VAT_TU" value="TIEN_VAT_TU" onclick="chonLoaiTien(this,'TIEN_VAT_TU', '<%- item.ma_hang_muc_he_thong%>','<%- index + 1%>')">
+                <label class="custom-control-label" for="TIEN_VAT_TU_<%- item.ma_hang_muc_he_thong %>_<%- index + 1%>">Vật tư</label>
+            </div>
+            <%}%>
+            <%if(item.loai_tien == 'TIEN_NHAN_CONG'){%>
+            <div class="custom-control custom-checkbox custom-control-inline mr-2">
+                <input class="custom-control-input TIEN_NHAN_CONG_<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %> <%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" data-field="loai_tien" type="checkbox" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" id="TIEN_NHAN_CONG_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>" data-val="TIEN_NHAN_CONG" value="TIEN_NHAN_CONG" onclick="chonLoaiTien(this,'TIEN_NHAN_CONG', '<%- item.ma_hang_muc_he_thong%>', '<%- index + 1%>')" checked="checked">
+                <label class="custom-control-label" for="TIEN_NHAN_CONG_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>">Nhân công</label>
+            </div>
+            <%}else{%>
+            <div class="custom-control custom-checkbox custom-control-inline mr-2">
+                <input class="custom-control-input TIEN_NHAN_CONG_<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %> <%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" data-field="loai_tien" type="checkbox" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" id="TIEN_NHAN_CONG_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>" data-val="TIEN_NHAN_CONG" value="TIEN_NHAN_CONG" onclick="chonLoaiTien(this,'TIEN_NHAN_CONG', '<%- item.ma_hang_muc_he_thong%>', '<%- index + 1%>')">
+                <label class="custom-control-label" for="TIEN_NHAN_CONG_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>">Nhân công</label>
+            </div>
+            <%}%>
+            <%if(item.loai_tien == 'TIEN_SON'){%>
+            <div class="custom-control custom-checkbox custom-control-inline mr-2">
+                <input class="custom-control-input TIEN_SON_<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %> <%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" data-field="loai_tien" type="checkbox" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" id="TIEN_SON_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>" data-val="TIEN_SON" value="TIEN_SON" onclick="chonLoaiTien(this,'TIEN_SON', '<%- item.ma_hang_muc_he_thong%>', '<%- index + 1%>')" checked="checked">
+                <label class="custom-control-label" for="TIEN_SON_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>">Sơn</label>
+            </div>
+            <%}else{%>
+            <div class="custom-control custom-checkbox custom-control-inline mr-2">
+                <input class="custom-control-input TIEN_SON_<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %> <%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" data-field="loai_tien" type="checkbox" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_hang_muc_he_thong) %>" id="TIEN_SON_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>" data-val="TIEN_SON" value="TIEN_SON" onclick="chonLoaiTien(this,'TIEN_SON', '<%- item.ma_hang_muc_he_thong%>', '<%- index + 1%>')">
+                <label class="custom-control-label" for="TIEN_SON_<%- item.ma_hang_muc_he_thong%>_<%- index + 1%>">Sơn</label>
+            </div>
+            <%}%>
+        </td>
+        <%if(item.mapping == "1"){%>
+        <td class="text-left">
+            <a class="combobox cursor-pointer" onclick="capNhatThongTinHangMucOCR(this)" href="#" data-field="ten_hang_muc_he_thong" title="<%- item.ten_hang_muc_he_thong %>" data-ma="<%- item.ma_hang_muc_he_thong %>" data-val="<%- item.ten_hang_muc_he_thong %>"><%- ESUtil.rutGonText(50, item.ten_hang_muc_he_thong) %></a>
+        </td>
+        <%}else{%>
+        <td class="text-left">
+            <a class="combobox cursor-pointer" style="color: red;" onclick="capNhatThongTinHangMucOCR(this)" data-field="ten_hang_muc_he_thong" title="<%- item.ten_hang_muc_he_thong %>" data-ma="<%- item.ma_hang_muc_he_thong %>" data-val="<%- item.ten_hang_muc_he_thong %>"><%- ESUtil.rutGonText(50, item.ten_hang_muc_he_thong) %></a>
+        </td>
+        <%}%>
+        <td class="text-center">
+            <a class="combobox" data-field="so_luong" data-val="<%- item.so_luong %>"><%- item.so_luong %></a>
+        </td>
+        <td class="text-right">
+            <a class="combobox" data-field="thanh_tien" data-val="<%- item.thanh_tien %>"><%- ESUtil.formatMoney(item.thanh_tien) %></a>
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="tien_duyet" onchange="onChangeSoTienDuyet(this)" class="number floating-input" data-val="<%- item.tien_duyet %>" value="<%- ESUtil.formatMoney(item.tien_duyet) %>">
+        </td>
+        <td class="text-center">
+            <a class="combobox" data-field="tl_khop" data-val="<%- item.tl_khop %>"><%- Math.round(item.tl_khop*100) %> %</a>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="xoaDongBaoGia('<%- item.bt %>')">
+                <i class="fas fa-trash-alt" title="Xóa dòng báo giá"></i>
+            </a>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(data.length < 14){
+    for(var i = 0; i < 14 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:33.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="modalDanhSachHangMucTonThatTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <div class="custom-control custom-checkbox hangmuc" id="hangmuc_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" class="custom-control-input modalDanhSachHangMucItem single_checked" onchange="onChonHangMucBaoGia(this)" id="hang_muc_<%- item.ma %>" value="<%- item.ma %>" data-val="<%- item.ma %>" data-name="<%- item.ten%>">
+        <label class="custom-control-label cursor-pointer" for="hang_muc_<%- item.ma %>">
+            <%- item.ten %>
+        </label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalDanhSachHangMucGiamDinhTemplate">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index) { %>
+    <% var check = _.includes(hm , item.hang_muc)%>
+    <div class="custom-control custom-checkbox hangmuc" id="hangmuc_<%- item.hang_muc %>" data-text="<%- item.hang_muc.toLowerCase() %>-<%- item.ten_hang_muc.toLowerCase() %>">
+        <input type="checkbox" class="custom-control-input modalDanhSachHangMucItem single_checked" onchange="onChonHangMucBaoGia(this)" id="hang_muc_<%- item.hang_muc %>" value="<%- item.hang_muc %>" data-val="<%- item.hang_muc %>" data-name="<%- item.ten_hang_muc%>">
+        <label class="custom-control-label cursor-pointer" for="hang_muc_<%- item.hang_muc %>">
+            <%if(check == true){%>
+            <span class="text-primary"><%- item.ten_hang_muc %></span>
+            <%}else{%>
+            <span><%- item.ten_hang_muc %></span>
+            <%}%>
+        </label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="dsAnhBaoGiaGara_template">
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <div style="display: inline-block;width:100%;">
+        <p style="margin-bottom:5px; font-weight: bold;" class="pl-2">
+            <a href="#" onclick="onToggleImgOCR(this, '<%- index %>')"><%- item.nhom %></a>
+        </p>
+        <ul class="docs-pictures clearfix">
+            <% _.forEach(item.children, function(image,index_anh) { %>
+            <li class="p-1">
+                <input type="checkbox" onclick="layChiTietBaoGiaGara('<%- image.ma_doi_tac %>', '<%- image.so_id %>', '<%- image.bt %>')" id="img_<%- image.so_id%>_<%- image.bt %>" class="nhom_anh_ocr_<%- index %> mt-1 images-ocr" value="<%- image.bt%>" data-ma-file="<%- image.ma_file %>" name="ds_anh_ocr">
+                <p class="fileNameImageBaoGia mt-1" style="cursor:pointer"><%- image.ten_file %></p>
+                <% if(_.includes([".jpg", ".png", ".gif",".jpeg"], image.extension)){ %>
+                <img onclick="openModalXemHinhAnhCTiet('<%- image.ten_file %>', '<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-ngay="<%- image.ngay %>" data-nsd="<%- image.nsd%>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+                <% }else if(_.includes([".pdf", ".doc", ".docx"], image.extension)){ %>
+                <img onclick="openModalXemHinhAnhCTiet('<%- image.ten_file %>', '<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/pdf-image.png" alt="<%- image.ten_file %>">
+                <% } else if(_.includes([".xml"], image.extension)){%>
+                <img onclick="openModalXemHinhAnhCTiet('<%- image.ten_file %>', '<%- image.bt %>', '<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/xml.png" alt="<%- image.ten_file %>">
+                <% } else if(_.includes([".xlsx", ".xls"], image.extension)){%>
+                <img onclick="openModalXemHinhAnhCTiet('<%- image.ten_file %>', '<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/excel-logo.jpg" alt="<%- image.ten_file %>">
+                <% } %>
+            </li>
+            <% }) %>
+        </ul>
+    </div>
+    <% })} %>
+</script>

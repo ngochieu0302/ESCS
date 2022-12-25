@@ -1,0 +1,101 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Cấu hình con người";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .card_active {
+        background-color: #9abcea40;
+    }
+
+    .cau_hinh_xe:hover {
+        background-color: #eef5f9;
+    }
+
+    .bg-color {
+        background-color: #ececec;
+        border: 1px solid #607d8b;
+        /*#2d88ff*/
+    }
+</style>
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Danh sách cấu hình</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Danh sách cấu hình</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <div class="cau_hinh_nguoi card mb-3 cursor-pointer bg-color" id="ch_boi_thuong_con_nguoi" onclick="chonLoaiCauHinh('CH_BOI_THUONG_CON_NGUOI')">
+                            <div class="card-body p-3">
+                                <div class="d-flex flex-row">
+                                    <div class="round round-lg text-white d-inline-block text-center rounded-circle bg-info">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="ml-2 align-self-center wd-60p">
+                                        <h6>Cấu hình bồi thường</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="ch_sla_nguoi card mb-3 cursor-pointer bg-color" id="ch_sla_con_nguoi" onclick="chonLoaiCauHinh('CH_SLA_CON_NGUOI')">
+                            <div class="card-body p-3">
+                                <div class="d-flex flex-row">
+                                    <div class="round round-lg text-white d-inline-block text-center rounded-circle bg-info">
+                                        <i class="fab fa-usps"></i>
+                                    </div>
+                                    <div class="ml-2 align-self-center wd-60p">
+                                        <h6>Cấu hình SLA</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="ch_duyet_tu_dong_nguoi card mb-3 cursor-pointer bg-color" id="ch_duyet_tu_dong_con_nguoi" onclick="chonLoaiCauHinh('CH_DUYET_TU_DONG_CON_NGUOI')">
+                            <div class="card-body p-3">
+                                <div class="d-flex flex-row">
+                                    <div class="round round-lg text-white d-inline-block text-center rounded-circle bg-info">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="ml-2 align-self-center wd-60p">
+                                        <h6>Cấu hình duyệt tự động</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Modal.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="_ModalCHDuyetBTTuDong.cshtml" />
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/HospitalService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryPersonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ProductHumanService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PeopleConfigurationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/PeopleConfiguration.js" asp-append-version="true"></script>
+}

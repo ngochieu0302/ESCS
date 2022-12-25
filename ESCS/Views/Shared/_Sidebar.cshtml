@@ -1,0 +1,63 @@
+﻿@using ESCS.Common
+@using ESCS.COMMON.Common
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS.ModelView
+@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@{
+    var session = Context.Request.Cookies[ESCSConstants.ESCS_TOKEN]?.ToString();
+    escs_nguoi_dung user = JsonConvert.DeserializeObject<escs_nguoi_dung>(Utilities.DecryptByKey(session, ESCS.COMMON.Http.AppSettings.KeyEryptData));
+
+    IEnumerable<escs_menu> menus = EscsUtils.GetMenu(user?.ma_doi_tac+"/"+ user?.nsd);
+    IEnumerable<escs_menu> menusLevel0 = menus.Where(n => n.so_id_cha == 0 && n.nhom == "CLIENT").OrderBy(n => n.stt).ToList();
+}
+<aside class="left-sidebar" data-sidebarbg="skin6">
+    <div class="scroll-sidebar scrollable">
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                @foreach (var itemMenuLevel0 in menusLevel0)
+                {
+                    itemMenuLevel0.url = string.IsNullOrEmpty(itemMenuLevel0.url) ? "javascript:void(0)" : itemMenuLevel0.url;
+                    IEnumerable<escs_menu> menusChildren = menus.Where(n => n.so_id_cha == itemMenuLevel0.so_id).OrderBy(n => n.stt).ToList();
+                    var hasArrow = (menusChildren != null && menusChildren.Count() > 0) ? true : false;
+                    <li class="sidebar-item">
+                        @if (hasArrow)
+                        {
+                            <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="@itemMenuLevel0.icon"></i>
+                                <span class="hide-menu">@itemMenuLevel0.ten</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="sidebar-link waves-dark" href="@itemMenuLevel0.url" aria-expanded="false" target="@itemMenuLevel0.target">
+                                <i class="@itemMenuLevel0.icon"></i>
+                                <span class="hide-menu">@itemMenuLevel0.ten</span>
+                            </a>
+                        }
+
+                        @{
+                            if (menusChildren != null && menusChildren.Count() > 0)
+                            {
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    @foreach (var itemChildren in menusChildren)
+                                    {
+                                        itemChildren.url = string.IsNullOrEmpty(itemChildren.url) ? "javascript:void(0)" : itemChildren.url;
+                                        <li class="sidebar-item">
+                                            <a href="@itemChildren.url" title="@itemChildren.ten" class="sidebar-link">
+                                                <i class="@itemChildren.icon"></i>
+                                                <span class="hide-menu">@itemChildren.ten</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        }
+
+                    </li>
+                }
+
+            </ul>
+        </nav>
+    </div>
+</aside>

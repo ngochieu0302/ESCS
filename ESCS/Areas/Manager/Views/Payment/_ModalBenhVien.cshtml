@@ -1,0 +1,95 @@
+﻿<style>
+    .text {
+        color: red;
+    }
+</style>
+<div id="modalBenhVien" class="modal-drag" style="width: 625px; z-index: 9999999; margin-top: 8px !important; margin-left: 144.85px !important; ">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn bệnh viện</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_BenhVien" type="text" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control item-benhvien">
+                <input type="hidden" id="modalBenhVienElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalBenhVienDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnChonBenhVien">
+            <i class="fas fa-save mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalBenhVienDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <%if(item.bl_noitru == 'C' && item.bl_ngoaitru == 'C'){%>
+    <div class="custom-control custom-checkbox dsbv" id="dsbv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="benh_vien_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-benhvien modalBenhVienItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="benh_vien_<%- item.ma %>"><%- item.ten %> </label> - <label class="text"> (Bảo lãnh nội trú / Bảo lãnh ngoại trú) </label>
+    </div>
+    <%}else if( item.bl_noitru == 'C' && item.bl_ngoaitru == 'K'){%>
+    <div class="custom-control custom-checkbox dsbv" id="dsbv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="benh_vien_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-benhvien modalBenhVienItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="benh_vien_<%- item.ma %>"><%- item.ten %> - <label class="text"> (Bảo lãnh nội trú) </label> </label>
+    </div>
+    <%}else if(item.bl_noitru == 'K' && item.bl_ngoaitru == 'C'){%>
+    <div class="custom-control custom-checkbox dsbv" id="dsbv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="benh_vien_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-benhvien modalBenhVienItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="benh_vien_<%- item.ma %>"><%- item.ten %> - <label class="text"> (Bảo lãnh ngoại trú) </label> </label>
+    </div>
+    <%}else{%>
+    <div class="custom-control custom-checkbox dsbv" id="dsbv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="benh_vien_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-benhvien modalBenhVienItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="benh_vien_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <%}%>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+
+<div id="modalCanBo" class="modal-drag" style="width: 300px; z-index: 9999999; margin-top: 226px !important; margin-left: 848px !important;">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn cán bộ</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_CanBo" type="text" placeholder="Tìm kiếm cán bộ" class="form-control">
+                <input type="hidden" id="modalCanBoElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalCanBoDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnChonCanBo">
+            <i class="fas fa-save mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalCanBoDanhSachTemplate">
+    <% if(danh_sach_can_bo.length > 0){ %>
+    <% _.forEach(danh_sach_can_bo, function(item,index) { %>
+    <% var ma = danh_sach_can_bo[index].ma.trim().replace(/[^a-zA-Z0-9]/g, '') %>
+    <div class="custom-control custom-checkbox dscb" id="dscb_<%- ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="can_bo_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-canbo modalCanBoItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="can_bo_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+

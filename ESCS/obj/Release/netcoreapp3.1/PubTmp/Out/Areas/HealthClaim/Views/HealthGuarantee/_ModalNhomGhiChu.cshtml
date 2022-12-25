@@ -1,0 +1,37 @@
+﻿<div id="modalNhomGhiChu" class="modal-drag" style="width:300px; z-index:9999999; left: 120px;">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn nhóm ghi chú</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_NhomGhiChu" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalNhomGhiChuElementSelect">
+                
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalNhomGhiChuDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="height: 32px; border-top: 1px solid #eaeaea; margin:0px 0px 10px 0px;">
+        <button type="button" class="btn-outline-primary btn-sm wd-85" id="btnBoChonNhomGhiChu">
+            <i class="fas fa-times mr-1"></i> Bỏ chọn
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnChonNhomGhiChu">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalNhomGhiChuDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox dsngc" id="dsngc_<%- item.ma %>">
+        <input type="checkbox" id="nhom_chi_chu_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonNhomGhiChuItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="nhom_chi_chu_<%- item.ma %>"><%- item.ma %> - <%- item.nhom %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

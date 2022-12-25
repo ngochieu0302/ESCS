@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/menu/save",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": "images/users/c6a231d6306940189fe6699db0e4efae.jpg",
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20220914132557
+  },
+  "Time": 20220914095051,
+  "Request": "{\"pm\":\"BT\",\"so_id\":\"20220914003368\",\"nhom_quyen\":\"QTHT,HDKHAC\",\"ma_doi_tac\":\"CTYBHABC\",\"nhom\":\"CLIENT\",\"so_id_cha\":\"20220914003343\",\"url\":\"/otherclaim/claim\",\"ten\":\"Giám định & bồi thường\",\"icon\":\"mdi mdi-plus\",\"stt\":\"1\",\"target\":\"\",\"hien_thi\":\"1\"}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{\"so_id\":20220914003368.0,\"stt\":1.0}}"
+}

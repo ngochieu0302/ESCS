@@ -1,0 +1,433 @@
+﻿<script type="text/html" id="danhDachGCN_template">
+    <% if(gcn.length > 0){
+    _.forEach(gcn, function(item,index) { %>
+    <% if(item.bien_xe != null){ %>
+    <tr data-search="<%- item.bien_xe.toLowerCase() %>" style="cursor:pointer" class="item-gcn" onclick="xemChiTietGCN('<%- item.ma_doi_tac %>', '<%- item.so_id %>', '<%- item.so_id_dt %>')" id="item-gcn-<%- item.ma_doi_tac %><%- item.so_id %><%- item.so_id_dt %>">
+        <td style="font-weight:bold; padding: 8px 0 8px 0"><%- item.bien_xe %></td>
+        <td style="float:right; padding: 8px 0 8px 0"><%- item.hieu_luc_gcn %></td>
+    </tr>
+    <% }else{ %>
+    <tr data-search="<%- item.so_khung.toLowerCase() %>" style="cursor:pointer" class="item-gcn" onclick="xemChiTietGCN('<%- item.ma_doi_tac %>', '<%- item.so_id %>', '<%- item.so_id_dt %>')" id="item-gcn-<%- item.ma_doi_tac %><%- item.so_id %><%- item.so_id_dt %>">
+        <td style="font-weight:bold"><%- item.so_khung %></td>
+        <td style="float:right"><%- item.hieu_luc_gcn %></td>
+    </tr>
+    <% } %>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="2">Không có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+<script type="text/html" id="danhSachNV_template">
+    <% if(lhnv.length > 0){
+    _.forEach(lhnv, function(item,index) { %>
+    <tr row-val="<%- item.ma %>" row-vcx="<%- item.vcx %>">
+        <td class="text-center"><%- index+1 %></td>
+        <td><%- item.ten %></td>
+        <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-bh="<%- item.ma %>" onchange="hthiTongTien()" value="<%- ESUtil.formatMoney(item.tien) %>" /></td>
+        <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-toi-da="<%- item.ma %>" onchange="hthiTongTien()" value="<%- ESUtil.formatMoney(item.tien_toi_da) %>" /></td>
+        <% if(item.vcx == 'VCX'){ %>
+        <%if(item.ktru=="K"){%>
+        <td class="text-center"><input type="checkbox" col-khau-tru="<%- item.ma %>" name="ktru" onclick="onCheckKhauTru(this, '<%- item.ma %>')" /></td>
+        <td><input type="text" name="" maxlength="18" col-mien-thuong="<%- item.ma %>" disabled="disabled" class="number floating-input" onchange="hthiTongTien()" value="<%- ESUtil.formatMoney(item.mien_thuong) %>" /></td>
+        <% } else { %>
+        <td class="text-center"><input type="checkbox" checked="checked" col-khau-tru="<%- item.ma %>" name="ktru" onclick="onCheckKhauTru(this, '<%- item.ma %>')" /></td>
+        <td><input type="text" name="" maxlength="18" col-mien-thuong="<%- item.ma %>" class="number floating-input" onchange="hthiTongTien()" value="<%- ESUtil.formatMoney(item.mien_thuong) %>" /></td>
+        <% } %>
+        <% } else{ %>
+        <td class="text-center"><input type="checkbox" col-khau-tru="<%- item.ma %>" name="ktru" style="display: none" /></td>
+        <td><input type="text" name="" maxlength="18" col-mien-thuong="<%- item.ma %>" disabled="disabled" class="number floating-input" value="<%- item.mien_thuong %>" style="display: none" /></td>
+        <% } %>
+        <td>
+            <% if(item.vcx == "VCX"){
+            %>
+            <input type="text" style="cursor:pointer" col-dkbs="<%- item.ma %>" value="<%- item.dkbs %>" id="dkhoan_dkbs_<%- item.ma.replace(/\./g,'') %>" onclick="chonDKBS(this,'top top-right')" placeholder="Click để chọn" readonly="readonly" name="" class="floating-input">
+            <%} else{ %>
+            <input type="text" style="cursor:pointer" col-dkbs="<%- item.ma %>" value="<%- item.dkbs %>" readonly="readonly" name="" class="floating-input">
+            <% } %>
+        </td>
+        @*<td><input type="text" name="" col-tl-phi="<%- item.ma %>" maxlength="3" class="number floating-input" value="<%- ESUtil.formatMoney(item.tl_phi) %>" /></td>*@
+        <td><input type="text" name="" maxlength="18" col-phi-bh="<%- item.ma %>" class="number floating-input" onchange="hthiTongTien()" value="<%- ESUtil.formatMoney(item.phi) %>" /></td>
+    </tr>
+    <% })}%>
+</script>
+
+<script type="text/html" id="danhSachNVXeMay_template">
+    <% if(lhnv.length > 0){
+    _.forEach(lhnv, function(item,index) { %>
+    <tr row-val="<%- item.ma %>" row-vcx="<%- item.vcx %>">
+        <td class="text-center"><%- index+1 %></td>
+        <td><%- item.ten %></td>
+        <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-bh="<%- item.ma %>" onchange="hthiTongTienXeMay()" value="<%- ESUtil.formatMoney(item.tien) %>" /></td>
+        <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-toi-da="<%- item.ma %>" onchange="hthiTongTienXeMay()" value="<%- ESUtil.formatMoney(item.tien_toi_da) %>" /></td>
+        <% if(item.vcx == 'VCX'){ %>
+        <%if(item.ktru=="K"){%>
+        <td class="text-center"><input type="checkbox" col-khau-tru="<%- item.ma %>" name="ktru" onclick="onCheckKhauTruXeMay(this, '<%- item.ma %>')" /></td>
+        <td><input type="text" name="" maxlength="18" col-mien-thuong="<%- item.ma %>" disabled="disabled" class="number floating-input" onchange="hthiTongTienXeMay()" value="<%- ESUtil.formatMoney(item.mien_thuong) %>" /></td>
+        <% } else { %>
+        <td class="text-center"><input type="checkbox" checked="checked" col-khau-tru="<%- item.ma %>" name="ktru" onclick="onCheckKhauTruXeMay(this, '<%- item.ma %>')" /></td>
+        <td><input type="text" name="" maxlength="18" col-mien-thuong="<%- item.ma %>" class="number floating-input" onchange="hthiTongTienXeMay()" value="<%- ESUtil.formatMoney(item.mien_thuong) %>" /></td>
+        <% } %>
+        <% } else{ %>
+        <td class="text-center"><input type="checkbox" col-khau-tru="<%- item.ma %>" name="ktru" style="display: none" /></td>
+        <td><input type="text" name="" maxlength="18" col-mien-thuong="<%- item.ma %>" disabled="disabled" class="number floating-input" value="<%- item.mien_thuong %>" style="display: none" /></td>
+        <% } %>
+        <td>
+            <% if(item.vcx == "VCX"){
+            %>
+            <input type="text" style="cursor:pointer" col-dkbs="<%- item.ma %>" value="<%- item.dkbs %>" id="dkhoan_dkbs_<%- item.ma.replace(/\./g,'') %>" onclick="chonDKBS(this,'top top-right')" placeholder="Click để chọn" readonly="readonly" name="" class="floating-input">
+            <%} else{ %>
+            <input type="text" style="cursor:pointer" col-dkbs="<%- item.ma %>" value="<%- item.dkbs %>" readonly="readonly" name="" class="floating-input">
+            <% } %>
+        </td>
+        <td><input type="text" name="" maxlength="18" col-phi-bh="<%- item.ma %>" class="number floating-input" onchange="hthiTongTienXeMay()" value="<%- ESUtil.formatMoney(item.phi) %>" /></td>
+    </tr>
+    <% })}%>
+</script>
+
+<script type="text/html" id="danhSachDKBS_template">
+    <% if(dkbs.length > 0){
+    _.forEach(dkbs, function(item,index) { %>
+    <tr row-val="<%- item.ma %>">
+        <td class="text-center"><%- index+1 %></td>
+        <td class="text-center"><%- item.ma %></td>
+        <td><%- item.ten %></td>
+        <%if(!item.chon){
+        %>
+        <td class="text-center"><input type="checkbox" col-dkbs="<%- item.ma %>" /></td>
+        <%
+        }
+        else
+        {
+        %>
+        <td class="text-center"><input type="checkbox" checked="checked" col-dkbs="<%- item.ma %>" /></td>
+        <%
+        }
+        %>
+        <td></td>
+    </tr>
+    <% })} %>
+</script>
+
+<script type="text/html" id="danhSachDKBSXeMay_template">
+    <% if(dkbs.length > 0){
+    _.forEach(dkbs, function(item,index) { %>
+    <tr row-val="<%- item.ma %>">
+        <td class="text-center"><%- index+1 %></td>
+        <td class="text-center"><%- item.ma %></td>
+        <td><%- item.ten %></td>
+        <%if(!item.chon){
+        %>
+        <td class="text-center"><input type="checkbox" col-dkbs="<%- item.ma %>" /></td>
+        <%
+        }
+        else
+        {
+        %>
+        <td class="text-center"><input type="checkbox" checked="checked" col-dkbs="<%- item.ma %>" /></td>
+        <%
+        }
+        %>
+        <td></td>
+    </tr>
+    <% })} %>
+</script>
+
+<script type="text/html" id="SDBS_template">
+    <% var stt = 1 %>
+    <% if(dk.length > 0){
+    _.forEach(dk, function(item,index) { %>
+    <tr>
+        <td class="text-center" style=" text-transform: uppercase;">
+            <%- item.so_hd %>
+        </td>
+        <td class="text-center">
+            <%- item.kieu_hd_ten %>
+        </td>
+        <td class="text-center">
+            <%- item.ngay_cap_text %>
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="4">Không có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+<script type="text/html" id="DongTai_template">
+    <% var stt = 1 %>
+    <% if(dk.length > 0){
+    _.forEach(dk, function(item,index) { %>
+    <tr onclick="Xem_chi_tiet_dong_tai('<%- item.ma_doi_tac %>', '<%- item.so_id %>', '<%- item.so_id_dt %>', '<%- item.don_vi_dong_tai %>', '<%- item.loai_dong %>', '<%- item.nv %>')">
+        <td class="text-center"><%- stt %></td>
+        <% stt++ %>
+        <td class="text-center"><b style="font-weight: bold"><%- item.ten_don_vi_dong_tai_hthi %></b></td>
+        <td class="text-center" style=" text-transform: uppercase;">
+            <%- item.kieu %>
+        </td>
+        <td class="text-center">
+            <% if(item.bien_xe_dt != null){ %>
+            <%- item.bien_xe_dt %>
+            <% }else{ %>
+            <%- item.so_khung_dt %>
+            <% } %>
+
+        </td>
+        <td class="text-center">
+            <%- item.ten_lhnv %>
+        </td>
+        <td class="text-center">
+            <%- item.tl_dong %>%
+        </td>
+        <td class="text-center">
+            <%- item.tl_tai_cd %>%
+        </td>
+        <td class="text-center">
+            <%- item.tl_tai_tt %>%
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="8">Không có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+@*Xem danh sách ảnh*@
+<script type="text/html" id="lstImage_template">
+    <% if(arrLoai.length > 0){ %>
+    <% _.forEach(arrLoai, function(iteml,indexl) { %>
+    <% if(iteml.so_luong_tai_lieu > 0){ %>
+    <div style="border-radius: 3px; text-align: center; background-color: #ececec; padding: 3px 0px; margin: 5px 0px; border: 1px solid #607d8b; ">
+        <p class="m-0 font-weight-bold">
+            <%- iteml.ten_loai_tai_lieu %>
+        </p>
+    </div>
+    <% if(arrAnh.length > 0){
+    _.forEach(arrAnh, function(item,index) { %>
+    <% if(item.loai == iteml.loai_tai_lieu){ %>
+    <div class="pt-1" id="nhom_anh_<%- index %>">
+        <p class="m-0 font-weight-bold"><a href="#" onclick="onToggleImg('<%- index %>')"><%- item.nhom %></a></p>
+    </div>
+    <ul class="docs-pictures clearfix">
+        <% _.forEach(item.children, function(image,index_anh) { %>
+        <li class="p-1">
+            <input type="checkbox" onclick="onClickGDChiTiet(this, <%- JSON.stringify(image, ESUtil.replacerImg) %>)" id="img<%- image.bt %>" class="nhom_anh_ton_that_<%- index %> mt-1" value="<%- image.bt %>" name="ds_anh_xe">
+            <p class="fileNameImage mt-1" style="cursor:pointer"><%- image.ten_file %></p>
+            <% if(_.includes([".jpg", ".png", ".gif",".jpeg"], image.extension)){ %>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-ngay="<%- image.ngay %>" data-nsd="<%- image.nsd%>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+            <% }else if(_.includes([".pdf", ".doc", ".docx"], image.extension)){ %>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/pdf-image.png" alt="<%- image.ten_file %>">
+            <% } else if(_.includes([".xml"], image.extension)){%>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/xml.png" alt="<%- image.ten_file %>">
+            <% } else if(_.includes([".xlsx", ".xls"], image.extension)){%>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/excel-logo.jpg" alt="<%- image.ten_file %>">
+            <% } %>
+        </li>
+        <% }) %>
+    </ul>
+    <% } %>
+    <% })} %>
+    <% } %>
+    <% }) %>
+    <% } %>
+</script>
+@*<script type="text/html" id="lstImage_template">
+        <% if(arrAnh.length > 0){
+        _.forEach(arrAnh, function(item,index) { %>
+        <div class="pt-2" id="nhom_anh_<%- index %>">
+            <p class="m-0 font-weight-bold"><a href="#" onclick="onToggleImg('<%- index %>')"><%- item.nhom %></a></p>
+        </div>
+        <ul class="docs-pictures clearfix">
+            <% _.forEach(item.children, function(image,index_anh) { %>
+            <li class="p-1">
+                <input type="checkbox" onclick="onClickGDChiTiet(this, <%- JSON.stringify(image, ESUtil.replacerImg) %>)" id="img<%- image.bt %>" class="nhom_anh_ton_that_<%- index %>" value="<%- image.bt %>" name="ds_anh_xe">
+                <p class="fileNameImage"><%- image.ten_file %></p>
+                <% if(_.includes([".jpg", ".png", ".gif",".jpeg"], image.extension)){ %>
+                <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+                <% }else if(_.includes([".pdf", ".doc", ".docx"], image.extension)){ %>
+                <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="/images/pdf-image.png" alt="<%- image.ten_file %>">
+                <% } else if(_.includes([".xml"], image.extension)){%>
+                <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="/images/xml.png" alt="<%- image.ten_file %>">
+                <% } else if(_.includes([".xlsx", ".xls"], image.extension)){%>
+                <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="/images/excel-logo.jpg" alt="<%- image.ten_file %>">
+                <% } %>
+            </li>
+            <% }) %>
+        </ul>
+        <% })} %>
+    </script>*@
+
+<script type="text/html" id="tblDanhSachKyThanhToan_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center">
+            <%- index + 1 %>
+        </td>
+        <td class="text-center">
+            <%- item.ky_tt_hthi %>
+        </td>
+        <td class="text-center">
+            <%- item.ngay_tt_hthi %>
+        </td>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.so_tien) %>
+        </td>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.so_tien_da_tt) %>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="suaKyThanhToan('<%- item.so_id%>', '<%- item.bt%>', '<%- item.nv%>')">
+                <i class="fa fa-edit"></i>
+            </a>
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="6">Không có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+<script type="text/html" id="tblDanhGiaRuiRoTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr class="cursor-pointer hang_muc_so_bo">
+        <td class="text-center">
+            <input type="hidden" name="hang_muc" value="<%- item.ma %>" />
+            <a href="#" onclick="xemAnhDanhGiaRuiRo('<%- item.so_id_dt %>', '<%- item.ten %>')">
+                <i class="fas fa-image" title="Xem hình ảnh chi tiết"></i>
+            </a>
+        </td>
+        <td>
+            <a href="#" onclick="xemAnhDanhGiaRuiRo('<%- item.so_id_dt %>', '<%- item.ten %>')">
+                Bộ phận <%- item.ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a href="#" data-field="danh_gia" data-val="<%- item.danh_gia %>" onclick="LayDanhSachTinhTrangTT(this)">
+                <%- item.danh_gia_ten %>
+            </a>
+        </td>
+        <td>
+            <input type="text" name="ghi_chu" maxlength="200" class="floating-input" value="<%- item.ghi_chu %>" />
+        </td>
+    </tr>
+    <% })} %>
+    <% if(data.length < 13){
+    for(var i = 0; i < 13 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height: 35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="modalVideoDanhSachTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) {
+    if(index == 0){%>
+    <a class="nav-link rounded videoLink active" href="javascript:void(0);" data-bt="<%- item.bt %>" onclick="xemVideoHs('<%- item.bt %>')"><%- item.ten %></a>
+    <%} else {%>
+    <a class="nav-link rounded videoLink" href="javascript:void(0);" data-bt="<%- item.bt %>" onclick="xemVideoHs('<%- item.bt %>')"><%- item.ten %></a>
+    <%}})}%>
+</script>
+
+<script type="text/html" id="tblDanhGiaHangMucChiTietTemplate">
+    <% if(data.length > 0){ %>
+    <% var stt = 1 %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr class="cursor-pointer hang_muc_rui_ro">
+        <td class="text-center">
+            <%- stt %>
+        </td>
+        <td>
+            <input type="hidden" name="hang_muc" value="<%- item.hang_muc %>" />
+            <a href="#" data-field="hang_muc_ten" data-val="<%- item.hang_muc_ten %>">
+                <%- item.hang_muc_ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <input type="hidden" name="muc_do" value="<%- item.muc_do %>" />
+            <a href="#" data-field="muc_do_ten" data-val="<%- item.muc_do_ten%>" onclick="LayDanhSachMDTT(this)">
+                <%- item.muc_do_ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a href="#" data-field="dgia" data-val="<%- item.dgia%>" onclick="LayDanhSachDGia(this)">
+                <%- item.dgia_ten %>
+            </a>
+            @*<input type="text" name="dgia" maxlength="200" class="floating-input" value="<%- item.dgia %>" placeholder="Đạt, không đạt, bình thường,..." />*@
+        </td>
+        <td>
+            <input type="text" name="ghi_chu" maxlength="200" class="floating-input" value="<%- item.ghi_chu %>" />
+        </td>
+        <% stt++ %>
+    </tr>
+    <% })} %>
+    <% if(data.length < 12){
+    for(var i = 0; i < 12 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height: 35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="modalMucDoTonThatDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox mdtt" id="mdtt_<%- item.ma %>">
+        <input type="checkbox" id="muc_do_ton_that_<%- item.ma %>" value="<%- item.ma %>" onchange="onChonMDTT(this)" class="custom-control-input modalChonMucDoTonThatItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="muc_do_ton_that_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalDanhGiaDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox dgia" id="dgia_<%- item.dgia %>">
+        <input type="checkbox" id="danh_gia_<%- item.dgia %>" value="<%- item.dgia %>" onchange="onChonDGia(this)" class="custom-control-input modalChonDanhGiaItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="danh_gia_<%- item.dgia %>"><%- item.dgia_ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalHangMucTTDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox dshmtt" id="dshmtt_<%- item.ma %>" data-text="<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="hang_muc_ton_that_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonHangMucTTItem" onclick="ChonHMTT('<%- item.ma %>')">
+        <label class="custom-control-label" style="cursor:pointer;" for="hang_muc_ton_that_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalTinhTrangTTDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox tttt" id="tttt_<%- item.danh_gia %>">
+        <input type="checkbox" id="tinh_trang_tt_<%- item.danh_gia %>" value="<%- item.danh_gia %>" onchange="onChonTinhTrangTT(this)" class="custom-control-input modalChonTinhTrangTTItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="tinh_trang_tt_<%- item.danh_gia %>"><%- item.danh_gia_ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

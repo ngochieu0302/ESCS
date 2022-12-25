@@ -1,0 +1,144 @@
+.esmodal-open {
+	overflow: hidden
+}
+
+.esmodal-open .esmodal {
+	overflow-x: hidden;
+	overflow-y: auto
+}
+
+.esmodal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	display: none;
+	width: 100%;
+	overflow: hidden;
+	outline: 0;
+	padding-top:50px;
+}
+
+.esmodal-dialog {
+	position: relative;
+	width: auto;
+	pointer-events: none;
+	height: calc(100% - 50px);
+}
+
+.esmodal.fade .esmodal-dialog {
+	transition: -webkit-transform .3s ease-out;
+	transition: transform .3s ease-out;
+	transition: transform .3s ease-out, -webkit-transform .3s ease-out;
+	-webkit-transform: translate(0, -50px);
+	transform: translate(0, -50px)
+}
+
+@media (prefers-reduced-motion:reduce) {
+	.esmodal.fade .esmodal-dialog {
+		transition: none
+	}
+}
+
+.esmodal.show .esmodal-dialog {
+	-webkit-transform: none;
+	transform: none
+}
+
+.esmodal.esmodal-static .esmodal-dialog {
+	-webkit-transform: scale(1.02);
+	transform: scale(1.02)
+}
+
+.esmodal-dialog-scrollable {
+	display: -ms-flexbox;
+	display: flex;
+	max-height: calc(100% - 1rem)
+}
+
+.esmodal-dialog-scrollable .esmodal-content {
+	max-height: calc(100vh - 1rem);
+	overflow: hidden
+}
+
+.esmodal-dialog-scrollable .esmodal-footer,
+.esmodal-dialog-scrollable .esmodal-header {
+	-ms-flex-negative: 0;
+	flex-shrink: 0
+}
+
+.esmodal-dialog-scrollable .esmodal-body {
+	overflow-y: auto
+}
+
+
+.esmodal-content {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	width: 100%;
+	pointer-events: auto;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, .2);
+	outline: 0;
+}
+
+.esmodal-header {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	padding: 1rem 1rem;
+	border-bottom: 1px solid #dee2e6;
+	border-top-left-radius: calc(.3rem - 1px);
+	border-top-right-radius: calc(.3rem - 1px)
+}
+
+.esmodal-header .close {
+	padding: 1rem 1rem;
+	margin: -1rem -1rem -1rem auto
+}
+
+.esmodal-title {
+	margin-bottom: 0;
+	line-height: 1.5
+}
+
+.esmodal-body {
+	position: relative;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 1rem
+}
+
+.esmodal-footer {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+	padding: .75rem;
+	border-top: 1px solid #dee2e6;
+	border-bottom-right-radius: calc(.3rem - 1px);
+	border-bottom-left-radius: calc(.3rem - 1px)
+}
+
+.esmodal-footer>* {
+	margin: .25rem
+}
+
+.esmodal-scrollbar-measure {
+	position: absolute;
+	top: -9999px;
+	width: 50px;
+	height: 50px;
+	overflow: scroll
+}

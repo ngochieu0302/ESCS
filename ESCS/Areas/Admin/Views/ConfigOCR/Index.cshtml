@@ -1,0 +1,126 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Cấu hình dịch vụ OCR";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<input type="hidden" id="notify_info" value="@TempData[ESCS.COMMON.Contants.ESCSConstants.NOTIFY_INFO]" />*@
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Cấu hình dịch vụ OCR</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Dịch vụ OCR</li>
+        </ol>
+    </div>
+</div>
+
+@*Modal thêm mới*@
+
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12 pb-15">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px;">
+                    <form name="FrmSearchConfigOCR" method="post">
+                        <div class="row">
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_hl">Ngày hiệu lực</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_hl" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_kt">Ngày kết thúc</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh">Chi nhánh</label>
+                                    <select class="select2 form-control" name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group" style="float:left">
+                                    <label for="">&nbsp;</label>
+                                    <div class="input-group">
+                                        <button type="button" id="btnSearch" class="btn btn-primary btn-sm wd-80 mr-2">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        <button type="button" id="btnAddORC" class="btn btn-primary btn-sm wd-80">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-12">
+                                <div id="gridViewConfigOCR" class="table-app"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal xem chi tiết dịch vụ OCR*@
+
+<div class="modal fade bs-example-modal-lg" id="modalConfigOcr" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmOcr" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cấu hình dịch vụ OCR</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="padding-top:0px;">
+                    <div class="row" id="ThongTinDvOcr"></div>
+                </div>
+                <div class="modal-footer" style="display:block;">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteConfig"><i class="fas fa-trash-alt"></i> Xóa</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm wd-90 float-right" id="btnEditConfig"><i class="far fa-edit"></i> Sửa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_Modal.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="_.ConfigOcrDetail" />
+
+@section scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ConfigOCRService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ConfigOCR.js" asp-append-version="true"></script>
+}

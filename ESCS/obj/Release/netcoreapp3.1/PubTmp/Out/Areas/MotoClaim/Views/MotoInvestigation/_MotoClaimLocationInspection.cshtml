@@ -1,0 +1,87 @@
+﻿<div id="modalXemDiaBanGiamDinh" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg" style="max-width:70%;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Xem địa bàn giám định</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmTimKiemGDV" method="post">
+                    <div class="row">
+                        <div class="col-3 pr-2">
+                            <div class="form-group">
+                                <label class="_required">Tỉnh/thành</label>
+                                <select class="select2 form-control custom-select" required name="tinh_thanh" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                        <div class="col-3 px-2">
+                            <div class="form-group">
+                                <label class="_required">Quận/huyện</label>
+                                <select class="select2 form-control custom-select" required name="quan_huyen" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                        <div class="col-2 px-2">
+                            <div class="form-group">
+                                <label class="_required">Từ ngày</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" name="ngay_bd" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 px-2">
+                            <div class="form-group">
+                                <label class="_required">Đến ngày</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" name="ngay_kt" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-85" title="Tìm kiếm" id="btnTimKiemGDV">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
+                        <div class="col-12">
+                            <div class="table-responsive" style="max-height:375px">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:20px">STT</th>
+                                            <th>Họ và tên</th>
+                                            <th>Mã GĐV</th>
+                                            <th>Điện thoại</th>
+                                            <th>Số lượng hồ sơ đang giám định</th>
+                                            <th>Số lượng hồ sơ tồn trong ngày</th>
+                                            <th>Số lượng hồ sơ tồn giám định</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyDsGiamDinhVienTheoDiaBan">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Không có dữ liệu tìm kiếm</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" id="btnChonGDV">
+                    <i class="fas fa-mouse-pointer mr-2"></i>Chọn
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

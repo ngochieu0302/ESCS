@@ -1,0 +1,157 @@
+﻿<div class="custom-modal">
+    <div id="modalThemHMTT" style="width:550px;top:0px; left:35%;" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;">
+        <div class="modal-dialog modal-lg" style="width:550px;">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h5 class="modal-title" style="color:#fff">Thêm hạng mục tổn thất</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="xoaSelectAnh()">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmThemHMTT" name="frmThemHMTT" method="post">
+                        <input type="hidden" name="index" value="" />
+                        <input type="hidden" name="bt" value="" />
+                        <input type="hidden" name="pm" value="GD">
+                        <input type="hidden" name="hanh_dong" value="them_moi" />
+                        <input type="hidden" name="hang_muc_cu" value="" />
+
+                        <div class="row">
+                            <div class="col-6" id="divpl_loai">
+                                <div class="form-group">
+                                    <label class="_required">Nhóm tài liệu</label>
+                                    <select class="form-control select2" required name="loai" style="width:100%">
+                                        <option value="TT">Tổn thất</option>
+                                        <option value="TL">Giấy tờ, tài liệu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6" id="divpl_lh_nv">
+                                <div class="form-group">
+                                    <label class="_required">Loại hình nghiệp vụ</label>
+                                    <select class="form-control select2" required name="lh_nv" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12" id="divpl_so_id_doi_tuong">
+                                <div class="form-group">
+                                    <label class="_required">Nhóm đối tượng tổn thất</label>
+                                    <select class="form-control select2" required name="so_id_doi_tuong" style="width:100%"></select>
+                                </div>
+                            </div>
+                            <div class="col-12" id="divpl_hang_muc">
+                                <div class="form-group">
+                                    <label class="_required">Hạng mục tổn thất/tài liệu</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" autocomplete="off" name="hang_muc" data-val="" value="" onclick="chonHangMucTonThat(this)" placeholder="Click chọn hạng mục tổn thất">
+                                        <div class="input-group-append">
+                                            <label class="input-group-text">
+                                                <a href="#" id="btnXoaInputHangMuc">
+                                                    <i class="fas fa-times" title="Xóa tìm kiếm"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6" id="divpl_muc_do">
+                                <div class="form-group">
+                                    <label for="select-checkbox" class="_required">Mức độ tổn thất</label>
+                                    <input type="text" id="frmThemHMTT_muc_do" autocomplete="off" class="form-control" required name="muc_do" value="" />
+                                </div>
+                            </div>
+                            <div class="col-6" id="divpl_thay_the_sc">
+                                <div class="form-group">
+                                    <label class="_required">Phương án sửa chữa/khắc phục</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" required style="width:100%" name="thay_the_sc">
+                                            <option value="" selected="selected">Chọn phương án</option>
+                                            <option value="S">Sửa chữa</option>
+                                            <option value="T">Thay thế</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" id="divpl_chinh_hang">
+                                <div class="form-group">
+                                    <label>Nơi sửa chữa</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" style="width:100%" name="chinh_hang">
+                                            <option value="" selected="selected">Chọn nơi sửa chữa</option>
+                                            <option value="K">Sửa chữa ngoài</option>
+                                            <option value="C">Chính hãng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" id="divpl_thu_hoi">
+                                <div class="form-group">
+                                    <label class="_required">Thu hồi vật tư?</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" style="width:100%" required name="thu_hoi">
+                                            <option value="" selected="selected">Chọn thu hồi</option>
+                                            <option value="C">Có</option>
+                                            <option value="K">Không</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" id="divpl_so_luong">
+                                <div class="form-group">
+                                    <label class="_required">Số lượng</label>
+                                    <div class="input-group">
+                                        <input type="text" required autocomplete="off" class="form-control number placeholder-left" name="so_luong" placeholder="Số lượng hạng mục tổn thất">
+                                    </div>
+                                </div>
+                            </div>
+                            @*d-none*@
+                            <div class="col-6" id="divpl_tien_tu_dong">
+                                <div class="form-group">
+                                    <label>Chi phí tính toán tự động</label>
+                                    <div class="input-group">
+                                        <input type="text" readonly="readonly" autocomplete="off" class="form-control number placeholder-left" name="tien_tu_dong" placeholder="Chi phí tính toán tự động">
+                                    </div>
+                                </div>
+                            </div>
+                            @*d-none*@
+                            <div class="col-6" id="divpl_tien_gd">
+                                <div class="form-group">
+                                    <label class="_required">Chi phí do GĐV xác định</label>
+                                    <div class="input-group">
+                                        <input type="text" required autocomplete="off" class="form-control number placeholder-left" name="tien_gd" placeholder="Chi phí do giám định viên xác định">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" id="divpl_vu_tt">
+                                <div class="form-group">
+                                    <label class="_required">Vụ tổn thất</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" style="width:100%" required name="vu_tt"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" id="divpl_ghi_chu">
+                                <div class="form-group">
+                                    <label>Ghi chú</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control" name="ghi_chu" placeholder="Ghi chú" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" id="btnLuuHMTT">
+                        <i class="fas fa-save mr-2"></i>Lưu
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm mg-t-22" id="btnLuuDongHMTT">
+                        <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" onclick="xoaSelectAnh()" data-dismiss="modal" id="CarClaimCarCategoryAdd_close">
+                        <i class="fas fa-window-close mr-2"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

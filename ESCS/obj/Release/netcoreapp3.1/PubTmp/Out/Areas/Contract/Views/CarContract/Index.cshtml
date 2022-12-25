@@ -1,0 +1,141 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Hợp đồng bảo hiểm xe cơ giới";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string key_google = ESCS.Common.EscsUtils.dv_google == null ? "" : ESCS.Common.EscsUtils.dv_google.key;
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Hợp đồng bảo hiểm xe cơ giới</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Hợp đồng bảo hiểm cơ giới</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="ngay_d">Từ ngày</label>
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" class="form-control datepicker" display-format="date" value-format="number" name="ngay_d" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="ngay_c">Đến ngày</label>
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" class="form-control datepicker" display-format="date" value-format="number" name="ngay_c" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="ma_chi_nhanh">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="ma_chi_nhanh">Đơn vị</label>
+                                <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Trạng thái</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đã duyệt</option>
+                                    <option value="C">Chưa duyệt</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="bien_xe" autocomplete="off" placeholder="Biển xe/số khung/số máy">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="nd" autocomplete="off" placeholder="Số HĐ/GCN/Tên khách hàng">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnSearch">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnAdd">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewHDXeOTo" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Template.cshtml" />
+<partial name="/Views/Shared/_ModalMap.cshtml" />
+<partial name="_Modal.cshtml" />
+<partial name="~/Areas\Contract\Views\Share\_ModalChonDKBS.cshtml" />
+<partial name="_CarContractSearch.cshtml" />
+<partial name="~/Areas\CarClaim\Views\CarInvestigation\_CarClaimImageUpload.cshtml" />
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+<partial name="/Views/Shared/_ModalXemQRCodeHopDong.cshtml" />
+<partial name="../_ViewImages.cshtml" />
+<partial name="/Views/Shared/_ModalSendEmail.cshtml" />
+@section Styles{
+    <link href="~/css/app/CarClaim/CarClaimCommon.css" rel="stylesheet" />
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+}
+@section Scripts{
+    @if (!string.IsNullOrEmpty(key_google))
+    {
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=@key_google&callback=initAutocomplete&libraries=places&v=weekly" type="text/javascript"></script>
+    }
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESSendEmail.js" asp-append-version="true"></script>
+    <script src="~/js/app/ModalXemQRCodeHopDong.js" asp-append-version="true"></script>
+    <script src="~/js/app/ModalDocumentService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DepartmentListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CarManufacturerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/HieuXeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/RangeVehicleService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BusinessCodeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DamageLevelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CustomerService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CarContractService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/CarContract.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,121 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS.ModelView
+@{
+    ViewData["Title"] = "Cho ý kiến";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #tblLichSuChoYKien tr.active {
+        background-color: #9ABCEA !important;
+    }
+    .text-color {
+        color: #009efb;
+    }
+</style>
+<input type="hidden" id="notify_info" value="@TempData[ESCS.COMMON.Contants.ESCSConstants.NOTIFY_INFO]" />
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12 pd-3">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px;">
+                    <form name="frmTimKiem" method="post">
+                        <div class="row">
+                            <div class="col col-1" style="padding-right:0px">
+                                <div class="form-group">
+                                    <label for="ngay_d">Ngày tìm kiếm</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_d" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.5em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-1" style="padding-right:0px">
+                                <div class="form-group">
+                                    <label for="ngay_c">&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_c" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.5em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-3">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="nhom">Nhóm</label>
+                                    <select class="select2 form-control custom-select" name="nhom" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="so_hs">Số hồ sơ</label>
+                                    <input type="text" class="form-control" autocomplete="off" name="so_hs" placeholder="Nhập vào số hồ sơ">
+                                </div>
+                            </div>
+                            <div class="col col-1" style="padding-top: 21px">
+                                <button type="button" class="btn btn-primary btn-sm" style="width:75px" id="btnTimKiem" title="Tìm kiếm hồ sơ">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-12">
+                                <div id="gridViewChoYKien" class="table-app" style="height: 64vh;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Modal.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="../_ViewPDF.cshtml" />
+<partial name="/Views/Shared/_ModalXemToanBoThongTin.cshtml" />
+<partial name="../_ViewImages.cshtml" />
+
+@section Styles{
+    <link href="~/css/app/CarClaim/CarClaimCommon.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@section scripts{
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarInvestigationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/DesktopOpinionService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarClaimCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/CarClaimCommon.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/DesktopOpinion.js" asp-append-version="true"></script>
+}

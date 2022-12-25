@@ -1,0 +1,339 @@
+﻿<!--Chi phí cẩu kéo-->
+<div id="modalAddChiPhiKhac" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-modal="true" role="dialog">
+    <div class="modal-dialog" style="max-width: 50%;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin chi phí khác</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="padding-bottom:0px; padding-top:0px;">
+                <div class="row mt-2">
+                    <div class="col-12 p-0 d-none" id="modalDanhSachDonViThamGia">
+                        <form id="frmTKiemChiPhiKhac" name="frmTKiemChiPhiKhac" method="post">
+                            <div class="row w-100 m-0">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Loại chi phí</label>
+                                        <select class="select2 form-control custom-select" name="ma_chi_phi" style="width:100%; height: 36px;">
+                                            <option value="">Chọn loại chi phí</option>
+                                            <option value="CP_GIAM_DINH">Chi phí giám định với đơn vị giám định ngoài</option>
+                                            <option value="CP_CAU_KEO">Chi phí cẩu/kéo</option>
+                                            <option value="KHAC">Chi phí khác</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-8 pl-0">
+                                    <div class="form-group">
+                                        <label class="">Thông tin tìm kiếm</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" autocomplete="off" name="tim" placeholder="Nhập thông tin tên chi phí">
+                                            <div class="input-group-append">
+                                                <label class="input-group-text" for="tim">
+                                                    <a href="javascript:void(0)" onclick="getPagingChiPhiKhac(1)">
+                                                        <i class="fas fa-search" title="Tìm kiếm"></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="table-responsive px-3 mt-2" style="max-height:300px;">
+                            <table class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center">
+                                        <th style="width:30%">Đối tượng tổn thất</th>
+                                        <th style="width:50%">Tên chi phí</th>
+                                        <th style="width:15%">Tổng số tiền</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblDanhSachDonViThamGia">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-left font-weight-bold">Tổng số tiền của hồ sơ</td>
+                                        <td colspan="1" class="text-right font-weight-bold" id="tong_tien_ho_so"></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="row w-100 m-0 mt-2">
+                            <div class="col-12">
+                                <div id="tableDonViThamGia_pagination"></div>
+                            </div>
+                        </div>
+                        <hr style="margin: 5px 0px;" />
+                        <div class="row w-100 m-0">
+                            <div class="col-12 py-2">
+                                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                                    <i class="fas fa-window-close mr-2"></i>Đóng
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-95 float-right mr-2" id="btnThemMoiChiPhiKhac">
+                                    <i class="fa fa-plus mr-2"></i>Thêm mới
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-none" id="modalAddChiPhiKhacForm">
+                        <form name="frmAddChiPhiKhac" novalidate="novalidate" method="post">
+                            <input type="hidden" name="bt" value="" />
+                            <input type="hidden" name="nhom" value="" />
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="_required" for="lh_nv">Loại hình nghiệp vụ</label>
+                                        <select class="select2 form-control custom-select" name="lh_nv" style="width:100%"></select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="_required">Đối tượng tổn thất</label>
+                                        <div class="input-group">
+                                            <select class="select2 form-control custom-select" required name="so_id_doi_tuong" style="width:100%">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="_required" for="ma_chi_phi">Loại chi phí</label>
+                                        <select class="select2 form-control custom-select" required="required" name="ma_chi_phi" style="width:100%">
+                                            <option value="">Chọn loại chi phí</option>
+                                            <option value="CP_GIAM_DINH">Chi phí giám định với đơn vị giám định ngoài</option>
+                                            <option value="CP_CAU_KEO">Chi phí cẩu kéo</option>
+                                            <option value="KHAC">Chi phí khác</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2" id="donViThamGia">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label class="_required" for="dvi_tham_gia">Đơn vị (giám định/cẩu kéo/khác)</label>
+                                        <select class="select2 form-control custom-select" name="dvi_tham_gia" style="width:100%"></select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Số Kilomet</label>
+                                        <input type="text" name="khoang_cach_km" autocomplete="off" class="form-control decimal" placeholder="Số km">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-none mt-2" id="divChiPhiCauXe">
+                                <div class="col-4" id="tien_cau_xe">
+                                    <div class="form-group">
+                                        <label class="_required">Số tiền cẩu xe</label>
+                                        <input type="text" name="chi_phi_cau" onkeyup="tinhTienThueChiPhiKhac()" autocomplete="off" class="form-control number" placeholder="Số tiền cẩu xe">
+                                    </div>
+                                </div>
+                                <div class="col-4" id="tl_thue_cau_xe">
+                                    <div class="form-group">
+                                        <label class="_required">TL thuế cẩu(%)</label>
+                                        <select class="select2 form-control custom-select" name="tl_thue_chi_phi_cau" style="width: 100%; height: 36px;">
+                                            <option value="">Tỉ lệ thuế</option>
+                                            <option value="0">0%</option>
+                                            <option value="5">5%</option>
+                                            <option value="8">8%</option>
+                                            <option value="10">10%</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4" id="tien_thue_cau_xe">
+                                    <div class="form-group">
+                                        <label class="_required">Tiền thuế cẩu</label>
+                                        <input type="text" name="tien_thue_chi_phi_cau" readonly autocomplete="off" class="form-control decimal" placeholder="Số tiền thuế">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row d-none mt-2" id="divChiPhiKeoXe">
+                                <div class="col-4" id="tien_keo_xe">
+                                    <div class="form-group">
+                                        <label class="_required">Số tiền kéo xe</label>
+                                        <input type="text" name="chi_phi_keo" onkeyup="tinhTienThueChiPhiKhac()" autocomplete="off" class="form-control number" placeholder="Số tiền kéo xe">
+                                    </div>
+                                </div>
+                                <div class="col-4" id="tl_thue_keo_xe">
+                                    <div class="form-group">
+                                        <label class="_required">TL thuế kéo(%)</label>
+                                        <select class="select2 form-control custom-select" name="tl_thue_chi_phi_keo" style="width: 100%; height: 36px;">
+                                            <option value="">Tỉ lệ thuế</option>
+                                            <option value="0">0%</option>
+                                            <option value="5">5%</option>
+                                            <option value="8">8%</option>
+                                            <option value="10">10%</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4" id="tien_thue_keo_xe">
+                                    <div class="form-group">
+                                        <label class="_required">Tiền thuế kéo</label>
+                                        <input type="text" name="tien_thue_chi_phi_keo" readonly autocomplete="off" class="form-control decimal" placeholder="Số tiền thuế">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divChiPhiKhac">
+                                <div class="row mt-2">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Số tiền</label>
+                                            <input type="text" name="chi_phi_khac" onkeyup="tinhTienThueChiPhiKhac()" autocomplete="off" class="form-control number" placeholder="Số tiền">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">TL thuế(%)</label>
+                                            <select class="select2 form-control custom-select" name="tl_thue_chi_phi_khac" style="width: 100%; height: 36px;">
+                                                <option value="">Tỉ lệ thuế</option>
+                                                <option value="0">0%</option>
+                                                <option value="5">5%</option>
+                                                <option value="8">8%</option>
+                                                <option value="10">10%</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Thuế</label>
+                                            <input type="text" name="tien_thue_chi_phi_khac" readonly autocomplete="off" class="form-control decimal" placeholder="Số tiền thuế">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="_required">Tên loại chi phí</label>
+                                            <input type="text" name="ten_chi_phi" autocomplete="off" class="form-control" placeholder="Tên loại chi phí">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div id="thongTinDiaDiemKeoXe" class="d-none">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h6 class="my-2">Thông tin địa điểm kéo xe</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="">Gara</label>
+                                                <select class="select2 form-control custom-select" autocomplete="off" name="ma_gara" style="width: 100%; height:36px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 mt-1">
+                                            <div class="form-group">
+                                                <label>Tỉnh thành</label>
+                                                <select class="select2 form-control custom-select" autocomplete="off" name="tinh_thanh" style="width: 100%; height:36px;"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mt-1">
+                                            <div class="form-group">
+                                                <label>Quận huyện</label>
+                                                <select class="select2 form-control custom-select" autocomplete="off" name="quan_huyen" style="width: 100%; height:36px;"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mt-1">
+                                            <div class="form-group">
+                                                <label>Xã phường</label>
+                                                <select class="select2 form-control custom-select" autocomplete="off" name="xa_phuong" style="width: 100%; height:36px;"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8 mt-1">
+                                            <div class="form-group">
+                                                <label>Địa chỉ</label>
+                                                <input type="text" name="dia_chi" autocomplete="off" class="form-control" placeholder="Địa chỉ chi tiết">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mt-1">
+                                            <div class="form-group">
+                                                <label>Số Km</label>
+                                                <input type="text" name="khoang_cach_km" autocomplete="off" class="form-control decimal" placeholder="Số km">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h6 class="my-2">Thông tin thanh toán</h6>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="">Ngân hàng</label>
+                                            <select class="select2 form-control custom-select" autocomplete="off" name="ngan_hang" style="width: 100%; height:36px;"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="">Số tài khoản</label>
+                                            <input type="text" name="stk" autocomplete="off" class="form-control" placeholder="Số tài khoản">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="">Chủ tài khoản</label>
+                                            <input type="text" name="chu_tk" autocomplete="off" class="form-control" placeholder="Chủ tài khoản">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 mt-1">
+                                        <div class="form-group">
+                                            <label>Nội dung</label>
+                                            <input type="text" name="noi_dung" autocomplete="off" class="form-control" placeholder="Nội dung">
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <hr style="margin: 5px 0px;" />
+                            <div class="row">
+                                <div class="col-12 py-2">
+                                    <button type="button" class="btn btn-outline-primary btn-sm wd-85" id="btnXoaAddChiPhiKhac">
+                                        <i class="fas fa-trash-alt mr-2"></i>Xóa
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnQuayLaiDanhSachChiPhiKhac">
+                                        <i class="fas fa-step-backward mr-2"></i>Quay lại
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm wd-85 float-right mr-2" id="btnLuuAddChiPhiKhac">
+                                        <i class="fa fa-save mr-2"></i>Lưu
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="tblDanhSachDonViThamGiaTemplate">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr class="row_item">
+        <td class="text-center"><%- item.ten_doi_tuong%></td>
+        <td class="text-left"><%- item.ten_chi_phi%></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_cong) %></td>
+        <td class="text-center">
+            <a href="#" onclick="suaChiPhiKhac('<%- item.so_id%>', '<%- item.ma_chi_phi%>', '<%- item.bt%>')">
+                <i class="fa fa-edit"></i>
+            </a>
+        </td>
+    </tr>
+    <% })}%>
+
+    <% if(data.length < 5){
+    for(var i = 0; i < 5 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

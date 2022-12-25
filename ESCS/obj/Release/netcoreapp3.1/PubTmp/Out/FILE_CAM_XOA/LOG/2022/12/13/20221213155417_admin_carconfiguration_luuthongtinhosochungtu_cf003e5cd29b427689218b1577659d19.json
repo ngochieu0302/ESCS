@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/carconfiguration/luuthongtinhosochungtu",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20221213172952
+  },
+  "Time": 20221213155417,
+  "Request": "{\"ma_doi_tac\":\"CTYBHABC\",\"nv\":\"XE\",\"ngay_ad\":\"20210101\",\"buoc\":\"GD_XE\",\"data\":[{\"ma\":\"BBNT\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Biên bản nghiệm thu\"},{\"ma\":\"HSGT0040\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Ảnh chụp hiện trường, chi tiết thiệt hại\"},{\"ma\":\"GT0001\",\"loai\":\"\",\"bat_buoc\":\"C\",\"ten_giay_to\":\"Bằng lái xe\"},{\"ma\":\"GT0002\",\"loai\":\"\",\"bat_buoc\":\"C\",\"ten_giay_to\":\"Đăng ký xe\"},{\"ma\":\"GT0003\",\"loai\":\"\",\"bat_buoc\":\"C\",\"ten_giay_to\":\"Đăng kiểm\"},{\"ma\":\"TEM_DANG_KIEM\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Tem đăng kiểm\"},{\"ma\":\"GT0004\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Thông báo tai nạn và yêu cầu bồi thường\"},{\"ma\":\"DGHT\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Báo cáo giám định hiện trường\"},{\"ma\":\"GT0005\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Biên bản giám định\"},{\"ma\":\"GT0006\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Hồ sơ công an\"},{\"ma\":\"GT0007\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Giấy chuyển quyền thụ hưởng\"},{\"ma\":\"GT0009\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Biên bản ghi lời khai\"},{\"ma\":\"KHAC\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Giấy tờ Khác\"},{\"ma\":\"GT0010\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Biên bản xác minh\"},{\"ma\":\"SO_KHUNG\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Số khung xe ô tô\"},{\"ma\":\"SO_MAY\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Số máy\"},{\"ma\":\"HOA_DON_GIAY\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Hóa đơn giấy\"},{\"ma\":\"GT0011\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Hóa đơn điện tử\"},{\"ma\":\"GT0012\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Bảo hiểm\"},{\"ma\":\"BAOGIA\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Báo giá sửa chữa\"},{\"ma\":\"BAN_XN_BOI_THUONG\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Biên bản xác nhận bồi thường\"},{\"ma\":\"GCN\",\"loai\":\"\",\"bat_buoc\":\"K\",\"ten_giay_to\":\"Giấy chứng nhận bảo hiểm\"}]}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{}}"
+}

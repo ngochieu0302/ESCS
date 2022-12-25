@@ -1,0 +1,173 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục cấu hình trạng thái";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Cấu hình trạng thái hồ sơ</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Trạng thái hồ sơ</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate" data-select2-id="20">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin mã, tên trạng thái hồ sơ" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Nghiệp vụ</label>
+                                <select class="select2 form-control" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                    <option value="NG">Con người</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Trạng thái</label>
+                                <select class="select2 form-control custom-select" name="trang_thai" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnNhap">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridView" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapTrangThaiTen" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmLuuThongTinTrangThaiTen" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin trạng thái</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" name="nv" required style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                    <option value="NG">Con người</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" maxlength="100" placeholder="Mã trạng thái" name="ma_trang_thai" autocomplete="off" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Tên trạng thái</label>
+                                <input type="text" maxlength="200" placeholder="Tên trạng thái" name="ten" autocomplete="off" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select" name="trang_thai" required style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đang sử dụng</option>
+                                    <option value="K">Không sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Thứ tự hiển thị</label>
+                                <input type="text" maxlength="5" placeholder="Thứ tự" name="stt" autocomplete="off" class="form-control decimal">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">% hoàn thành</label>
+                                <input type="text" maxlength="5" placeholder="% hoàn thành" required name="pt_hoan_thanh" autocomplete="off" class="form-control decimal">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="">Button hiện</label>
+                                <textarea class="form-control" placeholder="Id buttom hiện VD: btnA, btnB" autocomplete="off" rows="3" name="btn_hien" id="btn_hien"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="">Button ẩn</label>
+                                <textarea class="form-control" placeholder="Id buttom ẩn VD: btnC, btnD" autocomplete="off" rows="3" name="btn_an" id="btn_an"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinTrangThaiTen"><i class="fa fa-save"></i> Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ConfigStatusService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ConfigStatus.js" asp-append-version="true"></script>
+}
+

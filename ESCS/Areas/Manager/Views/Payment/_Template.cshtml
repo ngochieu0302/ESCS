@@ -1,0 +1,303 @@
+﻿@*  Tab Thông tin chung *@
+<script type="text/html" id="PaymentTableDeNghiThanhToan_template">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" data-field="ma_doi_tac" value="<%- item.ma_doi_tac %>" />
+            <input type="hidden" data-field="ma_chi_nhanh_hs" value="<%- item.ma_chi_nhanh %>" />
+            <input type="hidden" data-field="ma_chi_nhanh_ql" value="<%- item.ma_chi_nhanh_ql %>" />
+            <input type="hidden" data-field="so_hs" value="<%- item.so_hs %>" />
+            <input type="hidden" data-field="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" data-field="so_id_hd" value="<%- item.so_id_hd %>" />
+            <input type="hidden" data-field="so_id_dt" value="<%- item.so_id_dt %>" />
+            <input type="hidden" data-field="nv" value="<%- item.nv %>" />
+            <input type="hidden" data-field="ngay_chuyen_tt" value="<%- item.ngay_chuyen_tt %>" />
+            <input type="hidden" data-field="tien" value="<%- item.tien %>" />
+            <input type="hidden" data-field="tien_thue" value="<%- item.tien_thue %>" />
+            <input type="hidden" data-field="tien_vat" value="<%- item.tien_vat %>" />
+            <input type="hidden" data-field="ten" value="<%- item.ten %>" />
+            <input type="hidden" data-field="pttt" value="<%- item.pttt %>" />
+            <input type="hidden" data-field="kieu" value="<%- item.kieu %>" />
+            <input type="hidden" data-field="ma_ngan_hang" value="<%- item.ma_ngan_hang %>" />
+            <input type="hidden" data-field="ma_chi_nhanh" value="<%- item.ma_chi_nhanh %>" />
+            <input type="hidden" data-field="tk_cmt" value="<%- item.tk_cmt %>" />
+            <input type="hidden" data-field="ten_ngan_hang" value="<%- item.ten_ngan_hang %>" />
+            <input type="hidden" data-field="dien_giai" value="<%- item.dien_giai %>" />
+            <input type="hidden" data-field="trang_thai" value="<%- item.trang_thai %>" />
+            <input type="hidden" data-field="nguoi_dong_hs" value="<%- item.nguoi_dong_hs %>" />
+            <input type="hidden" data-field="ten_dvi_cap" value="<%- item.ten_dvi_cap %>" />
+            <input type="hidden" data-field="so_hdon_ttoan" value="<%- item.so_hdon_ttoan %>" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" <% if(item.checked){ %>checked<% } %> data-field="bt" value="<%- item.bt%>" onchange="onChon(this)" id="ttbt_<%- item.bt%>_<%- sott %>" class="custom-control-input ttbt_item">
+                <label class="custom-control-label" for="ttbt_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center"><%- item.ngay_chuyen_tt %></td>
+        <td class="text-center"><%- item.nguoi_dong_hs %></td>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-center"><%- ESUtil.formatMoney(item.tien_vat) %></td>
+        <td class="text-center"><%- item.pttt %></td>
+        <td class="text-center"><%- item.ten %></td>
+        <td class="text-center"><%- item.tk_cmt %></td>
+        <td><%- item.ten_ngan_hang %></td>
+        <td><%- item.dien_giai %></td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 9){
+    for(var i = 0; i < 9 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*  Tab Thông tin chung phần chi tiết*@
+<script type="text/html" id="PaymentTableDeNghiThanhToanChiTiet_template">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item thanhToanChiTiet" data-search="<%- ESUtil.xoaKhoangTrangText(item.so_hs)%>">
+        <td class="text-center">
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="so_hs" value="<%- item.so_hs %>" />
+            <input type="hidden" data-field="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" data-field="ngay_chuyen_tt" value="<%- item.ngay_chuyen_tt %>" />
+            <input type="hidden" data-field="tien" value="<%- item.tien %>" />
+            <input type="hidden" data-field="tien_thue" value="<%- item.tien_thue %>" />
+            <input type="hidden" data-field="tien_vat" value="<%- item.tien_vat %>" />
+            <input type="hidden" data-field="ten" value="<%- item.ten %>" />
+            <input type="hidden" data-field="pttt" value="<%- item.pttt %>" />
+            <input type="hidden" data-field="kieu" value="<%- item.kieu %>" />
+            <input type="hidden" data-field="ma_ngan_hang" value="<%- item.ma_ngan_hang %>" />
+            <input type="hidden" data-field="ma_chi_nhanh" value="<%- item.ma_chi_nhanh %>" />
+            <input type="hidden" data-field="tk_cmt" value="<%- item.tk_cmt %>" />
+            <input type="hidden" data-field="ten_ngan_hang" value="<%- item.ten_ngan_hang %>" />
+            <input type="hidden" data-field="dien_giai" value="<%- item.dien_giai %>" />
+            <input type="hidden" data-field="trang_thai" value="<%- item.trang_thai %>" />
+            <input type="hidden" data-field="so_hdon_ttoan" value="<%- item.so_hdon_ttoan %>" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" disabled="disabled" <% if(item.checked){ %>checked<% } %> data-field="bt" value="<%- item.bt%>" onchange="onChon(this)" id="ttct_<%- item.bt%>_<%- sott %>" class="custom-control-input ttct_item">
+                <label class="custom-control-label" for="ttct_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center"><%- item.ngay_chuyen_tt %></td>
+        <td class="text-center"><%- item.nguoi_dong_hs %></td>
+        <td class="text-center">
+            <a href="#" onclick="xemToanBoThongTinHoSoBoiThuong('<%- item.ma_doi_tac %>','<%- item.ma_chi_nhanh_hs %>','<%- item.ma_chi_nhanh_ql %>','<%- item.so_id_hs %>','<%- item.so_id_hd %>','<%- item.so_id_dt %>','<%- item.nv %>')"><%- item.so_hs %></a>
+        </td>
+        <td class="text-center"><%- ESUtil.formatMoney(item.tien_vat) %></td>
+        <td class="text-center"><%- item.pttt %></td>
+        <td class="text-center"><%- item.ten %></td>
+        <td class="text-center"><%- item.tk_cmt %></td>
+        <td><%- item.ten_ngan_hang %></td>
+        <td><%- item.dien_giai %></td>
+        <td class="text-center">
+            <a href="#" onclick="xoaHoSoDeNghiThanhToan(this)">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 9){
+    for(var i = 0; i < 9 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="modalChonDonViDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox modalChonDonViDanhSachItem" id="modalChonDonViDanhSachItem_<%- item.ma%>" data-text="<%- item.ten_tat.toLowerCase() %>">
+        <input type="checkbox" id="dvi_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonDvi">
+        <label class="custom-control-label" style="cursor:pointer;" for="dvi_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+@*Upload Excel*@
+<script type="text/html" id="tblDsUploadHsTonTemplate">
+    <%if(data.length > 0){ %>
+    <% _.forEach(data, function(item, index) { %>
+    <tr>
+        <%if(item.trang_thai == 1){%>
+        <td class="text-center">
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" name="trang_thai" checked="checked" class="custom-control-input">
+                <label class="custom-control-label" for="ds_ton_chon_tat_ca">&nbsp;</label>
+            </div>
+        </td>
+        <%}else{%>
+        <td class="text-center">
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" name="trang_thai" disabled class="custom-control-input">
+                <label class="custom-control-label" for="ds_ton_chon_tat_ca">&nbsp;</label>
+            </div>
+        </td>
+        <%}%>
+        <td class="text-center">
+            <input class="form-control floating-input" value="<%- item.so_hs %>" name="so_hs" disabled="disabled" style="background-color: white">
+        </td>
+        <td class="text-right">
+            <input class="form-control floating-input text-center" value="<%- ESUtil.formatMoney(item.tien) %>" name="tien" disabled="disabled" style="background-color: white">
+        </td>
+        <td>
+            <input class="form-control floating-input text-center" value="<%- item.ten %>" name="ten" disabled="disabled" style="background-color: white">
+        </td>
+        <td>
+            <input class="form-control floating-input text-center" value="<%- item.stk_cmt %>" name="stk_cmt" disabled="disabled" style="background-color: white">
+        </td>
+        <td>
+            <input class="form-control floating-input text-center" value="<%- item.ma_ngan_hang %>" name="ma_ngan_hang" disabled="disabled" style="background-color: white">
+        </td>
+        <td>
+            <input class="form-control floating-input text-center" value="<%- item.ten_ngan_hang %>" name="ten_ngan_hang" disabled="disabled" style="background-color: white">
+        </td>
+        <td>
+            <input class="form-control floating-input text-center" value="<%- item.so_hs_map %>" name="so_hs_map" disabled="disabled" style="background-color: white">
+        </td>
+        <td class="text-right">
+            <input class="form-control floating-input text-center" value="<%- ESUtil.formatMoney(item.tien_map) %>" name="tien_map" disabled="disabled" style="background-color: white">
+        </td>
+        <td class="text-center">
+            <input class="form-control floating-input text-center" value="<%- item.ten_map %>" name="ten_map" disabled="disabled" style="background-color: white">
+        </td>
+        <td class="text-center">
+            <input class="form-control floating-input text-center" value="<%- item.tk_cmt_map %>" name="tk_cmt_map" disabled="disabled" style="background-color: white">
+        </td>
+        <td class="text-center">
+            <input class="form-control floating-input text-center" value="<%- item.ma_ngan_hang_map %>" name="ma_ngan_hang_map" disabled="disabled" style="background-color: white">
+        </td>
+        <td class="text-center">
+            <input class="form-control floating-input text-center" value="<%- item.ten_ngan_hang_map %>" name="ten_ngan_hang_map" disabled="disabled" style="background-color: white">
+        </td>
+        <%if(item.trang_thai == 0){%>
+        <td class="text-center">
+            <span style="color:red">Không phù hợp</span>
+        </td>
+        <%}else{%>
+        <td class="text-center">
+            <span style="color:#0076ffeb">Phù hợp</span>
+        </td>
+        <%}%>
+    </tr>
+    <%})%>
+    <% } %>
+
+    <% if(data.length < 10){
+    for(var i = 0; i < 10 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px">
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Danh sách hồ sơ chưa tồn tại trong đề nghị thanh toán*@
+<script type="text/html" id="DeNghiThanhToanTable1_template">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" name="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" name="tien" value="<%- item.tien %>" />
+            <input type="hidden" name="thue" value="<%- item.thue %>" />
+            <input type="hidden" name="ten" value="<%- item.ten %>" />
+            <input type="hidden" name="trang_thai" value="<%- item.trang_thai %>" />
+            <input type="hidden" name="pttt" value="<%- item.pttt %>" />
+            <input type="hidden" name="so_hs" value="<%- item.so_hs %>" />
+            <input type="hidden" name="kieu" value="<%- item.kieu %>" />
+            <input type="hidden" name="ngan_hang" value="<%- item.ngan_hang %>" />
+            <input type="hidden" name="tk_cmt" value="<%- item.tk_cmt %>" />
+            <input type="hidden" name="ten_ngan_hang" value="<%- item.ten_ngan_hang %>" />
+            <input type="hidden" name="dien_giai" value="<%- item.dien_giai %>" />
+            <input type="hidden" name="ten_dvi_cap" value="<%- item.ten_dvi_cap %>" />
+            <input type="hidden" name="ngay_chuyen_tt" value="<%- item.ngay_chuyen_tt %>" />
+            <input type="hidden" name="nguoi_dong_hs" value="<%- item.nguoi_dong_hs %>" />
+            <input type="hidden" value="<%- item.so_id_hs %>" name="so_id_hs" />
+            <input type="hidden" value="<%- item.ma_ngan_hang %>" name="ma_ngan_hang" />
+            <input type="hidden" value="<%- item.ma_chi_nhanh %>" name="ma_chi_nhanh" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" <% if(item.checked){ %>checked<% } %> name="bt" id="de_nghi_tt_<%- item.bt%>_<%- sott %>" class="custom-control-input de_nghi_tt_item">
+                <label class="custom-control-label" for="de_nghi_tt_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center"><%= item.trang_thai %></td>
+        <td class="text-center"><%- item.ngay_chuyen_tt %></td>
+        <td class="text-center"><%- item.nguoi_dong_hs %></td>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-center"><%- ESUtil.formatMoney(item.tien) %></td>
+        <td class="text-center"><%- item.pttt %></td>
+        <td class="text-center"><%- item.ten %></td>
+        <td class="text-center"><%- item.tk_cmt %></td>
+        <td><%- item.ten_ngan_hang %></td>
+        <td><%- item.dien_giai %></td>
+        <td><%- item.ten_dvi_cap %></td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaHsTon(this)"></i>
+        </td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

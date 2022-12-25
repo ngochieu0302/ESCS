@@ -1,0 +1,15 @@
+﻿<script type="text/html" id="tableMucDo_AI_template">
+    <% if(mdtt.length > 0){ %>
+    <% _.forEach(mdtt, function(item,index) { %>
+    <tr row-val="<%- item.ma %>">
+        <% var stt = item.ma %>
+        <% if (stt.includes('.')) stt = stt.split('').filter(n => n != '.').join('') %>;
+        <td><input id='ma_muc_do_<%- stt %>' type="text" name="ma_muc_do" maxlength="50" col-ma-muc-do="<%- item.ma %>" class="floating-input" value="<%- item.ma %>" readonly="" /></td>
+        <td><input id='ten_muc_do_<%- stt %>' type="text" name="ten_muc_do" maxlength="50" col-ten-muc-do="<%- item.ma %>" class="floating-input" value="<%- item.ten %>" readonly="" /></td>
+        <td><input id='ma_mapping_<%- stt %>' type="text" name="ma_mapping" maxlength="50" col-ma-mapping="<%- item.ma %>" class="floating-input" value="<%- item.ma_mapping %>" /></td>
+        <td><input id='ten_mapping_<%- stt %>' type="text" name="ten_mapping" maxlength="200" col-ten-mapping="<%- item.ma %>" class="floating-input" value="<%- item.ten_mapping %>" /></td>
+        <td><input id='ten_tat_mapping_<%- stt %>' type="text" name="ten_tat_mapping" maxlength="100" col-ten-tat-mapping="<%- item.ma %>" class="floating-input" value="<%- item.ten_tat_mapping %>" /></td>
+    </tr>
+    <% }) %>
+    <% }%>
+</script>

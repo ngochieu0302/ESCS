@@ -1,0 +1,75 @@
+﻿<style>
+    iframe {
+        display: block;
+        margin: 20px auto;
+    }
+</style>
+<div class="row mg-t-10" style="height:79vh">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-7">
+                <div class="scrollable" id="modalViewFileContent">
+                    <div id="viewHtml" class="text-center mx-auto">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <div class="card" style="margin-bottom:0 !important">
+                    <div class="card-body p-0">
+                        <div class="border mb-3 rounded">
+                            <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                <h5 class="m-0">Danh sách trình duyệt</h5>
+                            </div>
+                            <table class="table table-hover" id="tblDanhSachTrinhDuyet">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Cán bộ duyệt</th>
+                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">Duyệt</th>
+                                        <th class="text-center">Ngày duyệt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblStep1_lstrinh_tbody" class="scrollable" style="max-height:400px;">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="_frmPheDuyet_tab1" name="_frmPheDuyet_tab1" novalidate="novalidate" method="post">
+                    <input type="hidden" name="so_id" value="" />
+                    <input type="hidden" name="ma_doi_tac" value="" />
+                    <input type="hidden" name="ma_doi_tac_xl" value="" />
+                    <input type="hidden" name="bt" value="" />
+                    <input type="hidden" name="nv" value="" />
+                    <input type="hidden" name="loai" value="" />
+                    <div class="form-group">
+                        <label>Ý kiến duyệt cán bộ khác</label>
+                        <textarea class="form-control" disabled="disabled" rows="4" cols="50" id="y_kien_nguoi_duyet_khac" placeholder="Chọn người duyệt để xem nội dung duyệt"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung của cán bộ trình</label>
+                        <textarea class="form-control" disabled="disabled" rows="4" cols="50" name="noi_dung" placeholder="Nội dung trình"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="color:red">Ý kiến duyệt của bạn</label>
+                        <textarea class="form-control" rows="6" cols="50" name="noi_dung_duyet" placeholder="Ý kiến duyệt"></textarea>
+                    </div>
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" id="btnDongY">
+                        <i class="fas fa-plus-square mr-2"></i>Duyệt
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-130 mg-t-22" id="btnHuyDongY">
+                        <i class="fas fa-plus-square mr-2"></i>&nbsp;&nbsp;Hủy Duyệt
+                    </button>
+                    <button type="button" class="btn-outline-primary btn-sm wd-90 mg-t-22" id="btnDong1" data-dismiss="esmodal">
+                        <i class="fas fa-window-close mr-2"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

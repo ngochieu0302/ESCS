@@ -1,0 +1,112 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Đơn vị hành chính";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: "Nunito",sans-serif;
+        font-weight: normal;
+    }
+
+    label {
+        font-size: 12px;
+        margin-bottom: 0.25em;
+        display: inline-block;
+    }
+
+    .page-wrapper {
+        background-color: #ffffff;
+    }
+</style>
+
+<div class="page-wrapper">
+    <form action="" name="frmUserInformation" method="post">
+        <div class="container bootstrap snippet">
+            <div class="row">
+                <div class="col-sm-12 mb-5" style="text-align: center">
+                    <h2>THÔNG TIN TÀI KHOẢN</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="hidden" name="anh_dai_dien">
+                    <!--left col-->
+                    <div class="text-center">
+                        <label for="file_anh_dai_dien" style="cursor: pointer">
+                            <img id="img_main" src="" class="avatar img-circle img-thumbnail" alt="avatar">
+                        </label>
+                        <input type="file" style="display: none" class="text-center center-block mt-5" id="file_anh_dai_dien" name="file_anh_dai_dien">
+                    </div><br>
+
+                </div>
+                <div class="col-sm-9">
+                    <div class="tab-content">
+                        <div id="edit_form">
+                            <form class="form" action="#" method="post" name="edit_form">
+                                <input type="hidden" name="ma_doi_tac" />
+                                <input type="hidden" name="ma_chi_nhanh" />
+                                <input type="hidden" name="phong" />
+                                <div class="form-group">
+                                    <div class="col-xs-6 mt-2">
+                                        <label for="ma"><span>Mã người sử dụng</span></label>
+                                        <input type="email" fn-validate="validateEmailControl" class="form-control" name="ma" id="ma" readonly="readonly">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6 mt-2">
+                                        <label for="ten"><span>Tên người sử dụng</span></label>
+                                        <input type="text" autocomplete="off" class="form-control" name="ten" id="ten" placeholder="Nhập tên người sử dụng" title="Nhập vào tên người sử dụng">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6 mt-2">
+                                        <label for="ngay_sinh">Ngày sinh</label>
+                                        <input type="text" class="form-control datepicker" display-format="date" value-format="number" name="ngay_sinh" placeholder="mm/dd/yyyy">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6 mt-2">
+                                        <label for="dthoai"><span>Điện thoại</span></label>
+                                        <input type="text" fn-validate="validatePhoneControl" name="dthoai" id="dthoai" autocomplete="off" placeholder="Nhập vào số điện thoại" title="Nhập vào số điện thoại." class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6 mt-2">
+                                        <label for="email"><span>Email</span></label>
+                                        <input type="email" fn-validate="validateEmailControl" class="form-control" name="email" id="email" placeholder="Nhập vào email" title="Nhập vào email.">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <br>
+                                        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinNSD"><i class="fa fa-save"></i> Lưu</button>
+                                        <button style="margin-right: 50px" type="button" class="btn btn-primary btn-sm wd-150 float-right" id="btnDoimatKhau" data-toggle="modal" data-target="#modalChangePass"><i class="fas fa-key"></i> Đổi mật khẩu</button>
+                                        <button style="margin-right: 50px" type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnReset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/AdministrativeUnitsService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BankListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserInformationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/UserInformation.js" asp-append-version="true"></script>
+}

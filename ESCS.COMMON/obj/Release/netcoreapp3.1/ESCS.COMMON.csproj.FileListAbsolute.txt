@@ -1,0 +1,9 @@
+D:\ESCS\ESCS.COMMON\bin\Release\netcoreapp3.1\ESCS.COMMON.deps.json
+D:\ESCS\ESCS.COMMON\bin\Release\netcoreapp3.1\ESCS.COMMON.dll
+D:\ESCS\ESCS.COMMON\bin\Release\netcoreapp3.1\ESCS.COMMON.pdb
+D:\ESCS\ESCS.COMMON\obj\Release\netcoreapp3.1\ESCS.COMMON.csprojAssemblyReference.cache
+D:\ESCS\ESCS.COMMON\obj\Release\netcoreapp3.1\ESCS.COMMON.AssemblyInfoInputs.cache
+D:\ESCS\ESCS.COMMON\obj\Release\netcoreapp3.1\ESCS.COMMON.AssemblyInfo.cs
+D:\ESCS\ESCS.COMMON\obj\Release\netcoreapp3.1\ESCS.COMMON.csproj.CoreCompileInputs.cache
+D:\ESCS\ESCS.COMMON\obj\Release\netcoreapp3.1\ESCS.COMMON.dll
+D:\ESCS\ESCS.COMMON\obj\Release\netcoreapp3.1\ESCS.COMMON.pdb

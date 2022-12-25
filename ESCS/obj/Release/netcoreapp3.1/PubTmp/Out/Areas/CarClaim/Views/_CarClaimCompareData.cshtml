@@ -1,0 +1,426 @@
+﻿<style>
+    .table-so-sanh tbody tr td {
+        padding: 0.3rem;
+    }
+</style>
+
+<div class="custom-modal">
+    <div id="modalCarClaimCompareData" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;width:900px;top: 2%; left: 22%;">
+        <div class="modal-dialog " style="width:100%;max-width:unset">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1 px-2" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h5 class="modal-title" style="color:#fff">So sánh thông tin hồ sơ gốc</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col col-12">
+                            <label class="font-weight-bold my-2 op-8">THÔNG TIN ĐĂNG KÝ XE - OCR</label>
+                        </div>
+                        <div class="col col-12 table-responsive" style="max-height:500px">
+                            <table class="table table-so-sanh" id="modalCarClaimCompareDataTable"></table>
+                        </div>
+                        <div class="col col-12 table-responsive" style="max-height:300px">
+                            <label class="font-weight-bold my-2 op-8">DANH SÁCH GIẤY PHÉP LÁI XE - OCR</label>
+                            <table class="table table-so-sanh" id="">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th style="width:50px">STT</th>
+                                        <th>HỌ TÊN LÁI XE</th>
+                                        <th>SỐ GPLX</th>
+                                        <th>HẠNG</th>
+                                        <th>NGÀY CẤP</th>
+                                        <th>NGÀY HẾT HẠN</th>
+                                        <th style="width:75px">SỬ DỤNG</th>
+                                        <th style="width:120px">ĐỐI CHIẾU</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalCarClaimCompareData_GPLX">
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="col col-12 table-responsive" style="max-height:300px">
+                            <label class="font-weight-bold my-2 op-8">THÔNG TIN ĐĂNG KIỂM - OCR</label>
+                            <table class="table table-so-sanh" id="">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>SỐ ĐĂNG KIỂM</th>
+                                        <th>NGÀY CẤP</th>
+                                        <th>NGÀY HẾT HẠN</th>
+                                        <th style="width:75px">SỬ DỤNG</th>
+                                        <th style="width:120px">ĐỐI CHIẾU</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalCarClaimCompareData_DANGKIEM">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalCarClaimCompareDataGPLX" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1700;width:650px;top: 2%; left: 30%;">
+        <div class="modal-dialog " style="width:100%;max-width:unset">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1 px-2" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h5 class="modal-title" style="color:#fff">So sánh thông tin hồ sơ gốc</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="frmCarClaimCompareDataGPLX" method="post">
+                        <input type="hidden" name="json_ocr" value="" />
+                        <input type="hidden" name="bt" value="" />
+                        <div class="row">
+                            <div class="col-4 pr-0">
+                                <div class="form-group">
+                                    <label class="_required">Chọn đối tượng tổn thất</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" name="so_id_doi_tuong"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label class="_required">Vụ tổn thất</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" name="vu_tt"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-so-sanh" id="">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th style="width: 100px;"></th>
+                                            <th style="width: 220px;">THÔNG TIN OCR</th>
+                                            <th style="width: 20px"></th>
+                                            <th style="width: 220px;">THÔNG TIN GPLX</th>
+                                            <th>
+                                                <div class="custom-control custom-checkbox mr-1">
+                                                    <input type="checkbox" onchange="onChonTatCaOCRGPLX(this)" id="gplx_item_tat_ca" class="custom-control-input">
+                                                    <label class="custom-control-label" for="gplx_item_tat_ca"></label>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modalCarClaimCompareDataGPLX_SoSanh">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm wd-90 mg-t-22" onclick="sdOCR('GPLX')"><i class="fa fa-save mr-2"></i>Sử dụng</button>
+                    <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalCarClaimCompareDataDangKiem" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1700;width:650px;top: 2%; left: 30%;">
+        <div class="modal-dialog " style="width:100%;max-width:unset">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1 px-2" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h5 class="modal-title" style="color:#fff">Đối chiếu dữ liệu đăng kiểm vụ tổn thất</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form name="frmCarClaimCompareDataDangKiem" method="post">
+                        <input type="hidden" name="json_ocr" value="" />
+                        <div class="row">
+                            <div class="col-4 pr-0">
+                                <div class="form-group">
+                                    <label class="_required">Chọn đối tượng tổn thất</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" name="so_id_doi_tuong"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label class="_required">Vụ tổn thất</label>
+                                    <div class="input-group">
+                                        <select class="form-control select2" name="vu_tt"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-so-sanh" id="">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th style="width: 100px;"></th>
+                                            <th style="width: 210px">THÔNG TIN OCR</th>
+                                            <th style="width: 20px"></th>
+                                            <th style="width: 210px ">THÔNG TIN ĐĂNG KIỂM</th>
+                                            <th>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" onchange="onChonTatCaOCRDK(this)" id="dk_item_tat_ca" class="custom-control-input">
+                                                    <label class="custom-control-label" for="dk_item_tat_ca">&nbsp;</label>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modalCarClaimCompareDataDangKiem_SoSanh">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm wd-90 mg-t-22" onclick="sdOCR('DANG_KIEM')"><i class="fa fa-save mr-2"></i>Sử dụng</button>
+                    <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalCarClaimCompareDataTable_Template">
+    <tbody>
+        <tr>
+            <td style="width:85px"></td>
+            <td class="text-center"><b style="font-weight: bold;">THÔNG TIN BẢO HIỂM</b></td>
+            <td style="width:20px"></td>
+            <td class="text-center"><b style="font-weight: bold;">THÔNG TIN OCR</b></td>
+        </tr>
+        <tr>
+            <td>Chủ xe</td>
+            <td class="text-center"><%- data.gcn.ten %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.ten, data.ocr_dang_ky!=null? data.ocr_dang_ky.chu_xe:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.chu_xe:''  %></td>
+        </tr>
+        <tr>
+            <td>Biển số xe</td>
+            <td class="text-center"><%- data.gcn.bien_xe_tmp %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.bien_xe_tmp, data.ocr_dang_ky!=null? data.ocr_dang_ky.bien_xe_tmp:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.bien_xe_tmp:''  %></td>
+        </tr>
+        <tr>
+            <td>Số khung</td>
+            <td class="text-center"><%- data.gcn.so_khung %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.so_khung, data.ocr_dang_ky!=null? data.ocr_dang_ky.so_khung:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.so_khung:''  %></td>
+        </tr>
+        <tr>
+            <td>Số máy</td>
+            <td class="text-center"><%- data.gcn.so_may %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.so_may, data.ocr_dang_ky!=null? data.ocr_dang_ky.so_may:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.so_may:''  %></td>
+        </tr>
+        <tr>
+            <td>Hãng xe</td>
+            <td class="text-center"><%- data.gcn.hang_xe %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.hang_xe, data.ocr_dang_ky!=null? data.ocr_dang_ky.hang_xe:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.hang_xe:''  %></td>
+        </tr>
+        <tr>
+            <td>Hiệu xe</td>
+            <td class="text-center"><%- data.gcn.hieu_xe %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.hieu_xe, data.ocr_dang_ky!=null? data.ocr_dang_ky.hieu_xe:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.hieu_xe:''  %></td>
+        </tr>
+        <tr>
+            <td>Số chỗ</td>
+            <td class="text-center"><%- data.gcn.so_cho %></td>
+            <td>
+                <% if(ESUtil.compareText(data.gcn.so_cho, data.ocr_dang_ky!=null? data.ocr_dang_ky.so_cho:''))
+                {
+                %>
+                <i class="fas fa-check text-success"></i>
+                <%
+                }
+                else
+                {
+                %>
+                <i class="fas fa-times text-danger"></i>
+                <%
+                }
+                %>
+            </td>
+            <td class="text-center"><%- data.ocr_dang_ky!=null? data.ocr_dang_ky.so_cho:''  %></td>
+        </tr>
+    </tbody>
+</script>
+
+<script type="text/html" id="modalCarClaimCompareData_GPLX_Template">
+    <% if(ocr_bang_lai!==undefined && ocr_bang_lai!==null && ocr_bang_lai.length > 0){
+    _.forEach(ocr_bang_lai, function(item,index) {
+    %>
+    <tr>
+        <td style="width:50px"><%- item.sott %></td>
+        <td><%- item.ho_ten %></td>
+        <td class="text-center"><%- item.so %></td>
+        <td class="text-center"><%- item.hang %></td>
+        <td class="text-center"><%- item.ngay_cap %></td>
+        <td class="text-center"><%- item.ngay_het_han %></td>
+        <td class="text-center"><% if(item.han_su_dung == 1) { %> <i class="fas fa-check text-success"></i> <%} else { %><i class="fas fa-times text-danger"></i> <%}%></td>
+        <td class="text-center"><a href="#" onclick="doiChieuGPLX('<%- JSON.stringify(item) %>')">Đối chiếu</a></td>
+    </tr>
+    <% })} else {
+    %>
+    <tr>
+        <td class="text-center" colspan="8">Không có dữ liệu OCR</td>
+    </tr>
+    <%
+    }%>
+</script>
+<script type="text/html" id="modalCarClaimCompareData_DANGKIEM_Template">
+    <% if(ocr_dang_kiem!==undefined && ocr_dang_kiem!==null){
+    %>
+    <tr>
+        <td class="text-center"><%- ocr_dang_kiem.so_seri %></td>
+        <td class="text-center"><%- ocr_dang_kiem.ngay_cap %></td>
+        <td class="text-center"><%- ocr_dang_kiem.ngay_het_han %></td>
+        <td class="text-center"><% if(ocr_dang_kiem.han_su_dung == 1) { %> <i class="fas fa-check text-success"></i> <%} else { %><i class="fas fa-times text-danger"></i> <%}%></td>
+        <td class="text-center"><a href="#" onclick="doiChieuDangKiem('<%- JSON.stringify(ocr_dang_kiem) %>')">Đối chiếu</a></td>
+    </tr>
+    <% } else {
+    %>
+    <tr>
+        <td class="text-center" colspan="5">Không có dữ liệu OCR</td>
+    </tr>
+    <%
+    }%>
+</script>
+<script type="text/html" id="modalCarClaimCompareDataGPLX_SoSanh_Template">
+    <% if(data!==undefined && data!==null && data.length > 0){
+    _.forEach(data, function(item,index) {
+    %>
+    <tr class="row_item">
+        <td>
+            <%- item.noi_dung_so_sanh %>
+            <input type="hidden" data-field="nd_ocr" value="<%- item.nd_ocr %>"/>
+            <input type="hidden" data-field="ma_nd" value="<%- item.ma_nd %>"/>
+        </td>
+        <td class="text-center"><%- item.nd_ocr %></td>
+        <td class="text-center"><% if(item.so_sanh) { %> <i class="fas fa-check text-success"></i> <%} else { %><i class="fas fa-times text-danger"></i> <%}%></td>
+        <td class="text-center"><%- item.nd_goc %></td>
+        <td class="text-center">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="onChonOCRGPLX(this, '<%- item.ma_nd%>')" id="ocr_gplx_<%- item.ma_nd%>" class="custom-control-input gplx_item">
+                <label class="custom-control-label" for="ocr_gplx_<%- item.ma_nd%>">&nbsp;</label>
+            </div>
+            @*<a href="#" onclick="sdOCR('GPLX','<%- item.ma_nd %>','<%- item.vu_tt %>')">Sử dụng</a>*@
+        </td>
+    </tr>
+    <% })}%>
+</script>
+<script type="text/html" id="modalCarClaimCompareDataDangKiem_SoSanh_Template">
+    <% if(data!==undefined && data!==null && data.length > 0){
+    _.forEach(data, function(item,index) {
+    %>
+    <tr class="row_item">
+        <td>
+            <%- item.noi_dung_so_sanh %>
+            <input type="hidden" data-field="nd_ocr" value="<%- item.nd_ocr %>" />
+            <input type="hidden" data-field="ma_nd" value="<%- item.ma_nd %>" />
+        </td>
+        <td class="text-center"><%- item.nd_ocr %></td>
+        <td class="text-center"><% if(item.so_sanh) { %> <i class="fas fa-check text-success"></i> <%} else { %><i class="fas fa-times text-danger"></i> <%}%></td>
+        <td class="text-center"><%- item.nd_goc %></td>
+        <td class="text-center">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="onChonOCRDK(this, '<%- item.ma_nd %>')" id="ocr_dk_<%- item.ma_nd%>" class="custom-control-input dangkiem_item">
+                <label class="custom-control-label" for="ocr_dk_<%- item.ma_nd%>">&nbsp;</label>
+            </div>
+            @*<a href="#" onclick="sdOCR('DANG_KIEM','<%- item.ma_nd %>','<%- item.vu_tt %>')">Sử dụng</a>*@
+        </td>
+    </tr>
+    <% })}%>
+</script>

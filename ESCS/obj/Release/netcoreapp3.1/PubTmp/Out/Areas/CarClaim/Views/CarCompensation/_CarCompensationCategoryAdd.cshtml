@@ -1,0 +1,52 @@
+﻿<div id="modalThemHMTTPHU" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h5 class="modal-title">Thêm hạng mục phụ/phụ tùng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmThemHMTTPhu" method="post" name="frmThemHMTTPhu">
+                    <input type="hidden" name="ma_doi_tac" value="" />
+                    <input type="hidden" name="so_id" value="" />
+                    <input type="hidden" name="gara" value="" />
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Hạng mục, phụ tùng phụ</label>
+                                <div class="input-group">
+                                    <select class="select2 form-control custom-select" required name="hang_muc" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Chi phí do bồi thường viên tính toán</label>
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" required placeholder="Chi phí do bồi thường viên tính toán" class="form-control number" name="tien_gd">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <div class="input-group">
+                                    <textarea maxlength="500" rows="5" autocomplete="off" placeholder="Ghi chú" class="form-control" name="ghi_chu"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" id="btnLuuHMTTPhu"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Lưu</button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" id="btnLuuDongHMTTPhu"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Lưu & đóng</button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal" id="CarCompensationCarCategoryAdd_close"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

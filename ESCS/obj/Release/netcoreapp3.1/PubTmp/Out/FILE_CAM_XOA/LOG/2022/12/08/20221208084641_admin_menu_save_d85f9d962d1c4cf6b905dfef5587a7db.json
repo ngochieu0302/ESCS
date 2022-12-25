@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/menu/save",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20221208123746
+  },
+  "Time": 20221208084641,
+  "Request": "{\"pm\":\"BT\",\"so_id\":\"20221207000001\",\"nhom_quyen\":\"QTHT,GDHT,GDTT,BTXE\",\"ma_doi_tac\":\"CTYBHABC\",\"nhom\":\"CLIENT\",\"so_id_cha\":\"20211108000012\",\"url\":\"/motoclaim/motocompensation\",\"ten\":\"Bồi thường xe máy\",\"icon\":\"mdi mdi-plus\",\"stt\":\"2\",\"target\":\"\",\"hien_thi\":\"1\",\"__RequestVerificationToken\":\"CfDJ8NB5pzLAWlpAl8Vgnnkq0qqsXF9Ypc-HahxEdVHJk0CevBdMv7LpzLrBbfxdCOelvlgFk4iormZAXkmjOsAHaVfu_5lKVxDlQqjrB9PnLig2Po762Y9_KBSvBU_woJx6WmoqB8Nnub8pOph-SVPor9s\"}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{\"so_id\":20221207000001.0,\"stt\":2.0}}"
+}

@@ -1,0 +1,380 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục mã bệnh chi phí";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Mã bệnh chi phí</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Mã bệnh chi phí</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" autocomplete="off" name="tim" id="tim" placeholder="Nhập thông tin mã/tên bệnh" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnThemMoi">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridView" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popoverTraCuuBenh" class="popover popover-x popover-default" style="display:none; max-width:unset;width:650px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x">&times;</span>Tra cứu bệnh
+    </h3>
+    <div class="popover-body popover-content">
+        <div style="width:100%; margin-bottom:10px;">
+            <div class="input-group">
+                <input type="text" class="form-control" id="inputTimKiemBenhLy" placeholder="Tìm kiếm bệnh" value="" />
+                <input type="hidden" id="inputTimKiemBenhLy_ma" />
+
+                <div class="input-group-append">
+                    <label class="input-group-text">
+                        <a href="javascript:void(0)" onclick="getPagingBenhLy(1)">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="dsBenhLy" class="scrollable" style="max-height:450px">
+
+        </div>
+        <div id="dsBenhLy_pagination"></div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" id="btnTraCuuBenh">
+            <i class="fa fa-save mr-2"></i>Lưu
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal" id="btnDongTraCuuBenh">
+            <i class="fa fa-times mr-2"></i>Đóng
+        </button>
+    </div>
+</div>
+
+<div id="inside-modal" class="esmodal fade" tabindex="-1" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="esmodal-dialog">
+        <div class="esmodal-content">
+            <div class="esmodal-header py-1">
+                <h4 class="esmodal-title" id="titleUpdateContract">Nhập thông tin mã bệnh - chi phí</h4>
+                <button type="button" class="close" onclick="hideModal()" aria-hidden="true">×</button>
+            </div>
+            <div class="esmodal-body" style="background-color:#54667a0a; padding-top:5px;">
+                <div class="row">
+                    <div class="col-12 info-tab">
+                        <div class="card" style="margin-bottom:0px;">
+                            <div class="card-body p-0">
+                                <div class="border rounded">
+                                    <div class="scrollable" style="padding:5px;">
+                                        <form name="frmNhapMaBenh" style="width:100%" method="post">
+                                            <div class="row" style="width:100%">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="">Đối tác</label>
+                                                        <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="_required">Mã bệnh ICD</label>
+                                                        <div class="input-group cursor-pointer" onclick="traCuuBenh()">
+                                                            <input type="text" autocomplete="off" name="ma_benh" readonly="readonly" placeholder="Click chọn" required="" class="form-control" title="Nhập mã bệnh (các mã bệnh cách nhau bằng dầu ;)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="" style="margin-bottom:3px;">Chẩn đoán</label>
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Chẩn đoán" name="chan_doan" class="form-control" readonly style="width:100%;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="padding-top:21px;">
+                                                    <button type="button" class="btn btn-primary wd-80 btn-sm wd-24p" title="Lưu" id="btnLuu">
+                                                        <i class="fa fa-save mr-2"></i> Lưu
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12  collapse show" id="sidebar_info">
+                        <div class="row">
+                            <div class="col-4 common-tab pr-0">
+                                <div class="card" style="margin-bottom:0px;">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                                <h5 class="m-0">Các loại mục khám</h5>
+                                            </div>
+                                            <div class="table-responsive" id="tblCPKB" style="height: 67vh">
+                                                <table id="tbl_chi_phi_kham_benh" class="table table-bordered fixed-header" style="border-collapse: separate; border-spacing: 0;">
+                                                    <thead class="font-weight-bold card-title-bg-primary">
+                                                        <tr class="text-center uppercase">
+                                                            <th style="width:65%">Chi phí</th>
+                                                            <th style="width:27%">Số tiền</th>
+                                                            <th style="width:8%"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbDsChiPhiKhamBenh">
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td class="text-right" colspan="3">
+                                                                <a href="#" id="btnThemCPKB">
+                                                                    <i class="fas fa-plus-square mr-2"></i>Thêm chi phí khám bệnh
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 common-tab pr-0">
+                                <div class="card" style="margin-bottom:0px;">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                                <h5 class="m-0">Các loại thuốc</h5>
+                                            </div>
+                                            <div class="table-responsive" id="tblLoaiThuoc" style="height: 67vh">
+                                                <table id="tbl_loai_thuoc" class="table table-bordered fixed-header" style="border-collapse: separate; border-spacing: 0;">
+                                                    <thead class="font-weight-bold card-title-bg-primary">
+                                                        <tr class="text-center uppercase">
+                                                            <th style="width:65%">Loại thuốc</th>
+                                                            <th style="width:27%">Số tiền</th>
+                                                            <th style="width:8%"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbDsChiPhiThuoc">
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td class="text-right" colspan="3">
+                                                                <a href="#" id="btnThemLoaiThuoc">
+                                                                    <i class="fas fa-plus-square mr-2"></i>Thêm loại thuốc
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 common-tab pr-0">
+                                <div class="card" style="margin-bottom:0px;">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                                <h5 class="m-0">Các chi phí khác</h5>
+                                            </div>
+                                            <div class="table-responsive" id="tblCPK" style="height: 67vh">
+                                                <table id="tbl_chi_phi_khac" class="table table-bordered fixed-header" style="border-collapse: separate; border-spacing: 0;">
+                                                    <thead class="font-weight-bold card-title-bg-primary">
+                                                        <tr class="text-center uppercase">
+                                                            <th style="width:65%">Tên chi phí</th>
+                                                            <th style="width:27%">Số tiền</th>
+                                                            <th style="width:8%"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbDsCPK">
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td class="text-right" colspan="3">
+                                                                <a href="#" id="btnThemCPK">
+                                                                    <i class="fas fa-plus-square mr-2"></i>Thêm chi phí khác
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalXemChiTiet" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="max-width:unset; width:65%">
+        <div class="modal-content">
+            <form name="frmSuaThongTin" method="post">
+                <div class="modal-header" style="padding:10px;">
+                    <h4 class="modal-title">Xem thông tin mã bệnh</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="max-height: 500px;">
+                            <table class="table table-bordered fixed-header" style="width:100%">
+                                <thead class="font-weight-bold text-center uppercase">
+                                    <tr>
+                                        <th style="width:15%">Mã</th>
+                                        <th style="width:30%">Tên</th>
+                                        <th style="width:25%">Loại</th>
+                                        <th style="width:15%">Đơn vị tính</th>
+                                        <th style="width:15%">Giá tham khảo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableNhapBenhLy">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display: block;">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalCPKB" class="modal-drag" style="width:300px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn loại chi phí</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_CPKB" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalCPKBElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalCPKBDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnChonCPKB">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<div id="modalLoaiThuoc" class="modal-drag" style="width:300px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn loại thuốc</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_LoaiThuoc" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalLoaiThuocElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalLoaiThuocDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnChonLoaiThuoc">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<div id="modalCPK" class="modal-drag" style="width:300px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn chi phí khác</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="inputSearch_CPK" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalCPKElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalCPKDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnChonCPK">
+            <i class="fas fa-mouse-pointer mr-1"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<partial name="_Template.cshtml" />
+<partial name="_ModalChiPhiKhamBenh.cshtml" />
+<partial name="_ModalChiPhiKhac.cshtml" />
+<partial name="_ModalChiPhiThuoc.cshtml" />
+@section Styles{
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+    <style>
+        .vakata-context {
+            z-index: 9999999 !important;
+        }
+    </style>
+}
+@section Scripts{
+    <script src="~/libs/tree-js/vakata-jstree/dist/jstree.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CostDiseasService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CostsListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DiseasesListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/CostDiseas.js" asp-append-version="true"></script>
+}

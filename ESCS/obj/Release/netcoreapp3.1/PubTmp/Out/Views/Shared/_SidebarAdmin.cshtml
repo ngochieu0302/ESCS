@@ -1,0 +1,295 @@
+﻿@using ESCS.Common
+@using ESCS.COMMON.Common
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS.ModelView
+@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@{
+    var session = Context.Request.Cookies[ESCSConstants.ESCS_TOKEN]?.ToString();
+    escs_nguoi_dung user = JsonConvert.DeserializeObject<escs_nguoi_dung>(Utilities.DecryptByKey(session, ESCS.COMMON.Http.AppSettings.KeyEryptData));
+
+    IEnumerable<escs_menu> menus = EscsUtils.GetMenu(user.ma_doi_tac + "/" + user.nsd);
+    IEnumerable<escs_menu> menusLevel0 = menus.Where(n => n.so_id_cha == 0 && n.nhom == "ADMIN").OrderBy(n => n.stt).ToList();
+}
+<aside class="left-sidebar" data-sidebarbg="skin6">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar scrollable">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                @foreach (var itemMenuLevel0 in menusLevel0)
+                {
+                    itemMenuLevel0.url = string.IsNullOrEmpty(itemMenuLevel0.url) ? "javascript:void(0)" : itemMenuLevel0.url;
+                    IEnumerable<escs_menu> menusChildren = menus.Where(n => n.so_id_cha == itemMenuLevel0.so_id).OrderBy(n => n.stt).ToList();
+                    var hasArrow = (menusChildren != null && menusChildren.Count() > 0) ? true : false;
+                    <li class="sidebar-item">
+                        @if (hasArrow)
+                        {
+                            <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="@itemMenuLevel0.icon"></i>
+                                <span class="hide-menu">@itemMenuLevel0.ten</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="sidebar-link waves-dark" href="@itemMenuLevel0.url" aria-expanded="false" target="@itemMenuLevel0.target">
+                                <i class="@itemMenuLevel0.icon"></i>
+                                <span class="hide-menu">@itemMenuLevel0.ten</span>
+                            </a>
+                        }
+
+                        @{
+                            if (menusChildren != null && menusChildren.Count() > 0)
+                            {
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    @foreach (var itemChildren in menusChildren)
+                                    {
+                                        itemChildren.url = string.IsNullOrEmpty(itemChildren.url) ? "javascript:void(0)" : itemChildren.url;
+                                        <li class="sidebar-item">
+                                            <a href="@itemChildren.url" class="sidebar-link">
+                                                <i class="@itemChildren.icon"></i>
+                                                <span class="hide-menu">@itemChildren.ten</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        }
+
+                    </li>
+                }
+                @*<li class="sidebar-item selected">
+                        <a class="sidebar-link waves-dark" href="javascript:void(0)"
+                           aria-expanded="false">
+                            <i class="mdi mdi-gauge"></i>
+                            <span class="hide-menu">Dashboard </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-content-copy"></i>
+                            <span class="hide-menu">Hợp đồng</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="/Contract/Car" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Hợp đồng xe cơ giới</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/Contract/HealthCare" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Hợp đồng sức khỏe</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-credit-card-multiple"></i>
+                            <span class="hide-menu">Bồi thường xe cơ giới</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="/CarClaim/CarInvestigation" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Giám định XCG</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/CarClaim/CarCompensation" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường XCG</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-credit-card-multiple"></i>
+                            <span class="hide-menu">Bồi thường sức khỏe</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="/HealthClaim/HealthGuarantee" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Bảo lãnh viện phí</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/HealthClaim/Receive" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tiếp nhận hồ sơ</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/HealthClaim/HealthCompensation" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-credit-card-multiple"></i>
+                            <span class="hide-menu">Thanh toán bồi thường</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tạo đề nghị thanh toán</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Hạch toán thanh toán</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-credit-card-multiple"></i>
+                            <span class="hide-menu">Phê duyệt</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt bồi thường</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt chi tiền</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-account-multiple"></i>
+                            <span class="hide-menu">Người dùng</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt bồi thường</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt chi tiền</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-dns"></i>
+                            <span class="hide-menu">Danh mục</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt bồi thường</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt chi tiền</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-chart-areaspline"></i>
+                            <span class="hide-menu">Báo cáo</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt bồi thường</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt chi tiền</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-chemical-weapon"></i>
+                            <span class="hide-menu">Cấu hình</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt bồi thường</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Duyệt chi tiền</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="layout-inner-fixed-left-sidebar.html" class="sidebar-link">
+                                    <i class="mdi mdi-format-align-left"></i>
+                                    <span class="hide-menu">Tính toán bồi thường</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>*@
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

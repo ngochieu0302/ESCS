@@ -1,0 +1,34 @@
+﻿<div id="modalChiPhiKhac" class="modal-drag" style="width: 350px; z-index: 9999999; margin-top: 45.1125px !important; margin-left: 20.975px !important">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn chi phí khác</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_ChiPhiKhac" type="text" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalChiPhiKhacElementSelect">
+                <input type="hidden" id="modalChiPhiKhac_MaBenh">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="height:250px;" id="modalChiPhiKhacDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="height: 32px; border-top: 1px solid #eaeaea; margin:0px 0px 10px 0px;">
+        <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnChonChiPhiKhac">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalChiPhiKhacDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox dscpk" id="dscpk_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="chi_phi_khac_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChiPhiKhacItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="chi_phi_khac_<%- item.ma %>"><%- item.ma %> - <%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

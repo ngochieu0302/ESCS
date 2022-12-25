@@ -1,0 +1,70 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ ViewData["Title"] = "Hợp đồng bảo hiểm xe ô tô";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<style>
+    .grid-disable {
+        background-color: #f4f4f4;
+    }
+</style>
+<div id='jqxWidget'>
+</div>
+<partial name="../Share/_ContractSearch.cshtml" />
+<partial name="/Views/Shared/_ModalMap.cshtml" />
+<partial name="_Modal.cshtml" />
+<partial name="../Share/_ContractModal.cshtml" />
+<partial name="~/Areas\CarClaim\Views\CarInvestigation\_CarClaimImageUpload.cshtml" />
+
+@section styles{
+
+}
+
+<div id="jqxPopover" style="">
+    <div class="custom-control custom-checkbox custom-control-inline">
+        <input type="checkbox" id="" name="" value="" class="custom-control-input">
+        <label class="custom-control-label" for="">Thủy kich</label>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <!--Custom JavaScript -->
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CarService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/Car.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/Health.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/services/CustomerService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Contract/contractCommon.js" asp-append-version="true"></script>
+    <script>
+        //Wizard
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            var $target = $(e.target);
+            if ($target.hasClass('disabled')) {
+                return false;
+            }
+        });
+
+        $(".next-step").click(function (e) {
+            var $active = $('.wizard .nav-tabs .nav-item .active');
+            var $activeli = $active.parent("li");
+            $($activeli).next().find('a[data-toggle="tab"]').removeClass("disabled");
+            $($activeli).next().find('a[data-toggle="tab"]').click();
+        });
+
+        $(".prev-step").click(function (e) {
+            var $active = $('.wizard .nav-tabs .nav-item .active');
+            var $activeli = $active.parent("li");
+            $($activeli).prev().find('a[data-toggle="tab"]').removeClass("disabled");
+            $($activeli).prev().find('a[data-toggle="tab"]').click();
+        });
+
+        $(document).on('show.bs.modal', '.modal', function () {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+    </script>
+}
+

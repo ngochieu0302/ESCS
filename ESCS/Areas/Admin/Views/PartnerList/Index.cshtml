@@ -1,0 +1,962 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục mã đối tác";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Danh mục đối tác</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Đối tác</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tìm kiếm" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top:21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnNhapThongTinMaDoiTac">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div id="gridViewDoiTac" class="table-app"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapMaDoiTac" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel" style="overflow: hidden;">
+    <div class="modal-dialog modal-lg" role="document" style="max-width:1200px;width:90%; margin-top:0px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin đối tác</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="padding-top:0px">
+                <input type="hidden" id="tabName" name="name" value="" />
+                <div class="row">
+                    <div class="col-12" style="padding:0px;">
+                        <ul class="nav nav-pills" role="tablist" style="background-color: #f8f9fa; justify-content: center">
+                            <li class="nav-item " style="font-weight:bold">
+                                <a class="nav-link active" onclick="hthiTab('tabThongTin')" id="home-tab" data-toggle="tab" href="#tabThongTin" role="tab" aria-controls="home" aria-selected="true">
+                                    <i class="fas fa-info-circle mr-2"></i> Thông tin đối tác
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" onclick="hthiTab('tabDichVuOCR')" data-toggle="tab" href="#tabDichVuOCR" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-address-card mr-2"></i> Dịch vụ OCR
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabDichVuCall')" href="#tabDichVuCall" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-phone-alt mr-2"></i> Dịch vụ Video call
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabDichVuThongBao')" href="#tabDichVuThongBao" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="far fa-bell mr-2"></i> Dịch vụ tin nhắn
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabDichVuGoogle')" href="#tabDichVuGoogle" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fab fa-google-plus-g mr-2"></i> Dịch vụ google
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabDichVuSMS')" href="#tabDichVuSMS" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-sms mr-2"></i> Dịch vụ sms
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabDichVuAI')" href="#tabDichVuAI" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-robot mr-2"></i> Dịch vụ AI
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" id="tabBaoGiaClick" onclick="hthiTab('tabDichVuBaoGia')" href="#tabDichVuBaoGia" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="far fa-file-alt mr-2"></i> Dịch vụ báo giá
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabDichVuUngDung')" href="#tabDichVuUngDung" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="mdi mdi-settings mr-2"></i> Cài đặt ứng dụng
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabCaiDatMauIn')" href="#tabCaiDatMauIn" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-print mr-2"></i> Cài đặt mẫu in
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" data-toggle="tab" onclick="hthiTab('tabCauHinhXe')" href="#tabCauHinhXe" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-car mr-2"></i> Cấu hình bồi thường xe
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" id="tabMappingMucDoTTClick" data-toggle="tab" onclick="hthiTab('tabMucDoTonThat')" href="#tabMucDoTonThat" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-car-crash mr-2"></i> Mapping mức độ tổn thất
+                                </a>
+                            </li>
+                            <li class="nav-item" style="font-weight:bold">
+                                <a class="nav-link" id="tabMappingHangMucClick" data-toggle="tab" onclick="hthiTab('tabMappingHangMuc')" href="#tabMappingHangMuc" role="tab" aria-controls="profile" aria-selected="false">
+                                    <i class="fas fa-car mr-2"></i> Mapping mã hạng mục
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12" id="navThongTin">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabThongTin" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmLuuThongTinMaDoiTac" method="post">
+                                    <input type="hidden" name="pm" value="BT" />
+                                    <input type="hidden" name="logo">
+                                    <input type="file" accept="image/*" style="display:none" id="file_logo" name="file_logo">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-2">
+                                            <label for="file_logo" style="cursor:pointer">
+                                                <img src="~/images/default.png" id="preview_file_logo" class="avatar img-circle img-thumbnail" style="max-width: 100px; border: 1px solid #e9ecef;margin-top: 16px;margin-left: 15px;" />
+                                            </label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="_required">Mã</label>
+                                                        <input type="text" maxlength="20" name="ma" autocomplete="off" required class="form-control" placeholder="Mã đối tác">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="_required">Mã số thuế</label>
+                                                        <input type="text" maxlength="20" name="mst" autocomplete="off" required="" class="form-control text" placeholder="Mã số thuế">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="_required">Tên tắt</label>
+                                                        <input type="text" maxlength="100" placeholder="Tên viết tắt" autocomplete="off" name="ten_tat" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4" style="margin-top: 13px">
+                                                    <div class="form-group">
+                                                        <label class="_required">Email</label>
+                                                        <div class="input-group">
+                                                            <input type="text" fn-validate="validateEmailControl" autocomplete="off" name="email" maxlength="50" required="" placeholder="Email" class="form-control email-inputmask" im-insert="true">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4" style="margin-top: 13px">
+                                                    <div class="form-group">
+                                                        <label class="_required">Điện thoại</label>
+                                                        <input type="text" min="10" maxlength="15" name="d_thoai" required="" autocomplete="off" class="form-control text" placeholder="Số điện thoại">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4" style="margin-top: 13px">
+                                                    <div class="form-group">
+                                                        <label class="_required">Số tài khoản</label>
+                                                        <input type="text" maxlength="20" name="so_tk" required="" autocomplete="off" class="form-control text" placeholder="Số tài khoản">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:5px">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="_required">Ngân hàng</label>
+                                                <select class="select2 form-control custom-select" required name="ngan_hang" style="width: 100%; height:36px;"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="_required">Tên đối tác</label>
+                                                <input type="text" maxlength="250" name="ten" placeholder="Tên đối tác" autocomplete="off" required class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:5px">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="_required">Địa chỉ</label>
+                                                <input type="text" maxlength="250" class="form-control" required="" autocomplete="off" name="dchi" placeholder="Số nhà/phường xã...">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="_required">Domain</label>
+                                                <input type="text" maxlength="500" class="form-control" required="" autocomplete="off" name="domain" placeholder="Nhập domain">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabDichVuOCR" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveConfigOCR" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <input type="hidden" name="ma_doi_tac" value="" />
+                                        <input type="hidden" name="ma_chi_nhanh" value="" />
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox_tt_ocr">
+                                                    <label class="custom-control-label" for="checkbox_tt_ocr" style="font-size: 11px; font-weight: 600; padding-top: 4px;">Trạng thái sử dụng dịch vụ</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top:3px;">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Base Url</label>
+                                                    <input type="text" autocomplete="off" required maxlength="500" name="base_url" class="form-control" placeholder="Nhập base url">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label class="_required">Api Key</label>
+                                                    <input type="text" autocomplete="off" required maxlength="500" name="api_key" class="form-control" placeholder="Nhập api key">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">GPLX</label>
+                                                    <input type="text" autocomplete="off" required maxlength="50" name="hm_gplx" class="form-control" placeholder="Nhập giấy phép lái xe">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Đăng kí</label>
+                                                    <input type="text" autocomplete="off" required maxlength="50" name="hm_dky_xe" class="form-control" placeholder="Nhập đăng ký xe">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Đăng kiểm</label>
+                                                    <input type="text" autocomplete="off" required maxlength="500" name="hm_dkiem_xe" class="form-control" placeholder="Nhập đăng kiểm xe">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Hóa đơn điện tử</label>
+                                                    <input type="text" autocomplete="off" required maxlength="50" name="hm_hddt" class="form-control" placeholder="Nhập hóa đơn điện tử">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" required value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" required value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabDichVuCall" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveConfigCall" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <input type="hidden" name="ma_doi_tac" value="" />
+                                        <input type="hidden" name="ma_chi_nhanh" value="" />
+                                        <div class="col-sm-12" style="margin-left: -15px;">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="checkbox_tt_call">
+                                                <label class="custom-control-label" for="checkbox_tt_call" name="ap_dung" style="font-size: 11px; font-weight: 600; padding-top: 4px;">Trạng thái sử dụng dịch vụ</label>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:3px">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">SID</label>
+                                                    <input type="text" autocomplete="off" required maxlength="200" name="sid" class="form-control" placeholder="Nhập SID">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label class="_required">Secret</label>
+                                                    <input type="text" autocomplete="off" required maxlength="200" name="secret" class="form-control" placeholder="Nhập Secret">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:3px">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Điện thoại</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control phone-long" maxlength="15" required="" name="sdt" im-insert="true" placeholder="Số điện thoại">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" required value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" required value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabDichVuThongBao" role="tabpanel" aria-labelledby="home-tab">
+                                Dịch vụ tin nhắn thông báo
+                            </div>
+                            <div class="tab-pane" id="tabDichVuGoogle" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveConfigMaps" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <input type="hidden" name="ma_doi_tac" value="" />
+                                        <input type="hidden" name="ma_chi_nhanh" value="" />
+                                        <div class="row" style="margin-top:3px;">
+                                            <div class="col-sm-12">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox_tt_gg">
+                                                    <label class="custom-control-label" for="checkbox_tt_gg" style="font-size: 11px; font-weight: 600; padding-top:4px;">Trạng thái sử dụng dịch vụ</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" required display-format="date" value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" required display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="">Key google maps</label>
+                                                    <input type="text" autocomplete="off" maxlength="500" name="key" class="form-control" placeholder="Nhập key google maps">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:3px">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="">Key Androi</label>
+                                                    <input type="text" autocomplete="off" maxlength="500" name="key_android" class="form-control" placeholder="Nhập key android">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="">Key IOS</label>
+                                                    <input type="text" autocomplete="off" maxlength="500" name="key_ios" class="form-control" placeholder="Nhập key ios">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabDichVuSMS" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveConfigSMS" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <input type="hidden" name="ma_doi_tac" value="" />
+                                        <input type="hidden" name="ma_chi_nhanh" value="" />
+                                        <div class="row" style="margin-top:3px;">
+                                            <div class="col-sm-12">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox_tt_sms">
+                                                    <label class="custom-control-label" for="checkbox_tt_sms" style="font-size: 11px; font-weight: 600; padding-top:4px;">Trạng thái sử dụng dịch vụ</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required">Đối tác quản lý</label>
+                                                    <select class="select2 form-control custom-select" required name="ma_doi_tac_ql" style="width: 100%; height:36px;">
+                                                        @*<option value="">Chọn đối tác quản lý</option>
+                                                        <option value="CTYBHABC">Công ty bảo hiểm ABC</option>*@
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required">Đối tác SMS</label>
+                                                    <select class="select2 form-control custom-select" required name="doi_tac_sms" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn đối tác</option>
+                                                        <option value="FPT">FPT</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Base Url</label>
+                                                    <input type="text" autocomplete="off" required maxlength="200" name="base_url" class="form-control" placeholder="Nhập base url">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Api auth</label>
+                                                    <input type="text" autocomplete="off" required maxlength="200" name="api_auth" class="form-control" placeholder="Nhập api auth">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Api send sms</label>
+                                                    <input type="text" autocomplete="off" required maxlength="200" name="api_send_sms" class="form-control" placeholder="Nhập api send sms">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:3px">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Client ID</label>
+                                                    <input type="text" autocomplete="off" required maxlength="50" name="client_id" class="form-control" placeholder="Nhập client ID">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Secret</label>
+                                                    <input type="text" autocomplete="off" required maxlength="250" name="secret" class="form-control" placeholder="Nhập Secret">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Secret</label>
+                                                    <input type="text" autocomplete="off" required maxlength="250" name="secret" class="form-control" placeholder="Nhập Secret">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="_required">Brand name</label>
+                                                    <input type="text" autocomplete="off" required maxlength="250" name="brandname" class="form-control" placeholder="Nhập Brand name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabDichVuAI" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveConfigAI" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <input type="hidden" name="ma_doi_tac" value="" />
+                                        <input type="hidden" name="ma_chi_nhanh" value="" />
+                                        <div class="row" style="margin-top:3px;">
+                                            <div class="col-sm-12">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox_tt_ai">
+                                                    <label class="custom-control-label" for="checkbox_tt_ai" style="font-size: 11px; font-weight: 600; padding-top:4px;">Trạng thái sử dụng dịch vụ</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" required display-format="date" value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" required display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="">Phương thức áp dụng</label>
+                                                    <select class="select2 form-control custom-select" name="ad_tatca_hm" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn phương thức áp dụng</option>
+                                                        <option value="1">Áp dụng cho tất cả hạng mục</option>
+                                                        <option value="2">Áp dụng với các hạng mục là tổn thất</option>
+                                                        <option value="3">Áp dụng với các hạng mục cấu hình</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:3px">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="">Base url</label>
+                                                    <input type="text" autocomplete="off" maxlength="500" name="base_url" class="form-control" placeholder="Nhập base url">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="">Api key</label>
+                                                    <input type="text" autocomplete="off" maxlength="200" name="api_key" class="form-control" placeholder="Nhập api key">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabDichVuBaoGia" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveBaoGia" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <input type="hidden" name="ma_doi_tac" value="" />
+                                        <input type="hidden" name="ma_chi_nhanh" value="" />
+                                        <div class="row" style="margin-top:3px;">
+                                            <div class="col-sm-12">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox_tt_bao_gia">
+                                                    <label class="custom-control-label" for="checkbox_tt_bao_gia" style="font-size: 11px; font-weight: 600; padding-top:4px;">Trạng thái sử dụng dịch vụ</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Gara</label>
+                                                    <select class="select2 form-control custom-select" required name="gara" style="width: 100%; height:36px;"></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="_required">Token</label>
+                                                    <input type="text" autocomplete="off" maxlength="500" required name="token" class="form-control" placeholder="Nhập token">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_hl">Ngày hiệu lực</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" required display-format="date" value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="_required" for="ngay_kt">Ngày kết thúc</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" autocomplete="off" required display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1" style="margin-top: 21px">
+                                                <button type="button" class="btn btn-primary btn-sm wd-50" title="Thêm mới" id="btnThemMoiBaoGia">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <div class="table-responsive scrollable" style="max-height: 400px; margin: 5px 10px 5px 10px">
+                                        <table id="tb_mapping_bao_gia" class="table table-bordered fixed-header" style="width:100%">
+                                            <thead class="font-weight-bold text-center uppercase">
+                                                <tr>
+                                                    <th>Gara</th>
+                                                    <th style="width:270px">Token</th>
+                                                    <th>Ngày hiệu lực</th>
+                                                    <th>Ngày kết thúc</th>
+                                                    <th>Trạng thái</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableNhapBaoGia">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tabDichVuUngDung" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveSetting" method="post">
+                                    <input type="hidden" name="ma_doi_tac" value="" />
+                                    <input type="hidden" name="url_anh_favicon" value="" />
+                                    <input type="hidden" name="url_anh_dang_nhap" value="" />
+                                    <input type="hidden" name="url_anh_ud" value="" />
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <p class="_required" style="margin-left: 15px;">Favicon</p>
+                                                        <label for="file_anh_favicon" style="cursor: pointer;">
+                                                            <img id="preview_file_anh_favicon" src="" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 80px; height: 80px">
+                                                        </label>
+                                                        <input type="file" accept="image/*" style="display: none" class="text-center center-block mt-5" id="file_anh_favicon" name="file_anh_favicon">
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <p class="_required">Logo đăng nhập</p>
+                                                        <label for="file_anh_dang_nhap" style="cursor: pointer;">
+                                                            <img id="preview_file_anh_dang_nhap" src="" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 80px; height: 80px">
+                                                        </label>
+                                                        <input type="file" accept="image/*" style="display: none" class="text-center center-block mt-5" id="file_anh_dang_nhap" name="file_anh_dang_nhap">
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <p class="_required">Logo ứng dụng</p>
+                                                        <label for="file_anh_ud" style="cursor: pointer;">
+                                                            <img id="preview_file_anh_ud" src="" class="avatar img-circle img-thumbnail" alt="avatar" style="width: 80px; height: 80px">
+                                                        </label>
+                                                        <input type="file" accept="image/*" style="display: none" class="text-center center-block mt-5" id="file_anh_ud" name="file_anh_ud">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabCaiDatMauIn" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmMauIn" method="post">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <input type="hidden" name="ma_doi_tac" />
+                                            <input type="hidden" name="ma_app" />
+                                            <input type="hidden" name="loai" />
+                                            <input type="hidden" name="url_anh" />
+                                            <div class="col-sm-2">
+                                                <label for="file_anh" style="cursor: pointer">
+                                                    <img id="preview_file_anh" src="/images/default.png" class="avatar img-circle img-thumbnail" style="max-width: 100px; border: 1px solid #e9ecef; margin-top: 18px;">
+                                                </label>
+                                                <input type="file" accept="image/*" style="display: none" class="text-center center-block mt-5" id="file_anh" name="file_anh">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label class="_required">Tên</label>
+                                                            <input type="text" maxlength="200" autocomplete="off" name="ten" placeholder="Nhập tên mẫu in" required class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label class="">Tên tắt</label>
+                                                            <input type="text" maxlength="100" autocomplete="off" name="ten_tat" placeholder="Nhập tên tắt mẫu in" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label class="">Chiều dài</label>
+                                                            <input type="text" maxlength="10" autocomplete="off" name="chieu_dai" placeholder="Nhập chiều dài" class="form-control number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label class="">Chiều rộng</label>
+                                                            <input type="text" maxlength="10" autocomplete="off" name="chieu_rong" placeholder="Nhập chiều rộng" class="form-control number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label class="">Tọa độ X</label>
+                                                            <input type="text" maxlength="10" autocomplete="off" name="toa_do_x" placeholder="Nhập tọa độ x" class="form-control number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group">
+                                                            <label class="">Tọa độ Y</label>
+                                                            <input type="text" maxlength="10" autocomplete="off" name="toa_do_y" placeholder="Nhập tọa độ y" class="form-control number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabCauHinhXe" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmCauHinhXe" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="ma_doi_tac" />
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="_required">Ngày áp dụng</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control datepicker" name="ngay_ad" required display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="">Phân bổ hồ sơ</label>
+                                                    <select class="select2 form-control custom-select" name="phan_bo_ho_so" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn phân bổ hồ sơ</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="">Giá giám định</label>
+                                                    <select class="select2 form-control custom-select" name="gia_giam_dinh" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn giá giám định</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="_required">Phương pháp bồi thường</label>
+                                                    <select class="select2 form-control custom-select" required name="pp_tinh_boi_thuong" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn phương pháp</option>
+                                                        <option value="T">Trước thuế</option>
+                                                        <option value="S">Sau thuế</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="_required">Hồ sơ bồi thường</label>
+                                                    <select class="select2 form-control custom-select" required name="mo_hs_boi_thuong" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn hồ sơ</option>
+                                                        <option value="M">Lấy hồ sơ ngay khi mở số hồ sơ</option>
+                                                        <option value="G">Khi bắt đầu giám định</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:5px;">
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="">Gửi email/SMS tự động</label>
+                                                    <select class="select2 form-control custom-select" name="gui_mail_sms" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn gửi email/sms</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="">Kiểm tra hồ sơ</label>
+                                                    <select class="select2 form-control custom-select" name="kiem_tra_hs" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn kiểm tra hồ sơ</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="">Hóa đơn Gara</label>
+                                                    <select class="select2 form-control custom-select" name="hoa_don_gara" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn hóa đơn Gara</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label class="">Thụ hưởng Gara</label>
+                                                    <select class="select2 form-control custom-select" name="thu_huong_gara" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn thụ hưởng Gara</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="">Tỷ lệ bồi thường</label>
+                                                    <select class="select2 form-control custom-select" name="ty_le_boi_thuong" style="width: 100%; height:36px;">
+                                                        <option value="">Chọn tỷ lệ bồi thường</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabMucDoTonThat" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmSaveMucDoTT_AI" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="pm" value="BT" />
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Tìm kiếm thông tin</label>
+                                                    <input type="text" name="timKiemMucDo" id="inputSearchMDTT" placeholder="Tìm kiếm mã/tên mức độ" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Đối tác AI</label>
+                                                    <select class="select2 form-control custom-select select2-hidden-accessible" id="doi_tac_ai_muc_do" required name="doi_tac_ai" style="width: 100%; height: 36px;">
+                                                        <option value="">Chọn đối tác AI</option>
+                                                        <option value="FPT">FPT</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="table-responsive scrollable" style="max-height: 400px; margin: 5px 10px 5px 10px">
+                                                <table class="table table-bordered fixed-header" style="width:100%">
+                                                    <thead class="font-weight-bold text-center uppercase">
+                                                        <tr>
+                                                            <th style="width:12%">Mã mức độ</th>
+                                                            <th style="width:20%">Tên mức độ</th>
+                                                            <th style="width:15%">Khắc phục</th>
+                                                            <th style="width:15%">Mã mapping</th>
+                                                            <th style="width:20%">Tên mapping</th>
+                                                            <th style="width:12%">Tên tắt</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tableMappingMDTT"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tabMappingHangMuc" role="tabpanel" aria-labelledby="home-tab">
+                                <form name="frmMappingHangMuc" method="post">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Tìm kiếm thông tin</label>
+                                                    <input type="text" id="inputSearch" name="" autocomplete="off" placeholder="Nhập tên hạng mục" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="">Đối tác AI</label>
+                                                    <select class="select2 form-control" id="doi_tac_ai" name="doi_tac_ai" style="width: 100%; height: 36px;">
+                                                        <option value="">Chọn đối tác AI</option>
+                                                        <option value="FPT">FPT</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="">Hiển thị app</label>
+                                                    <select class="select2 form-control" id="hien_thi_app" name="hien_thi_app" style="width: 100%; height: 36px;">
+                                                        <option value="">Chọn hiển thị app</option>
+                                                        <option value="C">Có</option>
+                                                        <option value="K">Không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="table-responsive scrollable" style="max-height: 400px; margin: 5px 10px 5px 10px">
+                                                <table id="tb_mapping_hang_muc" class="table table-bordered fixed-header" style="width:100%">
+                                                    <thead class="font-weight-bold text-center uppercase">
+                                                        <tr>
+                                                            <th style="width: 15%">Mã hạng mục</th>
+                                                            <th style="width: 25%">Tên hạng mục</th>
+                                                            <th style="width:15%">Mã hạng mục AI</th>
+                                                            <th style="width:25%">Tên hạng mục AI</th>
+                                                            <th style="width:20%">Tên tắt</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tableNhapMapping">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinMaDoiTac"><i class="fa fa-save"></i> Lưu</button>
+                <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaThongTinMaDoiTac"><i class="fas fa-trash-alt"></i> Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Template.cshtml" />
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/MappingHangMucService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/GaraListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BankListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/AdministrativeUnitsService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/SettingAppService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/MappingDamageLevelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DamageLevelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/PartnerList.js" asp-append-version="true"></script>
+}

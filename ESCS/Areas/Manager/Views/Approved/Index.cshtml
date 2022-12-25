@@ -1,0 +1,211 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Phê duyệt hồ sơ/thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #navPheDuyet li.active a {
+        font-weight: bold;
+    }
+
+    #navNghiepVu li.active a {
+        font-weight: bold;
+    }
+
+    table tr.active {
+        background-color: #9ABCEA !important;
+    }
+
+    .TABLE_LOAI_TRINH {
+        overflow: auto;
+    }
+
+    #lstImage {
+        height: 71vh;
+    }
+
+    @@media only screen and (max-width: 1366px) {
+        .TABLE_LOAI_TRINH {
+            max-height: 150px;
+        }
+
+        #lstImage {
+            height: 71vh;
+        }
+    }
+</style>
+<input type="hidden" id="notify_info" value="@ViewBag.ho_so" />
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12" style="padding-bottom:15px;">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px">
+                    <form name="frmTimKiemHoSo" method="post">
+                        <div class="row">
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_d">Ngày tìm kiếm</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" name="ngayd" display-format="date" value-format="number" placeholder="mm/dd/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_c">&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" display-format="date" value-format="number" name="ngayc" placeholder="mm/dd/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-3 d-none">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Đối tác</label>
+                                    <select class="select2 form-control custom-select" id="FrmApprovedSearch_ma_doi_tac" name="ma_doi_tac" style="width: 100%; height:36px;">
+                                    </select>
+                                </div>
+                            </div>
+                            @*<div class="col col-2">
+                                <div class="form-group">
+                                    <label>Đơn vị xử lý</label>
+                                    <div class="input-group">
+                                        <input type="text" name="ma_chi_nhanh" data-val="" style="cursor:pointer;background-color: #e9ecef;" class="form-control" autocomplete="off" placeholder="Click chọn chi nhánh" onclick="onChonDonViXuly(this)">
+                                        <div class="input-group-append">
+                                            <label class="input-group-text">
+                                                <a href="javascript:void(0)">
+                                                    <i class="fas fa-search" title="Chọn chi nhánh"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ma_chi_nhanh">Đơn vị xử lý</label>
+                                    <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="nv">Nghiệp vụ</label>
+                                    <select class="select2 form-control custom-select" id="FrmApprovedSearch_nv" name="nv" style="width: 100%; height:36px;">
+                                        <option value="">Chọn nghiệp vụ</option>
+                                        <option value="XE">Xe ô tô</option>
+                                        <option value="NG">Con người</option>
+                                        <option value="THANH_TOAN">Thanh toán</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="">Trạng thái duyệt</label>
+                                    <select class="select2 form-control custom-select" id="FrmApprovedSearch_trang_thai" name="trang_thai" style="width: 100%; height:36px;">
+                                        <option value="">Chọn trạng thái duyệt</option>
+                                        <option value="C">Chờ duyệt</option>
+                                        <option value="D">Đã duyệt</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="">Trạng thái hồ sơ</label>
+                                    <select class="select2 form-control custom-select" id="FrmApprovedSearch_loai" name="loai" style="width: 100%; height:36px;">
+                                        <option value="">Chọn trạng thái hồ sơ</option>
+                                        <option value="XE_TRINH_DUYET_GIAM_DINH">Trình duyệt giám định</option>
+                                        <option value="XE_TRINH_DUYET_DUYET_GIA">Trình duyệt phương án</option>
+                                        <option value="XE_TRINH_DUYET_BAO_LANH">Trình duyệt bảo lãnh</option>
+                                        <option value="XE_TRINH_DUYET_BOI_THUONG">Trình duyệt bồi thường</option>
+                                        <option value="XE_TRINH_DUYET_TU_CHOI">Trình duyệt từ chối</option>
+                                        <option value="TRINH_THANH_TOAN">Trình thanh toán</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:6px">
+                            <div class="col col-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" autocomplete="off" name="so_hs" placeholder="Số hồ sơ bồi thường">
+                                </div>
+                            </div>
+
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" autocomplete="off" name="doi_tuong" placeholder="Đối tượng bảo hiểm">
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <select class="select2 form-control custom-select" name="phe_duyet" style="width: 100%; height:36px;">
+                                        <option value="">Chọn loại đối tượng duyệt</option>
+                                        <option value="1">Phê duyệt chính</option>
+                                        <option value="0">Phối hợp/kiểm tra</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group" style="float:left">
+                                    <button type="button" id="btnTimKiemHoSo" class="btn btn-primary btn-sm wd-90">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:3px">
+                            <div class="col-12">
+                                <div id="gridViewDanhSachHoSo" class="table-app" style="height:64vh"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_ApprovedModal.cshtml" />
+<partial name="_TemplatePheDuyet.cshtml" />
+<partial name="_ViewImages.cshtml" />
+<partial name="/Views/Shared/_FwdApproval.cshtml" />
+<partial name="/Views/Shared/_ModalNhanXet.cshtml" />
+<partial name="/Views/Shared/_ModalXemToanBoThongTin.cshtml" />
+<partial name="_ApprovedUpload.cshtml" />
+<partial name="_ModalDeXuatGia.cshtml" />
+<partial name="/Views/Shared/_ModalChiNhanh.cshtml" />
+@section scripts{
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/StatusListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/ModalThongTinHoSoService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarClaimCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/HealthCare/services/HealthClaimCommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarCompensationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/CarInvestigationService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CarClaim/services/jsTrinhDuyet.js" asp-append-version="true"></script>
+    <script src="~/js/app/Manager/services/ApprovedService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Manager/Approved.js" asp-append-version="true"></script>
+}

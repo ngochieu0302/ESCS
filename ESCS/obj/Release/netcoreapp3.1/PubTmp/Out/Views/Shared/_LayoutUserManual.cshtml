@@ -1,0 +1,153 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS
+@{
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var favicon = "images/favicon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var cai_dat_favicon = setting.cai_dat.Where(n => n.loai == "FAVICON").FirstOrDefault();
+        favicon = cai_dat_favicon != null && !string.IsNullOrEmpty(cai_dat_favicon.url_anh) ? cai_dat_favicon.url_anh : favicon;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="@favicon">
+    <title default="@setting?.doi_tac.ten">@setting?.doi_tac.ten</title>
+    <link rel="canonical" href="@setting?.doi_tac.domain">
+    <!-- Custom CSS -->
+    <partial name="_CSS.cshtml" />
+    @RenderSection("Styles", required: false)
+@*<style>
+        /*the container must be positioned relative:*/
+        .autocomplete {
+            position: relative;
+            display: inline-block;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            margin-top: 3px;
+            border-radius: 3px;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+        }
+
+            .autocomplete-items div {
+                padding: 10px;
+                cursor: pointer;
+                background-color: #fff;
+                border-bottom: 1px solid #d4d4d4;
+            }
+
+                /*when hovering an item:*/
+                .autocomplete-items div:hover {
+                    background-color: #e9e9e9;
+                }
+
+        /*when navigating through the items using the arrow keys:*/
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+
+        .docs-pictures > li > img:hover {
+            border: 2px solid #009efb;
+        }
+
+        .docs-pictures > li > img {
+            width: 83.98px;
+            height: 83.98px;
+            border-radius: 3px;
+            border: 1px solid #e9ecef;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .docs-pictures > li input {
+            color: white;
+            position: relative;
+            top: 20px;
+            z-index: 9;
+            opacity: 1;
+            left: 2px;
+        }
+
+        /*Dưới 1k3 thì sử dung class này*/
+        /**/
+        @@media only screen and (max-width: 1366px){
+            .zoom9 {
+                zoom: .9;
+                -moz-transform: scale(.9);
+                -moz-transform-origin: 0 0;
+            }
+            .esmodal {
+                height: calc(100% - 54px);
+            }
+            .esmodal-dialog {
+                height: calc(100%);
+            }
+            .esmodal-content {
+                height: calc(100%);
+            }
+            .esmodal-body {
+                padding: 0.5rem;
+            }
+            .tab-navigator {
+                right: unset;
+            }
+            .modal-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1040;
+                width: 100%;
+                height: 100%;
+                background-color: #000
+            }
+        }
+        
+</style>*@
+</head>
+<body id="bodyEscs" class="zoom9">
+    <div id="main-wrapper" data-layout="vertical" data-boxed-layout="full" data-sidebar-position="fixed" data-header-position="fixed" data-sidebartype="mini-sidebar" data-navbarbg="skin1">
+        <partial name="_Header.cshtml" />
+        <partial name="_Sidebar.cshtml" />
+        <div class="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="loading-wrapper">
+        <div id="loading-content"><i class="fa fa-spinner fa-spin fa-3x fa-fw fullscreen-loading"></i></div>
+    </div>
+    <div id="loading" style="display: none;">
+        <div class="loading"></div>
+    </div>
+    <partial name="_ModalChangePass.cshtml" />
+    <partial name="_ModalUploadfile.cshtml" />
+    <partial name="_ModalDocument.cshtml" />
+    <partial name="_ModalPreviewFile.cshtml" />
+    <partial name="_CallApp.cshtml" />
+    <partial name="_ESChat.cshtml" />
+    <partial name="_JavaScript.cshtml" />
+    @RenderSection("Scripts", required: false)
+    
+</body>
+</html>

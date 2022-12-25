@@ -1,0 +1,67 @@
+﻿<div id="modalGaraList" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Danh sách Gara</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmTKiemGara" method="post">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Tỉnh/thành</label>
+                                <select class="select2 form-control custom-select" name="tinh_thanh" style="width:100%"></select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Quận/huyện</label>
+                                <select class="select2 form-control custom-select" name="quan_huyen" style="width:100%"></select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Tên gara</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="ten" placeholder="Tên gara" autocomplete="off">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="ten">
+                                            <a href="#" id="btnModalGaraListSearch">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="table-responsive scrollable" style="max-height:350px;">
+                                <table id="tableTKiemGara" class="table table-bordered">
+                                    <thead class="font-weight-bold">
+                                        <tr style="background-color: #1e88e5; color: #FFF;">
+                                            <th style="width:45px;"></th>
+                                            <th class="text-center">Tên gara</th>
+                                            <th class="text-center">Địa chỉ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyTableTKiemGara">
+                                        <tr>
+                                            <td class="text-center" colspan="3">Chưa có dữ liệu</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm wd-90 mg-t-22" id="btnChonGara"><i class="fas fa-check"></i>&nbsp;&nbsp;Chọn</button>
+                <button class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal" id="ModalGaraList_close"><i class="fas fa-window-close"></i>&nbsp;&nbsp;Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

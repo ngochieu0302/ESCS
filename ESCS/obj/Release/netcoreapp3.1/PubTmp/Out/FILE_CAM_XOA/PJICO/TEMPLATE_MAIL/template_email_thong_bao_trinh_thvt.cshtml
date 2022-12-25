@@ -1,0 +1,38 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO TRÌNH PHÊ DUYỆT THANH LÝ, THU HỒI VẬT TƯ</title>
+</head>
+<body style="font-family: 'Tahoma';font-size: 14px;line-height: 1.6;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">TRÌNH PHÊ DUYỆT THANH LÝ, THU HỒI VẬT TƯ</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi : <span style="color: #035299">Ban lãnh đạo</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Bộ phận giám định trình phê duyệt thanh lý, thu hồi vật tư xe ô tô <span style="color: #4552a2">@mail.doi_tuong</span> theo hợp đồng bảo hiểm <span style="color: #4552a2">@mail.so_hd</span>, chi tiết như sau:</p>
+
+                <ul style="font-family: 'Tahoma'; font-size: 14px;">
+                    <li>Số hồ sơ: <span style="color: #4552a2">@mail.so_hs</span></li>
+                    <li>Ngày giờ giám định: <span style="color: #4552a2">@mail.ngay_gd</span></li>
+                    <li>Nơi giám định: <span style="color: #4552a2">@mail.dia_diem</span></li>
+                    <li>Thông tin cán bộ giám định: <span style="color: #4552a2">@mail.thong_tin_gdv</span></li>
+                </ul>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Kính mong ban lãnh đạo xem xét, phê duyệt thanh lý, thu hồi vật tư theo quy định.</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold; margin-top: 15px;">Trân trọng cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

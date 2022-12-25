@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/usermanagement/save",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20220811125215
+  },
+  "Time": 20220811090950,
+  "Request": "{\"pm\":\"BT\",\"trang_thai\":\"D\",\"ma_doi_tac\":\"CTYBHABC\",\"ma_chi_nhanh\":\"000\",\"phong\":\"KD03\",\"ten\":\"Trưởng Phòng tính toán BT\",\"ma_chuc_danh\":\"NV001\",\"dthoai\":\"0909090909\",\"nhom_quyen\":\"\",\"ma\":\"btv.escs@gmail.com\",\"mat_khau\":\"\",\"email\":\"vuvangiang1208@gmail.com\",\"ngay_hl\":20201001,\"ngay_kt\":20231010,\"loai_tk\":\"U\",\"quyen\":[{\"nhom_chuc_nang\":\"QTHT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"HDXE\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"HDCN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"MAHT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GDHT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GDTT\",\"xem\":\"1\",\"nhap\":\"0\"},{\"nhom_chuc_nang\":\"BTXE\",\"xem\":\"1\",\"nhap\":\"0\"},{\"nhom_chuc_nang\":\"BLVP\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"TNCN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"TNMB\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"BTCN\",\"xem\":\"1\",\"nhap\":\"0\"},{\"nhom_chuc_nang\":\"TTBT\",\"nhap\":\"1\",\"xem\":\"1\"},{\"nhom_chuc_nang\":\"CCCT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DUYET\",\"nhap\":\"1\",\"xem\":\"1\"},{\"nhom_chuc_nang\":\"PCONG\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GOTTOAN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"KTOAN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GD\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCBMC\",\"nhap\":\"1\",\"xem\":\"1\"},{\"nhom_chuc_nang\":\"DMUCQLND\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCOTO\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCNG\",\"nhap\":\"0\",\"xem\":\"0\"}],\"quanly\":[{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"000\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"001\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"002\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"003\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"004\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"666\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"999\"}]}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{}}"
+}

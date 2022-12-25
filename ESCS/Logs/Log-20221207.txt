@@ -1,0 +1,8 @@
+2022-12-07T08:44:58.9413141+07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-12-07T08:44:58.9530363+07:00  [INF] Hosting environment: "escs_dev" (c3307c92)
+2022-12-07T08:44:58.9532185+07:00  [INF] Content root path: "D:\ESCS\ESCS" (b5d60022)
+2022-12-07T08:44:58.9757461+07:00 4000033b-0004-ff00-b63f-84710c7967bb [WRN] Failed to determine the https port for redirect. (ca76cc21)
+2022-12-07T15:39:07.9808189+07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-12-07T15:39:07.9934687+07:00  [INF] Hosting environment: "escs_dev" (c3307c92)
+2022-12-07T15:39:07.9936423+07:00  [INF] Content root path: "D:\ESCS\ESCS" (b5d60022)
+2022-12-07T15:39:08.0232776+07:00 40000071-0001-f900-b63f-84710c7967bb [WRN] Failed to determine the https port for redirect. (ca76cc21)

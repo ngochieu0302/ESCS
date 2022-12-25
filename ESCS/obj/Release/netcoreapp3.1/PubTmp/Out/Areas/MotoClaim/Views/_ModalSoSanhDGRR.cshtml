@@ -1,0 +1,125 @@
+﻿<style>
+    #modalSoSanhDGRRAnhCapDon .modalSoSanhDGRRAnhCapDonItem.active img {
+        border-color: #1e88e5 !important;
+        border-width: 2px !important;
+    }
+
+    #modalSoSanhDGRRAnhTonThat .modalSoSanhDGRRAnhTonThatItem.active img {
+        border-color: #1e88e5 !important;
+        border-width: 2px !important;
+    }
+
+    #modalSoSanhDGRR .modalSoSanhDGRRAnhImg {
+        width: 84.14px;
+        height: 84.14px;
+    }
+</style>
+<div id="modalSoSanhDGRR" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 98%; margin:10px auto; margin-top:50px;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">So sánh hạng mục đánh giá rủi ro</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-1" style="height:492px;padding: 0.5rem;">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="card">
+                            <div class="card-body p-1">
+                                <div class="border mb-2 rounded">
+                                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                        <h5 class="m-0">Hạng mục khi cấp đơn</h5>
+                                    </div>
+                                    <div style="height:58vh" class="p-1 scrollable">
+                                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="modalSoSanhDGRRHangMuc">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 pl-0">
+                        <div class="card">
+                            <div class="card-body p-1">
+                                <div class="border mb-2 rounded">
+                                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                        <h5 class="m-0">Ảnh tổn thất</h5>
+                                    </div>
+                                    <div style="height:58vh; width:100%; margin:0" class="p-1 scrollable" id="modalSoSanhDGRRListImg">
+                                        <b class="font-weight-bold">Ảnh tổn thất cấp đơn xung quanh xe</b>
+                                        <div class="col-12" style="padding-left:5px; padding-right: 5px;" id="modalSoSanhDGRRAnhCapDon">
+                                        </div>
+                                        <b class="font-weight-bold">Ảnh tổn thất bồi thường</b>
+                                        <div class="col-12" style="padding-left:5px; padding-right: 5px;" id="modalSoSanhDGRRAnhTonThat">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 pl-0">
+                        <div class="card">
+                            <div class="card-body p-1">
+                                <div class="border mb-2 rounded">
+                                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                        <h5 class="m-0">Xem ảnh tổn thất cấp đơn</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div style="height:58vh;" id="modalSoSanhDGRRViewerDGRR_CHUNG"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 pl-0">
+                        <div class="card">
+                            <div class="card-body p-1">
+                                <div class="border mb-2 rounded">
+                                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                        <h5 class="m-0">Xem ảnh tổn thất bồi thường</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div style="height:58vh;" id="modalSoSanhDGRRViewerANH_TON_THAT"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-1"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="modalSoSanhDGRRHangMucTemplate">
+    <% if(data_info.length > 0){
+    _.forEach(data_info, function(item,index) { %>
+    <a class="nav-link cursor-pointer" data-hang-muc="<%- item.hang_muc %>" href="#" onclick="onModalSoSanhDGRRHangMucClick('<%- item.so_id %>', '<%- item.so_id_hd %>', '<%- item.so_id_dt %>', '<%- item.hang_muc %>', 'XE_MAY')"><%- item.hang_muc_ten %></a>
+    <% })} %>
+</script>
+
+<script type="text/html" id="modalSoSanhDGRRAnhCapDonTemplate">
+    <% if(data_info.length > 0){
+    _.forEach(data_info, function(item,index) { %>
+    <div class="w-50 p-2 float-left cursor-pointer modalSoSanhDGRRAnhCapDonItem" data-bt="<%- item.bt %>" onclick="onModalSoSanhDGRRXemAnhClick('<%- item.nhom_anh %>', '<%- item.bt %>')">
+        <img src="data:image/png;base64, <%- item.duong_dan %>" data-id="<%- item.so_id %>" data-bt="<%- item.bt %>" class="w-100 border modalSoSanhDGRRAnhImg" />
+    </div>
+    <% })} %>
+</script>
+<script type="text/html" id="modalSoSanhDGRRAnhTonThatTemplate">
+    <% if(data_info.length > 0){
+    _.forEach(data_info, function(item,index) { %>
+    <div class="w-50 p-2 float-left cursor-pointer modalSoSanhDGRRAnhTonThatItem" data-bt="<%- item.bt %>" onclick="onModalSoSanhDGRRXemAnhClick('<%- item.nhom_anh %>', '<%- item.bt %>')">
+        <img src="data:image/png;base64, <%- item.duong_dan %>" data-id="<%- item.so_id %>" data-bt="<%- item.bt %>" class="w-100 border modalSoSanhDGRRAnhImg" />
+    </div>
+    <% })} %>
+</script>

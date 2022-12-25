@@ -1,0 +1,140 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Cấu hình phụ tùng xe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Cấu hình phụ tùng xe</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Cấu hình phụ tùng xe</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <label class="">Gara</label>
+                                <select class="select2 form-control custom-select" required name="gara" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="ngay_ad">Ngày áp dụng</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" name="ngay_ad" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="card mb-0 h-100">
+                                <div class="tab-content border border-top-0 scrollable">
+                                    <div class="tab-pane active" role="tabpanel">
+                                        <div class="card-body px-1 pt-1" style="padding-bottom: 230px;">
+                                            <div class="border mb-1 rounded">
+                                                <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                                    <input type="text" class="form-control" id="inputSearch" maxlength="250" autocomplete="off" placeholder="Tìm kiếm xe hãng xe/hiệu xe" name="name" value="">
+                                                </div>
+                                                <div style="max-height:515px; overflow-y:auto">
+                                                    <table class="table" id="danhDachGCN">
+                                                        <tr data-search="29l1-11339" style="cursor:pointer" class="item-gcn text-danger" onclick="xemChiTietGCN('CTYBHABC', '20210610000001', '20210610000002')" id="item-gcn-CTYBHABC2021061000000120210610000002">
+                                                            <td style="width:110px;font-weight:bold">29L1-11339</td>
+                                                            <td>10:00 10/06/2021 - 10:00 30/06/2022</td>
+                                                        </tr>
+                                                        <tr data-search="29l1-11340" style="cursor:pointer" class="item-gcn" onclick="xemChiTietGCN('CTYBHABC', '20210610000001', '20210612000186')" id="item-gcn-CTYBHABC2021061000000120210612000186">
+                                                            <td style="width:110px;font-weight:bold">29L1-11340</td>
+                                                            <td>10:00 10/06/2021 - 10:00 30/06/2022</td>
+                                                        </tr>
+                                                        <tr data-search="29l1-11341" style="cursor:pointer" class="item-gcn" onclick="xemChiTietGCN('CTYBHABC', '20210610000001', '20210612000191')" id="item-gcn-CTYBHABC2021061000000120210612000191">
+                                                            <td style="width:110px;font-weight:bold">29L1-11341</td>
+                                                            <td>10:00 10/06/2021 - 10:00 30/06/2022</td>
+                                                        </tr>
+                                                        <tr data-search="29l1-11342" style="cursor:pointer" class="item-gcn" onclick="xemChiTietGCN('CTYBHABC', '20210610000001', '20210612000207')" id="item-gcn-CTYBHABC2021061000000120210612000207">
+                                                            <td style="width:110px;font-weight:bold">29L1-11342</td>
+                                                            <td>10:00 10/06/2021 - 10:00 30/06/2022</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-9" style="margin-top: 3px;">
+                            <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                                <input type="text" class="form-control" id="inputSearchHangMuc" maxlength="250" autocomplete="off" placeholder="Tìm kiếm hạng mục" name="hang_muc" value="">
+                            </div>
+                            <div class="table-responsive" style="max-height:210px">
+                                <table id="" class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:200px">Hạng mục tổn thất</th>
+                                            <th style="width:200px">Mức độ tổn thất</th>
+                                            <th style="width:130px">Giá thay thế</th>
+                                            <th style="width:100px">Giá sửa chữa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="danhSachNV">
+                                        <tr row-val="CH01">
+                                            <td>A xít châm bình ắc quy</td>
+                                            <td>Gò nhẹ</td>
+                                            <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-tt="CH01" onchange="hthiTongTien()" value="0"></td>
+                                            <td><input type="text" name="" col-tl-phi="CH01" maxlength="18" class="number floating-input" value="0"></td>
+                                        </tr>
+                                        <tr row-val="CH02">
+                                            <td>Bạc lót trục cam số 3</td>
+                                            <td>Tổn thất toàn bộ</td>
+                                            <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-bh="CH02" onchange="hthiTongTien()" value="1,000,000,000"></td>
+                                            <td><input type="text" name="" maxlength="18" col-khau-tru="CH02" class="number floating-input" onchange="hthiTongTien()" value="500,000"></td>
+                                        </tr>
+                                        <tr row-val="CH03">
+                                            <td>Bạc lót trục cam số 4</td>
+                                            <td>Hư hỏng tài sản mức độ 3</td>
+                                            <td><input type="text" name="" maxlength="18" class="number floating-input" col-tien-bh="CH03" onchange="hthiTongTien()" value="0"></td>
+                                            <td><input type="text" name="" maxlength="18" col-phi-bh="CH03" class="number floating-input" onchange="hthiTongTien()" value="0"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary btn-sm wd-90" id="btnSaveCauHinhXe"><i class="fa fa-save"></i> Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/GaraListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/AccessaryCar.js" asp-append-version="true"></script>
+}

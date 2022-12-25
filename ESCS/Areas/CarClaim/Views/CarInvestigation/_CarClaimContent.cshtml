@@ -1,0 +1,50 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="card border mb-0 p-2 h-100 d-flex flex-column">
+    <div class="card-body p-0 flex-fill" id="navBoiThuong">
+        <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
+            <li role="presentation" onclick="showStep('stepDienBienTonThat')">
+                <a href="#Tab_stepDienBienTonThat" aria-controls="stepDienBienTonThat" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-car-crash mr-2"></span>Thông tin tai nạn
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('stepThongTinGiamDinh')">
+                <a href="#Tab_stepThongTinGiamDinh" aria-controls="stepThongTinGiamDinh" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-calendar-alt mr-2"></span>Phân công giám định
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('stepThongTinBCGD')">
+                <a href="#Tab_stepThongTinBCGD" aria-controls="stepThongTinBCGD" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-calendar-edit mr-2"></span>Đánh giá, báo cáo giám định
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('stepHinhAnhHoSo')">
+                <a href="#Tab_stepHinhAnhHoSo" aria-controls="stepHinhAnhHoSo" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-camera-retro mr-2"></span>Tài liệu, hình ảnh hồ sơ
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('stepDanhGiaTonThat')">
+                <a href="#Tab_stepDanhGiaTonThat" aria-controls="stepDanhGiaTonThat" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-clipboard-check mr-2"></span>Đánh giá tổn thất
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content d-flex flex-column" style="border:unset;">
+            <div role="tabpanel" style="padding-top:0px;" class="tab-pane py-0 flex-fill" id="stepDienBienTonThat">
+                <partial name="_CarClaimContentStep1" />
+            </div>
+            <div role="tabpanel" style="padding-top:0px;" class="tab-pane py-0 flex-fill" id="stepThongTinGiamDinh">
+                <partial name="_CarClaimContentStep2" />
+            </div>
+            <div role="tabpanel" style="padding-top:0px;" class="tab-pane py-0 flex-fill" id="stepThongTinBCGD">
+                <partial name="_CarClaimContentThongTinBCGD" />
+            </div>
+            <div role="tabpanel" style="padding-top:0px;" class="tab-pane py-0 flex-fill" id="stepHinhAnhHoSo">
+                <partial name="_CarClaimContentStep3" />
+            </div>
+            <div role="tabpanel" style="padding-top:0px;" class="tab-pane py-0 flex-fill" id="stepDanhGiaTonThat">
+                <partial name="_CarClaimContentStep4" />
+            </div>
+        </div>
+    </div>
+</div>

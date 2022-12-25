@@ -1,0 +1,33 @@
+2022-11-17T08:49:29.0336700+07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T08:49:29.0413018+07:00  [INF] Hosting environment: "escs_dev" (c3307c92)
+2022-11-17T08:49:29.0413986+07:00  [INF] Content root path: "D:\ESCS\ESCS" (b5d60022)
+2022-11-17T08:49:29.0666870+07:00 400004df-0005-ed00-b63f-84710c7967bb [WRN] Failed to determine the https port for redirect. (ca76cc21)
+2022-11-17T11:40:30.9197899+07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T11:40:30.9308598+07:00  [INF] Hosting environment: "escs_dev" (c3307c92)
+2022-11-17T11:40:30.9310686+07:00  [INF] Content root path: "D:\ESCS\ESCS" (b5d60022)
+2022-11-17T11:40:30.9551778+07:00 40000002-0002-fd00-b63f-84710c7967bb [WRN] Failed to determine the https port for redirect. (ca76cc21)
+2022-11-17T13:35:21.2979853+07:00 40000002-0006-ff00-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at ESCS.COMMON.ExtensionMethods.RequestExtensionMethod.GetDataRequestNew(HttpRequest rq, escs_nguoi_dung nguoi_dung) in D:\ESCS\ESCS.COMMON\ExtensionMethods\RequestExtensionMethod.cs:line 244
+   at ESCS.Areas.HealthClaim.Controllers.HealthCompensationController.detailHoSo() in D:\ESCS\ESCS\Areas\HealthClaim\Controllers\HealthCompensationController.cs:line 54
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at ESCS.Startup.<>c.<<Configure>b__5_0>d.MoveNext() in D:\ESCS\ESCS\Startup.cs:line 126
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)

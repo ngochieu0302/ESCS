@@ -1,0 +1,30 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="favicon.ico">
+    <title>Dashboard - ECSC</title>
+    <link rel="canonical" href="https://escs.com">
+    <!-- Custom CSS -->
+    <link href="~/admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <partial name="_CSS.cshtml" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div id="main-wrapper">
+        <partial name="_Header.cshtml" />
+        <partial name="_Sidebar.cshtml" />
+        <div class="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    <partial name="_JavaScript.cshtml" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

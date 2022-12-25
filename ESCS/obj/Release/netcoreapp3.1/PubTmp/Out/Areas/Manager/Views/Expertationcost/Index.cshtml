@@ -1,0 +1,113 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Chi phí giám định";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px;">
+                    <form name="frmTimKiemChiPhiGD" method="post">
+                        <div class="row">
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_d">Ngày tìm kiếm</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_d" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ngay_c">&nbsp;</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_c" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Nghiệp vụ</label>
+                                    <select class="select2 form-control custom-select" name="nv" style="width: 100%">
+                                        <option value="">Chọn nghiệp vụ</option>
+                                        <option value="XE">Xe cơ giới</option>
+                                        <option value="NG">Con người</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="ten_kh">Đơn vị giám định</label>
+                                    <select class="select2 form-control custom-select" name="dvi_gd" style="width: 100%">
+                                        <option value="">Đơn vị giám định</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2" style="padding-top: 21px;">
+                                <button type="button" class="btn btn-primary btn-sm wd-90" id="btnTimKiemHoSoGD" title="Tìm kiếm">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-90" id="btnThemMoiChiPhiGD">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-top:3px;">
+                        <div class="col-12">
+                            <div id="gridViewChiPhiGD" class="table-app" style="height: 65vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Modal.cshtml" />
+<partial name="_ModalHoaDonDienTu.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="/Views/Shared/_FwdApproval.cshtml" />
+<partial name="_ExpertationcostImageUpload.cshtml" />
+
+@section scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BankListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryPersonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/ModalTrinhDuyetService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Manager/services/ExpertationcostService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Manager/Expertationcost.js" asp-append-version="true"></script>
+}

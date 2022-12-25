@@ -1,0 +1,103 @@
+
+<!-- saved from url=(0030)http://cerp.vn/bhxh/index.html -->
+<html><head title="Convert Unicode to ASCII"><meta http-equiv="Content-Type" content="text/html; charset=windows-1258">
+    <script type="text/javascript">
+        function convert() {
+            var inputtext = document.getElementById('inputText');
+            var ouputText = document.getElementById('ouputText');
+            ouputText.value = "unistr('" + convertCharStr2jEsc(inputtext.value, true) + "')";
+
+        }
+        function convertCharStr2jEsc(str, cstyle) {
+            // Converts a string of characters to JavaScript escapes
+            // str: sequence of Unicode characters
+            var highsurrogate = 0;
+            var suppCP;
+            var pad;
+            var n = 0;
+            var outputString = '';
+            for (var i = 0; i < str.length; i++) {
+                var cc = str.charCodeAt(i);
+                if (cc < 0 || cc > 0xFFFF) {
+                    outputString += '!Error in convertCharStr2UTF16: unexpected charCodeAt result, cc=' + cc + '!';
+                }
+                if (highsurrogate != 0) { // this is a supp char, and cc contains the low surrogate
+                    if (0xDC00 <= cc && cc <= 0xDFFF) {
+                        suppCP = 0x10000 + ((highsurrogate - 0xD800) << 10) + (cc - 0xDC00);
+                        if (cstyle) {
+                            pad = suppCP.toString(16);
+                            while (pad.length < 8) { pad = '0' + pad; }
+                            outputString += '\\U' + pad;
+                        }
+                        else {
+                            suppCP -= 0x10000;
+                            outputString += '\\u' + dec2hex4(0xD800 | (suppCP >> 10)) + '\\u' + dec2hex4(0xDC00 | (suppCP & 0x3FF));
+                        }
+                        highsurrogate = 0;
+                        continue;
+                    }
+                    else {
+                        outputString += 'Error in convertCharStr2UTF16: low surrogate expected, cc=' + cc + '!';
+                        highsurrogate = 0;
+                    }
+                }
+                if (0xD800 <= cc && cc <= 0xDBFF) { // start of supplementary character
+                    highsurrogate = cc;
+                }
+                else { // this is a BMP character
+                    //outputString += dec2hex(cc) + ' ';
+                    switch (cc) {
+                        case 0: outputString += '\\0'; break;
+                        case 8: outputString += '\\b'; break;
+                        case 9: outputString += '\\t'; break;
+                        case 10: outputString += '\\n'; break;
+                        case 13: outputString += '\\r'; break;
+                        case 11: outputString += '\\v'; break;
+                        case 12: outputString += '\\f'; break;
+                        case 34: outputString += '\\\"'; break;
+                        case 39: outputString += '\\\''; break;
+                        case 92: outputString += '\\\\'; break;
+                        default:
+                            if (cc > 0x1f && cc < 0x7F) { outputString += String.fromCharCode(cc); }
+                            else {
+                                pad = cc.toString(16).toUpperCase();
+                                while (pad.length < 4) { pad = '0' + pad; }
+                                outputString += '\\u' + pad;
+                            }
+                    }
+                }
+            }
+
+            var code = outputString.replace(/\\u/g, '\\').replace(/\\/g, '\\');
+            return code;
+        }
+    </script>
+</head>
+<body>
+    <table>
+        <tbody><tr>
+            <td>
+                <label title="INput text here:">Input text</label>
+            </td>
+            <td>
+                <textarea rows="4" cols="100" id="inputText"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label title="ouput text here:">Ouput text</label>
+            </td>
+            <td>
+                <textarea rows="4" cols="100" id="ouputText"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="button" id="Text2" value="Convert" onclick="convert();">
+            </td>
+        </tr>
+    </tbody></table>
+
+
+</body></html>

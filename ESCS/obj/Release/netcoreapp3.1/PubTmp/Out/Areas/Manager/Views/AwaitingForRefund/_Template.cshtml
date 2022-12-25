@@ -1,0 +1,129 @@
+﻿@*  Tab Thông tin chung *@
+<script type="text/html" id="tblHoanQuyTon_template">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" data-field="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="loai" value="<%- item.loai %>" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" <% if(item.checked){ %>checked<% } %> data-field="bt" value="<%- item.bt%>" onchange="onChon(this)" id="ttbt_<%- item.bt%>_<%- sott %>" class="custom-control-input ttbt_item">
+                <label class="custom-control-label" for="ttbt_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center">
+            <a data-field="nv" data-val="<%- item.nv %>" class="cursor-pointer">
+                <%- item.nv %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="so_hs" data-val="<%- item.so_hs %>" class="cursor-pointer">
+                <%- item.so_hs %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="loai_ten" data-val="<%- item.loai_ten %>" class="cursor-pointer">
+                <%- item.loai_ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <input type="text" data-field="tien" class="floating-input number" value="<%- ESUtil.formatMoney(item.tien) %>" />
+        </td>
+        <td class="text-center">
+            <a data-field="ten" data-val="<%- item.ten %>" class="cursor-pointer">
+                <%- item.ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="ngay_ht" data-val="<%- item.ngay_ht %>" class="cursor-pointer">
+                <%- item.ngay_ht %>
+            </a>
+        </td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*  Tab Thông tin chung phần chi tiết*@
+<script type="text/html" id="tblHoanQuyChiTiet_template">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" data-field="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="loai" value="<%- item.loai %>" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" disabled="disabled" <% if(item.checked){ %>checked<% } %> data-field="bt" value="<%- item.bt%>" onchange="onChon(this)" id="ttct_<%- item.bt%>_<%- sott %>" class="custom-control-input ttct_item">
+                <label class="custom-control-label" for="ttct_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center">
+            <a data-field="nv" data-val="<%- item.nv %>" class="cursor-pointer">
+                <%- item.nv %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="so_hs" data-val="<%- item.so_hs %>" class="cursor-pointer">
+                <%- item.so_hs %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="loai_ten" data-val="<%- item.loai_ten %>" class="cursor-pointer">
+                <%- item.loai_ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="tien" data-val="<%- item.tien %>" class="cursor-pointer">
+                <%- ESUtil.formatMoney(item.tien) %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="ten" data-val="<%- item.ten %>" class="cursor-pointer">
+                <%- item.ten %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a data-field="ngay_ht" data-val="<%- item.ngay_ht %>" class="cursor-pointer">
+                <%- item.ngay_ht %>
+            </a>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="xoaHoSoDeNghiHoanQuy(this,'<%- item.so_id_hs %>','<%- item.bt %>')">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

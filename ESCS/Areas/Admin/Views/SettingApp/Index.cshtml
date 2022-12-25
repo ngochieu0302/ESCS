@@ -1,0 +1,91 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Cài đặt ứng dụng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Cài đặt ứng dụng</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Cài đặt ứng dụng</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Tìm kiếm</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tên/tên tắt/domain..." class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đơn vị</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height: 36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Ứng dụng</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_app" style="width: 100%; height: 36px;">
+                                    <option value="">Chọn ứng dụng</option>
+                                    <option value="WEB" selected="selected">Ứng dụng Web</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Chọn loại</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="loai" style="width: 100%; height: 36px;">
+                                    <option value="" selected="selected">Chọn loại</option>
+                                    <option value="LOGO_WEB_APP">Logo web app</option>
+                                    <option value="LOGO_MAU_IN">Logo mẫu in</option>
+                                    <option value="FAVICON">Favicon</option>
+                                    <option value="LOGO_DANG_NHAP">Logo màn hình đăng nhập</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnSearchST">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-40p" id="btnNhapThongTinST">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-1">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewAction" class="table-app"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_Modal.cshtml"/>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/SettingAppService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/SettingApp.js" asp-append-version="true"></script>
+
+}

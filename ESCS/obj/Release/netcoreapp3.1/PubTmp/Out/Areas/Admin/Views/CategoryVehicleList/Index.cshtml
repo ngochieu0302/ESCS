@@ -1,0 +1,267 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Xe hạng mục tổn thất";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập mã/tên hạng mục tổn thất" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Loại hạng mục</label>
+                                <select class="select2 form-control custom-select" name="loai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn loại</option>
+                                    <option value="CHINH">Hạng mục chính</option>
+                                    <option value="PHU">Hạng mục phụ</option>
+                                    <option value="TNDS_NG">Hạng mục TNDS về người</option>
+                                    <option value="TNDS_TS">Hạng mục TNDS về tài sản</option>
+                                    <option value="HANG_HOA">Hạng mục hàng hóa</option>
+                                    <option value="DGRR">Hạng mục đánh giá rủi ro</option>
+                                    <option value="NNTX">Hạng mục người ngồi trên xe</option>
+                                    <option value="TAI_LIEU">Tài liệu bồi thường</option>
+                                    <option value="TLHD">Tài liệu hợp đồng</option>
+                                    <option value="BT_TOAN_BO">Bồi thường toàn bộ xe</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Hiển thị trên app</label>
+                                <select class="select2 form-control custom-select" name="hien_thi_app" style="width: 100%; height:36px;">
+                                    <option value="">Tất cả</option>
+                                    <option value="C">Có</option>
+                                    <option value="K">Không</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnNhapThongTinXeHangMuc">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Export" id="btnExportExcelXeHangMuc">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewXeHangMuc" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapXeHangMuc" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmLuuThongTinXeHangMuc" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin hạng mục tổn thất <span id="modal-user-log" style="font-size: 14px; font-style: italic;"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" name="ma" maxlength="20" autocomplete="off" required class="form-control" placeholder="Mã hạng mục">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" required name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="XE">Xe ô tô</option>
+                                    <option value="CN">Con người</option>
+                                    <option value="XE_MAY">Xe máy</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="_required">Tên</label>
+                                <input type="text" maxlength="250" name="ten" autocomplete="off" placeholder="Tên hạng mục" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Loại hạng mục</label>
+                                <select class="select2 form-control custom-select" required name="loai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn loại</option>
+                                    <option value="CHINH">Hạng mục chính</option>
+                                    <option value="PHU">Hạng mục phụ</option>
+                                    <option value="TNDS_NG">Hạng mục TNDS về người</option>
+                                    <option value="TNDS_TS">Hạng mục TNDS về tài sản</option>
+                                    <option value="HANG_HOA">Hạng mục hàng hóa</option>
+                                    <option value="NNTX">Hạng mục người ngồi trên xe</option>
+                                    <option value="BT_TOAN_BO">Bồi thường toàn bộ</option>
+                                    <option value="TAI_LIEU">Tài liệu bồi thường</option>
+                                    <option value="TLHD">Tài liệu hợp đồng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Độ phức tạp hạng mục</label>
+                                <select class="select2 form-control custom-select" required name="nhom_hang_muc" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nhóm hạng mục</option>
+                                    <option value="1">Hạng mục đơn giản</option>
+                                    <option value="2">Hạng mục trung bình</option>
+                                    <option value="3">Hạng mục phức tạp</option>
+                                    <option value="4">Hạng mục đánh giá rủi ro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Xác định hạng mục</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="nhom" style="width: 100%; height:36px;">
+                                    <option value="">Chọn hạng mục</option>
+                                    <option value="BANG_LAI">Bằng lái xe</option>
+                                    <option value="DANG_KY">Đăng ký xe</option>
+                                    <option value="DANG_KIEM">Đăng kiểm xe</option>
+                                    <option value="TBTN">Thông báo tai nạn</option>
+
+                                    <option value="DGHT">Báo cáo hiện trường</option>
+                                    <option value="BBGD">Biên bản giám định</option>
+                                    <option value="PASC">Phương án sửa chữa</option>
+
+
+                                    <option value="TOAN_CANH">Toàn cảnh</option>
+                                    <option value="HIEN_TRUONG">Hiện trường</option>
+                                    <option value="SO_KHUNG">Số khung</option>
+                                    <option value="SO_MAY">Số máy</option>
+                                    <option value="TEM_DANG_KIEM">Tem đăng kiểm</option>
+                                    <option value="DGRR">Đánh giá rủi ro</option>
+                                    <option value="KHAC">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Hiển thị trên app</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="hien_thi_app" style="width: 100%; height:36px;">
+                                    <option value="">Chọn hiển thị trên app</option>
+                                    <option value="C">Có</option>
+                                    <option value="K">Không</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Vị trí tổn thất</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="vi_tri" style="width: 100%; height:36px;">
+                                    <option value="">Chọn vị trí</option>
+                                    <option value="TRUOC">Trước xe</option>
+                                    <option value="PHAI">Bên phụ xe</option>
+                                    <option value="TPHAI">Bên phụ-Trước,45° Bên phụ-Trước</option>
+                                    <option value="TRAI">Bên lái xe</option>
+                                    <option value="TTRAI">Bên lái-Trước,45° Bên lái-Trước</option>
+                                    <option value="SPHAI">Bên phụ-Sau,45° Bên phụ-Sau</option>
+                                    <option value="SAU">Sau xe</option>
+                                    <option value="STRAI">Bên lái-Sau,45° Bên lái-Sau</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-8">
+            <div class="form-group">
+                <label class="">Vị trí tổn thất</label>
+                <input type="text" name="vi_tri" style="cursor:pointer;" onclick="chonViTri(this);" class="form-control" autocomplete="off" placeholder="Click chọn vị trí" readonly>
+            </div>
+        </div>*@
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Thứ tự hiển thị</label>
+                                <input type="text" min="0" maxlength="5" autocomplete="off" placeholder="Thứ tự hiển thị" name="stt" class="form-control decimal">
+                            </div>
+                        </div>
+                    </div>
+                     <div class="row" style="margin-top:5px;">
+                         <div class="col-sm-12">
+                             <label class="">Tên alias</label>
+                             <input type="text" multiple autocomplete="off" max-length="500" name="ten_alias" class="form-control ten_alias" data-role="tagsinput" value="">
+                         </div>
+                     </div>
+                </div>
+                <div class="modal-footer" style="display:block;">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinXeHangMuc"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaThongTinXeHangMuc"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+<partial name="_ModalViTriTonThat.cshtml" />
+
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/CategoryvehicleList.js" asp-append-version="true"></script>
+}
+

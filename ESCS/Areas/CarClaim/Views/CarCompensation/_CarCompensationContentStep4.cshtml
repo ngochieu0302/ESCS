@@ -1,0 +1,915 @@
+﻿<div class="row mg-t-10">
+    <div class="col-12">
+        <div class="d-flex justify-content-between" style="background-color:#f8f9fa">
+            <ul class="nav nav-pills font-weight-bold" id="CarCompensationContent4Tab" role="tablist" style="background-color:#f8f9fa">
+                <li class="nav-item ">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#CarCompensationContentStep4Tab1" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fas fa-align-justify mr-2"></i>Tính toán bồi thường và đề xuất
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#CarCompensationContentStep4Tab5" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="fas fa-info-circle mr-2"></i>Tạm ứng bồi thường
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#CarCompensationContentStep4Tab4" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="fab fa-keycdn mr-2"></i>Thu đòi NT3 và thu hồi vật tư
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#CarCompensationContentStep4Tab3" role="tab" aria-controls="profile" aria-selected="false">
+                        <i class="far fa-file-alt mr-2"></i>Hồ sơ giấy tờ
+                    </a>
+                </li>
+            </ul>
+            <div class="btn btn-light rounded font-weight-bold d-none">
+                <a href="#" id="CarCompensationModalLabel_fullsreen">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </div>
+        </div>
+        <div class="tab-content">
+            <!-- Tính toán bồi thường và đề xuất -->
+            <div class="tab-pane active px-0" role="tabpanel" aria-labelledby="home-tab" id="CarCompensationContentStep4Tab1">
+                <div class="card mb-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb" id="navNghiepVuTab4" style="margin:unset;margin-bottom:5px; padding-top:3px; padding-bottom:3px;">
+                                </ol>
+                            </nav>
+                        </div>
+
+                    </div>
+                    <form name="frmTinhToanBoiThuong" method="post">
+                        <input type="hidden" name="so_id">
+                        <input type="hidden" name="ma_doi_tac">
+                        <input type="hidden" class="number" name="chi_phi_khac">
+                        <input type="hidden" class="number" name="so_vu">
+                        <input type="hidden" id="khau_tru" name="khau_tru">
+                        <input type="hidden" name="so_id_doi_tuong">
+                        <input type="hidden" class="number" name="giam_tru_khac" value="0">
+                        <input type="hidden" class="number" name="thue">
+                        <input type="hidden" class="number" name="mien_thuong">
+                        <div class="row">
+                            <div class="col-2 tinhToanTaiSan">
+                                <div class="form-group">
+                                    <label>Loại tài sản</label>
+                                    <select class="form-control custom-select select2" style="width:100%" name="loai_ts">
+                                        <option value="KHAC">Tài sản khác</option>
+                                        <option value="XE">Tài sản là xe</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2 tinhToanTaiSan tinhToanTaiSanDoiTuong">
+                                <div class="form-group">
+                                    <label>Đối tượng tổn thất</label>
+                                    <select class="form-control custom-select select2" style="width:100%" name="doi_tuong">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2 tinhToanXE tinhToanHH">
+                                <div class="form-group">
+                                    <label class="lblBHMienThuong">Miễn thường (gồm VAT)/vụ</label>
+                                    <input type="text" autocomplete="off" class="form-control number" name="mien_thuong_vutt" onchange="tinhToan()">
+                                </div>
+                            </div>
+                            <div class="col-1 tinhToanXE">
+                                <div class="form-group">
+                                    <label>Số vụ TT</label>
+                                    <input type="text" autocomplete="off" class="form-control number" name="so_vu_tt" onchange="tinhToan()">
+                                </div>
+                            </div>
+                            <div class="col-2 tinhToanXE">
+                                <div class="form-group">
+                                    <label>TL thuế miễn thường</label>
+                                    <select class="form-control custom-select select2" style="width:100%" name="tl_thue">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-1 tinhToanXE">
+                                <button type="button" class="btn btn-primary btn-sm" style="margin-top:21px" onclick="tinhToan()">
+                                    <i class="fas fa-calculator-alt mr-1"></i>Tính toán
+                                </button>
+                            </div>
+
+
+                            <div class="col-3 tinhToanDviNhanHD">
+                                <div class="form-group">
+                                    <label class="_required">Đơn vị nhận hóa đơn</label>
+                                    <select class="form-control custom-select select2" required style="width:100%" name="dvi_nhan">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3 tinhToanDanhGia">
+                                <div class="form-group">
+                                    <label></label>
+                                    <div class="input-group">
+                                        <input type="text" disabled class="form-control bg-chua-dg" id="divInputBoiThuongVienDanhGia">
+                                        <div class="input-group-append">
+                                            <label class="input-group-text px-2">
+                                                <a href="#" onclick="xemThongTinBoiThuongVienDanhGia(this)" title="Đánh giá của bồi thường viên">
+                                                    <i class="fas fa-info-circle mr-2"></i>
+                                                    Đánh giá
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    @*Vật chất xe*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanVCX">
+                        <div class="col-12">
+                            <div class="table-responsive" id="table_vat_chat_xe" style="max-height:280px;">
+                                <table class="table table-bordered fixed-header" id="tblVatChatXe" style="width:100%">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:55px;">Vụ TT</th>
+                                            <th>Hạng mục bồi thường</th>
+                                            <th style="width:95px">G.duyệt V.Tư</th>
+                                            <th style="width:90px">G.duyệt NC</th>
+                                            <th style="width:90px">G.duyệt sơn</th>
+                                            <th style="width:100px" class="tblTinhToanVCX_T">Giảm giá</th>
+                                            <th class="ttpt_khau_hao">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkKhauHaoVCX" checked="">
+                                                    <label class="custom-control-label" for="chkKhauHaoVCX">% K.hao</label>
+                                                </div>
+                                            </th>
+                                            <th class="ttpt_bao_hiem">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemVCX" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemVCX">% T.Nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th class="ttpt_giam_tru">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruVCX" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruVCX">% G.trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:90px" class="tblTinhToanVCX_S"><a onclick="nhapGiamGia()" style="cursor:pointer; text-decoration: underline;">Giảm giá</a></th>
+                                            <th style="width:120px"><a onclick="nhapKhauTru()" style="cursor:pointer; text-decoration: underline;">Khấu trừ (ĐKBS)</a></th>
+                                            <th style="width:80px"><a onclick="nhapThue()" style="cursor:pointer; text-decoration: underline;">Thuế</a></th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkNguyenNhanVCX" checked="">
+                                                    <label class="custom-control-label" for="chkNguyenNhanVCX">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:65px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanVCX"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td colspan="2" class="p-1">
+                                                <div class="form-group m-0">
+                                                    <div class="input-group">
+                                                        <input type="text" autocomplete="off" class="form-control inputSearchHangMucTinhToan" placeholder="Tìm kiếm hạng mục">
+                                                        <div class="input-group-append">
+                                                            <label class="input-group-text">
+                                                                <a href="#">
+                                                                    <i class="fas fa-search" title="Tìm kiếm hạng mục"></i>
+                                                                </a>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*<span class="font-weight-bold">Tổng cộng</span>(<a href="#"><i id="tblTinhToanVCXSoLuongHM">0 hạng mục</i></a>)*@
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanVCXTienDuyetVtu"></td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanVCXTienDuyetNC"></td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanVCXTienDuyetKhac"></td>
+                                            <td class="text-right font-weight-bold tblTinhToanVCX_T"><a href="#" id="tblTinhToanVCXTienDuyetGiamGia_T">0</a></td>
+                                            <td class="ttpt_khau_hao text-right font-weight-bold" id="tblTinhToanVCXTienKhauHao"></td>
+                                            <td class="ttpt_bao_hiem text-right font-weight-bold" id="tblTinhToanVCXTienBaoHiem"></td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanVCXTienGiamTru"></td>
+                                            <td class="text-right font-weight-bold tblTinhToanVCX_S"><a href="#" onclick="nhapGiamGia()" id="tblTinhToanVCXTienDuyetGiamGia">0</a></td>
+                                            <td class="text-right font-weight-bold"><a href="#" onclick="nhapKhauTru()" id="tblTinhToanVCXTienKhauTru">0</a></td>
+                                            <td class="text-right font-weight-bold"><a href="#" id="tblTinhToanVCXThue" onclick="nhapThue()">0</a></td>
+                                            <td class="text-center" colspan="2">
+                                            </td>
+                                        </tr>
+                                        <tr class="text-left card-title-bg">
+                                            <td colspan="14" style="font-size:11px; font-style:italic;">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                                @*<span>Tiền duyệt giá: <span class="tinhToanNVTienDuyetGia1" style="color:red; font-weight:bold;">0</span></span>
+                                    <span class="mr-2">,</span>
+                                    <span>Tổng BT(chưa VAT): <span class="tinhToanNVTienBoiThuongChuaVAT1" style="color:red; font-weight:bold;">0</span>(<span class="mr-2">Sửa chữa: <span class="tinhToanNVTienSuaChuaChuaVAT1" style="color:red; font-weight:bold;">0</span></span>+ <span>Chi phí khác: <span class="tinhToanNVTienChiPhiKhacChuaVAT1" style="color:red; font-weight:bold;">0</span></span>)</span>
+                                    <span class="mr-2">,</span>
+                                    <span>Tổng thuế: <span class="tinhToanNVTongThue1" style="color:red; font-weight:bold;">0</span>(<span class="mr-2">Sửa chữa: <span class="tinhToanNVTienThue1" style="color:red; font-weight:bold;">0</span></span>+ <span>Chi phí khác: <span class="tinhToanNVTienThueChiPhiKhac1" style="color:red; font-weight:bold;">0</span></span>)</span>
+                                    <span class="mr-2">,</span>
+                                    <span>Tổng BT(Gồm VAT): <span class="tinhToanNVTienBoiThuongBaoGomVAT1" style="color:red; font-weight:bold;">0</span></span>
+                                    <span class="mr-2">,</span>
+                                    <span>Tiền KH chi trả(chưa VAT): <span class="tinhToanNVTienKHChiTra1" style="color:red; font-weight:bold;">0</span></span>*@
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Hàng hóa trên xe*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanHANGHOA">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:60px">Vụ TT</th>
+                                            <th>Tên hàng hóa</th>
+                                            <th style="width:110px">Tiền H.hóa</th>
+                                            <th style="width:110px">Tiền N.Công</th>
+                                            <th style="width:110px">Giá Duyệt</th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkKhauHaoHANGHOA" checked="">
+                                                    <label class="custom-control-label" for="chkKhauHaoHANGHOA">% Khấu hao</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:130px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemHANGHOA" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemHANGHOA">% Trách nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruHANGHOA" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruHANGHOA">% Giảm trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkTLThueHANGHOA" checked="">
+                                                    <label class="custom-control-label" for="chkTLThueHANGHOA">% TL thuế</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkAllNguyenNhanHANGHOA" checked="">
+                                                    <label class="custom-control-label" for="chkAllNguyenNhanHANGHOA">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:75px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanHANGHOA"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td style="font-size: 11px; font-style: italic;" colspan="4">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanHANGHOATienDuyetGia"></td>
+                                            <td class="ttpt_khau_hao text-right font-weight-bold" id="tblTinhToanHANGHOATienKhauHao"></td>
+                                            <td class="ttpt_bao_hiem text-right font-weight-bold" id="tblTinhToanHANGHOATienBaoHiem"></td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanHANGHOATienGiamTru"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                        </tr>
+                                        <tr class="text-left card-title-bg d-none">
+                                            <td colspan="10" style="font-size:11px; font-style:italic;">
+                                                <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                                <span class="mr-2">Tiền bồi thường: <span class="tinhToanNVTienBoiThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Miễn thường: <span class="tinhToanNVMienThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Giảm trừ khác: <span class="tinhToanNVGiamTruKhac" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Còn lại: <span class="tinhToanNVConLai" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">+</span>
+                                                <span class="mr-2">Tiền thuế: <span class="tinhToanNVTienThue" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Tổng cộng: <span class="tinhToanNVTongCong" style="color:red; font-weight:bold;">0</span></span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Người ngồi trên xe*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanNNTX">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:60px">Vụ TT</th>
+                                            <th>Tên đối tượng</th>
+                                            <th>Tỷ lệ thương tật</th>
+                                            <th style="width:110px">Giá Duyệt</th>
+                                            <th style="width:130px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemNNTX" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemNNTX">% Trách nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruNNTX" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruNNTX">% Giảm trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkAllNguyenNhanNNTX" checked="">
+                                                    <label class="custom-control-label" for="chkAllNguyenNhanNNTX">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:75px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanNNTX"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td style="font-size: 11px; font-style: italic;" colspan="3">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanNNTXTienDuyetGia"></td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanNNTXTienBaoHiem">0</td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanNNTXTienGiamTru"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                        </tr>
+                                        <tr class="text-left card-title-bg d-none">
+                                            <td colspan="7" style="font-size:11px; font-style:italic;">
+                                                <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                                <span class="mr-2">Tiền bồi thường: <span class="tinhToanNVTienBoiThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Miễn thường: <span class="tinhToanNVMienThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Giảm trừ khác: <span class="tinhToanNVGiamTruKhac" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Còn lại: <span class="tinhToanNVConLai" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">+</span>
+                                                <span class="mr-2">Tiền thuế: <span class="tinhToanNVTienThue" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Tổng cộng: <span class="tinhToanNVTongCong" style="color:red; font-weight:bold;">0</span></span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*TNDS về người*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanTNDS_NGUOI">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:60px">Vụ TT</th>
+                                            <th>Tên đối tượng</th>
+                                            <th>Tỷ lệ thương tật</th>
+                                            <th style="width:110px">Giá Duyệt</th>
+                                            <th style="width:127px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemTNDS_NGUOI" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemTNDS_NGUOI">% Trách nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruTNDS_NGUOI" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruTNDS_NGUOI">% Giảm trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkAllNguyenNhanTNDS_NGUOI" checked="">
+                                                    <label class="custom-control-label" for="chkAllNguyenNhanTNDS_NGUOI">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:75px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanTNDS_NGUOI"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td style="font-size: 11px; font-style: italic;" colspan="3">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanTNDS_NGUOITienDuyetGia"></td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanTNDS_NGUOITienBaoHiem"></td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanTNDS_NGUOITienGiamTru"></td>
+                                            <td class="text-center" colspan="2">
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*TNDS về hành khách*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanTNDS_NGUOI_HK">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:60px">Vụ TT</th>
+                                            <th>Tên đối tượng</th>
+                                            <th>Tỷ lệ thương tật</th>
+                                            <th style="width:110px">Giá Duyệt</th>
+                                            <th style="width:127px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemTNDS_NGUOI_HK" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemTNDS_NGUOI_HK">% Trách nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruTNDS_NGUOI_HK" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruTNDS_NGUOI_HK">% Giảm trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkAllNguyenNhanTNDS_NGUOI_HK" checked="">
+                                                    <label class="custom-control-label" for="chkAllNguyenNhanTNDS_NGUOI_HK">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:75px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanTNDS_NGUOI_HK"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td style="font-size: 11px; font-style: italic;" colspan="3">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanTNDS_NGUOI_HKTienDuyetGia"></td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanTNDS_NGUOI_HKTienBaoHiem"></td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanTNDS_NGUOI_HKTienGiamTru"></td>
+                                            <td class="text-center" colspan="2">
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*TNDS về tài sản khác*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanTNDS_TAISAN">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:60px">Vụ TT</th>
+                                            <th>Tên tài sản</th>
+                                            <th style="width:110px">Tiền T.Sản</th>
+                                            <th style="width:110px">Tiền N.Công</th>
+                                            <th style="width:110px">Giá Duyệt</th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkKhauHaoTNDS_TAISAN" checked="">
+                                                    <label class="custom-control-label" for="chkKhauHaoTNDS_TAISAN">% Khấu hao</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:127px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemTNDS_TAISAN" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemTNDS_TAISAN">% Trách nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruTNDS_TAISAN" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruTNDS_TAISAN">% Giảm trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkTLThueTNDS_TAISAN" checked="">
+                                                    <label class="custom-control-label" for="chkTLThueTNDS_TAISAN">% TL thuế</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkAllNguyenNhanTNDS_TAISAN" checked="">
+                                                    <label class="custom-control-label" for="chkAllNguyenNhanTNDS_TAISAN">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:75px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanTNDS_TAISAN"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td style="font-size: 11px; font-style: italic;" colspan="4">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanTNDS_TAISANTienDuyetGia"></td>
+                                            <td class="ttpt_khau_hao text-right font-weight-bold" id="tblTinhToanTNDS_TAISANTienKhauHao"></td>
+                                            <td class="ttpt_bao_hiem text-right font-weight-bold" id="tblTinhToanTNDS_TAISANTienBaoHiem"></td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanTNDS_TAISANTienGiamTru"></td>
+                                            <td class="text-center" colspan="4">
+                                            </td>
+                                        </tr>
+                                        <tr class="text-left card-title-bg d-none">
+                                            <td colspan="9" style="font-size:11px; font-style:italic;">
+                                                <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                                <span class="mr-2">Tiền bồi thường: <span class="tinhToanNVTienBoiThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Miễn thường: <span class="tinhToanNVMienThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Giảm trừ khác: <span class="tinhToanNVGiamTruKhac" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Còn lại: <span class="tinhToanNVConLai" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">+</span>
+                                                <span class="mr-2">Tiền thuế: <span class="tinhToanNVTienThue" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Tổng cộng: <span class="tinhToanNVTongCong" style="color:red; font-weight:bold;">0</span></span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Tai nạn lái phụ xe*@
+                    <div class="row mt-2 divTinhToanItem" id="divTinhToanLPHU_XE">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold card-title-bg-primary">
+                                        <tr class="text-center uppercase">
+                                            <th style="width:60px">Vụ TT</th>
+                                            <th>Tên đối tượng</th>
+                                            <th>Tỷ lệ thương tật</th>
+                                            <th style="width:110px">Giá Duyệt</th>
+                                            <th style="width:130px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkBaoHiemLPHU_XE" checked="">
+                                                    <label class="custom-control-label" for="chkBaoHiemLPHU_XE">% Trách nhiệm</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:110px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkGiamTruLPHU_XE" checked="">
+                                                    <label class="custom-control-label" for="chkGiamTruLPHU_XE">% Giảm trừ</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:120px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chkGroup" id="chkAllNguyenNhanLPHU_XE" checked="">
+                                                    <label class="custom-control-label" for="chkAllNguyenNhanLPHU_XE">Nguyên nhân</label>
+                                                </div>
+                                            </th>
+                                            <th style="width:75px">
+                                                <input type="hidden" name="currentBTGhiChu" value="">
+                                                Ghi chú
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblTinhToanLPHU_XE"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td style="font-size: 11px; font-style: italic;" colspan="3">
+                                                <span><a href="#" onclick="xemBangChiTietGia(this)">Bảng giá tính toán chi tiết</a></span>
+                                            </td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanLPHU_XETienDuyetGia"></td>
+                                            <td class="text-right font-weight-bold" id="tblTinhToanLPHU_XETienBaoHiem"></td>
+                                            <td class="ttpt_giam_tru text-right font-weight-bold" id="tblTinhToanLPHU_XETienGiamTru"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                            <td class="text-center font-weight-bold"></td>
+                                        </tr>
+                                        <tr class="text-left card-title-bg d-none">
+                                            <td colspan="7" style="font-size:11px; font-style:italic;">
+                                                <span class="mr-2">Theo nghiệp vụ(vnđ):</span>
+                                                <span class="mr-2">Tiền bồi thường: <span class="tinhToanNVTienBoiThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Miễn thường: <span class="tinhToanNVMienThuong" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">-</span>
+                                                <span class="mr-2">Giảm trừ khác: <span class="tinhToanNVGiamTruKhac" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Còn lại: <span class="tinhToanNVConLai" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">+</span>
+                                                <span class="mr-2">Tiền thuế: <span class="tinhToanNVTienThue" style="color:red; font-weight:bold;">0</span></span>
+                                                <span class="mr-2">=</span>
+                                                <span class="mr-2">Tổng cộng: <span class="tinhToanNVTongCong" style="color:red; font-weight:bold;">0</span></span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @*Hiển thị chi phí*@
+                    <div class="row mt-2 d-none" id="tinhTongChiPhiTong">
+                        <div class="col-12">
+                            <span style="font-weight:bold">Chi phí Tổng: </span>
+                            <span>
+                                <span class="mr-2" style="font-size:.7rem">Tổng bồi thường: <span id="tinhToanHSTongBoiThuong" style="color:red; font-weight:bold;">0</span></span>
+                                <span class="mr-2">-</span>
+                                <span class="mr-2" style="font-size:.7rem">Tổng miễn thường: <span id="tinhToanHSTongMienThuong" style="color:red; font-weight:bold;">0</span></span>
+                                <span class="mr-2">-</span>
+                                <span class="mr-2" style="font-size:.7rem">Tổng giảm trừ khác: <span id="tinhToanHSTongGiamTruKhac" style="color:red; font-weight:bold;">0</span></span>
+                                <span class="mr-2">=</span>
+                                <span class="mr-2" style="font-size:.7rem">Còn lại: <span id="tinhToanHSConLai" style="color:red; font-weight:bold;">0</span></span>
+                                <span class="mr-2">+</span>
+                                <span class="mr-2" style="font-size:.7rem">Tổng thuế: <span id="tinhToanHSTongThue" style="color:red; font-weight:bold;">0</span></span>
+                                <span class="mr-2">+</span>
+                                <span class="mr-2" style="font-size:.7rem">Chi phí khác: <span id="tinhToanHSChiPhiKhac" style="color:red; font-weight:bold;">0</span></span>
+                                <span class="mr-2">=</span>
+                                <span style="font-size:.7rem">Tổng cộng: <span id="tinhToanHSTongCong" style="color:red; font-weight:bold;">0</span></span>
+                            </span>
+                        </div>
+                    </div>
+                    <form name="frmDanhGiaDeXuat" method="post">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">
+                                        Nhận xét của bồi thường viên &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>
+                                            <a href="#" id="" onclick="chonNhanXet(this)">
+                                                <i class="fa fa-bars mr-2"></i>
+                                                Chọn nhận xét đã tạo
+                                            </a>
+                                        </span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>
+                                            <a href="#" id="btnThemNhanXet">
+                                                <i class="fas fa-plus-square mr-2"></i>
+                                                Tạo nhận xét
+                                            </a>
+                                        </span>
+                                    </label>
+                                    <textarea class="form-control" name="danh_gia" id="danh_gia" style="border: 1px solid #999;" required rows="4" placeholder="Nhận xét đánh giá của bồi thường viên"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">
+                                        Đề xuất của bồi thường viên&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#" id="" onclick="chonDeXuat(this)"><i class="fa fa-bars mr-2"></i>Chọn đề xuất đã tạo</a></span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#" id="btnThemDeXuat"><i class="fas fa-plus-square mr-2"></i>Tạo đề xuất</a></span>
+                                    </label>
+                                    <textarea class="form-control" name="de_xuat" id="de_xuat" style="border: 1px solid #999;" required rows="4" placeholder="Đề xuất giải quyết"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary btn-sm escs_pquyen float-right" id="btnCarCompensationContentStep4_luuVaTrinh">
+                                <i class="fas fa-save mr-2"></i>Lưu và trình bồi thường
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-80 escs_pquyen float-right mr-2" id="btnCarCompensationContentStep4_save">
+                                <i class="fas fa-save mr-2"></i>Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tạm ứng bồi thường -->
+            <div class="tab-pane px-0" id="CarCompensationContentStep4Tab5" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Danh sách yêu cầu tạm ứng</h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:280px">
+                            <!-- Danh sách yêu cầu tạm ứng -->
+                            <table class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th>PTTT</th>
+                                        <th>Tên đối tượng thụ hưởng</th>
+                                        <th>Số TK</th>
+                                        <th>Ngân hàng</th>
+                                        <th>Nội dung</th>
+                                        <th>Số tiền</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="step4_tam_ung"></tbody>
+                                <tfoot>
+                                    <tr class="text-left card-title-bg">
+                                        <td colspan="3" class="text-left">
+                                            @*<a href="#" class="mr-3" id="btnThemTamUng" title="Thêm yêu cầu tạm ứng">
+                                                    <i class="fas fa-plus-square mr-2"></i>Thêm yêu cầu tạm ứng
+                                                </a>
+                                                <a href="#" id="btnTrinhTamUng" title="Trình tạm ứng bồi thường">
+                                                    <i class="fas fa-share-square mr-2"></i>Trình tạm ứng bồi thường
+                                                </a>*@
+                                        </td>
+                                        <td class="font-weight-bold text-center" colspan="2">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="font-weight-bold text-right tam_ung_tong">
+                                        </td>
+                                        <td class="font-weight-bold">
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Thu đòi NT3 và thu hồi vật tư -->
+            <div class="tab-pane px-0" id="CarCompensationContentStep4Tab4" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Thu hồi vật tư</h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:280px">
+                            <table class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th>Kho thu hồi</th>
+                                        <th>Tên hạng mục, vật tư thu hồi</th>
+                                        <th style="width: 15%;">Số tiền thu hồi dự kiến</th>
+                                        <th style="width: 20%;">Ghi chú</th>
+                                        <th style="width: 4%;"></th>
+                                        <th style="width: 4%;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableThuHoiVatTu">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="text-left card-title-bg">
+                                        <td class="text-left">
+                                            <a href="#" class="mr-3" id="btnThemHangMucThuHoi" title="Thêm hạng mục cần thu hồi">
+                                                <i class="fas fa-plus-square mr-2"></i>Thêm hạng mục cần thu hồi
+                                            </a>
+
+                                            @*<a href="#" id="btnTrinhHangMucThuHoi" title="Trình danh sách hạng mục cần thu hồi">
+                                                    <i class="fas fa-share-square mr-2"></i>Trình hạng mục thu hồi
+                                                </a>*@
+                                        </td>
+                                        <td></td>
+                                        <td class="text-right font-weight-bold">
+                                            <span id="tongTienVatTuThuHoiDuKien">0</span>
+                                        </td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-12">
+                        <h5>Danh sách thu đòi người thứ 3</h5>
+                    </div>
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height: 280px">
+                            <table class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th>Tên</th>
+                                        <th>Điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th style="width: 15%;">Số tiền dự kiến</th>
+                                        <th style="width: 20%;">Ghi chú</th>
+                                        <th style="width: 4%;"></th>
+                                        <th style="width: 4%;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableDanhSachThuDoiNTBA">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="text-left card-title-bg">
+                                        <td colspan="3" class="text-left">
+                                            <a href="#" class="mr-3" id="btnThemNguoiThuDoi" title="Thêm danh sách">
+                                                <i class="fas fa-plus-square mr-2"></i>Thêm danh sách
+                                            </a>
+                                            @*<a href="#" id="btnTrinhNguoiThuDoi" title="Trình danh sách thu đòi người thứ 3">
+                                                    <i class="fas fa-share-square mr-2"></i>Trình thu đòi người thứ 3
+                                                </a>*@
+                                        </td>
+                                        <td class="font-weight-bold text-right">
+                                            <span id="tongTienThuDoiNTBADuKien">0</span>
+                                        </td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Ho So Giay To -->
+            <div class="tab-pane px-0" id="CarCompensationContentStep4Tab3" role="tabpanel" aria-labelledby="messages-tab" style="height:63vh">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height: 380px;">
+                            <table class="table table-bordered fixed-header">
+                                @*table-striped*@
+                                <thead class="font-weight-bold text-center uppercase">
+                                    <tr class="text-center uppercase">
+                                        <th>Tên giấy tờ</th>
+                                        <th>Đối tượng</th>
+                                        <th>Ngày cung cấp</th>
+                                        <th>Hợp lệ</th>
+                                        <th>Loại</th>
+                                        <th>YC bổ sung</th>
+                                        <th>Gara thu hộ</th>
+                                        <th>Ghi chú</th>
+                                        <th>Người sử dụng</th>
+                                        <th>Nguồn PS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="CarCompensationContentStep4HoSoGiayTo"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button type="button" class="btn btn-primary btn-sm wd-80" id="btnLuuYeuCauBsGiayTo">
+                            <i class="fa fa-save mr-2"></i>Lưu
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-12">
+                        <table class="table" id="Step1YKien">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Đánh giá tổn thất -->
+            <div class="tab-pane px-0" id="tabDGTTChecklist" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card mb-0 modal-main-content">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive" style="max-height:414px">
+                                <table id="tableHoSoGiayToLoi" class="table table-bordered fixed-header">
+                                    <thead class="font-weight-bold text-center uppercase">
+                                        <tr>
+                                            <th width="40%">Tên lỗi</th>
+                                            <th width="15%">Kiểm tra tự động</th>
+                                            <th width="20%">Người sử dụng kiểm tra</th>
+                                            <th width="20%">Người sử dụng</th>
+                                            <th width="15%">Lỗi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyHoSoGiayToLoi">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary btn-sm wd-80 escs_pquyen" id="luuKiemTraGiayTo">
+                                <i class="fa fa-save mr-2"></i>Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tab-navigator" style="width: 70vw; float: left; right: unset">
+    <div class="col-12 mg-t-10">
+        <a href="#" class="btnXemQRCode mr-2">
+            <i class="fa fa-qrcode mr-1"></i>Xem QRCode
+        </a>
+        <a href="#" class="mr-2 step4btn escs_pquyen" id="btnCarCompensationContentStep4_print">
+            <i class="fas fa-print mr-1"></i>In ấn
+        </a>
+        <a href="#" class="mr-2 escs_pquyen" id="btnGuiMailBBGDB8">
+            <i class="fas fa-envelope mr-1"></i>Gửi email
+        </a>
+        <a href="#" class="step4btn mr-2" id="btnXinYKienDUYETBT">
+            <i class="fas fa-comment-medical mr-1"></i>Xin ý kiến
+        </a>
+        <a href="#" class="step4btn escs_pquyen mr-2" id="btnCarCompensationContentStep4_FwdApproval">
+            <i class="fas fa-share-square mr-1"></i>Trình bồi thường
+        </a>
+        <a href="#" class="step4btn mr-2" id="btnTrinhTuChoiBTStep4">
+            <i class="fas fa-share-square mr-1"></i>Trình từ chối BT
+        </a>
+    </div>
+</div>

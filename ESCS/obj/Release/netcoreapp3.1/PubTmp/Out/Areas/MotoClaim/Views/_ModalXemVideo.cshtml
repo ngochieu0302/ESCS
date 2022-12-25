@@ -1,0 +1,79 @@
+﻿<div class="modal fade" id="modalVideo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="min-width:75vw;">
+        <div class="modal-content  overflow-hidden">
+            <div class="modal-header p-2">
+                <h5 class="modal-title">Xem video</h5>
+                <div class="btn-group float-right" style="margin:0 auto">
+                    <a class="btn btn-light rounded py-0" style="font-weight:bold" onclick="captureVideo()">
+                        <span style="font-size:13px; color:#009efb"><i class="fas fa-camera-retro"></i> Chụp ảnh video</span>
+                    </a>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" style="margin:-1rem -1rem -1rem 0px !important" aria-label="Close" id="modalVideoClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-2 d-flex flex-nowrap bg-light" style="gap:0.5rem;">
+                <div class="d-flex flex-column">
+                    <div class="flex-fill card border mb-0" style="min-width:250px;max-width:300px;height:0">
+                        <div class="card-body p-2 d-flex flex-column" style="gap:0.5rem;">
+                            <div class="flex-fill overflow-auto" style="height:0" id="modalVideoDanhSach">
+                            </div>
+                            <div class="d-flex flex-nowrap" style="gap:0.5rem;">
+                                <button class="btn btn-sm btn-primary flex-fill" id="modalVideoSuaTen" onclick="showNhapTen(this)" title="Sửa tên"><i class="fas fa-edit"></i> Sửa tên</button>
+                                <button class="btn btn-sm btn-primary flex-fill" id="modalVideoUpload" title="Upload video"><i class="fas fa-upload"></i> Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-fill card border mb-0">
+                    <div class="card-body p-2">
+                        <div class="videoContent">
+                            <video controls autoplay style="width:100%" id="modalVideoView" src=""></video>
+                            <form name="frmModalVideoUpload" method="post">
+                                <input style="display:none" id="inputModalVideoUpload" accept="video/mp4,video/x-m4v,video/*" type="file" name="file" value="" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modalVideoCapture {
+        width: 300px;
+        height: 200px;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        z-index: 999999;
+        border-radius: 10px;
+        box-shadow: 10px 10px 10px -10px;
+        border: 1px solid #e9ecef !important;
+    }
+    #canvasVideo {
+        border-radius: 10px;
+        overflow: auto;
+        width: 100%;
+        height: 200px
+    }
+    .modalVideoCaptureClose {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+</style>
+<div class="modalVideoCapture d-none">
+    <a href="#" class="modalVideoCaptureClose" onclick="closeCaptureVideo()"><i class="fas fa-times"></i></a>
+    <canvas id="canvasVideo"></canvas>
+</div>
+<script type="text/html" id="modalVideoDanhSachTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) {
+    if(index == 0){%>
+    <a class="nav-link rounded videoLink active" href="javascript:void(0);" data-bt="<%- item.bt %>" onclick="xemVideoHs('<%- item.bt %>')"><%- item.ten %></a>
+    <%} else {%>
+    <a class="nav-link rounded videoLink" href="javascript:void(0);" data-bt="<%- item.bt %>" onclick="xemVideoHs('<%- item.bt %>')"><%- item.ten %></a>
+    <%}})}%>
+</script>

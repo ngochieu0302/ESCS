@@ -1,0 +1,51 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@using RazorEngine.Text;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>THÔNG BÁO KHÁCH HÀNG ĐÃ BỔ SUNG CHỨNG TỪ ONLINE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body style="font-family: 'Tahoma';line-height: 1.6;font-size:14px;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:6px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center; font-family: 'Tahoma'">THÔNG BÁO KHÁCH HÀNG ĐÃ BỔ SUNG CHỨNG TỪ ONLINE</h3>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Kính gửi: <span style="color: #035299">Bộ phận bồi thường</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    Hệ thống thông báo khách hàng đã bổ sung hồ sơ chứng từ online số hồ sơ: <span style="color: #035299">@mail.so_hs</span>
+                </p>
+                <div style="margin-left: 10px;">
+                    <p>Tên khách hàng: @mail.ten_khach</p>
+                    <p>Số điện thoại: @mail.dthoai_lhe</p>
+                    <p>Email liên hệ: @mail.email_lhe</p>
+                </div>
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    <b>Các loại giấy tờ:</b>
+                </p>
+                <div style="margin-left: 10px;">
+                    @(new RawString(mail.giay_to))
+                </div>
+                <p style="font-family: 'Tahoma'; font-size: 14px;">
+                    <b>Ý kiến khách hàng:</b>
+                </p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: red">
+                    <i>@mail.y_kien</i>
+                </p>
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Đề nghị bộ phận bồi thường thực hiện các bước tiếp theo theo quy định.</p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,76 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+    string ma_mau = "#035299";
+    if (@mail.ma_doi_tac == "ATACC")
+    {
+        ma_mau = "#e002ac";
+        mail.email_cb = "baolanhvienphi@atacc.com.vn";
+    }
+}
+<html>
+<head>
+    <title>THÔNG BÁO XÁC NHẬN BẢO LÃNH VIỆN PHÍ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+    <div style="border: 1px solid #035299; border-radius: 5px; background-color: azure; font-family: 'Tahoma'; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <div style="margin-top:20px;">
+                <img style="width:170px" src="@mail.logo_email" alt="Logo" />
+            </div>
+            <h3 style="color: @ma_mau; text-align: center;">
+                THÔNG BÁO ĐÃ XÁC NHẬN BẢO LÃNH VIỆN PHÍ
+                <br>Số hồ sơ: @mail.so_hs
+            </h3>
+
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">
+                    Kính gửi: <span style="color: @ma_mau;">@mail.ten_bv</span>
+                </p>
+                <p style="margin: 8px 0px;">
+                    Đồng kính gửi Quý khách hàng:
+                    <span style="color: @ma_mau;">@mail.nguoi_lh</span>
+                </p>
+                <p style="margin: 8px 0px;">@mail.ten_cong_ty là đơn vị giải quyết quyền lợi bảo hiểm của Bảo hiểm @mail.ma_doi_tac_ql xin trân trọng thông báo: </p>
+
+                <p style="margin: 8px 0px;">
+                    Ngày @mail.ngay_ht,
+                    @mail.ten_cong_ty_tat đã nhận được hồ sơ yêu cầu bảo lãnh viện phí (BLVP) của bệnh nhân <span style="color: @ma_mau;">@mail.ten_nguoi_duoc_bh</span> có tham gia chương trình <span style="color: @ma_mau;">@mail.ten_goi_bh</span> của @mail.ma_doi_tac_ql.
+                </p>
+
+                <p style="margin: 8px 0px;">Sau khi xem xét hồ sơ, @mail.ten_cong_ty_tat xin gửi xác nhận BLVP đối với hồ sơ <span style="color: @ma_mau;">@mail.so_hs</span> với số tiền bằng @mail.so_tien_duyet chi tiết vui lòng tham khảo file đính kèm.</p>
+
+                <p style="margin: 8px 0px; text-decoration: underline; font-weight: bold;">Lưu ý:</p>
+                <p style="margin: 8px 0px;">Khi có thay đổi bất cứ thông tin nào, đề nghị <span style="color: @ma_mau;">(CSYT)</span> thông báo ngay cho @mail.ten_cong_ty_tat biết để xem xét và xác nhận lại nội dung bảo lãnh viện phí.</p>
+
+                <p style="margin: 8px 0px;">
+                    Để tra cứu tình trạng hồ sơ và quá trình giải quyết, Quý khách <span color="@ma_mau;">@mail.nguoi_lh</span> vui lòng dùng ứng dụng @mail.ten_cong_ty_tat trên mobile để tra cứu.
+                </p>
+
+                <p style="margin: 8px 0px;">Mọi vướng mắc vui lòng liên hệ Hotline: <b>@mail.d_thoai_dt</b></p>
+
+                <p>
+                    @mail.ten_cong_ty_tat là đơn vị cầu tiến, ước mong ngày càng mang lại trải nghiệm tốt nhất cho khách hàng, chúng tôi mong muốn được lắng nghe những đóng góp quý báu của Quý khách về chất lượng dịch vụ bảo lãnh viện phí của @mail.ten_cong_ty_tat.
+                    @*Quý khách vui lòng đánh giá *****<span style="color:red">(nếu từ 1-3 sao hỏi lý do)</span>*@
+                </p>
+
+                <p style="margin: 8px 0px; font-weight: bold; color: @ma_mau;;">Trân trọng Cảm ơn!</p>
+
+                <p style="color: @ma_mau;; margin: 8px 0px;"><span>@mail.ten_cong_ty</span></p>
+
+                <ul style="line-height: 20px; margin: 8px 0px;">
+                    <li>Địa chỉ: <span style="color: @ma_mau;">@mail.dchi_dt</span></li>
+                    <li>Số điện thoại: <span style="color: @ma_mau;">@mail.d_thoai_dt</span></li>
+                    <li>Tên cán bộ: <span style="color: @ma_mau;">@mail.ten_cb</span></li>
+                    <li>Email: <span style="color: @ma_mau;">@mail.email_cb</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<div id="modalLheCSYT" class="modal-drag" style="width:280px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn cán bộ</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_LheCSYT" type="text" placeholder="Tìm kiếm thông tin" class="form-control">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalLheCSYTDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnChonLheCSYT">
+            <i class="fas fa-save mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalLheCSYTDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox ds_tt_lhe_csyt" id="ds_tt_lhe_csyt_<%- item.bt %>" data-text="<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="lhe_csyt_<%- item.bt %>" value="<%- item.bt %>" class="custom-control-input modalLheCSYTItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="lhe_csyt_<%- item.bt %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

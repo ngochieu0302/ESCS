@@ -1,0 +1,62 @@
+﻿<div class="custom-modal">
+    <div id="modalCapNhatThue" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;width:640px;top: 2%; left: 33%;">
+            <div class="modal-dialog " style="width:100%;max-width:unset">
+                <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                    <div class="modal-header py-1 px-2" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                        <h5 class="modal-title" style="color:#fff">Cập nhật tiền thuế</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body p-2">
+                        <form name="frmCapNhatThue" style="width:100%" method="post">
+                            <div class="row">
+                                <input type="hidden" name="so_id" value="" />
+                                <input type="hidden" name="nv" value="XE" />
+                                <input type="hidden" name="hanh_dong" value="K" />
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="_required">Số tiền bồi thường</label>
+                                        <input type="text" name="so_tien" class="form-control number" readonly="readonly" autocomplete="off" placeholder="Số tiền trước thuế" value="0" />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="_required">Tiền thuế khắc phục</label>
+                                        <input type="text" name="tien_thue" class="form-control number" autocomplete="off" placeholder="Số tiền thuế" value="0" />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="_required">Tiền thuế cẩu/kéo/khác</label>
+                                        <input type="text" name="tien_thue_cp_khac" class="form-control number" autocomplete="off" placeholder="Tiền thuế cẩu/kéo/khác" value="0" />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="_required">Tổng tiền</label>
+                                        <input type="text" name="tong_cong" class="form-control number" readonly="readonly" autocomplete="off" placeholder="Tổng tiền" value="0" />
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-2 mb-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="gen_file" id="frmCapNhatThueGenFileBT" class="custom-control-input">
+                                        <label class="custom-control-label" for="frmCapNhatThueGenFileBT" style="cursor:pointer; padding-top:2px">Tự động sinh file thông báo bồi thường theo thuế mới</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer d-block p-1">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnLuuDongCapNhatThue">
+                            <i class="fas fa-hdd mr-2"></i> Lưu & đóng
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-80 float-right" data-dismiss="modal" aria-hidden="true">
+                            <i class="fas fa-window-close mr-1"></i> Đóng
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm float-left" id="btnLuuDongCapNhatThueThuHuong">
+                            <i class="fas fa-save mr-2"></i> Lưu đóng và cập nhật tiền thuế thụ hưởng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>

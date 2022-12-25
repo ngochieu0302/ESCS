@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/menu/save",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": "images/users/db67b90d9e1e4eb8982cef825d354e70.jpg",
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20221012143827
+  },
+  "Time": 20221012104722,
+  "Request": "{\"pm\":\"\",\"so_id\":\"\",\"nhom_quyen\":\"BCDT\",\"ma_doi_tac\":\"CTYBHABC\",\"nhom\":\"CLIENT\",\"so_id_cha\":\"\",\"url\":\"\",\"ten\":\"Báo cáo đối tác\",\"icon\":\"mdi mdi-format-list-bulleted\",\"stt\":\"9\",\"target\":\"\",\"hien_thi\":\"1\",\"__RequestVerificationToken\":\"\"}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{\"so_id\":20221012000001.0,\"stt\":9.0}}"
+}

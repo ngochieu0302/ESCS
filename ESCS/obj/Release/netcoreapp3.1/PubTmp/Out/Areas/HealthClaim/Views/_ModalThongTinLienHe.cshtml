@@ -1,0 +1,86 @@
+﻿<div id="modalThongTinNguoiLienHe" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h5 class="modal-title">Thông tin người liên hệ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-2">
+                <form name="frmThongTinNguoiLienHe" method="post">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Họ và tên</label>
+                                <input type="text" autocomplete="off" class="form-control" maxlength="100" name="nguoi_lh" placeholder="VD: Nguyễn Văn A">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Điện thoại</label>
+                                <input type="text" autocomplete="off" class="form-control phone" max-length="15" name="dthoai_nguoi_lh" placeholder="VD: 0972xxxxxx" im-insert="true">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="">Email</label>
+                                <input type="text" autocomplete="off" class="form-control email-inputmask" maxlength="100" name="email_nguoi_lh" placeholder="VD: mail@escs.vn;mail1@escs.vn">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm ml-2 wd-110" id="btnLuuDongThongTinNguoiLienHe">
+                    <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+                <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalThongTinNguoiThongBao" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h5 class="modal-title">Thông tin người thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-2">
+                <form name="frmThongTinNguoiThongBao" method="post">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Họ và tên</label>
+                                <input type="text" autocomplete="off" class="form-control" maxlength="100" name="nguoi_tb" placeholder="VD: Nguyễn Văn A">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Điện thoại</label>
+                                <input type="text" autocomplete="off" class="form-control phone" max-length="15" name="dthoai_nguoi_tb" placeholder="VD: 0972xxxxxx" im-insert="true">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="">Email</label>
+                                <input type="text" autocomplete="off" class="form-control email-inputmask" maxlength="100" name="email_nguoi_tb" placeholder="VD: mail@escs.vn;mail1@escs.vn">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm ml-2 wd-110" id="btnLuuDongThongTinNguoiThongBao">
+                    <i class="fas fa-hdd mr-2"></i>Lưu & đóng
+                </button>
+                <button class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

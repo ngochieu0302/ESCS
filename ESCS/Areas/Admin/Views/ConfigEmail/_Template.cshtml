@@ -1,0 +1,41 @@
+﻿<script type="text/html" id="bodyDanhSachDoiTacQLTemplate">
+    <% _.forEach(data, function(item, index) { %>
+    <tr class="bodyDanhSachDoiTacQLItem">
+        <td>
+            <input type="hidden" data-field="ten_doi_tac_ql" value="<%- item.ten_doi_tac_ql %>" />
+            <a href="#" data-field="ma_doi_tac_ql" data-val="<%- item.ma_doi_tac_ql %>">
+                <%- item.ten_doi_tac_ql %>
+            </a>
+        </td>
+        <td style="font-weight: bold" class="text-right">
+            <input type="text" data-field="email_gui" class="floating-input" value="<%- item.email_gui %>" />
+        </td>
+        <td>
+            <a href="#" onclick="xoaEmailDoiTacQL(this)">
+                <i class="fas fa-trash-alt" title="Xóa đối tác quản lý"></i>
+            </a>
+        </td>
+    </tr>
+    <% }) %>
+    <% if(data.length < 3){ %>
+    <% for(var i = 0; i < 3 - data.length; i++ ){ %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% } %>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalDoiTacQLDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox dsdtql" id="dsdtql_<%- item.ma %>" data-text="<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="doi_tac_ql_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonDoiTacQLItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="doi_tac_ql_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

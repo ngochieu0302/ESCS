@@ -1,0 +1,61 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO DUYỆT HỒ SƠ/HỢP ĐỒNG</title>
+    <style>
+		body{
+			font-family: 'Times New Roman', Times, serif;
+		}
+    </style>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <div class="col-md-12 col-sm-12">
+        <div class="col-md-12 col-sm-12">
+            <p class="name-header" style="text-align: center; font-size: 22px; font-weight: bold; color: #436aa8;">THÔNG BÁO DUYỆT HỒ SƠ/HỢP ĐỒNG</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="text_info" style="margin-left: 10px; font-size: 16px;">
+            <p class="text_Dear" style="color: #273aa6; font-weight: bold">
+                Kính gửi :
+                <span class="text_gara" style="color: #4552a2 !important; font-weight: 500 !important;">Quý khách hàng / Giám định viên</span>
+            </p>
+            <p>Hệ thống xin thông báo số hơ sơ/hợp đồng trình trên phân cấp <span class="name_body" style="color: #4552a2">@mail.so_hs</span> đã được duyệt bởi cán bộ <span class="name_body">@mail.ten_cb</span></p>
+            <p>Xin thông báo tới anh/chị biết để vào phần mềm, tiếp tục giải quyết hồ sơ/hợp đồng theo quy định.</p>
+        </div>
+
+        <div class="container">
+            <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">Trân Trọng,</p>
+            <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">@mail.ten_cty_tat</p>
+            <div class="text_footer" style="margin-left: 10px; background-color: #035299">
+                <p class="font_while" style="color: white">@mail.ten_cty</p>
+                <p class="font_while" style="color: white">
+                    Địa chỉ : @mail.dia_chi_cty
+                </p>
+                <p class="font_while" style="color: white">Website: @mail.website_cty</p>
+            </div>
+        </div>
+        @*<div class="container">
+            <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">Trân Trọng,</p>
+            <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">ESmartClaimSolution (ESCS)</p>
+            <img src="#" alt=" ảnh" />
+            <div class="text_footer" style="margin-left: 10px; background-color: #035299;">
+                <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">Công ty cổ phần giải pháp công nghệ ESmartClaimSolution (ESCS)</p>
+                <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">
+                    Địa chỉ : Trụ sở chính: Số 15, Ngách 267/2/33 Hoàng Hoa Thám, Phường Liễu Giai,
+                    quận Ba Đình, Thành Phố Hà Nội, Việt Nam
+                </p>
+                <p class="text_end" style="margin-left: 10px; font-weight: bold; color: #035299">Website: ESCS.VN</p>
+            </div>
+        </div>*@
+    </div>
+</body>
+</html>

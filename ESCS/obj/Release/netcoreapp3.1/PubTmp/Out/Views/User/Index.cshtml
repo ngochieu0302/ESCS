@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid" id="userInfo">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Multiple Select</label>
+                        <select id="select-checkedbox-data" multiple></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Tên người dùng</label>
+                            <p class="form-control-static" data-model="ten"></p>
+                            <p class="form-control-static" data-model="ten"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Ngày sinh</label>
+                            <p class="form-control-static" data-model="ngay_sinh_text"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Ngày sinh số</label>
+                            <p class="form-control-static" data-model="ngay_sinh" data-format="date"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Tiền tệ</label>
+                            <p class="form-control-static" data-model="ngay_sinh" data-format="${money} VNĐ"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="disabledTextInput">Nội dung</label>
+                            <p class="form-control-static" data-model="noi_dung" data-format="${value} ESCS"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Đối tác</label>
+                            <input type="text" readonly="readonly" style="cursor:pointer" class="form-control text-select" value="Click để chọn" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary" onclick="popupCenter({url: '/CarClaim/CarInvestigation/XemFilePDF', title: 'xtf', w: 900, h: 650});">Xem File PDF</button>
+            <button type="button" class="btn btn-primary" id="btnXem">Xem File Excel</button>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        
+        var option = {
+            group_name: "mien_ten",
+            dispay_name: "ten",
+            value_name: "ma",
+            z_index: 9999999,
+            width_box: 250,
+            height_box: 500,
+            placeholder: "Click để chọn",
+            title: "Chọn hạng mục tổn thất",
+            onChecked: function (arr) {
+                console.log(arr);
+            }
+        };
+        var _selectCheckBoxService = new SelectCheckBoxService("select-checkedbox-data", option);
+        $(document).ready(function () {
+            _selectCheckBoxService.setDataSource([
+                { ma: "HN", ten: "Hà Nội", mien: "MB", mien_ten: "Miền Bắc" },
+                { ma: "TP.HCM", ten: "TP. Hồ Chí Minh", mien: "MN", mien_ten: "Miền Nam" },
+                { ma: "DN", ten: "Đà Nẵng", mien: "MT", mien_ten: "Miền Trung" },
+                { ma: "HG", ten: "Hà Giang", mien: "MB", mien_ten: "Miền Bắc" },
+                { ma: "HUE", ten: "Huế", mien: "MT", mien_ten: "Miền Trung" },
+                { ma: "BD", ten: "Bình Dương", mien: "MN", mien_ten: "Miền Nam" },
+                { ma: "VP", ten: "Vĩnh Phúc", mien: "MB", mien_ten: "Miền Bắc" },
+            ]);
+        });
+    </script>
+}
+

@@ -1,0 +1,156 @@
+﻿@*Danh sách bệnh lý*@
+<script type="text/html" id="dsBenhLyTemplate">
+    <% _.forEach(ds_benh_ly, function(item, index) { %>
+    <div class="custom-control custom-checkbox" data-text="<%- item.ten_tim %>">
+        <input type="checkbox" onchange="chonBenhLy(this)" id="ma_benh_<%- item.ma.replace(/\./g, '') %>" value="<%- item.ma %>" class="custom-control-input item-benh">
+        <label class="custom-control-label" for="ma_benh_<%- item.ma.replace(/\./g, '') %>"><%- item.ten_v %></label>
+    </div>
+    <%})%>
+</script>
+
+@*Danh sách mã bệnh - chi phí*@
+
+<script type="text/html" id="tableBenhLy_template">
+    <% var stt = 1 %>
+    <tr row-val="<%- stt %>">
+        <td><input type="text" name="ma" maxlength="50" class="floating-input" readonly value="<%- data.ma %>" style="text-align:center;" /></td>
+        <td><input type="text" name="ten" maxlength="250" class="floating-input" readonly value="<%- data.ten %>" style="text-align:left;" /></td>
+        <td><input type="text" name="loai" maxlength="20" class="floating-input" readonly value="<%- data.loai %>" style="text-align: center;" /></td>
+        <td><input type="text" name="dvi_tinh" maxlength="20" class="floating-input" readonly value="<%- data.dvi_tinh %>" style="text-align: center;" /></td>
+        <td><input type="number" name="gia_tham_khao" max="18" class="number floating-input" readonly value="<%- data.gia_tham_khao %>" style="text-align:right;" /></td>
+    </tr>
+</script>
+
+
+<script type="text/html" id="tbDsChiPhiKhamBenhTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <% if(item.ten_ct == null || item.ten_ct == ''){ %>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="<%- item.ma_ct %>" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="<%- item.ten_ct %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>" onclick="chonCPKB(this)" title="click chọn mã chi phí khám bệnh"><%- item.ten %></a>
+        </td>
+        <% }else{ %>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="<%- item.ma_ct %>" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="<%- item.ten_ct %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>" onclick="chonCPKB(this)" title="click chọn mã chi phí khám bệnh"><%- item.ten_ct %> / <%- item.ten %></a>
+        </td>
+        <% } %>
+        
+        <td class="text-right">
+            <input type="text" data-field="gia_tham_khao" name="gia_tham_khao" autocomplete="off" class="floating-input number" value="<%- ESUtil.formatMoney(item.gia_tham_khao) %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaChiPhi(this)"></i>
+        </td>
+    </tr>
+    <% })} else{ %>
+    <tr>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="" />
+            <a href="#" data-field="ten" data-val="" onclick="chonCPKB(this)" title="click chọn mã chi phí khám bệnh">Chọn chi phí khám bệnh</a>
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="gia_tham_khao" name="gia_tham_khao" autocomplete="off" class="floating-input number" value="0" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaChiPhi(this)"></i>
+        </td>
+    </tr>
+    <%}%>
+</script>
+
+<script type="text/html" id="tbDsChiPhiThuocTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <% if(item.ten_ct == null || item.ten_ct == ''){ %>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="<%- item.ma_ct %>" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="<%- item.ten_ct %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>" onclick="chonLoaiThuoc(this)" title="click chọn loại thuốc"><%- item.ten %></a>
+        </td>
+        <% }else{ %>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="<%- item.ma_ct %>" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="<%- item.ten_ct %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>" onclick="chonLoaiThuoc(this)" title="click chọn loại thuốc"><%- item.ten_ct %> / <%- item.ten %></a>
+        </td>
+        <% } %>
+        <td class="text-right">
+            <input type="text" data-field="gia_tham_khao" name="gia_tham_khao" autocomplete="off" class="floating-input number" value="<%- ESUtil.formatMoney(item.gia_tham_khao) %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaChiPhi(this)"></i>
+        </td>
+    </tr>
+    <% })} else{ %>
+    <tr>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" data-val="" name="ma" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="" />
+            <a href="#" data-field="ten" data-val="" onclick="chonLoaiThuoc(this)" title="click chọn loại thuốc">Chọn chi phí thuốc</a>
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="gia_tham_khao" name="gia_tham_khao" autocomplete="off" class="floating-input number" value="0" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaChiPhi(this)"></i>
+        </td>
+    </tr>
+    <%}%>
+</script>
+
+<script type="text/html" id="tbDsCPKTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <% if(item.ten_ct == null || item.ten_ct == ''){ %>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="<%- item.ma_ct %>" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="<%- item.ten_ct %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>" onclick="chonCPK(this)" title="click chọn chi phí khác"><%- item.ten %></a>
+        </td>
+        <% }else{ %>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="<%- item.ma_ct %>" />
+            <input type="hidden" data-field="ten_ct" name="ten_ct" data-val="<%- item.ten_ct %>" />
+            <a href="#" data-field="ten" data-val="<%- item.ten %>" onclick="chonCPK(this)" title="click chọn chi phí khác"><%- item.ten_ct %> / <%- item.ten %></a>
+        </td>
+        <% } %>
+        <td class="text-right">
+            <input type="text" data-field="gia_tham_khao" name="gia_tham_khao" autocomplete="off" class="floating-input number" value="<%- ESUtil.formatMoney(item.gia_tham_khao) %>" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaChiPhi(this)"></i>
+        </td>
+    </tr>
+    <% })} else{ %>
+    <tr>
+        <td class="text-center" style="vertical-align:inherit">
+            <input type="hidden" data-field="ma" data-val="" name="ma" />
+            <input type="hidden" data-field="ma_ct" name="ma_ct" data-val="" />
+            <input type="hidden" data-field="ten_ct" data-val="" name="ten_ct" />
+            <a href="#" data-field="ten" data-val="" onclick="chonCPK(this)" title="click chọn chi phí khác">Chọn chi phí khác</a>
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="gia_tham_khao" name="gia_tham_khao" autocomplete="off" class="floating-input number" value="0" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaChiPhi(this)"></i>
+        </td>
+    </tr>
+    <%}%>
+</script>

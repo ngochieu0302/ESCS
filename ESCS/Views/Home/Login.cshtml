@@ -1,0 +1,124 @@
+﻿@model ESCS.COMMON.Auth.user_login_escs
+@using ESCS.MODEL.ESCS
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutLogin";
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat?.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var logo_login = "images/logo-icon.png";///images/cai_dat/logo_dang_nhap.png
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var cai_dat_logo = setting.cai_dat.Where(n => n.loai == "LOGO_DANG_NHAP").FirstOrDefault();
+        logo_login = cai_dat_logo != null && !string.IsNullOrEmpty(cai_dat_logo.url_anh) ? cai_dat_logo.url_anh : logo_login;
+    }
+}
+<input type="hidden" name="escs_domain" value="@ViewBag.domain" />
+<div class="main-wrapper" id="dang-nhap-escs" style="overflow-x: hidden;">
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background: url(../images/login-background.jpg) no-repeat center center; background-size: cover;">
+        <div class="px-2 py-4">
+            <div class="row p-3">
+                <div class="col-12 mx-auto login-form-wrapper">
+                    <div id="loginform" style="width:326px">
+                        <div class="logo text-center">
+                            <!--<h3 class="box-title mb-3 uppercase">Đăng nhập</h3>-->
+                            <b class="logo-icon">
+                                <img src="/@logo_login" alt="homepage" id="loginpage-logo" class="light-logo img-fluid" style="width: 200px" />
+                            </b>
+                        </div>
+                        <!-- Form -->
+                        <div class="row">
+                            <div class="col-12">
+                                <form asp-action="Login" method="post" class="form-horizontal mt-3 form-material" id="loginform">
+                                    @*<input type="hidden" asp-for="backlink" value="@TempData["_backlink"]" />*@
+                                    @if (Model != null && Model.backlink != "" && Model.backlink != null)
+                                    {
+                                        <input type="hidden" asp-for="backlink" value="@Model.backlink" />
+                                    }
+                                    else
+                                    {
+                                        <input type="hidden" asp-for="backlink" value="@TempData["_backlink"]" />
+                                    }
+                                    <div class="form-group mb-3">
+                                        <div class="">
+                                            <input asp-for="username" class="form-control" placeholder="Tên đăng nhập/Email" />
+                                            <span asp-validation-for="username" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <div class="">
+                                            <input asp-for="password" class="form-control" placeholder="Mật khẩu" />
+                                            <span asp-validation-for="password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3 row">
+                                        <div class="col-6">
+                                            <img id="img-captcha" src="@Url.Action("Captcha", "Home")" style="width:100%;margin-top:5px;" />
+                                        </div>
+                                        <div class="col-6">
+                                            <input asp-for="captcha" autocomplete="off" class="form-control" placeholder="Captcha" />
+                                        </div>
+                                        <div class="col-12">
+                                            <span asp-validation-for="captcha" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="d-flex">
+                                            <div class="ml-auto">
+                                                <a href="javascript:void(0)" id="to-recover" class="text-muted">
+                                                    <i class="fa fa-lock mr-1"></i> Quên mật khẩu
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-center mt-4">
+                                        <div class="col-xs-12">
+                                            <button class="btn btn-info btn-md btn-block text-uppercase waves-effect waves-light" type="submit">Đăng nhập</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="recoverform">
+                        <div class="logo">
+                            <h3 class="font-weight-medium mb-3">Khôi phục mật khẩu</h3>
+                            <span class="text-muted">Nhập tài khoản và hướng dẫn khôi phục mật khẩu sẽ được gửi vào email của bạn</span>
+                            <p><a href="#" id="back-login"><u>Trở lại đăng nhập</u></a></p>
+                        </div>
+                        <div class="row mt-3 form-material">
+                            <partial name="_RecoverPassForm.cshtml" />
+                        </div>
+                    </div>
+                    <div id="recoverformSuccess">
+                        <div class="logo">
+                            <h3 class="font-weight-medium mb-3">Khôi phục mật khẩu</h3>
+                            <span class="text-muted">Hệ thống đã gửi hướng dẫn khôi phục mật khẩu vào tài khoản email của bạn. Vui lòng kiểm tra email.</span>
+                            <p><a href="#" id="back-login-success"><u>Trở lại đăng nhập</u></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/libs/toastr/build/toastr.min.js"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js"></script>
+    <script src="~/js/common/ESUtil.js"></script>
+    <script src="~/js/common/ESLoading.js"></script>
+    <script src="~/js/common/NotifyService.js"></script>
+    <script src="~/js/common/Service.js"></script>
+    <script src="~/js/common/ButtonService.js"></script>
+    <script src="~/js/common/LoginPage.js"></script>
+}
+<style>
+    #dang-nhap-escs .login-form-wrapper {
+        padding: 30px 20px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 10px rgb(51 51 51 / 20%);
+    }
+</style>

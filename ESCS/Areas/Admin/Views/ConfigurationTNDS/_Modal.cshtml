@@ -1,0 +1,35 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div id="popoverMaCapTren" class="popover popover-x popover-default" style="display:none; max-width:unset;width:650px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span id="btnClosePopover" class="close pull-right" data-dismiss="popover-x">&times;</span>Tra mã cấp trên
+    </h3>
+    <div class="popover-body popover-content">
+        <div style="width:100%; margin-bottom:10px;">
+            <div class="input-group">
+                <input type="text" class="form-control" id="inputTimKiemMaCapTren" placeholder="Tìm kiếm mã cấp trên" value="" />
+                <input type="hidden" id="inputTimKiemMaCapTren_ma" />
+
+                <div class="input-group-append">
+                    <label class="input-group-text">
+                        <a href="javascript:void(0)" onclick="getPagingMaCapTren(1)">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="dsMaCapTren" class="scrollable" style="max-height:450px">
+
+        </div>
+        <div id="dsMaCapTren_pagination"></div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" id="btnLuuMaCapTren">
+            <i class="fa fa-save mr-2"></i>Lưu
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal" id="btnDongMaCapTren">
+            <i class="fa fa-save mr-2"></i>Đóng
+        </button>
+    </div>
+</div>

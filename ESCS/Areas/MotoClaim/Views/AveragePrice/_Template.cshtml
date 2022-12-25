@@ -1,0 +1,60 @@
+﻿<script type="text/html" id="templateThongTinDsHoSo">
+    <div class="col-sm-12">
+        <table class="table">
+            <tr>
+                <td>Đơn vị</td>
+                <td colspan="5">
+                    <b style="font-weight:bold;"><%- ten_doi_tac %></b>
+                </td>
+            </tr>
+            <tr>
+                <td>Hạng mục</td>
+                <td>
+                    <%- ten_hang_muc_hthi %>
+                </td>
+                <td>Mức độ</td>
+                <td>
+                    <%- muc_do_ten %>
+                </td>
+                <td>Hãng xe</td>
+                <td>
+                    <%- hang_xe %>
+                </td>
+            </tr>
+            <tr>
+                <td>Hiệu xe</td>
+                <td>
+                    <%- hieu_xe %>
+                </td>
+                <td>Tỉnh thành</td>
+                <td>
+                    <%- tinh_thanh_ten %>
+                </td>
+                <td>Quận huyện</td>
+                <td>
+                    <%- quan_huyen_ten %>
+                </td>
+            </tr>
+            <tr>
+                <td>Thay thế sửa chữa</td>
+                <td>
+                    <%- thay_the_sc_hthi %>
+                </td>
+                <td>Chính hãng</td>
+                <td>
+                    <%- chinh_hang_hthi %>
+                </td>
+                <td>Giá trung bình</td>
+                <td>
+                    <%- ESUtil.formatMoney(tien) %> VNĐ
+                </td>
+            </tr>
+            <tr>
+                <td>Gara</td>
+                <td colspan="5">
+                    <%- ten_gara %>
+                </td>
+            </tr>
+        </table>
+    </div>
+</script>

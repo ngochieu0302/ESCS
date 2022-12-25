@@ -1,0 +1,97 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Preview Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<input type="hidden" id="notify_info" value="@TempData[ESCS.COMMON.Contants.ESCSConstants.NOTIFY_INFO]" />
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12 col-md-12 pd-3">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px;">
+                    <form name="frmTimKiemHoSo" method="post">
+                        <div class="row">
+                            <div class="col col-3">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Mẫu email</label>
+                                    <select class="select2 form-control custom-select" name="mau_email" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-3">
+                                <div class="form-group">
+                                    <label for="ma_doi_tac">Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width:100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-2">
+                                <div class="form-group">
+                                    <label for="">Số id</label>
+                                    <input type="text" class="form-control" autocomplete="off" name="so_id" placeholder="Số id">
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="padding-top: 21px;">
+                                <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnXemMail">
+                                    <i class="fa fa-search"></i> Xem
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:3px;">
+                            <div class="col-12">
+                                <textarea id="frmSendEmailCommon_noi_dung" name="noi_dung" required rows="3" placeholder="Nội dung"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js"></script>
+    <script>
+        var objDanhMuc = {};
+        var _service = new Service();
+        var _commonService = new CommonService();
+        var _partnerListService = new PartnerListService();
+        var _frmTimKiemHoSo = new FormService("frmTimKiemHoSo");
+
+        $(document).ready(function () {
+            _service.all([
+                _partnerListService.layDsDoiTac(),
+                _commonService.layDsTemplateEmail()
+            ]).then(arrRes => {
+                objDanhMuc.doi_tac = arrRes[0].data_info;
+                _frmTimKiemHoSo.getControl("ma_doi_tac").setDataSource(objDanhMuc.doi_tac, "ten", "ma", "Chọn đối tác", "");
+                if (objDanhMuc.doi_tac.length== 1) {
+                    _frmTimKiemHoSo.getControl("ma_doi_tac").setValue(objDanhMuc.doi_tac[0].ma);
+                }
+            });
+        });
+        
+        $("#frmSendEmailCommon_noi_dung").jqxEditor({
+            height: "500px",
+            width: '100%',
+            theme: null,
+            disabled: true,
+            editable: true,
+            tools: 'datetime | print | clear | backcolor | font | bold italic underline'
+        });
+    </script>
+}

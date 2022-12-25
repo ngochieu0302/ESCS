@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery-form-serializer@1.2.0",
+      "destination": "wwwroot/jquery-form-serializer/"
+    },
+    {
+      "library": "tabulator@4.7.2",
+      "destination": "wwwroot/tabulator/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@3.1.8",
+      "destination": "wwwroot/microsoft/signalr/"
+    },
+    {
+      "library": "pdfobject@2.2.4",
+      "destination": "wwwroot/libs/pdfobject/"
+    },
+    {
+      "library": "jspdf@2.1.1",
+      "destination": "wwwroot/libs/jspdf/"
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/libs/jqueryui/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "sweetalert2@11.1.2",
+      "destination": "wwwroot/sweetalert2/"
+    },
+    {
+      "library": "slick-carousel@1.8.1",
+      "destination": "wwwroot/libs/slick-carousel/"
+    },
+    {
+      "library": "viewerjs@1.11.1",
+      "destination": "wwwroot/libs/viewerjs/"
+    }
+  ]
+}

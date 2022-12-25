@@ -1,0 +1,105 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh sách các loại bệnh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 pd-3">
+            <div class="card">
+                <div class="card-body" style="padding-top:5px">
+                    <form name="FrmSearch" method="post">
+                        <div class="row row-cols-6">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Tìm kiếm thông tin</label>
+                                    <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập tìm kiếm theo tên" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>Tìm kiếm theo mã bệnh</label>
+                                    <input type="text" name="ma" id="ma" autocomplete="off" placeholder="Nhập vào mã bệnh" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label>Tìm kiếm theo mã bộ y tế</label>
+                                    <input type="text" name="ma_byt" id="ma_byt" autocomplete="off" placeholder="Nhập vào mã bộ y tế" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Đối tác</label>
+                                    <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="padding-top: 21px;">
+                                <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiemBenh">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-24p" title="Export" id="btnExportExcelDiseasList">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                    <i class="fas fa-upload"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div id="gridViewDanhSachBenh" class="table-app" style="height: 60vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="modalChiTietBenh" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmChiTietBenh" method="post">
+                <div class="modal-header">
+                    <h4 id="ten_benh" class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="padding-top:0px;">
+                    <div class="row" id="thongTinBenh"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuMaBenh">
+                        <i class="fa fa-save mr-2"></i>Lưu
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_Template.cshtml" />
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+@section scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/UserManagementService.js" asp-append-version="true"></script>
+    <script src="~/libs/bootstrap-tabdrop/bootstrap-tabdrop.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DiseasesListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/DiseasesList.js" asp-append-version="true"></script>
+}

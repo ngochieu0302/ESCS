@@ -1,0 +1,21 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS.ModelView;
+@{
+    var data = ViewBag.Data as BaseResponse<escs_quen_mat_khau<string>>;	
+    var mau_email = data.data_info.mau_email;
+    var doi_tac = data.data_info.doi_tac;
+    var nsd = data.data_info.nsd;
+}
+<section style="width:800px">
+    <p><b>Xin chào</b>: @nsd.ten</p>
+    <p>Anh/chị đang yêu cầu lấy lại mật khẩu từ ứng dụng</p>
+    <p>Anh chị vui lòng truy cập vào liên kết dưới đây để lấy lại mật khẩu</p>
+    <a href="@data.data_info.link_lien_ket" target="_blank">Đặt lại mật khẩu mới</a>
+</section>
+<section style="width:800px; text-align:center; margin-top:25px;padding:15px; background-color:#DADDE1">
+    <h2>@doi_tac.ten</h2>
+    <p><b>Địa chỉ</b>: @doi_tac.dchi</p>
+    <p><b>Điện thoại</b>: <a href="tel:@doi_tac.d_thoai">@doi_tac.d_thoai</a></p>
+    <p><b>Email</b>: <a href="mailto:@doi_tac.email">@doi_tac.email</a></p>
+    <p><b>Website</b>: <a href="https://escs.vn">https://escs.vn</a></p>
+</section>

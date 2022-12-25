@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/menu/save",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20221206180111
+  },
+  "Time": 20221206140237,
+  "Request": "{\"pm\":\"BT\",\"so_id\":\"20211108000013\",\"nhom_quyen\":\"QTHT,GDHT,GDTT,BTXE\",\"ma_doi_tac\":\"CTYBHABC\",\"nhom\":\"CLIENT\",\"so_id_cha\":\"20211108000012\",\"url\":\"/MotorcycleClaim/MotoInvestigation\",\"ten\":\"Giám định xe máy\",\"icon\":\"mdi mdi-plus\",\"stt\":\"1\",\"target\":\"\",\"hien_thi\":\"1\",\"__RequestVerificationToken\":\"CfDJ8NB5pzLAWlpAl8Vgnnkq0qoP5qFRl85ra1SOYCfGSFOncyZbGU7M_GYWhy0ld3Bu1cHfKMVjV1JyUI-SEUptQ5B_dTfS9seh3cXn9CZopnxtSQbphf_bRoPezCdPD3SB68XwqtZDqDqWmCkHcCpXros\"}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{\"so_id\":20211108000013.0,\"stt\":1.0}}"
+}

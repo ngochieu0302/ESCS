@@ -1,0 +1,214 @@
+﻿<style>
+    #dsAnhHoaDonChungTu img:hover {
+        border: 2px solid #009efb;
+    }
+
+    #dsAnhHoaDonChungTu input {
+        color: white !important;
+        position: absolute !important;
+        z-index: 9;
+        opacity: 1;
+        width: 16px;
+        height: 16px;
+        margin-left: 3px !important;
+    }
+    #modalOCRHoaDonChungTu .table td {
+        padding: 0.3rem !important;
+    }
+    #modalOCRHoaDonChungTu .table th {
+        padding: 0.3rem !important;
+    }
+</style>
+<!-- Modal thông tin bao gia -->
+<div id="modalOCRHoaDonChungTu" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;width:70%;top: 2%; left: 15%;">
+    <div class="modal-dialog " style="width:100%;max-width:unset">
+        <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+            <div class="modal-header py-1 px-2" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                <h6 class="modal-title" style="color:#fff">Thông tin OCR hóa đơn, chứng từ</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-1 px-2">
+                <div class="row">
+                    <div class="col-9 pr-0">
+                        <div class="card m-0">
+                            <div class="card-body p-0">
+                                <div class="border rounded p-2" style="height:75vh;">
+                                    <form name="frmOCRHoaDonChungTu" method="post">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive" style="max-height: 73.5vh;">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <td style="color: #000; font-weight: bold; vertical-align: middle; text-align:center;">Hóa đơn</td>
+                                                                <td colspan="4">
+                                                                    <select class="form-control custom-select select2" style="width:100%;" name="hoa_don"></select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="text-center">
+                                                                <th style="width: 70px;">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" onchange="onChonHoaDonTatCaOCR(this)" id="hoa_don_item_tat_ca" class="custom-control-input">
+                                                                        <label class="custom-control-label" for="hoa_don_item_tat_ca">&nbsp;</label>
+                                                                    </div>
+                                                                </th>
+                                                                <th style="width: 135px;">TÊN</th>
+                                                                <th style="width: 271px;">THÔNG TIN OCR</th>
+                                                                <th style="width: 20px;"></th>
+                                                                <th style="width: 271px;">THÔNG TIN HÓA ĐƠN</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="modalCompareDataOCRHoaDonChungTu">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card m-0">
+                            <div class="card-body p-0">
+                                <div class="border rounded p-2" style="height:75vh;">
+                                    <div class="justify-content-between align-items-center p-2 card-title-bg border-bottom">
+                                        <p class="m-0 font-weight-bold text-center">
+                                            DANH SÁCH HÓA ĐƠN
+                                        </p>
+                                    </div>
+                                    <div class="container-fluid scrollable p-0" id="dsAnhHoaDonChungTu" style="max-height: 70vh;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer px-1" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-140 float-right" id="btnDocOCRHoaDonChungTu">
+                    <i class="fas fa-qrcode mr-2"></i>Đọc OCR
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-140 float-right" onclick="sdOCRHoaDon(this)">
+                    <i class="fas fa-save mr-2"></i>Sử dụng dữ liệu OCR
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-modal">
+    <div id="modalXemHinhAnhHoaDonCTiet" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;width:1000px;top: 5%; left: 18%;">
+        <div class="modal-dialog modal-lg" style="width:90%;max-width:unset">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h6 class="modal-title" style="color:#fff">Hình ảnh chi tiết</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-9 modal-hien-thi">
+                            <div class="card mb-0">
+                                <div class="card-body p-0" style="height: 65vh; text-align:center">
+                                    <div id="img-hang-muc-hoadon" style="height: 65vh;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" id="accordion">
+                            <div class="card mb-1">
+                                <div class="card-header p-2" style="border:none">
+                                    <input type="text" placeholder="Tìm kiếm theo hạng mục" class="form-control inputSearchHangMucHoaDon" readonly>
+                                </div>
+                                <div class="">
+                                    <div class="card-body p-1">
+                                        <div style="width:100%; vertical-align:middle;max-height: 65vh;" class="scrollable">
+                                            <div style="width:100%" id="dsHinhAnhHangMucHoaDonCTiet" class="list-pictures-hoadon">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*  Danh sách tài liệu hồ sơ hình ảnh *@
+<script type="text/html" id="dsHinhAnhHangMucHoaDonTemplate">
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <div class="imagesCategory" style="display: table-row" data-search="<%- ESUtil.xoaKhoangTrangText(item.nhom) %>">
+        <p style="margin-bottom:5px;">
+            <a href="#"><%- item.nhom %></a>
+        </p>
+        <% _.forEach(item.children, function(image,index_anh) { %>
+        <div style="width:60px; height:60px; margin-right:10px; margin-bottom:5px; cursor:pointer;float:left;">
+            <img style="width: 100%; height:100%; border-radius:10px" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-ngay="<%- image.ngay %>" data-nsd="<%- image.nsd%>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+        </div>
+        <% }) %>
+    </div>
+    <% })} %>
+</script>
+<script type="text/html" id="modalCompareDataOCRHoaDonChungTuTemplate">
+    <% if(data!==undefined && data!==null && data.length > 0){
+    _.forEach(data, function(item,index) {
+    %>
+    <tr class="row_item">
+        <td class="text-center">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="onChonHoaDonOCR(this,'<%- item.loai%>')" id="ocr_<%- item.loai%>" class="custom-control-input hoa_don_item">
+                <label class="custom-control-label" for="ocr_<%- item.loai%>">&nbsp;</label>
+            </div>
+        </td>
+        <td>
+            <%- item.noi_dung_so_sanh %>
+            <input type="hidden" data-field="nd_ocr" value="<%- item.nd_ocr %>" />
+            <input type="hidden" data-field="loai" value="<%- item.loai %>" />
+        </td>
+        <td class="text-center"><%- item.nd_ocr %></td>
+        <td class="text-center"><% if(item.so_sanh) { %> <i class="fas fa-check text-success"></i> <%} else { %><i class="fas fa-times text-danger"></i> <%}%></td>
+        <td class="text-center"><%- item.nd_goc %></td>
+    </tr>
+    <% })}else{ %>
+    <tr style="cursor: pointer;">
+        <td colspan="5" class="text-center">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+<script type="text/html" id="dsAnhHoaDonChungTu_template">
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <div style="display: inline-block;width:100%;">
+        <p style="font-weight: bold;" class="pl-3 pt-2 mb-0">
+            <a href="#" onclick="onToggleImgOCR(this, '<%- index %>')"><%- ESUtil.rutGonText(85, item.nhom) %></a>
+        </p>
+        <ul class="docs-pictures clearfix px-2">
+            <% _.forEach(item.children, function(image,index_anh) { %>
+            <li class="p-1">
+                <input type="checkbox" onclick="layChiTietHoaDonChungTu('<%- image.ma_doi_tac %>', '<%- image.so_id %>','<%- image.ma_file %>', '<%- image.bt %>')" id="img_<%- image.so_id%>_<%- image.bt %>" class="nhom_anh_ocr_<%- index %> mt-1 images-ocr" value="<%- image.bt%>" data-ma-file="<%- image.ma_file %>" name="ds_hoa_don_ocr">
+                <p class="fileNameImageBaoGia mt-1" style="cursor:pointer"><%- image.ten_file %></p>
+                <% if(_.includes([".jpg", ".png", ".gif",".jpeg"], image.extension)){ %>
+                <img onclick="openModalXemHinhAnhHoaDonCTiet('<%- image.ten_file %>','<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-ngay="<%- image.ngay %>" data-nsd="<%- image.nsd%>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+                <% }else if(_.includes([".pdf", ".doc", ".docx"], image.extension)){ %>
+                <img onclick="openModalXemHinhAnhHoaDonCTiet('<%- image.ten_file %>','<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/pdf-image.png" alt="<%- image.ten_file %>">
+                <% } else if(_.includes([".xml"], image.extension)){%>
+                <img onclick="openModalXemHinhAnhHoaDonCTiet('<%- image.ten_file %>','<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/xml.png" alt="<%- image.ten_file %>">
+                <% } else if(_.includes([".xlsx", ".xls"], image.extension)){%>
+                <img onclick="openModalXemHinhAnhHoaDonCTiet('<%- image.ten_file %>','<%- image.bt %>','<%- image.extension %>')" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/excel-logo.jpg" alt="<%- image.ten_file %>">
+                <% } %>
+            </li>
+            <% }) %>
+        </ul>
+    </div>
+    <% })} %>
+</script>

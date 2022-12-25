@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Custom CSS -->
+    <partial name="_CSS.cshtml" />
+    @RenderSection("Styles", required: false)
+</head>
+<body id="bodyEscs" style="">
+    <div id="main-wrapper" data-layout="vertical" data-boxed-layout="full" data-sidebar-position="fixed" data-header-position="fixed" data-sidebartype="mini-sidebar" data-navbarbg="skin1">
+        <div class="page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="loading-wrapper">
+        <div id="loading-content"><i class="fa fa-spinner fa-spin fa-3x fa-fw fullscreen-loading"></i></div>
+    </div>
+    <div id="loading" style="display: none;">
+        <div class="loading"></div>
+    </div>  
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

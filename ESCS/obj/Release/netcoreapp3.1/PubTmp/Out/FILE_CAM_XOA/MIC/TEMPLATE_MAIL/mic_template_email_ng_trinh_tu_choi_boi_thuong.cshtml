@@ -1,0 +1,40 @@
+﻿@using ESCS.COMMON.Response;
+@using RazorEngine.Templating;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO TRÌNH TỪ CHỐI TRẢ TIỀN BẢO HIỂM</title>
+</head>
+<body style="font-family: 'Tahoma'; font-size: 14px;line-height: 1.6; ">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO TRÌNH TỪ CHỐI TRẢ TIỀN BẢO HIỂM</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi : <span style="color: #035299">Ban lãnh đạo</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;"><span style="color: #4552a2">Bộ phận bồi thường</span> trình từ chối bồi thường của khách hàng <span style="color: #4552a2"> @mail.ten_kh</span> theo hợp đồng bảo hiểm <span style="color: #4552a2"> @mail.so_hd</span>, chi tiết như sau:</p>
+
+                <ul style="font-family: 'Tahoma'; font-size: 14px;">
+                    <li>Số hồ sơ: <span style="color: #035299">@mail.so_hs</span></li>
+                    <li>Ngày vào viện: <span style="color: #035299">@mail.ngay_vv</span></li>
+                    <li>Ngày ra viện: <span style="color: #035299">@mail.ngay_rv</span></li>
+                    <li>Số tiền yêu cầu: <span style="color: #035299">@mail.tien_yc VND</span></li>
+                    <li>Số tiền giảm: <span style="color: #035299">@mail.tien_giam VND</span></li>
+                    <li>Số tiền phê duyệt: <span style="color: #035299">@mail.so_tien_duyet VND</span></li>
+                </ul>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Kính mong ban lãnh đạo xem xét, phê duyệt hồ sơ để giải quyết bồi thường theo quy định.</p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold; margin-top: 5px;">Trân trọng cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

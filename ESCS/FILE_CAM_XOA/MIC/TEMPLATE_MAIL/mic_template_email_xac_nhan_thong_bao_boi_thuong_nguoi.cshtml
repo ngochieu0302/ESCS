@@ -1,0 +1,69 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@using RazorEngine.Text;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<html>
+<head>
+    <title>XÁC NHẬN THÔNG BÁO TRẢ TIỀN BẢO HIỂM</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body style="font-family: 'Tahoma';">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center">
+                XÁC NHẬN THÔNG BÁO TRẢ TIỀN BẢO HIỂM
+                <br>Số hồ sơ: @mail.so_hs
+                <br>Loại hình bảo hiểm: @mail.ten_lhnv
+            </h3>
+
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi Quý khách hàng: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_khach</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">@mail.ten_cong_ty_tat xin gửi tới Quý khách cùng toàn thể gia đình lời chúc sức khỏe, hạnh phúc. </p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Chúng tôi hi vọng luôn được là người bạn đồng hành tin cậy của Quý khách trong suốt thời gian tham gia bảo hiểm tại @mail.ten_cong_ty_tat.</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">
+                    Chúng tôi đã nhận được xác nhận online của Quý khách
+                    về phương án chi trả yêu cầu bồi thường, với xác nhận
+                    là với nội dung như sau:
+                </p>
+
+                <ul style="line-height: 25px">
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">Số hợp đồng bảo hiểm:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.so_hd</span></li>
+                    @*<li style="font-family: 'Tahoma'; font-size: 14px;">Bên mua bảo hiểm:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">Bên mua bảo hiểm</span></li>*@
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">Người được bảo hiểm: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_nguoi_duoc_bh</span></li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">Tên người yêu cầu trả tiền bảo hiểm:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.ten_nguoi_yc_tra_tien_bh</span></li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">
+                        Tổng số tiền yêu cầu trả tiền bảo hiểm:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.tong_so_tien_yc_bh VND</span>
+                    </li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">
+                        Tổng số tiền @mail.ten_cong_ty_tat chi trả bồi thường: <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.so_tien_duyet VND</span>
+                    </li>
+                </ul>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; font-weight: bold; margin-top: 8px;">
+                    <span>
+                        Để tra cứu tình trạng hồ sơ và quá trình giải quyết, Quý khách vui lòng sử dụng ứng dụng <a href="#">(Thiếu tên App Mobile)</a> trên mobile để tra cứu
+                    </span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 8px;">Mọi thắc mắc về hồ sơ cần giải đáp hoặc hỗ trợ, Quý khách vui lòng liên hệ:</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold"><span style="font-family: 'Tahoma'; font-size: 14px;">@mail.ten_cong_ty</span></p>
+
+                <ul style="line-height: 20px">
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">Địa chỉ:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.dchi_dt</span></li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">Số điện thoại:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.d_thoai_dt</span></li>
+                    <li style="font-family: 'Tahoma'; font-size: 14px;">Email:	<span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.email_dt</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

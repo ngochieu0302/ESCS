@@ -1,0 +1,56 @@
+﻿<div id="modalDsLHNVLaySoHS" class="modal-drag" style="width:350px; z-index:9999999; margin-top: 95px !important; margin-left: -255px !important;">
+    <div class="modal-drag-header">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn loại hình nghiệp vụ</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_LHNVLaySoHS" type="text" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control item-lhnv">
+                <input type="hidden" id="modalLHNVLaySoHSElementSelect">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalLHNVDanhSachLaySoHS">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="btnChonLHNVLaySoHS">
+            <i class="fas fa-save mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<div id="modalDsLHNV" class="modal-drag" style="width:350px; z-index:9999999; margin-top: 58px !important; margin-left: -179px !important;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn loại hình nghiệp vụ</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_LHNV" type="text" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control item-lhnv">
+                <input type="hidden" id="modalLHNVElementSelect">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalLHNVDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="btnChonLHNV">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalLHNVDanhSachTemplate">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index){ %>
+    <div class="custom-control custom-checkbox dslhnv" id="dslhnv_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="lhnv_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input item-lhnv modalLHNVItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="lhnv_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% }) %>
+    <% }else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

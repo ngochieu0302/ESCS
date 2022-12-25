@@ -1,0 +1,95 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="card border mb-0 p-2" style="height:unset">
+    <div class="card-body p-1" style="padding:0px; height: 83vh !important;" id="navBoiThuong">
+        <ul class="nav nav-pills font-weight-bold" role="tablist" style="background-color:#f8f9fa;">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#sidebar_info" role="button" id="main_collapse">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" onclick="layDsTaiLieu()" href="#tabHoSoGiayTo" role="tab" aria-controls="home" aria-selected="false">
+                    <i class="fas fa-file-image  mr-2"></i>Hồ sơ, chứng từ yêu cầu
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" id="tabThongTinYeuCau_click" data-toggle="tab" href="#tabThongTinYeuCau" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-align-justify mr-2"></i>Thông tin yêu cầu trả tiền bảo hiểm
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" onclick="layThongTinChungTu()" href="#tabThongTinThanhToan" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fal fa-money-bill-alt mr-2"></i>Thông tin thanh toán, thụ hưởng
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" onclick="layLichSuTonThat()" href="#tabThongTinLichSuTonThat" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-history mr-2"></i>Lịch sử bồi thường
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" onclick="layLichSuTonThatTop5()" href="#tabThongTinLichSuTonThatTop5" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-layer-group mr-2"></i>Top 5 hợp đồng tái tục
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="border: unset;">
+            <div class="tab-pane" role="tabpanel" id="tabHoSoGiayTo" style="padding-bottom:unset !important">
+                <partial name="_ReceiveContent_2" />
+            </div>
+            <div class="tab-pane active" role="tabpanel" id="tabThongTinYeuCau">
+                <partial name="_ReceiveContent_1" />
+            </div>
+            <div class="tab-pane" role="tabpanel" id="tabThongTinThanhToan">
+                <partial name="_ReceiveContent_3" />
+            </div>
+            <div class="tab-pane pl-0" role="tabpanel" id="tabThongTinLichSuTonThat" style="position: absolute; width:100%;">
+                <partial name="_ReceiveContent_4" />
+            </div>
+            <div class="tab-pane pl-0" role="tabpanel" id="tabThongTinLichSuTonThatTop5" style="position: absolute; width:100%;">
+                <partial name="_ReceiveContent_5" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row tab-navigator">
+    <div class="col-12 mg-t-10 px-2">
+        <a href="javascript:void(0)" id="btnXemQRCode" class="mr-2">
+            <i class="fa fa-qrcode mr-1"></i> Xem QRCode
+        </a>
+        <a href="javascript:void(0)" id="btnNhanHoSoTN" class="escs_pquyen mr-2">
+            <i class="fas fa-share-square mr-1"></i> Nhận hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnYeuCauBoSungHoSo" class="escs_pquyen mr-2">
+            <i class="fas fa-file-plus mr-1"></i> Yêu cầu bổ sung hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnHuyHoSo" class="escs_pquyen mr-2">
+            <i class="fas fa-file-times mr-1"></i> Hủy hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnGoHuyHoSo" class="escs_pquyen mr-2">
+            <i class="fas fa-trash-undo-alt mr-1"></i> Gỡ Hủy hồ sơ
+        </a>
+        <a href="javascript:void(0)" id="btnChuyenBoiThuong" class="escs_pquyen mr-2">
+            <i class="fas fa-share mr-1"></i> Chuyển sang bộ phận tính toán
+        </a>
+        <a href="javascript:void(0)" id="btnChuyenNguoiXuLy" class="escs_pquyen mr-2">
+            <i class="far fa-user-friends mr-1"></i> Chuyển người xử lý
+        </a>
+        <a href="javascript:void(0)" id="btnXemQlMIC" class="mr-2">
+            <i class="fas fa-file-search mr-1"></i> Xem quyền lợi MIC
+        </a>
+        <a href="#" id="btnNhanHoSoGoc" class="mr-2">
+            <i class="fas fa-inbox-in mr-1"></i> Nhận hồ sơ gốc
+        </a>
+        <a href="javascript:void(0)" id="btnGuiEmailThongBao" class="escs_pquyen mr-2">
+            <i class="fas fa-envelope mr-1"></i> Gửi email
+        </a>
+        <a href="#" id="btnPrint" class="mr-2">
+            <i class="fas fa-print mr-1"></i> In ấn
+        </a>
+    </div>
+</div>
+
+

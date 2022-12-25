@@ -1,0 +1,114 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Log hệ thống";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Log hệ thống</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Log hệ thống</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-2 pr-2">
+                            <div class="form-group">
+                                <label for="ngay_bd" class="_required">Từ ngày</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" name="ngay_bd" id="ngay_bd" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pr-2">
+                            <div class="form-group">
+                                <label for="ngay_kt" class="_required">Đến ngày</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" name="ngay_kt" id="ngay_kt" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 px-2">
+                            <div class="form-group">
+                                <label for="gio_bd">Từ</label>
+                                <input type="time" name="gio_bd" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 px-2">
+                            <div class="form-group">
+                                <label for="gio_kt">Tới</label>
+                                <input type="time" name="gio_kt" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 px-2">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="text_tk" id="tim" autocomplete="off" spellcheck="false" placeholder="Nhập thông tin" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2 pl-2" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm btn-block" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top: 3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewLog" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalDetail" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content col-md-10" style="margin-left: 55px;">
+            <form name="frmDetail" method="post">
+                <div class="modal-header" style="padding: 10px 5px;">
+                    <h4 class="modal-title">Thông tin Log</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="padding: 10px 5px;">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea name="result" readonly class="form-control" rows="30"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding: 10px 5px; display: block;">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/ActionLogService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ActionLog.js" asp-append-version="true"></script>
+}

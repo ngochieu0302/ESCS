@@ -1,0 +1,119 @@
+﻿<div id="modalSLAFlowChart" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="overflow-y: scroll; max-height:85%; max-width: 65vw;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin tiến trình bồi thường</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-0">
+                <div class="row">
+                    <div class="col-sm-12 text-center px-0">
+                        <div class="main-timeline">
+                            <div class="timeline">
+                                <div class="timeline-content">
+                                    <div class="description">
+                                        <table class="table table-bordered fixed-header" style="width: 100%;">
+                                            <thead class="font-weight-bold">
+                                                <tr class="text-center uppercase">
+                                                    <th style="width: 4%;  vertical-align: middle; ">STT</th>
+                                                    <th style="width: 27%; vertical-align: middle;">Bước</th>
+                                                    <th style="width: 17%; vertical-align: middle;">Ngày thực hiện</th>
+                                                    <th style="width: 17%; vertical-align: middle;">Cán bộ thực hiện</th>
+                                                    <th style="width: 12%; vertical-align: middle;">Thời gian SLA (phút)</th>
+                                                    <th style="width: 13%; vertical-align: middle;">Thời gian thực hiện (phút)</th>
+                                                    <th style="width: 10%; vertical-align: middle;">Đánh giá</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblThongTinTienTrinhBoiThuongSLA">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #modalSLAFlowChart .modal-body {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    #modalSLAFlowChart .main-timeline {
+        margin: 0 auto;
+    }
+
+        #modalSLAFlowChart .main-timeline:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        #modalSLAFlowChart .main-timeline .timeline {
+            width: 100%;
+            padding: 0px 10px;
+            margin: -5px 0 0 0;
+            float: right;
+            position: relative;
+        }
+
+        #modalSLAFlowChart .main-timeline .timeline-content {
+            background: #fff;
+            color: #fff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+            #modalSLAFlowChart .main-timeline .timeline-content:hover {
+                text-decoration: none;
+            }
+
+        #modalSLAFlowChart .main-timeline .description {
+            font-size: 12px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            color: #000;
+        }
+</style>
+<script type="text/html" id="tblThongTinTienTrinhBoiThuongSLA_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <td><%- item.stt %></td>
+        <td class="text-left font-weight-bold">
+            <%- item.ten %>
+        </td>
+        <td class="font-weight-bold"><%-item.ngay_hthi %></td>
+        <td class="font-weight-bold">
+            <%if(item.ngay_hthi == null){%>
+            <%}%>
+            <%if(item.ngay_hthi !== null){%>
+                <%- item.nsd%>
+            <%}%>
+        </td>
+        <td class="font-weight-bold"><%-item.tgian%></td>
+        <td class="font-weight-bold"><%-item.kq %></td>
+        <td>
+            <%if(item.dgia == 'D'){%>
+            <span class="text-success font-weight-bold">Đạt</span>
+            <%}else if(item.dgia == 'C'){%>
+            <span class="text-danger font-weight-bold">Chưa đạt</span>
+            <%}%>
+        </td>
+    </tr>
+    <% })
+    }%>
+</script>

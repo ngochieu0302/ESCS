@@ -1,0 +1,20 @@
+﻿<script type="text/html" id="tbXemKetQua_template">
+    <% if(data.length > 0){ %>
+    <% var stt = 1 %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr row-val="<%- stt %>">
+        <td class="text-center"><%- stt %></td>
+        <td class="san_pham" data-val="<%- item.sp.id %>">
+            <%- item.sp.text %>
+        </td>
+        <td class="quyen_loi" data-val="<%- item.ql.id %>">
+            <%- item.ql.text %>
+        </td>
+        <td class="nguyen_nhan" data-val="<%- item.nn.id %>">
+            <%- item.nn.text %>
+        </td>
+        <% stt++ %>
+    </tr>
+    <% }) %>
+    <% }%>
+</script>

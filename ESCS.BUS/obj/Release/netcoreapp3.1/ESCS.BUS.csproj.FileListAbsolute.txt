@@ -1,0 +1,16 @@
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.BUS.deps.json
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.BUS.dll
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.BUS.pdb
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.COMMON.dll
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.DAL.dll
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.MODEL.dll
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.COMMON.pdb
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.DAL.pdb
+D:\ESCS\ESCS.BUS\bin\Release\netcoreapp3.1\ESCS.MODEL.pdb
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.csprojAssemblyReference.cache
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.AssemblyInfoInputs.cache
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.AssemblyInfo.cs
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.csproj.CoreCompileInputs.cache
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.csproj.CopyComplete
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.dll
+D:\ESCS\ESCS.BUS\obj\Release\netcoreapp3.1\ESCS.BUS.pdb

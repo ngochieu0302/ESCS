@@ -1,0 +1,196 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục quyền lợi sản phẩm";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Quyền lợi sản phẩm</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Quyền lợi sản phẩm</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px;">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tên quyền lợi sản phẩm" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Sản phẩm</label>
+                                <select class="select2 form-control custom-select" name="ma_lhnv" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnAddLHNV">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Export" id="btnExportExcelBenefitsProduct">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewLHNV" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalAdd" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form name="frmSaveQuyenLoi" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Quyền lợi sản phẩm <span id="modal-user-log" style="font-size: 14px; font-style: italic;"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Nghiệp vụ</label>
+                                <select class="select2 form-control custom-select" name="nv" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nghiệp vụ</option>
+                                    <option value="NG">Con người</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select" required name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Sản phẩm</label>
+                                <select class="select2 form-control custom-select" required name="ma_lhnv" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Chọn loại nhóm</label>
+                                <select class="select2 form-control custom-select" required name="nhom" style="width: 100%; height: 36px;">
+                                    <option value="">Chọn loại nhóm</option>
+                                    <option value="CHINH">Chính</option>
+                                    <option value="DKBS">Điều khoản bổ sung</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Quyền lợi cha</label>
+                                <input type="text" maxlength="250" name="ma_ct" autocomplete="off" class="form-control" placeholder="Mã quyền lợi cha">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Mã</label>
+                                <input type="text" maxlength="20" name="ma" autocomplete="off" required class="form-control" placeholder="Mã quyền lợi sản phẩm">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên quyền lợi</label>
+                                <input type="text" maxlength="250" name="ten" autocomplete="off" required class="form-control" placeholder="Tên quyền lợi sản phẩm">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Áp dụng trợ cấp</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ad_tro_cap" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="K">Không áp dụng</option>
+                                    <option value="C">Có áp dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 style="margin-bottom:10px; margin-top: 5px;">Loại hình bảo lãnh</h5>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="loai_nt" class="custom-control-input">
+                                <label class="custom-control-label" for="loai_nt" style="cursor:pointer; padding-top:2px">Nội trú</label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="loai_gt" class="custom-control-input">
+                                <label class="custom-control-label" for="loai_gt" style="cursor:pointer; padding-top:2px">Ngoại trú</label>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="loai_ra" class="custom-control-input">
+                                <label class="custom-control-label" for="loai_ra" style="cursor:pointer; padding-top:2px">Răng</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnSaveQuyenLoi"><i class="fa fa-save"></i> Lưu</button>
+                    @*<button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteQuyenLoi"><i class="fas fa-trash-alt"></i> Xóa</button>*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BenefitsProductService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ProductHumanService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/BenefitsProduct.js" asp-append-version="true"></script>
+}

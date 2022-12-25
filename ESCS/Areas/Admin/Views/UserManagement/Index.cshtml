@@ -1,0 +1,162 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Quản lý người dùng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .autocomplete {
+        width: 100%;
+    }
+
+    .popover {
+        max-width: unset;
+    }
+
+    #divDsHangMuc {
+        padding: unset;
+    }
+
+    #divDsHangMuc li {
+        list-style-type: none;
+        padding: 3px 0px;
+        cursor: pointer;
+    }
+
+    #divDsHangMuc li:hover {
+        font-weight: bold;
+    }
+
+    #navTableNG li.active a {
+        font-weight: bold;
+    }
+
+    #navTableXe li.active a {
+        font-weight: bold;
+    }
+</style>
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">@ViewData["Title"]</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin</label>
+                                <input type="text" name="tim" autocomplete="off" placeholder="Nhập tên người dùng/tài khoản" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Chi nhánh</label>
+                                <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <label class="">Phòng</label>
+                                <select class="select2 form-control custom-select" name="phong" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Trạng thái</label>
+                                <select class="select2 form-control custom-select" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="D">Đang sử dụng</option>
+                                    <option value="K">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-60" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-60" title="Thêm mới" id="btnNhapThongTinNguoiDung">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-60" title="Thêm nhóm phân cấp" id="btnThemNhomPhanCapCt">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-60" title="Import" id="btnImportExcelDsNsd">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewNguoiDung" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popoverHangMuc" class="popover popover-x popover-default" style="display:none; width:350px">
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x">&times;</span>Tìm kiếm hạng mục xe
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="row" style="margin-bottom:20px;">
+            <input type="hidden" id="index_hang_muc" />
+            <div class="col-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="timKiemHangMuc">
+                    <div class="input-group-append" style="cursor:pointer">
+                        <span class="input-group-text" onclick="timKiemHangMucXe(this,'item_hang_muc')"><i class="fas fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 scrollable" style="max-height:300px">
+                <ul id="divDsHangMuc">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_ThongTinChiTiet.cshtml" />
+<partial name="_DiaBanGiamDinh.cshtml" />
+@*<partial name="_PhanCapGiamDinhBoiThuong.cshtml" />*@
+<partial name="_PhanCapGiamDinhBoiThuongClone.cshtml" />
+<partial name="_Template.cshtml" />
+<partial name="_ModalThemNhomPhanCap.cshtml" />
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BusinessCodeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DepartmentListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/FunctionService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ProductHumanService.js" asp-append-version="true"></script>
+    <script src="~/js/app/admin/services/UserManagementService.js" asp-append-version="true"></script>
+    @*<script src="~/js/app/Title/services/TitleService.js" asp-append-version="true"></script>*@
+    <script src="~/js/app/Admin/services/TitleService.js" asp-append-version="true"></script>
+    <script src="~/js/app/admin/UserManagement.js" asp-append-version="true"></script>
+}

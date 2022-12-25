@@ -1,0 +1,557 @@
+﻿<script type="text/html" id="divThongTinHoSoTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- ho_so.ten_kh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số hồ sơ: <span><%- ho_so.so_hs %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày mở hồ sơ: <span><%- ho_so.ngay_mo_hs %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Cán bộ xử lý: <span><%- ho_so.can_bo_xly %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số điện thoại tổng đài: <span><%- ho_so.sdt_tong_dai %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy lẻ cán bộ hỗ trợ: <span><%- ho_so.dthoai_lhe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Email cán bộ hỗ trợ: <span><%- ho_so.email_lhe %></span></p>
+        </div>
+
+
+    </div>
+</script>
+
+<script type="text/html" id="divTimKiemTemplate">   
+     <div class="form-wrap">
+        <input id="tab-1" type="radio" name="tab" class="d-none" onclick="document.getElementById('gcn').value = '';document.getElementById('namegcn').value = ''" checked><label for="tab-1" class="tab" style="padding-right:5px">Biển số xe</label>
+         <input id="tab-2" type="radio" name="tab" class="d-none" onclick="document.getElementById('bsx').value = '';document.getElementById('namebsx').value = ''"><label for="tab-2" class="tab">Giấy chứng nhận</label>
+      <div class="search-form" style="line-height:2;">
+                <div class="search-bsx-htm">
+                   <div class="d-flex flex-column ">
+                     <label for="bsx" class="label tab">Biển số xe</label>
+                        <input id="bsx" type="text" class="input">
+                    </div>
+                    <div class="d-flex flex-column ">
+                     <label for="namebsx" class="label tab">Tên chủ xe - Số điện thoại</label>
+                        <input id="namebsx" type="text" class="input">
+                    </div>
+                </div>
+                <div class="search-gcn-htm">
+                    <div class="d-flex flex-column ">
+                     <label for="gcn" class="label tab">Giấy chứng nhận</label>
+                        <input id="gcn" type="text" class="input">
+                    </div>
+                   <div class="d-flex flex-column tab">
+                    <label for="namegcn" class="label tab">Tên chủ xe - Số điện thoại</label>
+                      <input id="namegcn" type="text" class="input">
+                 </div>               
+            </div>       
+       </div>
+     </div>
+</script>
+
+<script type="text/html" id="divThongTinXeTemplate">
+    <div class="card border mb-2" >
+    <div class="card-header d-flex justify-content-between">
+    <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size:15px;">Biển số xe: 29L18756</h6>
+    <h6 class="mb-0" style="color: #424D54; font-weight: 600; font-size:15px; color: #f11010;">Chưa khai báo</h6>
+    </div>
+    <div class="" style="padding:5px;">
+    <div class="row w-100 mx-0">
+    <div class="col-sm-12 col-md-12 col-12 px-0 d-flex flex-column">
+    <p class="field-name">Tên chủ xe: <span class="cl-text">Nguyễn Xuân Thanh</span></p>
+    </div>
+    <div class="col-sm-6 col-md-6 col-5 px-0 d-flex flex-column">
+    <p class="field-name">Hãng xe:    <span class="cl-text">VINFAST</span></p>
+    <p class="field-name">Biển số xe: <span class="cl-text">29L18756</span></p>
+    <p class="field-name">Số khung:   <span class="cl-text">8739934</span></p>
+    <p class="field-name">Đơn vị cấp: <span class="cl-text"></span></p>
+    </div>
+    <div class="col-sm-6 col-md-6 col-7 px-0 d-flex flex-column">
+    <p class="field-name">Hiệu xe: <span class="cl-text">Lux SA 2.0</span></p>
+    <p class="field-name">Số GCN:  <span class="cl-text">GCNFULL20221101</span></p>
+    <p class="field-name">Số máy:  <span class="cl-text">RXL843332</span></p>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="card border mb-2" >
+    <div class="card-header">
+    <h6 class="mb-0" style="color: #424D54; font-weight: 600;">Biển số xe: 29L18756</h6>
+    </div>
+    <div class="" style="padding:5px;">
+    <div class="row w-100 mx-0">
+    <div class="col-sm-12 col-md-12 col-12 px-0 d-flex flex-column">
+    <p class="field-name">Tên chủ xe: <span class="cl-text">Nguyễn Xuân Thanh</span></p>
+    </div>
+    <div class="col-sm-6 col-md-6 col-5 px-0 d-flex flex-column">
+    <p class="field-name">Hãng xe:    <span class="cl-text">VINFAST</span></p>
+    <p class="field-name">Biển số xe: <span class="cl-text">29L18756</span></p>
+    <p class="field-name">Số khung:   <span class="cl-text">8739934</span></p>
+    <p class="field-name">Đơn vị cấp: <span class="cl-text"></span></p>
+    </div>
+    <div class="col-sm-6 col-md-6 col-7 px-0 d-flex flex-column">
+    <p class="field-name">Hiệu xe: <span class="cl-text">Lux SA 2.0</span></p>
+    <p class="field-name">Số GCN:  <span class="cl-text">GCNFULL20221101</span></p>
+    <p class="field-name">Số máy:  <span class="cl-text">RXL843332</span></p>
+    </div>
+    </div>
+    </div>
+    </div>
+</script>
+
+<script type="text/html" id="divChiTietGCNTemplate">  
+    <div class="" style="">
+    <div class="row w-100 mx-0 d-flex flex-column field-name" style="line-height: 1; padding-top:10px; padding-right: 5px;">
+    <p class="d-flex justify-content-between">Tên khách hàng:        <span class="cl-text">Nguyễn Xuân Thanh</span></p>
+    <p class="d-flex justify-content-between">Số hợp đồng:           <span class="cl-text">HDFULL20221102</span></p>
+    <p class="d-flex justify-content-between">Số giấy chứng nhận:    <span class="cl-text">GCNTNDS0221101</span></p>
+    <p class="d-flex justify-content-between">Loại hình bảo hiểm:    <span class="cl-text">Bắt buộc</span></p>
+    <p class="d-flex justify-content-between">Hiệu lực:              <span class="cl-text">1/11/2022 - 1/11/2050</span></p>
+    <p class="d-flex justify-content-between">Tổng phí:              <span class="cl-text">3.000.000</span></p>
+    <p class="d-flex justify-content-between">Miễn thường:           <span class="cl-text">Không miễn thường</span></p>
+    </div>
+    </div>
+</script> 
+
+<script type="text/html" id="divTTXTemplate">
+    <div class="" style="">
+    <div class="row w-100 mx-0 d-flex flex-column field-name" style="line-height: 1; padding-top:10px; padding-right: 5px;">
+    <p class="d-flex justify-content-between">Tên chủ xe:       <span class="cl-text">Nguyễn Xuân Thanh</span></p>
+    <p class="d-flex justify-content-between">Địa chỉ:          <span class="cl-text">Tân Phú - Vĩnh Tường - Vĩnh Phúc</span></p>
+    <p class="d-flex justify-content-between">Hãng xe:          <span class="cl-text">VINFAST</span></p>
+    <p class="d-flex justify-content-between">Hiệu xe:          <span class="cl-text">Lux SA 2.0</span></p>
+    <p class="d-flex justify-content-between">Số khung:         <span class="cl-text">8739934</span></p>
+    <p class="d-flex justify-content-between">Số máy:           <span class="cl-text">RLX8403332</span></p>
+    <p class="d-flex justify-content-between">Năm sản xuất:     <span class="cl-text">2022</span></p>
+    <p class="d-flex justify-content-between">Số chỗ:           <span class="cl-text">5</span></p>
+    </div>
+    </div>
+</script>
+
+<script type="text/html" id="divTGDDTTTemplate">
+    <div class="form-tgddtt col-12" style="line-height: 1; padding-top:15px; padding-right: 15px;">
+        <div class="d-flex flex-column">
+            <input class="mb-3" name="dc" type="time" value="" placeholder=" "/>
+            <label class="gxr-label" >Giờ xảy ra</label>
+            <input class="mb-3" name="dc" type="date" value="" placeholder=" "/>
+            <label class="nxr-label">Ngày xảy ra</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="tt-label">Chọn Tỉnh thành</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="qh-label">Chọn Quận huyện</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="px-label">Chọn Phường xã</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="dc-label">Địa chỉ</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="htx-label">Chọn hiện trường xe</label>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divDBTemplate">
+    <div class="form-tgddtt col-12" style="line-height: 1; padding-top:15px; padding-right: 15px;">
+        <div class="d-flex flex-column">
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="nnn-label">Nhóm nguyên nhân</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="nn-label">Nguyên nhân</label>
+            <input class="mb-3" name="dc" type="text" placeholder=" "/>
+            <label class="hq-label">Hậu quả</label>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divKhaiBaoVuTonThatNTBTemplate">
+     <div class="card-header">
+    <h6 class="mb-0" style="color: #424D54; font-weight: 600;">Thông tin xe</h6>
+    </div>
+    <div class="row w-100 mx-0 d-flex flex-column field-name col-12" style="line-height: 1; padding-top:10px; padding-right: 15px;">
+     <p class="d-flex justify-content-between">Biển số xe:        <span class="cl-text">29L18756</span></p>
+     <p class="d-flex justify-content-between">Giấy Chứng Nhận:   <span class="cl-text">GCNFULL20221101</span></p>
+    </div>
+    <div class="card-header">
+    <h6 class="mb-0" style="color: #424D54; font-weight: 600;">Thông tin người thông báo</h6>
+    </div>
+    <div class="col-12 d-flex flex-column" style="padding-top:10px; padding-right: 15px;">
+    <div class="d-flex">
+    <label class="field-name" style="padding-right:5px;">Mối quan hệ với chủ xe:</label>
+    <select class="form-control mb-3 " id="sel1" name="sellist1" autocomplete="off" required>
+    <option>Người khác</option>
+    <option>Chủ xe</option>
+    <option>Lái xe</option>
+    <option>Người mua bảo hiểm</option>
+    <option>Công an</option>
+    </select>
+    </div>
+    <div class="form-ttn d-flex flex-column">
+    <input type="text" name="TTNTB" class="mb-3" id="" value="" placeholder=" "/>
+    <label class="ht-label">Họ tên</label>
+    <input type="text" name="TTNTB" class="mb-3" id="" value="" placeholder=" "/>
+    <label class="sdt-label">Số điện thoại</label>
+    <input type="text" name="TTNTB" class="mb-3" id="" value="" placeholder=" "/>
+    <label class="email-label">Email</label>
+    </div>
+    </div>
+</script>
+
+<script type="text/html" id="divKhaiBaoVuTonThatNLHTemplate">  
+    <div class="card-header">
+    <h6 class="mb-0" style="color: #424D54; font-weight: 600;">Thông tin người liên hệ</h6>
+    </div>
+    <div class="col-12 d-flex flex-column" style="padding-top:10px; padding-right: 15px;">
+    <div class="d-flex">
+    <label class="field-name" style="padding-right:5px;">Mối quan hệ với chủ xe:</label>
+    <select class="form-control mb-3 " id="sel1" name="sellist1" autocomplete="off" required>
+    <option>Người khác</option>
+    <option>Chủ xe</option>
+    <option>Lái  xe</option>
+    <option>Người mua bảo hiểm</option>
+    <option>Công an</option>
+    </select>
+    </div>
+    <div class="form-ttn d-flex flex-column">
+    <input type="text" name= "TTNTB" class="mb-3" id="" value="" placeholder=" "/>
+     <label class="ht-label">Họ tên</label>
+    <input type="text" name="TTNTB" class="mb-3" id="" value="" placeholder=" "/>
+    <label class="sdt-label">Số điện thoại</label>
+    <input type="text" name="TTNTB" class="mb-3" id="" value="" placeholder=" "/>
+    <label class="email-label">Email</label>
+    </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinDoiTuongBaoHiemTemplate">
+    <%if(ho_so.nv == 'XE') {%>
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên chủ xe: <span><%- ho_so.ten_chu_xe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Biển số xe: <span><%- ho_so.bien_xe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số khung: <span><%- ho_so.so_khung %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số máy: <span><%- ho_so.so_may %></span></p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-6 px-0">
+            <p class="field-name">Hãng xe: <span><%- ho_so.hang_xe %></span></p>
+        </div>
+        <div class="col-sm-3 col-md-3 col-6 px-0">
+            <p class="field-name">Hiệu xe: <span><%- ho_so.hieu_xe %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hiệu lực BH: <span><%- ho_so.hieu_luc %></span></p>
+        </div>
+    </div>
+    <%}%>
+    <%if(ho_so.nv == 'NG') {%>
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên NĐBH: <span><%- ho_so.ten %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày sinh: <span><%- ho_so.ngay_sinh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Giới tính: <span><%- ho_so.gioi_tinh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số CMT/CCCD: <span><%- ho_so.so_cmt %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Địa chỉ: <span><%- ho_so.dchi %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số điện thoại: <span><%- ho_so.d_thoai %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Email: <span><%- ho_so.email %></span></p>
+        </div>
+    </div>
+    <%}%>
+</script>
+
+<script type="text/html" id="divDsAnhYCBSTemplate">
+    <% if(giay_to.length > 0){
+    _.forEach(giay_to, function(item, index) { %>
+    <div class="section-header">
+        <h3 class="field-name px-2 font-weight-bold" style="font-size: 14px;"><%- item.ten %></h3>
+        <div class="take-photo">
+            <div class="take-photo-feed d-flex flex-wrap" id="divGiayTo<%- item.ma %>">
+                <% if(item.files.length > 0){
+                _.forEach(item.files, function(file, index) { %>
+                <%if(item.cau_hinh == "K"){%>
+                <input class="d-none" onchange="onChangeAnh(this)" data-ma="<%- item.ma %>" id="<%- file.file_name %>" name="<%- file.file_name %>" type="file" accept="image/*" multiple="multiple" capture>
+                <%}else{%>
+                <input class="d-none" onchange="onChangeAnh(this)" data-ma="<%- item.ma %>" id="<%- file.file_name %>" name="<%- file.file_name %>" type="file" accept="image/*" multiple="multiple">
+                <%}%>
+                <div class="take-photo-item col-6">
+                    <a onclick="chupAnh('<%- file.file_name %>')">
+                        <img class="img-fluid img-item" id="img_<%- file.file_name %>" src="~/images/images-default.jpg" alt="img-title" style="width:165px; height:124px;" />
+                    </a>
+                </div>
+                <% })}%>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="divGiayToTemplate">
+    <input class="d-none" onchange="onChangeAnh(this)" data-ma="<%- ma %>" id="<%- file_name %>" name="<%- file_name %>" type="file" accept="image/*">
+    <div class="take-photo-item col-6">
+        <a onclick="chupAnh('<%- file_name %>')">
+            <img class="img-fluid img-item" id="img_<%- file_name %>" src="~/images/images-default.jpg" alt="img-title" style="width:165px; height:124px;" />
+        </a>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinHopDongTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số hợp đồng: <span><%- data.so_hd %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Kiểu hợp đồng: <span><%- data.kieu_hd_ten %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Đơn vị cấp: <span><%- data.ten_chi_nhanh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Ngày cấp hợp đồng: <span><%- data.ngay_cap_text %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Hiệu lực hợp đồng: <span><%- data.ngay_hl_text %> đến <%- data.ngay_kt_text %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số lượng xe: <span><%- data.so_luong_dt %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tổng phí: <span><%- data.tong_phi %> VND</span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Trạng thái: <span><%- data.trang_thai_ten %></span></p>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinKhachHangTemplate">
+    <div class="row w-100 mx-0">
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Mã khách hàng: <span><%- data.ma_kh %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Tên khách hàng: <span><%- data.ten %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Địa chỉ: <span><%- data.dchi %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name">Số điện thoại: <span><%- data.dthoai %></span></p>
+        </div>
+        <div class="col-sm-6 col-md-6 col-12 px-0">
+            <p class="field-name mb-0">Email: <span><%- data.email %> </span></p>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinDanhSachXeTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) { %>
+    <div class="col-lg-8 col-sm-10 col-md-12 col-12 mx-auto px-3 mt-2">
+        <div class="card mb-0 chupAnhDanhGia" style="border-radius: 15px; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;" id="chupAnhDanhGia_<%- item.so_id_dt %>" onclick="chonDoiTuongChupAnh('<%- item.so_id_dt %>', 0, '<%- item.danh_gia %>')">
+            <div class="card-header px-3 py-2 bg-transparent d-flex justify-content-between">
+                <span class="mb-0" style="color: #424D54;font-weight: 600;">
+                    Biển số xe: <%- item.bien_xe %>
+                </span>
+                <%if(item.danh_gia == 'C'){%>
+                <span class="mb-0 danh-gia-dt" id="chua_danh_gia_<%- item.so_id_dt %>" style="color: red;font-weight: 600;"><i class="fas fa-exclamation-triangle"></i>  Chưa đánh giá</span>
+                <%}else{%>
+                <span class="mb-0 danh-gia-dt" id="danh_gia_<%- item.so_id_dt %>" style="color: green;font-weight: 600;"><i class="fas fa-check">  Đã đánh giá</i></span>
+                <%}%>
+            </div>
+            <div class="card-body px-3 py-2">
+                <div class="row w-100 mx-0">
+                    <div class="col-sm-6 col-md-6 col-12 px-0">
+                        <p class="field-name">Số giấy chứng nhận: <span><%- item.gcn %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-12 px-0">
+                        <p class="field-name">Tên chủ xe: <span><%- item.ten %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Hãng xe: <span><%- item.hang_xe %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Hiệu xe: <span><%- item.hieu_xe %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Số khung: <span><%- item.so_khung %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Số máy: <span><%- item.so_may %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Số chỗ: <span><%- item.so_cho_hthi %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Trọng tải: <span><%- item.trong_tai_hthi %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Năm sản xuất: <span><%- item.nam_sx %></span></p>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-6 px-0">
+                        <p class="field-name">Giá trị xe: <span><%- ESUtil.formatMoney(item.gia_tri) %></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="divDanhSachHinhAnhChupTemplate">
+    <% if(hinh_anh.length > 0){
+    _.forEach(hinh_anh, function(item, index) { %>
+    <div class="col-6 px-0">
+        <h3 class="field-name font-weight-bold px-2 m-2" style="font-size: 12px;"><%- item.ten %></h3>
+        <div class="take-photo text-center m-0">
+            <div class="take-photo-feed" id="divHinhAnhChup<%- item.ma %>">
+                <% if(item.files.length > 0){
+                _.forEach(item.files, function(file, index) { %>
+                <div class="take-photo-item">
+                    <input class="d-none" onchange="onChangeChupAnhDanhGia(this)" data-ma="<%- item.ma %>" data-stt="<%- item.stt %>" id="<%- file.file_name %>" name="<%- file.file_name %>" type="file" multiple="multiple" accept="image/*;" capture>
+                    <a onclick="chupAnhDanhGia('<%- file.file_name %>')">
+                        <img class="img-fluid img-item border" id="img_<%- file.file_name %>" src="<%- item.url %>" alt="img-title" style="width: 165px; height: 145px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;"/>
+                    </a>
+                </div>
+                <div class="removeImage text-danger" id="removeImage_<%- file.file_name %>"><a onclick="xoaAnhChup('<%- file.file_name %>')"><i class="fas fa-times-circle" style="border-radius: 50%; background-color: #fff;"></i></a></div>
+                <% })}%>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="divHinhAnhChupTemplate">
+    <div class="take-photo-item">
+        <input class="d-none" onchange="onChangeChupAnhDanhGia(this)" data-ma="<%- ma %>" data-stt="<%- stt%>" id="<%- file_name %>" name="<%- file_name %>" type="file" accept="image/*" multiple="multiple" capture>
+        <a onclick="chupAnhDanhGia('<%- file_name %>')">
+            <img class="img-fluid img-item border" id="img_<%- file_name %>" src="~/images/images-default.jpg" alt="img-title" style="width: 165px; height: 145px; " />
+        </a>
+    </div>
+    <div class="removeImage text-danger" id="removeImage_<%- file_name %>"><a onclick="xoaAnhChup('<%- file_name %>')"><i class="fas fa-times-circle" style="border-radius: 50%; background-color: #fff;"></i></a></div>
+</script>
+
+<script type="text/html" id="divDanhSachVideoDanhGiaRuiRoTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) { %>
+    <div class="row mt-3">
+        <div class="col-6 px-3">
+            <div class="take-photo text-center m-0 pos-relative">
+                <div class="take-photo-feed">
+                    <div class="take-photo-item px-2 py-3 border rounded" style="background-color: #ccc;">
+                        <a href="javascript:void(0);" data-bt="<%- item.bt %>" onclick="xemVideoDanhGiaRuiRo('<%- item.ma_doi_tac %>','<%- item.so_id %>','<%- item.so_id_dt %>','<%- item.bt %>' )">
+                            <img class="img-fluid img-item op-3" id="" src="~/images/logo-icon.png" alt="img-title" />
+                            <span class="video-center"><i class="fas fa-play icon-undo-camera" aria-hidden="true"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 px-3">
+            <span style="font-size: 14px; color: #424D54;">Video đánh giá rủi ro</span><br />
+            <i style="font-size: 12px; color: #424D54;">(Ngày: <%- item.ngay %>)</i>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="divDanhSachHinhAnhChupDanhGiaRuiRoTemplate">
+    <% if(hinh_anh.length > 0){%>
+    <% _.forEach(hinh_anh, function(item, index) { %>
+    <% _.forEach(item.children, function(image,index_anh) { %>
+    <div class="col-6 px-0">
+        <h3 class="field-name font-weight-bold px-2 m-2" style="font-size: 12px;"><%- image.ten_file %></h3>
+        <div class="take-photo text-center m-0">
+            <div class="take-photo-feed" id="divHinhAnhDanhGiaRuiRo<%- item.ma_file %>">
+                <img class="img-fluid img-item border" onclick="xemAnhChiTietDanhGia(this)" data-original="" data-loai="DGRR" data-name="<%- image.ten_file %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" data-doi-tac="<%- image.ma_doi_tac %>" location-x="<%- image.x %>" location-y="<%- image.y %>" style="width: 165px; height: 145px; border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;" src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+            </div>
+        </div>
+    </div>
+    <% }) %>
+    <% })}%>
+</script>
+
+<script type="text/html" id="divKhongCoKetQuaTemplate">
+    <div class="col-12 px-0">
+        <div class="take-photo text-center m-0">
+            <div class="take-photo-feed">
+                <img class="img-fluid img-item op-5" id="" src="~/images/landingpage/no_result.png" alt="Không có kết quả" />
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="divThongTinDanhGiaTonThatTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) { %>
+    <div class="card border-0 mb-0 item-danhgia rounded-0">
+        <div class="card-header p-2">
+            <a href="javascript:void(0)" class="font-weight-bold" data-field="hang_muc" data-val="<%- item.ma %>">Bộ phận <%- item.ten%></a>
+        </div>
+        <div class="card-body p-2 pb-0">
+            <div class="row w-100 mx-0">
+                <%if(item.tinh_trang == 'BT'){%>
+                <div class="col-4 px-1 text-center">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" data-field="danh_gia_bt" data-val="BT" data-ma="<%- item.ma %>" id="<%-item.ma%>_BT" class="custom-control-input <%-item.ma%> checkbox" checked onclick="onChonBinhThuong(this)">
+                        <label class="custom-control-label" for="<%-item.ma%>_BT" style="cursor:pointer; padding-top:2px">Bình thường</label>
+                    </div>
+                </div>
+                <div class="col-4 px-2 text-center">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" data-field="danh_gia_khac" data-val="KHAC" data-ma="<%- item.ma %>" id="<%-item.ma%>_KHAC" class="custom-control-input <%-item.ma%> checkbox" onclick="onChonKhac(this)">
+                        <label class="custom-control-label" for="<%-item.ma%>_KHAC" style="cursor:pointer; padding-top:2px">Có tổn thất</label>
+                    </div>
+                </div>
+                <%}else{%>
+                <div class="col-4 px-1 text-center">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" data-field="danh_gia_bt" data-val="BT" data-ma="<%- item.ma %>" id="<%-item.ma%>_BT" class="custom-control-input <%-item.ma%> checkbox" onclick="onChonBinhThuong(this)">
+                        <label class="custom-control-label" for="<%-item.ma%>_BT" style="cursor:pointer; padding-top:2px">Bình thường</label>
+                    </div>
+                </div>
+                <div class="col-4 px-2 text-center">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" data-field="danh_gia_khac" data-val="KHAC" data-ma="<%- item.ma %>" id="<%-item.ma%>_KHAC" class="custom-control-input <%-item.ma%> checkbox" checked onclick="onChonKhac(this)">
+                        <label class="custom-control-label" for="<%-item.ma%>_KHAC" style="cursor:pointer; padding-top:2px">Có tổn thất</label>
+                    </div>
+                </div>
+                <%}%>
+                <%if(item.ghi_chu == "" || item.ghi_chu == null){%>
+                <div class="col-4 px-2 text-center">
+                    <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu%>" data-id="<%-item.ma%>" data-name="<%- item.ten%>" onclick="showGhiChu(this)" class="cursor-pointer combobox">
+                        <i class="far fa-file-alt mr-2" data-ma="<%-item.ma%>" title="Ghi chú"></i> Ghi chú
+                    </a>
+                </div>
+                <%}else{%>
+                <div class="col-4 px-2 text-center">
+                    <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu%>" data-id="<%-item.ma%>" data-name="<%- item.ten%>" onclick="showGhiChu(this)" class="cursor-pointer combobox">
+                        <i class="far fa-file-alt mr-2 text-primary" data-ma="<%-item.ma%>" title="Ghi chú"></i> Ghi chú
+                    </a>
+                </div>
+                <%}%>
+            </div>
+        </div>
+    </div>
+    <% })}%>
+</script>

@@ -1,0 +1,144 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Gửi notify mẫu đến cho người dùng</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <form action="/" method="post" style="width:100%; padding:15px;">
+        <div class="row">
+            <div class="col-12">
+                <h3>Thông tin notify</h3>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+            <div class="col-2">
+                <label style="font-weight:bold">Tiêu đề</label>
+                <input type="text" class="form-control" id="tieu_de" value="Thông báo" placeholder="Tiêu đề" />
+            </div>
+            <div class="col-2">
+                <label style="font-weight:bold">Người nhận</label>
+                <input type="text" class="form-control" id="nsd_nhan" placeholder="Người nhận" />
+            </div>
+            <div class="col-2">
+                <label style="font-weight:bold">Sự kiện click notify</label>
+                <select class="form-control" name="ctiet_xem" id="ctiet_xem">
+                    <option value="0">Không</option>
+                    <option value="1">Có</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label style="font-weight:bold">Màn hình</label>
+                <select class="form-control" name="ctiet_hanh_dong" id="ctiet_hanh_dong" disabled="disabled">
+                    <option value="">Chọn</option>
+                    <option value="XEM_CTIET_HO_SO_GD">Hồ sơ giám định</option>
+                    <option value="XEM_CTIET_HO_SO_BT">Tính toán bồi thường</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label style="font-weight:bold">Đối tác</label>
+                <select class="form-control" name="ctiet_ma_doi_tac" disabled="disabled" id="ctiet_ma_doi_tac">
+                    <option value="">Chọn</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label style="font-weight:bold">Số id</label>
+                <input type="number" class="form-control" id="ctiet_so_id" disabled="disabled" name="ctiet_so_id" placeholder="Số id" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label style="font-weight:bold">Nội dung thông báo</label>
+                <textarea class="form-control" id="nd_tom_tat" rows="15" placeholder='Nội dung thông báo'></textarea>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+            <div class="col-12">
+                <button class="btn btn-primary" id="btnSignature" type="button">Gửi notify</button>
+                <button class="btn btn-primary" id="btnSMSMCM" type="button">Gửi SMS MCM</button>
+            </div>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function loadDoiTac() {
+            $("#ctiet_ma_doi_tac").html('<option value="">Chọn</option>');
+            $.ajax({
+                url: "/admin/partnerlist/getallnonecache",
+                type: "POST",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    if (res.state_info.status === "OK" && res.data_info.length > 0) {
+                        for (var i = 0; i < res.data_info.length; i++) {
+                            $("#ctiet_ma_doi_tac").append('<option value="' + res.data_info[i].ma + '">' + res.data_info[i].ten + '</option>');
+                        }
+                    }
+                }
+            });
+        }
+        function guiTinNhanMCM() {
+            $.ajax({
+                url: "/home/guiTinNhanMCM",
+                type: "POST",
+                data: {},
+                dataType: "json",
+                success: function (res) {
+                    alert(res.state_info.status);
+                }
+            });
+        }
+        $(document).ready(function () {
+            loadDoiTac();
+            $("#ctiet_xem").change(function () {
+                var val = $(this).val();
+                $("#ctiet_hanh_dong").val("");
+                $("#ctiet_ma_doi_tac").val("");
+                $("#ctiet_so_id").val("");
+                $("#ctiet_hanh_dong").attr("disabled", "disabled");
+                $("#ctiet_ma_doi_tac").attr("disabled", "disabled");
+                $("#ctiet_so_id").attr("disabled", "disabled");
+                if (val == "1") {
+                    $("#ctiet_hanh_dong").removeAttr("disabled");
+                    $("#ctiet_ma_doi_tac").removeAttr("disabled");
+                    $("#ctiet_so_id").removeAttr("disabled");
+                }
+            });
+            $("#btnSignature").click(function () {
+                $.ajax({
+                    url: "/home/sendnotifyexample",
+                    type: "POST",
+                    data: {
+                        nsd_nhan: $("#nsd_nhan").val(),
+                        tieu_de: $("#tieu_de").val(),
+                        nd: $("#nd_tom_tat").val(),
+                        nd_tom_tat: $("#nd_tom_tat").val(),
+                        loai_thong_bao: "NOTIFY",
+                        canh_bao: "INFO",
+                        ctiet_xem: $("#ctiet_xem").val(),
+                        ctiet_hanh_dong: $("#ctiet_hanh_dong").val(),
+                        ctiet_action_code: "CLICK",
+                        ctiet_ma_doi_tac: $("#ctiet_ma_doi_tac").val(),
+                        ctiet_so_id: $("#ctiet_so_id").val()
+                    },
+                    dataType: "json",
+                    success: function (res) {
+                        alert("Gửi thông báo thành công");
+                        console.log(res);
+                    }
+                });
+            });
+            $("#btnSMSMCM").click(function () {
+                guiTinNhanMCM();
+            });
+        });
+    </script>
+</body>
+</html>

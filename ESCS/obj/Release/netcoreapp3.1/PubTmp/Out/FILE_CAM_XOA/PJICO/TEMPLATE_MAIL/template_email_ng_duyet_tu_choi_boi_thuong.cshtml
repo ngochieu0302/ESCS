@@ -1,0 +1,37 @@
+﻿@using ESCS.COMMON.Response;
+@using RazorEngine.Templating;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO KẾT QUẢ TRÌNH TỪ CHỐI TRẢ TIỀN BẢO HIỂM</title>
+</head>
+<body style="font-family: 'Tahoma'; font-size: 14px; line-height: 1.6;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO KẾT QUẢ TRÌNH TỪ CHỐI TRẢ TIỀN BẢO HIỂM</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p>Kính gửi : <span style="color: #035299">Bộ phận bồi thường</span></p>
+
+                <p>
+                    Hệ thống thông báo kết quả phê duyệt từ chối bồi thường số hồ sơ: <span style="color: #035299">@mail.so_hs</span>
+                    của khách hàng <span style="color: #4552a2">@mail.ten_kh</span> theo hợp đồng bảo hiểm <span style="color: #035299">@mail.so_hd</span>
+                </p>
+
+                <p>Kết quả:  <span style="color: #4552a2">Đã duyệt</span></p>
+
+                <p>Đề nghị bộ phận bồi thường thực hiện các bước tiếp theo theo quy định.</p>
+
+                <p style="color: #035299; font-weight: bold; margin-top: 5px;">Trân trọng cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

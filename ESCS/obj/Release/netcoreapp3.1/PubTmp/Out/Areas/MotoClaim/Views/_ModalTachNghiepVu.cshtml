@@ -1,0 +1,48 @@
+﻿<div id="modalTachNghiepVu" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Danh sách nghiệp vụ hồ sơ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="table-responsive" style="max-height:380px">
+                            <table class="table table-bordered fixed-header" style="width:100%">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width: 50px">Chọn</th>
+                                        <th>Tên loại hình nghiệp vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalTachNghiepVuBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display:block;">
+                <button type="button" class="btn btn-primary btn-sm wd-80 mg-t-22 float-right" data-dismiss="modal"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                <button type="button" class="btn btn-primary btn-sm mg-t-22" id="btnChapNhanTachNghiepVu"><i class="fas fa-copy mr-2"></i>Tách và chuyển hồ sơ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalTachNghiepVuBodyTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr class="row-item">
+        <td>
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" data-field="lh_nv" value="<%- item.ma %>"  id="modalTachNghiepVu_<%- index %>" class="custom-control-input">
+                <label class="custom-control-label" for="modalTachNghiepVu_<%- index %>">&nbsp;</label>
+            </div>
+        </td>
+        <td>
+            <a href="#"><%- item.ten %></a>
+        </td>
+    </tr>
+    <% })}%>
+</script>

@@ -1,0 +1,126 @@
+﻿<div class="modal fade bs-example-modal-lg" id="modalTLThuongTat" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 60%; margin-top:15px;">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 0.5rem 1rem;">
+                <h4 class="modal-title">Thông tin mức độ thương tật</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="padding-top:5px">
+                <form name="frmTLThuongTat" method="post">
+                    <input type="hidden" name="pm" value="" />
+                    <input type="hidden" name="bt" value="" />
+                    <input type="hidden" name="vu_tt" value="" />
+                    <input type="hidden" name="lh_nv" value="" />
+                    <input type="hidden" name="hang_muc" value="" />
+                    <input type="hidden" name="so_id_doi_tuong" value="" />
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold text-center uppercase">
+                                    <tr>
+                                        <th style="width:40px">STT</th>
+                                        <th>Mức thương tật</th>
+                                        <th style="width:130px">TL thương tật (%)</th>
+                                        <th style="width:130px">Tiền tổn thất</th>
+                                        <th style="width:100px">Ghi chú</th>
+                                        <th style="width:40px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableTLThuongTat">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg">
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <form name="frmTLThuongTatNhap" method="post">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="nguon" class="_required">Mức độ thương tật</label>
+                                <input type="text" data-val="" style="cursor:pointer" onclick="danhGiaThuongTat(this)" name="ma_thuong_tat" readonly="readonly" autocomplete="off" placeholder="Chọn tỷ lệ thương tật" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="nguon" class="_required">Tỷ lệ thương tật</label>
+                                <input type="text" name="pttt" autocomplete="off" value="0" placeholder="Tỷ lệ thương tật" class="form-control number">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="nguon" class="_required">Số tiền tổn thất</label>
+                                <input type="text" name="tien" autocomplete="off" value="0" placeholder="Tiền tổn thất" class="form-control number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="nguon">Ghi chú</label>
+                                <input type="text" name="ghi_chu" autocomplete="off" placeholder="Ghi chú" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 mr-2" id="btnLuuTLThuongTat">
+                    <i class="fas fa-save mr-1"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-85" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-1"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/html" id="tableTLThuongTatTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item, index) { %>
+    <tr style="cursor:pointer">
+        <td class="text-center"><%- index + 1 %></td>
+        <td>
+            <a href="#" onclick="xemTLThuongTat('<%- item.ma_thuong_tat %>', '<%- item.ten_thuong_tat %>', '<%- item.pttt %>', '<%- item.tien_ht %>', '<%- item.ghi_chu %>')"><%- item.ten_thuong_tat %></a>
+        </td>
+        <td class="text-center"><%- item.pttt %></td>
+        <td class="text-right"><%- item.tien_ht %></td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu !=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="xoaTLThuongTat('<%- item.bt %>', '<%- item.vu_tt %>','<%- item.lh_nv %>','<%- item.so_id_doi_tuong %>','<%- item.ma_thuong_tat %>','<%- item.pm %>')"><i class="fas fa-trash-alt" title="Xóa thông tin"></i></a>
+        </td>
+    </tr>
+    <% })}%>
+
+    <% if(data.length < 6){
+    for(var i = 0; i < 6 - data.length;i++ ){%>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+

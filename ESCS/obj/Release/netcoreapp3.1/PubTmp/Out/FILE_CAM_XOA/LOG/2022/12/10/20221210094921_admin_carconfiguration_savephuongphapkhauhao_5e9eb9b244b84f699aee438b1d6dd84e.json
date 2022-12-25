@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/carconfiguration/savephuongphapkhauhao",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20221210131833
+  },
+  "Time": 20221210094921,
+  "Request": "{\"ma_doi_tac\":\"CTYBHABC\",\"ngay_ad\":\"20210101\",\"data_kh\":[{\"tuoi_xe_tu\":\"0\",\"tuoi_xe_toi\":\"2.9\",\"tl_khau_hao\":\"0\",\"bt\":\"20211101000150\"},{\"tuoi_xe_tu\":\"3\",\"tuoi_xe_toi\":\"5.9\",\"tl_khau_hao\":\"5\",\"bt\":\"20211102000040\"},{\"tuoi_xe_tu\":\"6\",\"tuoi_xe_toi\":\"9.9\",\"tl_khau_hao\":\"10\",\"bt\":\"20211102000183\"},{\"tuoi_xe_tu\":\"10\",\"tuoi_xe_toi\":\"14.9\",\"tl_khau_hao\":\"15\",\"bt\":\"20211102000184\"},{\"tuoi_xe_tu\":\"15\",\"tuoi_xe_toi\":\"25\",\"tl_khau_hao\":\"25\",\"bt\":\"20211102000185\"},{\"tuoi_xe_tu\":\"26\",\"tuoi_xe_toi\":\"100\",\"tl_khau_hao\":\"50\",\"bt\":\"20211102000186\"}]}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":null,\"out_value\":{\"ngay_ad\":20210101.0}}"
+}

@@ -1,0 +1,38 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="row mg-t-10">
+    <div class="col-12" id="navPheDuyet">
+        <ul class="nav nav-pills font-weight-bold" role="tablist" style="background-color:#f8f9fa">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabDGTTKhaiBaoHangMuc" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-info-circle mr-2"></i>Thông tin tờ trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabDGTTHoSoGiayTo" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-check-circle mr-2"></i>Thông tin chi tiết tờ trình
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabDGTTThongTinChung" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-file-alt mr-2"></i>Tài liệu phê duyệt
+                </a>
+            </li>
+
+        </ul>
+        <div class="tab-content">
+            <!-- Hạng mục tổn thất -->
+            <div class="tab-pane active" id="tabDGTTKhaiBaoHangMuc" role="tabpanel" aria-labelledby="home-tab">
+                <partial name="_ApprovedContentStep1.cshtml" />
+            </div>
+            <!-- Ho so giay to -->
+            <div class="tab-pane" id="tabDGTTHoSoGiayTo" role="tabpanel" aria-labelledby="profile-tab">
+                <partial name="_ApprovedContentStep3.cshtml" />
+            </div>
+            <!-- Thông tin chung -->
+            <div class="tab-pane" id="tabDGTTThongTinChung" role="tabpanel" aria-labelledby="profile-tab">
+                <partial name="_ApprovedContentStep2.cshtml" />
+            </div>
+
+        </div>
+    </div>
+</div>

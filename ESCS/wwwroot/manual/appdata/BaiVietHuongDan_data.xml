@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<ArrayOfBaiVietHuongDan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM1</ma_danh_muc>
+    <id>1</id>
+    <ma_bai_viet>DM1_BV1</ma_bai_viet>
+    <thu_tu_hien_thi>1</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 1</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Xe cơ giới;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM1</ma_danh_muc>
+    <id>2</id>
+    <ma_bai_viet>DM1_BV2</ma_bai_viet>
+    <thu_tu_hien_thi>2</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 2</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Xe cơ giới;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM1</ma_danh_muc>
+    <id>3</id>
+    <ma_bai_viet>DM1_BV3</ma_bai_viet>
+    <thu_tu_hien_thi>3</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 3</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Xe cơ giới;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM2</ma_danh_muc>
+    <id>1</id>
+    <ma_bai_viet>DM2_BV1</ma_bai_viet>
+    <thu_tu_hien_thi>1</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 1</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Con người;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM2</ma_danh_muc>
+    <id>2</id>
+    <ma_bai_viet>DM2_BV2</ma_bai_viet>
+    <thu_tu_hien_thi>2</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 2</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Con người;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM2</ma_danh_muc>
+    <id>3</id>
+    <ma_bai_viet>DM2_BV3</ma_bai_viet>
+    <thu_tu_hien_thi>3</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 3</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Con người;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM3</ma_danh_muc>
+    <id>1</id>
+    <ma_bai_viet>DM3_BV1</ma_bai_viet>
+    <thu_tu_hien_thi>1</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 1</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Cài đặt;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM3</ma_danh_muc>
+    <id>2</id>
+    <ma_bai_viet>DM3_BV2</ma_bai_viet>
+    <thu_tu_hien_thi>2</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 2</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Web) Cài đặt;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM4</ma_danh_muc>
+    <id>1</id>
+    <ma_bai_viet>DM4_BV1</ma_bai_viet>
+    <thu_tu_hien_thi>1</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 1</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Mobile) Xe cơ giới;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM4</ma_danh_muc>
+    <id>2</id>
+    <ma_bai_viet>DM4_BV2</ma_bai_viet>
+    <thu_tu_hien_thi>2</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 2</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Mobile) Xe cơ giới;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM4</ma_danh_muc>
+    <id>3</id>
+    <ma_bai_viet>DM4_BV3</ma_bai_viet>
+    <thu_tu_hien_thi>3</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 3</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Mobile) Xe cơ giới;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM5</ma_danh_muc>
+    <id>1</id>
+    <ma_bai_viet>DM5_BV1</ma_bai_viet>
+    <thu_tu_hien_thi>1</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 1</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Mobile) Con người;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM5</ma_danh_muc>
+    <id>2</id>
+    <ma_bai_viet>DM5_BV2</ma_bai_viet>
+    <thu_tu_hien_thi>2</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 2</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Mobile) Con người;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+  <BaiVietHuongDan>
+    <ma_danh_muc>DM5</ma_danh_muc>
+    <id>3</id>
+    <ma_bai_viet>DM5_BV3</ma_bai_viet>
+    <thu_tu_hien_thi>3</thu_tu_hien_thi>
+    <ten_bai_viet>Bài viết 3</ten_bai_viet>
+    <tu_khoa_tim_kiem>(Mobile) Con người;</tu_khoa_tim_kiem>
+  </BaiVietHuongDan>
+</ArrayOfBaiVietHuongDan>

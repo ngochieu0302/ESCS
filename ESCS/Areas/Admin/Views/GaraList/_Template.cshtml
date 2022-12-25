@@ -1,0 +1,22 @@
+﻿<script type="text/html" id="tabledanhSachNV_template">
+    <% if(hmtt.length > 0){ %>
+    <% _.forEach(hmtt, function(i,index) { %>
+    <tr>
+        <td><%- i.ten %></td>
+        <td>
+            <select class="select2 form-control custom-select" multiple name="muc_do">
+                <% _.forEach(mdtt, function(j,index) { %>
+                    <option value=""><%- j.ten %></option>
+                <% }) %>
+            </select>
+        </td>
+        <td>
+            <input type="text" name="" maxlength="18" col-gia-thay-the="<%- i.gia_thay_the %>" class="number floating-input" value="<%- ESUtil.formatMoney(i.phi) %>" />
+        </td>
+        <td>
+            <input type="text" name="" maxlength="18" col-gia-sua-chua="<%- i.gia_sua_chua %>" class="number floating-input" value="<%- ESUtil.formatMoney(i.phi) %>" />
+        </td>
+    </tr>
+    <% }) %>
+    <% }%>
+</script>

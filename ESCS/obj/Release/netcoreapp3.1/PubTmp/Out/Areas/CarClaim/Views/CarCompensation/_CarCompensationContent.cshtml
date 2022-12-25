@@ -1,0 +1,147 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="card border mb-0 p-2 h-100 d-flex flex-column" id="cardCarCompensationContent">
+    <div class="card-body p-1 flex-fill" style="padding:0px;" id="navBoiThuong">
+        <div style="float:left;padding:6px 2px">
+            <a href="#" style="display: block;height: 33.2px;padding: 7px 2px;" id="btnAnHienTabCommon"><i class="fas fa-angle-left"></i></a>
+        </div>
+        <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist" style="padding-left:0px">
+            <li role="presentation" onclick="showStep('CarCompensationContentStep1')">
+                <a href="#Tab_CarCompensationContentStep1" aria-controls="CarCompensationContentStep1" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-car-crash mr-2"></span>Thông tin giám định
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('CarCompensationContentStep2')">
+                <a href="#Tab_CarCompensationContentStep2" aria-controls="CarCompensationContentStep2" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-camera-retro mr-2"></span>Tài liệu, hình ảnh hồ sơ
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('CarCompensationContentStep3')">
+                <a href="#Tab_CarCompensationContentStep3" aria-controls="CarCompensationContentStep3" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-tools mr-2"></span>Lập phương án
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('CarCompensationContentStep4')">
+                <a href="#Tab_CarCompensationContentStep4" aria-controls="CarCompensationContentStep4" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-calculator-alt mr-2"></span>Tính toán bồi thường
+                </a>
+            </li>
+            <li role="presentation" onclick="showStep('CarCompensationContentStep5')">
+                <a href="#Tab_CarCompensationContentStep5" aria-controls="CarCompensationContentStep5" role="tab" data-toggle="tab" aria-expanded="false">
+                    <span class="fas fa-file-invoice mr-2"></span>Chứng từ hóa đơn
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="border:unset;">
+            <div role="tabpanel" style="padding-top: 0px;" class="tab-pane" id="CarCompensationContentStep1">
+                <partial name="_CarCompensationContentStep1" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px;" class="tab-pane" id="CarCompensationContentStep2">
+                <partial name="_CarCompensationContentStep2" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px; height: 100vh;" class="tab-pane" id="CarCompensationContentStep3">
+                <partial name="_CarCompensationContentStep3" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px; height: 100vh;" class="tab-pane" id="CarCompensationContentStep4">
+                <partial name="_CarCompensationContentStep4" />
+            </div>
+            <div role="tabpanel" style="padding-top: 0px;" class="tab-pane" id="CarCompensationContentStep5">
+                <partial name="_CarCompensationContentStep5" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="card border mb-0 p-2">
+    <div class="card-body p-1">
+        <div class="wizard">
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="nav-item" onclick="showStep('CarCompensationContentStep1')">
+                        <a class="nav-link active" data-toggle="tab" href="#CarCompensationContentStep1" role="tab" aria-controls="pills-home" aria-selected="true">
+                            <span class="round-tab">
+                                5
+                            </span>
+                        </a>
+                        <p class="text-center">Thông tin tổn thất, giám định</p>
+                    </li>
+                    <li role="presentation" class="nav-item" onclick="showStep('CarCompensationContentStep2')">
+                        <a class="nav-link" data-toggle="tab" href="#CarCompensationContentStep2" role="tab" aria-controls="pills-profile" aria-selected="false">
+                            <span class="round-tab">
+                                6
+                            </span>
+                        </a>
+                        <p class="text-center">Hình ảnh, hồ sơ</p>
+                    </li>
+                    <li role="presentation" class="nav-item" onclick="showStep('CarCompensationContentStep3')">
+                        <a class="nav-link" data-toggle="tab" href="#CarCompensationContentStep3" role="tab" aria-controls="pills-contact" aria-selected="false">
+                            <span class="round-tab">
+                                7
+                            </span>
+                        </a>
+                        <p class="text-center">Phương án khắc phục</p>
+                    </li>
+                    <li role="presentation" class="nav-item" onclick="showStep('CarCompensationContentStep4')">
+                        <a class="nav-link" data-toggle="tab" href="#CarCompensationContentStep4" role="tab" aria-controls="pills-contact" aria-selected="false">
+                            <span class="round-tab">
+                                8
+                            </span>
+                        </a>
+                        <p class="text-center">Phương án bồi thường</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel" id="CarCompensationContentStep1">
+                    <partial name="_CarCompensationContentStep1" />
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="CarCompensationContentStep2">
+                    <partial name="_CarCompensationContentStep2" />
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="CarCompensationContentStep3">
+                    <partial name="_CarCompensationContentStep3" />
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="CarCompensationContentStep4">
+                    <partial name="_CarCompensationContentStep4" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>*@
+@*<div class="row lstButtonESCS lstButton_CarCompensationContentStep1">
+   
+    <div class="col-12 text-right mg-t-10">
+        <button type="button" class="btn btn-primary btn-step-escs next-step next-button rounded-circle">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+<div class="row lstButtonESCS lstButton_CarCompensationContentStep2">
+    <div class="col-12 text-right mg-t-10">
+        <button type="button" class="btn btn-outline-primary btn-step-escs prev-step rounded-circle mr-2">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button type="button" class="btn btn-primary next-step btn-step-escs next-button rounded-circle">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+<div class="row lstButtonESCS lstButton_CarCompensationContentStep3">
+    <div class="col-12 text-right mg-t-10">
+        <button type="button" class="btn btn-outline-primary btn-step-escs prev-step rounded-circle mr-2">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button type="button" class="btn btn-primary next-step btn-step-escs next-button rounded-circle">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+<div class="row lstButtonESCS lstButton_CarCompensationContentStep4">
+    <div class="col-12 text-right mg-t-10">
+        <button type="button" class="btn btn-outline-primary prev-step btn-step-escs rounded-circle mr-2">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </div>
+</div>*@

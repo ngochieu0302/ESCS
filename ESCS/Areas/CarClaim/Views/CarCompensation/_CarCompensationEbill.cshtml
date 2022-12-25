@@ -1,0 +1,91 @@
+﻿<style>
+    .card-title-bg-primary {
+        background-color: #1e88e5;
+        color: white;
+    }
+</style>
+<!-- Modal đọc thông tin hóa đơn -->
+<div id="modalReadInvoice" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 1100px">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title" id="CarCompensationQuotationLabel">Đọc hóa đơn điện tử XML</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Thông tin hóa đơn</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form id="frmBillInfo" name="frmBillInfo" novalidate="novalidate" method="post">
+                            <input type="hidden" name="bt_gara" value="" />
+                            <input type="hidden" name="gara" value="" />
+                        </form>
+                        <div class="table-responsive" style="max-height:274px;">
+                            <table id="tableDsEbill" class="table table-bordered fixed-header" style="width: 200%">
+                                @*tableDsGaraBaoGia*@
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:100px;">Số hóa đơn</th>
+                                        <th style="width:80px;">Seri</th>
+                                        <th style="width:100px;">Mẫu</th>
+                                        <th style="width:120px;">Tên hóa đơn</th>
+                                        <th style="width:100px;">Ngày phát hành</th>
+                                        <th>Nguyên tệ</th>
+                                        <th style="width:200px;">Tên bên bán</th>
+                                        <th>MST bên bán</th>
+                                        <th style="width:350px;">Địa chỉ bên bán</th>
+                                        <th style="width:200px;">Tên bên mua</th>
+                                        <th style="width:120px;">MST bên mua</th>
+                                        <th style="width:350px;">Địa chỉ bên mua</th>
+                                        <th>Tiền</th>
+                                        <th>Thuế</th>
+                                        <th>Thành tiền</th>
+                                        <th style="width:350px;">Thành chữ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="docEbill">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-12">
+                        <h5>Chi tiết hàng hóa</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:476px;">
+                            <table id="tableDsEbillCT" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th>Dòng</th>
+                                        <th>Tên hạng mục</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn vị tính</th>
+                                        <th>Đơn giá</th>
+                                        <th>% Thuế</th>
+                                        <th>Thuế</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="docEbillCT">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm wd-85" data-dismiss="modal" id="btnBaoGiaGara_close">
+                    <i class="fas fa-window-close"></i>&nbsp;Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,426 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục gara";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Danh sách Gara</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Gara</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin Gara</label>
+                                <input type="text" name="tim" id="tim" placeholder="Nhập mã/tên gara" autocomplete="off" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Tỉnh thành</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="tinh_thanh" style="width: 100%; height: 36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Quận huyện</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="quan_huyen" style="width: 100%; height: 36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnNhapThongTinGara">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Export" id="btnExportExcelGaraList">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewGara" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="modalNhapGara" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="max-width:65%; margin-top:10px; margin-bottom:unset;">
+        <div class="modal-content">
+            <form name="frmLuuThongTinGara" method="post">
+                <div class="modal-header" style="padding:0.2rem 0.5rem;">
+                    <h4 class="modal-title">Thông tin gara <span id="modal-user-log" style="font-size: 14px; font-style: italic;"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" style="padding-top:0px; max-height:470px; overflow:auto;">
+                    <input type="hidden" name="pm" value="BT" />
+                    <input type="hidden" name="so_id" />
+                    <input type="hidden" name="ma" />
+                    <input type="hidden" name="hang_xe" />
+                    <input type="hidden" name="ma_pm_bao_gia" />
+                    <div class="row">
+                        <div class="col-sm-3 d-none">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" required style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="_required">Mã gara</label>
+                                <input type="text" maxlength="20" name="ma" class="form-control" required autocomplete="off" placeholder="Mã gara">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên gara</label>
+                                <input type="text" maxlength="250" name="ten" autocomplete="off" required class="form-control" placeholder="Tên gara">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Tên viết tắt</label>
+                                <input type="text" maxlength="100" name="ten_tat" autocomplete="off" class="form-control" placeholder="Tên viết tắt">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Mã số thuế</label>
+                                <input type="text" maxlength="20" name="mst" autocomplete="off" required class="form-control text" placeholder="Mã số thuế">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Mã gara đối tác</label>
+                                <input type="text" maxlength="20" name="ma_gara_dt" autocomplete="off" class="form-control text" placeholder="Mã gara đối tác">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Mẫu hóa đơn</label>
+                                <input type="text" maxlength="20" name="mau_hdon" autocomplete="off" class="form-control text" placeholder="GT00001...">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Ký hiệu hóa đơn</label>
+                                <input type="text" maxlength="20" name="ky_hieu_hdon" autocomplete="off" class="form-control text" placeholder="AP/20...">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Địa chỉ</label>
+                                <input type="text" maxlength="250" class="form-control" autocomplete="off" required="" name="dia_chi" placeholder="Địa chỉ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Tỉnh thành</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="tinh_thanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Quận huyện</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required name="quan_huyen" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Tọa độ</label>
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" class="form-control" name="toa_do" placeholder="Tọa độ">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="toa_do">
+                                            <a href="javascript:void(0)" id="xemBanDo">
+                                                <i class="fas fa-map-marker-alt" title="Xem chi tiết bản đồ"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Hợp tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="hop_tac" style="width: 100%; height:36px;">
+                                    <option value="">Chọn hợp tác</option>
+                                    <option value="C">Có hợp tác</option>
+                                    <option value="K">Không hợp tác</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="">Chính hãng</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="chinh_hang" style="width: 100%; height:36px;">
+                                    <option value="">Chọn chính hãng</option>
+                                    <option value="C">Chính hãng</option>
+                                    <option value="K">Không chính hãng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Liên hệ</label>
+                                <div class="input-group">
+                                    <input type="text" maxlength="250" class="form-control" autocomplete="off" name="lien_he" placeholder="Liên hệ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Điện thoại</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validatePhoneControl" maxlength="20" class="form-control phone" autocomplete="off" name="dien_thoai" im-insert="true" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validateEmailControl" autocomplete="off" maxlength="50" name="email" class="form-control email-inputmask" im-insert="true" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin:0.5rem" />
+                    <h5>Thông tin đối tượng thụ hưởng</h5>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Ngân hàng</label>
+                                <select class="select2 form-control custom-select" required name="ngan_hang_ma" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="">Ngân hàng chi nhánh</label>
+                                <select class="select2 form-control custom-select" name="chi_nhanh_ma" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Tên đơn vị/người thụ hưởng</label>
+                                <input type="text" maxlength="250" name="thu_huong" required class="form-control" autocomplete="off" placeholder="Đối tượng thụ hưởng">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Số tài khoản</label>
+                                <input type="text" maxlength="20" name="tai_khoan" required autocomplete="off" class="form-control text" placeholder="Số Tài khoản">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="">Hãng xe/ủy quyền chính hãng</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" multiple name="hang_xe_view" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="">Ngân hàng thanh toán</label>
+                                <input type="text" maxlength="250" name="ngan_hang_tt" autocomplete="off" class="form-control text" placeholder="Ngân hàng thanh toán">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin:0.5rem" />
+                    <h5>Kết nối phần phần báo giá</h5>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Trạng thái kết nối</label>
+                                <select class="select2 form-control custom-select" name="ket_noi_bg" style="width: 100%; height:36px;">
+                                    <option value="K">Không kết nối</option>
+                                    <option value="C">Có kết nối</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tài khoản mặc định</label>
+                                <input type="text" maxlength="100" name="tk_bgia" autocomplete="off" class="form-control text" placeholder="Tài khoản đăng nhập mặc định">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="password" name="mk_bgia" autocomplete="off" class="form-control text" placeholder="Mật khẩu">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block">
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoaThongTinGara"><i class="fas fa-trash-alt"></i> Xóa</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuThongTinGara"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-150 float-right d-none" id="btnCauHinhGara"><i class="fas fa-cogs"></i> Cấu hình gara</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="inside-modal" class="esmodal fade" tabindex="-1" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="esmodal-dialog">
+        <div class="esmodal-content">
+            <div class="esmodal-header py-1">
+                <h4 class="esmodal-title">Cấu hình Gara</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClose"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="esmodal-body" style="background-color:#54667a0a; padding-top:5px;">
+                <div class="row">
+                    <div class="col-12 info-tab">
+                        <div class="card" style="margin-bottom:0px;">
+                            <div class="card-body p-0">
+                                <div class="border rounded">
+                                    <div class="scrollable" style="padding:5px;">
+                                        <form name="frmNhapGiaGara" style="width:100%" method="post">
+                                            <div class="row" style="width:100%">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width: 100%; height:36px;">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col col-4">
+                                                    <button type="button" class="btn btn-primary wd-80 btn-sm wd-24p" title="Lưu" id="btnLuu">
+                                                        <i class="fa fa-save mr-2"></i> Lưu
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12  collapse show" id="sidebar_info">
+                        <div class="row">
+                            <div class="col-4 common-tab pr-0">
+                                <div class="card" style="margin-bottom:0px;">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div>
+                                                <div style="width:100%" class="mt-1 pd-l-10 pd-r-10">
+                                                    <input type="text" placeholder="Nhập tên hãng xe/hiệu xe" autocomplete="off" class="form-control" id="timKiemHangXe" value="" />
+                                                </div>
+                                                <div style="height:530px" class="scrollable" id="treeHangXe"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 common-tab pr-0">
+                                <div class="card" style="margin-bottom:0px;">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div>
+                                                <div style="width:100%" class="mt-1 pd-l-10 pd-r-10">
+                                                    <input type="text" placeholder="Nhập tên hạng mục" autocomplete="off" class="form-control" id="timKiemHangMuc" value="" />
+                                                </div>
+                                                <div style="height:530px" class="scrollable" id="treeHangMuc"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 common-tab pr-0">
+                                <div class="card" style="margin-bottom:0px;">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div>
+                                                <div style="width:100%" class="mt-1 pd-l-10 pd-r-10">
+                                                    <input type="text" placeholder="Nhập tên mức độ" autocomplete="off" class="form-control" id="timKiemMucDo" value="" />
+                                                </div>
+                                                <div style="height:530px" class="scrollable" id="treeMucDo"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="~/Views\Shared\_FormUploadExcel.cshtml" />
+<partial name="_Template.cshtml" />
+
+@section Styles{
+    <link href="~/libs/tree-js/vakata-jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+    <style>
+        .vakata-context {
+            z-index: 9999999 !important;
+        }
+    </style>
+}
+@section Scripts{
+    <script src="~/libs/tree-js/vakata-jstree/dist/jstree.js" asp-append-version="true"></script>
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CategoryvehicleListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/DamageLevelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/HieuXeService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/CarManufacturerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/AdministrativeUnitsService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BankListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/GaraListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/GaraList.js" asp-append-version="true"></script>
+}

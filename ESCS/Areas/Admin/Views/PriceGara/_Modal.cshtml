@@ -1,0 +1,173 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!-- Modal báo giá gara -->
+<div id="inside-modal" class="esmodal fade" tabindex="-1" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="esmodal-dialog">
+        <div class="esmodal-content">
+            <div class="esmodal-header py-1">
+                <h4 class="esmodal-title" id="titleBaoGiaGara">Nhập báo giá gara</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="hideModal()" aria-label="Close" id="btnClose"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="esmodal-body" style="background-color:#54667a0a">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 info-tab">
+                        <div class="card" style="margin-bottom:0px; min-height:600px">
+                            <div class="card mb-0" style="min-height: 570px;">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="border" style="border-radius:5px">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <form name="frmNhapGiaGara" method="post" style="width:100%">
+                                                    <div class="row">
+                                                        <div class="col-sm-12" id="navThongTin">
+                                                            <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
+                                                                <li role="presentation" onclick="showStep('tabThongTinChung')">
+                                                                    <a href="#Tab_tabThongTinChung" aria-controls="tabThongTinChung" role="tab" data-toggle="tab" aria-expanded="false" aria-selected="false">
+                                                                        <i class="fas fa-garage"></i> Thông tin gara
+                                                                    </a>
+                                                                </li>
+                                                                <li role="presentation" onclick="showStep('tabBaoGiaGara')">
+                                                                    <a href="#Tab_tabBaoGiaGara" aria-controls="tabBaoGiaGara" role="tab" data-toggle="tab" aria-expanded="false" aria-selected="false">
+                                                                        <i class="fal fa-funnel-dollar"></i> Báo giá gara
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="tab-content">
+                                                                <div class="tab-pane active pd-l-15 pd-r-15 pt-0" id="tabThongTinChung" role="tabpanel">
+                                                                    <div class="row" style="width:100%">
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label class="_required">Danh sách Gara</label>
+                                                                                <select class="select2 form-control custom-select" required name="gara" style="width: 100%; height:36px;">
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <div class="form-group">
+                                                                                <label for="ngay_ad" class="_required">Ngày áp dụng</label>
+                                                                                <div class="input-group">
+                                                                                    <input type="text" class="form-control datepicker" required autocomplete="off" name="ngay_ad" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                                                                    <div class="input-group-append">
+                                                                                        <span class="input-group-text" style="padding: 0.1em 0.3em !important;"><span class="ti-calendar"></span></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4" style="padding-top: 21px;">
+                                                                            <button type="button" class="btn btn-primary btn-sm" title="Thêm giá" id="btnThemGia">
+                                                                                <i class="fa fa-plus"></i> Thêm báo giá
+                                                                            </button>
+                                                                            @*<button type="button" class="btn btn-primary wd-80 btn-sm wd-24p" title="Export" id="btnExportExcel">
+                                                                                    <i class="fas fa-download"></i>
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-primary wd-80 btn-sm wd-24p" title="Import" id="btnImportExcel">
+                                                                                    <i class="fas fa-upload"></i>
+                                                                                </button>*@
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-4">
+                                                                            <div class="card" style="margin-bottom:0px;">
+                                                                                <div class="card-body p-0">
+                                                                                    <div class="border mb-3 rounded">
+                                                                                        <div>
+                                                                                            <div style="width:100%" class="mt-1 pd-l-10 pd-r-10">
+                                                                                                <input type="text" autocomplete="off" placeholder="Nhập tên hãng xe/hiệu xe" class="form-control" id="timKiemHangXe" value="" />
+                                                                                            </div>
+                                                                                            <div style="height: 480px" class="scrollable" id="treeHangXe"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-4">
+                                                                            <div class="card" style="margin-bottom:0px;">
+                                                                                <div class="card-body p-0">
+                                                                                    <div class="border mb-3 rounded">
+                                                                                        <div>
+                                                                                            <div style="width:100%" class="mt-1 pd-l-10 pd-r-10">
+                                                                                                <input type="text" autocomplete="off" placeholder="Nhập tên hạng mục" class="form-control" id="timKiemHangMuc" value="" />
+                                                                                            </div>
+                                                                                            <div style="height: 480px" class="scrollable" id="treeHangMuc"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-4">
+                                                                            <div class="card" style="margin-bottom:0px;">
+                                                                                <div class="card-body p-0">
+                                                                                    <div class="border mb-3 rounded">
+                                                                                        <div>
+                                                                                            <div style="width:100%" class="mt-1 pd-l-10 pd-r-10">
+                                                                                                <input type="text" autocomplete="off" placeholder="Nhập tên mức độ" class="form-control" id="timKiemMucDo" value="" />
+                                                                                            </div>
+                                                                                            <div style="height: 437px" class="scrollable" id="treeMucDo"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane" id="tabBaoGiaGara" role="tabpanel">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="table-responsive" style="max-height:540px">
+                                                                                <table class="table table-bordered fixed-header">
+                                                                                    <thead class="font-weight-bold text-center uppercase">
+                                                                                        <tr>
+                                                                                            <th style="width:40px;">STT</th>
+                                                                                            <th style="width:100px;">Hãng xe</th>
+                                                                                            <th style="width:100px;">Hiệu xe</th>
+                                                                                            <th style="width:350px;">Hạng mục</th>
+                                                                                            <th style="width:90px;">Mức độ tổn thất</th>
+                                                                                            <th style="width: 100px; text-align: center;">
+                                                                                                Tiền vật tư
+                                                                                                <input type="checkbox" id="checkAllTienVTu" style="position: absolute; top: 9px; right: 5px; width: 15px; height: 15px;">
+                                                                                            </th>
+                                                                                            <th style="width: 100px; text-align: center;">
+                                                                                                Tiền nhân công
+                                                                                                <input type="checkbox" id="checkAllTienNhanCong" style="position: absolute; top: 9px; right: 5px; width: 15px; height: 15px;">
+                                                                                            </th>
+                                                                                            <th style="width: 100px; text-align: center;">
+                                                                                                Tiền khác
+                                                                                                <input type="checkbox" id="checkAllTienKhac" style="position: absolute; top: 9px; right: 5px; width: 16px; height: 16px;">
+                                                                                            </th>
+                                                                                            <th style="width:40px;"></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody id="tableNhapGiaGara">
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <div id="tblNhapGiaGara_pagination"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-2 mt-2">
+                                                                        <div class="col col-12">
+                                                                            <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnXoa"><i class="fas fa-trash-alt"></i> Xóa</button>
+                                                                            <button type="button" class="btn btn-primary btn-sm wd-90 mg-r-15" style="float:right" id="btnLuuThongTinGiaGaraHopTac" title="Lưu">
+                                                                                <i class="fa fa-save mr-2"></i> Lưu
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-primary btn-sm wd-90 mg-r-15" style="float:right" id="btnQuayLai" title="Quay lại">
+                                                                                <i class="far fa-chevron-left mr-2"></i> Quay lại
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

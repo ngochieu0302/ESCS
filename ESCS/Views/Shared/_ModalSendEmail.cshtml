@@ -1,0 +1,125 @@
+﻿
+<link href="~/libs/esmail/css/component.css" rel="stylesheet" />
+<script>(function (e, t, n) { var r = e.querySelectorAll("html")[0]; r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2") })(document, window, 0);</script>
+<div id="modalSendEmailCommon" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1 modal-draggable">
+                <h4 class="modal-title">Thông tin gửi email</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form name="frmSendEmailCommon" style="width:100%;" method="post">
+                    <input type="hidden" name="key" value="" />
+                    <input type="hidden" name="template" value="" />
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Loại thông báo</label>
+                                <select class="select2 form-control custom-select" required name="loai" style="width: 100%;">
+                                    <option value="">Chọn loại thông báo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Email người nhận(dấu ;)</label>
+                                <input type="text" class="form-control" required name="nguoi_nhan" placeholder="Email người nhận">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Cc (dấu ;)</label>
+                                <input type="text" class="form-control" name="cc" placeholder="Cc Email">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="">Bcc (dấu ;)</label>
+                                <input type="text" class="form-control" name="bcc" placeholder="Bcc Email">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Tiêu đề</label>
+                                <input type="text" class="form-control" required name="tieu_de" placeholder="Tiêu đề email">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <a href="#" data-toggle="collapse" data-target="#modalSendEmailCommonNoiDungEmail" aria-expanded="false" aria-controls="modalSendEmailCommonNoiDungEmail">Xem nội dung email.</a>
+                            <a href="#" style="float:right" id="modalSendEmailCommonDinhKemFile" data-file-id="123456789,123456788" data-file-name="file1.pdf,file2.pdf">File đính kèm thêm(0)</a>
+                        </div>
+                        <div class="col-12 collapse" id="modalSendEmailCommonNoiDungEmail">
+                            <div class="form-group">
+                                <textarea id="frmSendEmailCommon_noi_dung" name="noi_dung" required rows="3" placeholder="Nội dung"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-150 d-none" id="btnFrmSendEmailZaloCommonSubmit">
+                    <i class="fas fa-envelope mr-2"></i>Gửi email và zalo
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-70" id="btnFrmSendEmailCommonSubmit">
+                    <i class="fas fa-envelope mr-2"></i>Gửi
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-70" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalSendEmailCommonFileAttach" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thêm tài liệu đính kèm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <table id="modalSendEmailCommonFileAttachTable" style="width:100%" class="table-bordered">
+                            <tr>
+                                <td colspan="2">Chưa có file đính kèm</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="dropzone-panel">
+                    <a class="dropzone-select btn btn-sm btn-primary font-weight-bold text-white" id="modalSendEmailCommonFileAttachAdd">
+                        <i class="fas fa-plus"></i> Thêm tài liệu
+                    </a>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm wd-85" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-1"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalSendEmailCommonFileAttachTableTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr data-file-id="<%- item.id %>">
+        <td style="padding:5px;" class="font-weight-bold">
+            <%- item.ten %>
+        </td>
+        <td class="text-center" style="padding:5px;width:100px">
+            <a href="#" onclick="ESSendEmail_OnDeleteFile('<%- item.id %>')"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="2">Chưa có file đính kèm</td>
+    </tr>
+    <% } %>
+</script>

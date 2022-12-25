@@ -1,0 +1,33 @@
+﻿<style>
+    .pdfobject-container {
+        height: 72vh;
+    }
+
+    .pdfobject {
+        border: 1px solid #666;
+    }
+    .show_loading {
+        background: url(../images/loading.svg) center center no-repeat;
+    }
+</style>
+<div id="modalPreviewFile" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:60vw">
+        <div class="modal-content">
+            <div class="modal-header py-1 modal-draggable">
+                <h4 class="modal-title" id="modalPreviewFileTitle">Danh sách tài liệu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a; padding:0px">
+                <div class="row p-2">
+                    <div class="col-12">
+                        <div class="card border mb-0">
+                            <div class="card-body" style="height: 80vh;overflow-y: auto; padding: .25rem !important;">
+                                <div class="tab-content" id="modalPreviewFileContents" style="height:79vh !important"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

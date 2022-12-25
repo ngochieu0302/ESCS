@@ -1,0 +1,197 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh mục thông tin liên hệ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 col-12 align-self-center">
+        <h3 class="text-themecolor mb-0">Thông tin liên hệ</h3>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-none d-md-flex">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/">Trang chủ</a>
+            </li>
+            <li class="breadcrumb-item active">Thông tin liên hệ</li>
+        </ol>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-body" style="padding-top:5px">
+                <form action="/" method="post" name="frmTimKiem" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tìm kiếm thông tin </label>
+                                <input type="text" name="tim" id="tim" autocomplete="off" placeholder="Nhập thông tin tìm kiếm" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Đối tác</label>
+                                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="">Nhóm</label>
+                                <select class="select2 form-control custom-select" name="nhom" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nhóm</option>
+                                    <option value="DANG_KIEM">Đăng kiểm</option>
+                                    <option value="CUU_HO">Cứu hộ</option>
+                                    <option value="CSGT">Cảnh sát giao thông</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="padding-top: 21px;">
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Tìm kiếm" id="btnTimKiem">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm wd-24p" title="Thêm mới" id="btnNhap">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" style="margin-top:3px">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div id="gridViewTTLH" class="table-app" style="height: 64vh;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalNhapContact" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <form name="frmSaveContact" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin liên hệ</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pm" value="BT" />
+                    <input type="hidden" name="ma" value="" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Đối tác</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Nhóm</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="nhom" style="width: 100%; height:36px;">
+                                    <option value="">Chọn nhóm</option>
+                                    <option value="DANG_KIEM">Đăng kiểm</option>
+                                    <option value="CUU_HO">Cứu hộ</option>
+                                    <option value="CSGT">Cảnh sát giao thông</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Trạng thái</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="trang_thai" style="width: 100%; height:36px;">
+                                    <option value="">Chọn trạng thái</option>
+                                    <option value="1">Đang sử dụng</option>
+                                    <option value="0">Ngưng sử dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tên</label>
+                                <input type="text" maxlength="200" name="ten" required class="form-control" autocomplete="off" placeholder="Tên thông tin liên hệ">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Điện thoại</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validatePhoneControl" autocomplete="off" class="form-control phone" maxlength="20" required="" name="sdt" im-insert="true" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="">Email</label>
+                                <div class="input-group">
+                                    <input type="text" fn-validate="validateEmailControl" name="email" maxlength="200" autocomplete="off" class="form-control email-inputmask" im-insert="true" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Tỉnh thành</label>
+                                <select id="ma_tinh_thanh" class="select2 form-control custom-select select2-hidden-accessible" required="" name="ma_tinh_thanh" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Quận huyện</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="ma_quan_huyen" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="_required">Xã phường</label>
+                                <select class="select2 form-control custom-select select2-hidden-accessible" required="" name="ma_xa_phuong" style="width: 100%; height:36px;"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="_required">Địa chỉ</label>
+                                <input type="text" maxlength="500" name="dia_chi" required class="form-control" autocomplete="off" placeholder="VD: Xã/phường/quận/thành phố... ">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="">Tọa độ</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="toa_do" autocomplete="off" placeholder="Tọa độ">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="toa_do">
+                                            <a href="javascript:void(0)" id="xemBanDo">
+                                                <i class="fas fa-map-marker-alt" title="Xem chi tiết bản đồ"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="display:block;">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal"><i class="fas fa-window-close"></i> Đóng</button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnSaveContact"><i class="fa fa-save"></i> Lưu</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm wd-80" id="btnDeleteContact"><i class="fas fa-trash-alt"></i> Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/common/UploadExcelService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/AdministrativeUnitsService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/ContactInfoService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/ContactInfo.js" asp-append-version="true"></script>
+}
+

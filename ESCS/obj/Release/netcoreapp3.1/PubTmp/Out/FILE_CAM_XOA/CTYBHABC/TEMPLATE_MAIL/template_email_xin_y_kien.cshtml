@@ -1,0 +1,36 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>TRÌNH XIN Ý KIẾN HỒ SƠ</title>
+</head>
+<body style="font-family: 'Tahoma';font-size:14px;line-height:1.6;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">XIN Ý KIẾN HỒ SƠ</h2>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi : <span style="color: #035299">Anh/Chị</span></p>
+                <p style="margin-top:5px; font-family: 'Tahoma'; font-size: 14px;"><span style="color: #4552a2"></span>Bộ phận bồi thường trình xin ý kiến đối với xe <span style="color: #4552a2"> @mail.doi_tuong</span> theo hợp đồng bảo hiểm <span style="color: #4552a2"> @mail.so_hd </span> với thông tin chi tiết như sau:</p>
+
+                <ul style="font-family: 'Tahoma'; font-size: 14px;">
+                    <li>Biển số xe tai nạn: <span style="color: #4552a2">@mail.doi_tuong</span></li>
+                    <li>Tên chủ xe (người được bảo hiểm): <span style="color: #4552a2">@mail.ten_kh</span></li>
+                    <li>Số hồ sơ: <span style="color: #4552a2">@mail.so_hs</span></li>
+                    <li>Nội dung: <span style="color: #4552a2">@mail.so_hs</span></li>
+                    <li>Ngày cần hoàn thành: <span style="color: #4552a2">@mail.ngay_hoan_thanh</span></li>
+                </ul>
+                <p style="margin-top:5px;">Kính mong Ban lãnh đạo xem xét và cho ý kiến.</p>
+                <p style="color: #035299; font-weight: bold; margin-top: 5px;">Trân trọng Cảm ơn!</p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; font-style: italic">Chú ý: Đây là email tự động từ hệ thống, vui lòng không phản hồi.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

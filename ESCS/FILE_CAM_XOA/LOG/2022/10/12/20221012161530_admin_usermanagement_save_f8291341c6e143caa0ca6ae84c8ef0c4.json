@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/usermanagement/save",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": "images/users/db67b90d9e1e4eb8982cef825d354e70.jpg",
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20221012192143
+  },
+  "Time": 20221012161530,
+  "Request": "{\"pm\":\"BT\",\"trang_thai\":\"D\",\"ma_doi_tac\":\"CTYBHABC\",\"ma_chi_nhanh\":\"000\",\"phong\":\"IT\",\"ten\":\"Vương Ngọc Hiếu\",\"ma_chuc_danh\":\"NV001\",\"dthoai\":\"0904539708\",\"ma\":\"hieuvn@escs.vn\",\"mat_khau\":\"abc123\",\"email\":\"vuongngochieu030299@gmail.com\",\"ngay_hl\":20211012,\"ngay_kt\":20251012,\"loai_tk\":\"U\",\"quyen\":[{\"nhom_chuc_nang\":\"QTHT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"HDXE\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"HDCN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"MAHT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GDHT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GDTT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"BTXE\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"BLVP\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"TNCN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"TNMB\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"BTCN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"TTBT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"CCCT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DUYET\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"PCONG\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GOTTOAN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"KTOAN\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"GD\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCBMC\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCQLND\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCOTO\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DMUCNG\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"MOHSO\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"DUYETLNGHI\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"HDKHAC\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"THEMCSYT\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"YCGD\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"XEMBC\",\"nhap\":\"0\",\"xem\":\"0\"},{\"nhom_chuc_nang\":\"BCDT\",\"nhap\":\"1\",\"xem\":\"1\"}],\"quanly\":[{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"000\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"000.02\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"001\"},{\"ma_doi_tac_ql\":\"CTYBHABC\",\"ma_chi_nhanh_ql\":\"777\"}]}",
+  "Respone": "{\"state_info\":{\"status\":\"NotOK\",\"message_code\":\"500\",\"message_body\":\"Tài khoản không đủ phân quyền!\",\"signature\":null,\"errors\":null},\"data_info\":null,\"out_value\":null}"
+}

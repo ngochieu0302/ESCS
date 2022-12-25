@@ -1,0 +1,216 @@
+﻿@*<div class="custom-modal">
+        <div id="modalBaoCaoGD" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;">
+            <div class="modal-dialog modal-lg" style="width:850px;max-height:700px; max-width:unset; margin-top:10px">
+                <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                    <div class="modal-header py-1" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                        <h4 class="modal-title" style="color:#fff">Báo cáo giám định</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="frmBaoCaoGD" id="frmBaoCaoGD" method="post">
+                            <input type="hidden" name="pt_gt_tham_gia_bh" value="" />
+                            <input type="hidden" name="pt_che_tai" value="" />
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="font-weight-bold">Đánh giá, nhận xét cán bộ GĐBT  - <span class="text-danger" id="modalBaoCaoGDTrangThai">Chưa thực hiện</span></h6>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#">Hồ sơ (GPLX, GCNBH, ĐK…)</a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="ho_so_day_du" id="ho_so_day_du_d" class="custom-control-input">
+                                        <label class="custom-control-label" for="ho_so_day_du_d" style="cursor:pointer; padding-top:2px">Đầy đủ, hợp lệ</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="ho_so_day_du" id="ho_so_day_du_k" class="custom-control-input">
+                                        <label class="custom-control-label" for="ho_so_day_du_k" style="cursor:pointer; padding-top:2px">Không đủ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="#">Nguyên nhân tai nạn</a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="nguyen_nhan" id="nguyen_nhan_d" class="custom-control-input">
+                                        <label class="custom-control-label" for="nguyen_nhan_d" style="cursor:pointer; padding-top:2px">Đúng, rõ ràng</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="nguyen_nhan" id="nguyen_nhan_k" class="custom-control-input">
+                                        <label class="custom-control-label" for="nguyen_nhan_k" style="cursor:pointer; padding-top:2px">Không đúng</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="#">Tổn thất thuộc phạm vi bảo hiểm</a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="pham_vi_tt" id="pham_vi_tt_c" class="custom-control-input">
+                                        <label class="custom-control-label" for="pham_vi_tt_c" style="cursor:pointer; padding-top:2px">Có</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="pham_vi_tt" id="pham_vi_tt_k" class="custom-control-input">
+                                        <label class="custom-control-label" for="pham_vi_tt_k" style="cursor:pointer; padding-top:2px">Không</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="#">Giá trị xe tham gia bảo hiểm</a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="gt_tham_gia_bh" id="gt_tham_gia_bh_d" class="custom-control-input">
+                                        <label class="custom-control-label" for="gt_tham_gia_bh_d" style="cursor:pointer; padding-top:2px">Đúng giá trị</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="gt_tham_gia_bh" id="gt_tham_gia_bh_k" class="custom-control-input">
+                                        <label class="custom-control-label" for="gt_tham_gia_bh_k" style="cursor:pointer; padding-top:2px">Dưới giá trị (<span id="pt_gt_tham_gia_bh"></span>%)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="#">Tuân thủ của đơn vị cấp BH</a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="tuan_thu" id="tuan_thu_c" class="custom-control-input">
+                                        <label class="custom-control-label" for="tuan_thu_c" style="cursor:pointer; padding-top:2px">Có</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="tuan_thu" id="tuan_thu_k" class="custom-control-input">
+                                        <label class="custom-control-label" for="tuan_thu_k" style="cursor:pointer; padding-top:2px">Không (Ghi rõ)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="#">Thời hạn khai báo của khách hàng</a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="thoi_han_khai_bao" id="thoi_han_khai_bao_d" class="custom-control-input">
+                                        <label class="custom-control-label" for="thoi_han_khai_bao_d" style="cursor:pointer; padding-top:2px">Đúng</label>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="thoi_han_khai_bao" id="thoi_han_khai_bao_k" class="custom-control-input">
+                                        <label class="custom-control-label" for="thoi_han_khai_bao_k" style="cursor:pointer; padding-top:2px">Không đúng (Chế tài <span id="pt_che_tai"></span>%)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="y_kien">Nội dung khác</label>
+                                        <textarea class="form-control" name="noi_dung_danh_gia" maxlength="1000" autocomplete="off" placeholder="Nội dung khác" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="font-weight-bold">Nội dung đề xuất</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="">Gara sửa chữa đề xuất</label>
+                                        <select class="form-control select2" name="gara_de_xuat" style="width:100%"></select>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="">Gara chính hãng</label>
+                                        <select class="form-control select2" name="gara_chinh_hang" style="width:100%">
+                                            <option value="">Chọn loại gara</option>
+                                            <option value="C">Chính hãng</option>
+                                            <option value="K">Không chính hãng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="">Gara hợp tác</label>
+                                        <select class="form-control select2" name="gara_hop_tac" style="width:100%">
+                                            <option value="">Chọn nhóm gara</option>
+                                            <option value="C">Hợp tác</option>
+                                            <option value="K">Không hợp tác</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="_required">Ước tổn thất</label>
+                                        <div class="input-group">
+                                            <input type="text" maxlength="15" required autocomplete="off" class="form-control number placeholder-left" name="uoc_ton_that" placeholder="Ước tổn thất">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Lý do</label>
+                                        <div class="input-group">
+                                            <input type="text" maxlength="1000" name="ly_do" autocomplete="off" class="form-control" placeholder="Lý do">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="y_kien" class="_required">Giám định viên hiện trường đề xuất</label>
+                                        <textarea class="form-control" required maxlength="1000" name="gdvht_de_xuat" autocomplete="off" placeholder="Nội dung khác" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="y_kien">Nội dung khác</label>
+                                        <textarea class="form-control" maxlength="1000" name="noi_dung_de_xuat" autocomplete="off" placeholder="Nội dung khác" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="display:block;">
+                        <button type="button" class="btn btn-primary btn-sm wd-140 mg-t-22" id="btnModalHuyDuyetBCGD">
+                            <i class="fas fa-stop-circle mr-2"></i>Hủy duyệt BCGD
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-120 mg-t-22" id="btnModalDuyetBCGD">
+                            <i class="fas fa-check mr-2"></i>Duyệt BCGD
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-130 mg-t-22" id="btnModalTrinhphancapBCGD">
+                            <i class="fas fa-share-square mr-2"></i>Trình BCGD
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal" id="btnInBCGD">
+                            <i class="fas fa-print mr-2"></i>In ấn
+                        </button>
+
+                        <button type="button" class="btn-outline-primary btn-sm wd-90 mg-t-22 float-right" data-dismiss="modal" id="CarClaimCarCategoryAdd_close">
+                            <i class="fas fa-window-close mr-2"></i>Đóng
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22 float-right" id="btnLuuDongBaoCaoGD" style="width:120px">
+                            <i class="fas fa-plus-square mr-2"></i>Lưu & Đóng
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22 float-right" id="btnLuuBaoCaoGD">
+                            <i class="fas fa-plus-square mr-2"></i>Lưu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+

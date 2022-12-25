@@ -1,0 +1,185 @@
+﻿<div id="modalCarSearch" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thêm hợp đồng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="wizard" id="navTabHopDong">
+                    <div class="wizard-inner">
+                        <div class="connecting-line" style="width:55%"></div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="nav-item" onclick="_HDBHCar.showStep('tabTimKH')">
+                                <a class="nav-link disabled active" data-toggle="tab" href="#tabTimKH" role="tab" aria-selected="false">
+                                    <span class="round-tab">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                </a>
+                                <p class="text-center">Thông tin khách hàng</p>
+                            </li>
+                            <li role="presentation" class="nav-item" onclick="_HDBHCar.showStep('tabThongTinHD')">
+                                <a class="nav-link disabled" data-toggle="tab" href="#tabThongTinHD" role="tab" aria-selected="false">
+                                    <span class="round-tab">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                </a>
+                                <p class="text-center">Thông tin hợp đồng</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane mt-3 active" role="tabpanel" id="tabTimKH">
+                            <form name="frmKH" method="post">
+                                <input type="hidden" name="so_id_kh" />
+                                <input type="hidden" name="ma_kh" />
+                                <input type="hidden" name="ma_doi_tac" />
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="tim" im-insert="true" placeholder="Tìm kiếm thông tin khách hàng">
+
+                                                <select class="select2 form-control custom-select" required name="loai_kh" style="width:100%">
+                                                    <option value="" selected>Chọn loại khách hàng</option>
+                                                    <option value="C" selected>Cá nhân</option>
+                                                    <option value="T" selected>Tổ chức</option>
+                                                </select>
+                                                
+                                                <select class="select2 form-control custom-select" required name="ma_chi_nhanh" style="width:100%"></select>
+
+                                                <div class="input-group-append">
+                                                    <label class="input-group-text" for="">
+                                                        <a href="#" onclick="_CContact.timkiem();">
+                                                            <i class="fal fa-search" title="Tìm kiếm"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="table-data-kh" style="box-sizing:inherit"></div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="modal-footer" style="margin-top: 5px;">
+                                <button type="button" class="btn btn-primary btn-sm wd-80 ml-2" id="btnLuuKH" style="">
+                                    <i class="fa fa-save"></i>&nbsp;&nbsp;Lưu
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm wd-80 ml-2" id="btnMoiKH" style="">
+                                    <i class="fa fa-save"></i>&nbsp;&nbsp;Mới
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm" id="btnTiepTheo" onclick="_HDBHCar.showStep('tabThongTinHD')">
+                                    Tiếp theo &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tab-pane mt-3" role="tabpanel" id="tabThongTinHD">
+                            <form name="frmHopDong" method="post">
+                                <input type="hidden" name="so_id" value="" />
+                                <input type="hidden" name="so_id_g" value="" />
+                                <input type="hidden" name="so_id_d" value="" />
+                                <input type="hidden" name="ma_kh" value="" />
+                                <div class="row" style="margin-top:6px">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Mã đối tác</label>
+                                            <select class="select2 form-control custom-select" required name="ma_doi_tac" style="width:100%"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Chi nhánh</label>
+                                            <select class="select2 form-control custom-select" required name="ma_chi_nhanh" style="width:100%"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Phòng</label>
+                                            <select class="select2 form-control custom-select" required name="phong" style="width:100%">
+                                                <option value="" selected>Chọn phòng ban</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="">Số ID hợp đồng</label>
+                                        <div class="input-group">
+                                            <input type="text" autocomplete="off" class="form-control digit" name="so_id_doitac" placeholder="Số ID hợp đồng">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Số hợp đồng</label>
+                                            <input type="text" autocomplete="off" class="form-control" required name="so_hd" placeholder="Số hợp đồng">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="_required">Kiểu hợp đồng</label>
+                                            <select class="select2 form-control custom-select" name="kieu_hd" style="width:100%">
+                                                <option value="">Chọn kiểu hợp đồng</option>
+                                                <option value="G" selected>Gốc</option>
+                                                <option value="B" selected>Bổ sung</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label>Số hợp đồng gốc</label>
+                                            <input type="text" autocomplete="off" class="form-control" readonly name="so_hd_goc">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="_required">Ngày cấp</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control datepicker" required display-format="date" value-format="number" name="ngay_cap" placeholder="mm/dd/yyyy">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="_required">Ngày hiệu lực</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control datepicker" disabled display-format="date" value-format="number" name="ngay_hl" placeholder="mm/dd/yyyy">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="_required">Ngày kết thúc</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control datepicker" disabled display-format="date" value-format="number" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="modal-footer" style="margin-top: 10px;">
+                                <button type="button" class="btn btn-primary btn-sm ml-2" id="btnLuuHD">
+                                    <i class="fa fa-save"></i>&nbsp;&nbsp;Lưu hợp đồng
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm ml-2" id="btnLuuSDBS" style="">
+                                    <i class="fa fa-save"></i>&nbsp;&nbsp;Tạo phụ lục HĐ
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm" id="btnQuayLai" onclick="_HDBHCar.showStep('tabTimKH')">
+                                    <i class="fas fa-chevron-left"></i>&nbsp;&nbsp; Quay lại
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

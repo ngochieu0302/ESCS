@@ -1,0 +1,415 @@
+﻿<style>
+    iframe {
+        display: block;
+        margin: 20px auto;
+    }
+
+    #navTrinhDuyet li.active a {
+        font-weight: bold;
+    }
+    #ModalTrinhDuyet .custom-control-label[for=ModalTrinhDuyetEmailNhanKhiDuyetThuCong]:before{
+        top:-1px !important;
+    }
+    #ModalTrinhDuyet .custom-control-label[for=ModalTrinhDuyetEmailNhanKhiDuyetThuCong]:after {
+        top: -1px !important;
+    }
+    #ModalTrinhDuyet .custom-control-label[for=ModalTrinhDuyetEmailNhanKhiDuyetTuDong]:before {
+        top: -1px !important;
+    }
+    #ModalTrinhDuyet .custom-control-label[for=ModalTrinhDuyetEmailNhanKhiDuyetTuDong]:after {
+        top: -1px !important;
+    }
+    #ModalTrinhDuyetEmailNhanKhiDuyet .custom-control{
+        min-height:unset;
+    }
+</style>
+
+<div id="ModalTrinhDuyet" class="modal fade" tabindex="-1" style="z-index:99999" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width:85vw">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title" id="">Trình phê duyệt</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color: #54667a0a; padding: 0px;">
+                <div class="p-2">
+                    <form id="frmModalTrinhDuyet" name="frmModalTrinhDuyet" method="post">
+                        <input type="hidden" name="bt" />
+                        <input type="hidden" name="nv" />
+                        <div class="row mt-1">
+                            <div class="col-12">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb" id="navTrinhDuyet" style="margin:unset;margin-bottom:5px; padding-top:3px; padding-bottom:3px;">
+                                        <li class="breadcrumb-item active" id="divToTrinhDuyetTabItem"><a href="#" class="btn btn-primary btn-sm mt-1"><i class="fas fa-file-contract mr-1"></i> Thông tin tờ trình</a></li>
+                                        <li class="breadcrumb-item" id="divNoiDungTrinhTabItem"><a href="#" class="btn btn-primary btn-sm mt-1"><i class="fas fa-share-square mr-1"></i>Trình phê duyệt</a></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="row mt-2 tabTrinhDuyetContent" id="divToTrinhDuyet">
+                            <div class="col-12">
+                                <div class="card mb-0">
+                                    <div class="card-body p-0">
+                                        <div class="border rounded">
+                                            <div class="scrollable" id="modalViewFileContent">
+                                                <div id="viewHtmlTrinhDuyet" class="text-center mx-auto" style="height:75vh">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2 tabTrinhDuyetContent" id="divNoiDungTrinh" style="max-height: 75vh">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col col-5" id="ModalTrinhDuyetNhomPheDuyet">
+                                        <div class="form-group">
+                                            <label>Chọn nhóm phê duyệt</label>
+
+                                            <div class="input-group">
+                                                <select class="form-control select2" required name="so_id_trinh_mau" style="width:100%"></select>
+                                                <div class="input-group-append">
+                                                    <label class="input-group-text">
+                                                        <a href="javascript:void(0)" @*id="ModalTrinhDuyet_btnTaoNhomTrinh"*@>
+                                                            <i class="far fa-users-medical" title="Tạo nhóm trình duyệt"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col col-5" id="ModalTrinhDuyetNoiDungTrinh">
+                                        <div class="form-group">
+                                            <label class="">
+                                                Nội dung trình &nbsp; &nbsp;<span><a href="#" onclick="chonNoiDungTrinhDuyet(this)"><i class="fa fa-bars mr-2"></i>Chọn nội dung trình</a></span>
+                                                &nbsp;&nbsp;<span><a href="#" id="btnThemNoiDungTrinh"><i class="fas fa-plus-square mr-2"></i>Tạo nội dung trình</a></span>
+                                            </label>
+                                            <input type="text" name="nd" id="noi_dung_trinh" maxlength="500" autocomplete="off" required placeholder="Nội dung trình" class="form-control" value="Kính trình">
+                                        </div>
+                                    </div>
+                                    <div class="col col-4" id="ModalTrinhDuyetEmailNhanKhiDuyet">
+                                        <div class="form-group">
+                                            <label class="">
+                                                <span class="mr-2">Email nhận khi phê duyệt</span>
+                                                <span class="mr-1" style="float:right">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input ModalTrinhDuyetEmailNhanKhiDuyet_input" type="checkbox" id="ModalTrinhDuyetEmailNhanKhiDuyetTuDong" value="C">
+                                                        <label class="custom-control-label" style="cursor:pointer" for="ModalTrinhDuyetEmailNhanKhiDuyetTuDong">Gửi tự động</label>
+                                                    </div>
+                                                </span>
+                                                <span class="mr-3" style="float:right">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input ModalTrinhDuyetEmailNhanKhiDuyet_input" type="checkbox" id="ModalTrinhDuyetEmailNhanKhiDuyetThuCong" value="K">
+                                                        <label class="custom-control-label" style="cursor:pointer" for="ModalTrinhDuyetEmailNhanKhiDuyetThuCong">Gửi thủ công</label>
+                                                    </div>
+                                                </span>
+                                            </label>
+                                            <input type="text" name="email_nhan" maxlength="500" autocomplete="off" id="ModalTrinhDuyetEmailNhanKhiDuyet_Email" placeholder="VD: abc@gmail.com; xyz@gmail.com" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col col-1" id="ModalTrinhDuyetNutTrinh" style="padding-left:0px;">
+                                        <button type="button" class="btn btn-primary btn-sm w-100" style="margin-top:21px;" id="ModalTrinhDuyet_btnLuuTrinhDuyet">
+                                            <i class="fas fa-share-square mr-1"></i>Trình
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm w-100" style="margin-top:21px;" id="ModalTrinhDuyet_btnHuyTrinhDuyet">
+                                            <i class="fa fa-times mr-1"></i>Hủy trình
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:10px; margin-bottom:10px">
+                                    <div class="col-12">
+                                        <div class="table-responsive" style="max-height: 138px; overflow-y: auto;">
+                                            <table class="table table-bordered fixed-header">
+                                                <thead class="font-weight-bold text-center uppercase">
+                                                    <tr>
+                                                        <th style="width:40px">STT</th>
+                                                        <th>Tên</th>
+                                                        <th>Chức danh</th>
+                                                        <th>Tài khoản</th>
+                                                        <th>Phân cấp phê duyệt</th>
+                                                        <th>Đơn vị</th>
+                                                        <th style="width:85px">Quyền</th>
+                                                        <th style="width:40px"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="ModalTrinhDuyetGrid">
+                                                    <tr>
+                                                        <td colspan="8" class="text-center">Chưa có dữ liệu</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="card-title-bg">
+                                                        <td colspan="8">
+                                                            <a href="#" id="ModalTrinhDuyet_btnThemNguoiPheDuyet">
+                                                                <i class="fas fa-user-plus mr-2"></i>Thêm người phê duyệt
+                                                            </a>
+                                                            <a href="#" id="ModalTrinhDuyet_btnXoaNhomTrinh" style="float:right">
+                                                                <i class="fas fa-times mr-2"></i>Xóa nhóm trình cá nhân
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:10px; margin-bottom:10px">
+                                    <div class="col-12">
+                                        <h6>Quá trình trình - duyệt</h6>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="table-responsive" style="max-height:305px; overflow-y:auto">
+                                            <table class="table table-bordered fixed-header" style="width: 130%;">
+                                                <thead class="font-weight-bold text-center uppercase" style="position: sticky; top: 0;">
+                                                    <tr>
+                                                        <th style="width:40px;vertical-align: middle;" rowspan="2">STT</th>
+                                                        <th style="width:205px;vertical-align: middle;" rowspan="2">Loại trình</th>
+                                                        <th colspan="5">Thông tin người duyệt</th>
+                                                        <th colspan="4">Thông tin người trình</th>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <th style="width:180px;">Tên</th>
+                                                        <th style="width:180px;">Chi nhánh</th>
+                                                        <th style="width:100px;">Quyền</th>
+                                                        <th style="width:120px;">Trạng thái duyệt</th>
+                                                        <th style="width:120px">Thời gian duyệt</th>
+
+
+                                                        <th style="width:180px">Tên người trình</th>
+                                                        <th style="width:180px">Chi nhánh trình</th>
+                                                        <th style="width: 120px">Ngày trình</th>
+                                                        <th>Nội dung trình</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="ModalTrinhDuyetGridLichSu">
+                                                    <tr>
+                                                        <td colspan="11" class="text-center">Chưa có dữ liệu</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="ModalTrinhDuyetGridTemplate">
+    <% if(ds_nsd.length > 0){
+    _.forEach(ds_nsd, function(item,index) { %>
+    <tr class="divItemDsNguoiDuyet">
+        <td class="text-center">
+            <input type="hidden" data-field="ma_doi_tac_duyet" value="<%- item.ma_doi_tac_duyet %>" />
+            <input type="hidden" data-field="ma_chi_nhanh_duyet" value="<%- item.ma_chi_nhanh_duyet %>" />
+            <input type="hidden" data-field="nsd_duyet" value="<%- item.nsd_duyet %>" />
+            <input type="hidden" data-field="phe_duyet" value="<%- item.phe_duyet %>" />
+            <input type="hidden" data-field="phan_cap" value="<%= item.phan_cap %>" />
+            <input type="hidden" data-field="stt_duyet" value="<%- item.stt_duyet %>" />
+            <%- item.stt %>
+        </td>
+        <td><%- item.ten_nsd_duyet %></td>
+        <td><%- item.ten_chuc_danh %></td>
+        <td><%- item.nsd_duyet %></td>
+        <td style="text-align:center"><%= item.phan_cap %></td>
+        <td class="text-center"><%- item.ten_cnhanh_duyet %></td>
+        <td class="text-center"><%- item.phe_duyet_chinh %></td>
+        <td class="text-center"></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="8">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+<script type="text/html" id="ModalTrinhDuyetGridLichSuTemplate">
+    <% if(lich_su.length > 0){
+    _.forEach(lich_su, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- item.stt %></td>
+        <td class="text-center" style="font-weight:bold"><%- item.loai_ten %></td>
+        <td><%- item.ten_nguoi_duyet %></td>
+        <td><%- item.ten_chi_nhanh_duyet %></td>
+        <td class="text-center"><%- item.phe_duyet=='1'?'Duyệt chính':'Kiểm tra' %></td>
+        <td class="text-center"><%= item.trang_thai_ten %></td>
+        <td class="text-center"><%- item.ngay_duyet %></td>
+        <td style="text-align:center"><%- item.ten_nguoi_trinh %></td>
+        <td><%- item.ten_chi_nhanh_trinh %></td>
+        <td class="text-center"><%- item.ngay_trinh %></td>
+        <td><%- item.nd %></td>
+    </tr>
+    <% })}%>
+    <% if(lich_su.length < 6){
+    for(var i = 0; i < 6 - lich_su.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<div class="custom-modal">
+    <div id="modalTrinhDuyetThemNhom" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999;">
+        <div class="modal-dialog modal-lg" style="max-width:unset; width:950px;max-height:700px">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h4 class="modal-title" style="color:#fff">Tạo nhóm trình duyệt cá nhân</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body" style="padding-bottom: 0px;">
+                    <form name="frmModalTrinhDuyetThemNhom" method="post">
+                        <div class="row">
+                            <input type="hidden" name="ma_doi_tac" value="" />
+                            <input type="hidden" name="ma_chi_nhanh" value="" />
+                            <input type="hidden" name="loai_trinh" value="" />
+                            <input type="hidden" name="nghiep_vu" value="" />
+                            <input type="hidden" name="ngay_ad" value="" />
+                            <input type="hidden" name="trang_thai" value="D" />
+                            <input type="hidden" name="nhom_ca_nhan" value="" />
+                            <input type="hidden" name="so_id" />
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Đơn vị duyệt</label>
+                                    <input type="text" onclick="onModalTrinhDuyetChonDonVi(this)" style="cursor:pointer" autocomplete="off" name="ma_chi_nhanh_duyet" required class="form-control" placeholder="Click chọn đơn vị duyệt" readonly="readonly" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="_required">Tên nhóm</label>
+                                    <input type="text" maxlength="100" autocomplete="off" name="ten_nhom" required class="form-control" placeholder="Tên nhóm" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card" style="margin-bottom:unset;min-height:256px;">
+                                    <div class="card-body px-0" style="padding:unset !important">
+                                        <div class="border mb-3 rounded">
+                                            <div class="justify-content-between p-2 card-title-bg">
+                                                <h5 class="m-0">Danh sách cán bộ phê duyệt</h5>
+                                            </div>
+                                            <div class="pd-10">
+                                                <input type="text" name="tim" autocomplete="off" onkeyup="onSearchCanBoTrinhDuyet(this)" placeholder="Tìm kiếm cán bộ" class="form-control">
+                                            </div>
+                                            <div class="scrollable" style="height:270px">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead class="font-weight-bold">
+                                                            <tr class="text-center uppercase">
+                                                                <th style="width:50px">Chọn</th>
+                                                                <th>Tên cán bộ</th>
+                                                                <th>Chức danh</th>
+                                                                <th style="width:170px">Phân cấp</th>
+                                                                <th>Đơn vị</th>
+                                                                <th style="width:87px">Duyệt chính</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="modalTrinhDuyetThemNhomDSCanBo">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" id="ModalTrinhDuyet_btnLuuThemNhomTrinhDuyet">
+                        <i class="fas fa-plus-square mr-2"></i>Lưu
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" id="ModalTrinhDuyet_btnLuuDongThemNhomTrinhDuyet" style="width:120px">
+                        <i class="fas fa-plus-square mr-2"></i>Lưu & Đóng
+                    </button>
+                    <button type="button" class="btn-outline-primary btn-sm wd-90 mg-t-22" data-dismiss="modal">
+                        <i class="fas fa-window-close mr-2"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalTrinhDuyetChonDonVi" class="modal-drag" style="width:400px; z-index:9999999;">
+    <div class="modal-drag-header">
+        <h5><span class="modal-drag-title">Chọn đơn vị</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="modalTrinhDuyetChonDonViTimKiem" onclick="onFocus(this)" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalTrinhDuyetChonDonViDanhSach"></div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="border-top: 1px solid #e9ecef;">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="ModalTrinhDuyet_btnTrinhDuyetChonDonVi">
+            <i class="fas fa-save mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalTrinhDuyetChonDonViDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox" data-text="">
+        <input type="checkbox" id="dvi_duyet_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonDviDuyet">
+        <label class="custom-control-label" style="cursor:pointer;" for="dvi_duyet_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+
+<script type="text/html" id="modalTrinhDuyetThemNhomDSCanBoTemplate">
+    <% _.forEach(danh_sach, function(item, index) { %>
+    <tr class="divItemDsCanBoTrinh" data-nhom-chi-nhanh="<%- item.ma_chi_nhanh %>" data-ma-cb="<%- item.ma %>" data-text="<%- item.ma+item.ten.toLowerCase() %>">
+        <td style="width:30px; padding:0;">
+            <div style="width:16px; margin:0 auto">
+                <input type="hidden" data-field="ma_doi_tac_duyet" data-val="<%- item.ma_doi_tac %>" class="form-control" />
+                <input type="hidden" data-field="ma_chi_nhanh_duyet" data-val="<%- item.ma_chi_nhanh %>" class="form-control" />
+                <input type="checkbox" onchange="onModalTrinhDuyetChonCanBo(this)" data-field="nsd_duyet" data-val="<%- item.ma %>" class="form-control" />
+            </div>
+        </td>
+        <td style="padding: 7px 10px"><%- item.ten %> (<%- item.ma %>)</td>
+        <td style="padding: 7px 10px"><%- item.ten_chuc_danh %></td>
+        <td style="padding: 7px 10px" class="text-center"><%= item.phan_cap %></td>
+        <td style="padding: 7px 10px" class="text-center"><%- item.ten_chi_nhanh %></td>
+        <td style="width:87px; padding:0;">
+            <div style="width:16px; margin:0 auto">
+                <input type="checkbox" data-field="phe_duyet" disabled="disabled" data-nsd="<%- item.ma %>" data-val="0" onchange="onModalTrinhDuyetChonPheDuyetChinh(this)" class="form-control" />
+            </div>
+        </td>
+    </tr>
+    <%})%>
+
+    <% if(danh_sach.length < 7){
+    for(var i = 0; i < 7 - danh_sach.length;i++ ){ %>
+    <tr style="cursor: pointer">
+        <td style="height:33.1px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <%}}%>
+</script>
+
+

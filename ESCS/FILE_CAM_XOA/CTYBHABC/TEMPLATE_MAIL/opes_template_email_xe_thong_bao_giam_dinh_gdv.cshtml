@@ -1,0 +1,48 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO GIÁM ĐỊNH GĐV</title>
+</head>
+<body style="font-family: 'Tahoma'">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">THÔNG BÁO GIÁM ĐỊNH</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Dear anh/chị : <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.thong_tin_gdv</span></p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Anh/chị được phân công giám định cho xe ô tô <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.doi_tuong</span> 
+                    với số hồ sơ bồi thường <span style="font-family: 'Tahoma'; font-size: 14px; color: #035299">@mail.so_hs</span>
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Nguyên nhân và diễn biến: Nội dung nguyên nhân diễn biến
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Địa điểm tổn thất: địa điểm xảy ra tổn thất
+                </p>
+
+                <p>
+                    - Người liên hệ: tên người liên hệ/ số điện thoại
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Anh/chi vui lòng liên hệ khách hàng và thực hiện công tác giám định hiện trường.
+                </p>
+                
+                <p style="color: #035299; font-weight: bold">Trân trọng Cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

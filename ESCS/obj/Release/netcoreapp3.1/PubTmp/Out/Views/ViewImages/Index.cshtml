@@ -1,0 +1,135 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS.ModelView
+@{
+    ViewData["Title"] = "Xem Hình Ảnh";
+    Layout = "~/Views/Shared/_LayoutNone.cshtml";
+}
+<style>
+    body {
+        /*  height: 100vh;*/
+        background-color: #eef5f9;
+    }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 100rem;
+            height: 30vh;
+        }
+
+        body::-webkit-scrollbar-track {
+            background-color: #ffffff;
+            border-radius: 100rem;
+        }
+
+    #divTrangChuXemToanBoAnh .site-wrapper {
+        background-color: #eef5f9;
+    }
+
+    #divTrangChuXemToanBoAnh .main-wrapper {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white;
+        z-index: 4;
+    }
+
+    #divTrangChuXemToanBoAnh .header-personal {
+        background: #1e88e5;
+    }
+
+        #divTrangChuXemToanBoAnh .header-personal .header-top {
+            background: #1e88e5;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+    #divTrangChuXemToanBoAnh #dsToanBoAnhHoSoBoiThuong p {
+        font-size: 14px;
+    }
+</style>
+<input type="hidden" id="thong_tin_ho_so" value="@ViewBag.thong_tin_ho_so" />
+<div id="divTrangChuXemToanBoAnh">
+    <div class="site-wrapper">
+        <section class="main-wrapper">
+            <header class="header-personal w-100">
+                <div class="container-fluid header-top">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-left">
+                            <span style="color: white;font-weight: bold;">HÌNH ẢNH HỒ SƠ</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content rounded" style="margin-top: 45px;">
+            <div class="container-fluid">
+                <div class="row w-100 d-flex flex-wrap py-2 m-0 modalXemToanBoThongTinHoSoDSAnhXe" id="dsToanBoAnhHoSoBoiThuong">
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script type="text/html" id="dsToanBoAnhHoSoBoiThuongTemplate">
+    <% if(danh_sach.length > 0) {%>
+    <% _.forEach(danh_sach, function(item,index){%>
+    <div class="col-12">
+        <div id="nhom_anh_<%- index %>" style="width: 60%; margin: 0 auto; border-radius: 3px; text-align: center; background-color: #ececec; padding: 5px 0px; border: 1px solid #607d8b; ">
+            <h6 class="m-0 font-weight-bold"><%- item.nhom_anh %></h6>
+        </div>
+    </div>
+    <% _.forEach(item.data, function(item1, index1){%>
+    <div class="col-6 py-2 px-1 pictures-detail">
+        <p class="fileNameImage m-0" style="cursor:pointer">
+            Tên hạng mục: <span class="text-primary font-weight-bold"><%- item1.ten_file %></span> - <span class="text-dark font-weight-bold"><%-item1.ngay%></span>
+            <%if(item1.loai == 'CHINH'){%>
+            - Mức độ tổn thất: <span class="font-weight-bold text-primary"><%- item1.muc_do_ten %></span>
+            <%}%>
+        </p>
+        <p class="m-0">
+            Tọa độ X: <span class="font-weight-bold"><%- item1.x %></span> - Y: <span class="font-weight-bold"><%-item1.y%></span>
+        </p>
+        <p class="m-0">
+            Ghi chú: <% if(item1.ghi_chu != null && item1.ghi_chu != ""){%>
+            <%- item1.ghi_chu.substring(0, 80) +'...'%>
+            <%}else{%>
+            <%}%>
+        </p>
+        <img class="img-responsive" onclick="xemChiTietHinhAnhHoSoBoiThuong(this)" data-original="data:image/png;base64,<%- item1.duong_dan %>" style="width: 100%; border-radius: 4px; cursor: pointer; border: 1px solid #2d88ff;" location-x="<%- item1.x %>" location-y="<%- item1.y %>" data-ngay="<%- item1.ngay %>" data-nsd="<%- item1.nsd%>" data-id="<%- item1.so_id %>" data-bt="<%- item1.bt %>" data-ma-file="<%- item1.ma_file %>" data-pm="<%- item1.pm %>" src="data:image/png;base64,<%- item1.duong_dan %>" alt="<%- item1.ten_file %>">
+    </div>
+    <% }) %>
+    <% })}%>
+</script>
+@*Modal xem hình ảnh chi tiết*@
+<div class="custom-modal">
+    <div id="modalXemHinhAnhHangMucChiTiet" class="modal fade" tabindex="-1" data-backdrop="false" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 9999999; width: 75%; top: 17.55px; left: 188.113px; ">
+        <div class="modal-dialog modal-lg" style="width:100%;max-width:unset;">
+            <div class="modal-content" style="border:3px solid #1e88e5;box-shadow: 1px 8px 10px 0px rgb(106 160 201);">
+                <div class="modal-header py-1" style="background-color:#0069d9; cursor:pointer;border:unset;">
+                    <h6 class="modal-title" style="color:#fff">Hình ảnh chi tiết</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div style="height:80vh;" id="modalXemHinhAnhChiTietView"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/app/ViewImages/services/ViewImagesService.js" asp-append-version="true"></script>
+    <script src="~/js/app/ViewImages/ViewImages.js" asp-append-version="true"></script>
+}

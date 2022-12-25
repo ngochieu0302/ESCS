@@ -1,0 +1,21 @@
+{
+  "Url": "https://localhost:44343/admin/usermanagement/savedecentralization",
+  "Method": "POST",
+  "User": {
+    "ma_doi_tac": "CTYBHABC",
+    "ma_chi_nhanh": "000",
+    "ten_chi_nhanh": "Trụ sở chính",
+    "phong": "BGD",
+    "ten_phong": "Ban Giám đốc - TSC",
+    "nsd": "admin@escs.vn",
+    "pas": "c57c7f05d1aded07a5c0c01f579f0045b74f539ee07c2777b598699448993947",
+    "ten": "Quản trị hệ thống",
+    "anh_dai_dien": null,
+    "dthoai": "0972878870",
+    "email": "vuvangiang1208@gmail.com",
+    "time_live": 20220811132222
+  },
+  "Time": 20220811111432,
+  "Request": "{\"ma_chi_nhanh\":\"000\",\"ma\":\"atacc@gmail.com\",\"so_id\":\"20220725000168\",\"nv\":\"XE\",\"ma_doi_tac_ql\":\"\",\"ma_doi_tac\":\"ATACC\",\"gd\":[{\"lh_nv\":\"XE05\",\"thay_the_sc\":\"T\",\"hang_muc\":\"\",\"tien\":1000000,\"tien_uoc_bcgd\":56},{\"lh_nv\":\"XE05\",\"thay_the_sc\":\"S\",\"hang_muc\":\"\",\"tien\":34,\"tien_uoc_bcgd\":56}],\"gd_bb\":[{\"lh_nv\":\"XE01\",\"thay_the_sc\":\" \",\"hang_muc\":\"\",\"tien\":78,\"tien_uoc_bcgd\":90},{\"lh_nv\":\"XE03\",\"thay_the_sc\":\" \",\"hang_muc\":\"\",\"tien\":12,\"tien_uoc_bcgd\":34},{\"lh_nv\":\"XE01.1\",\"thay_the_sc\":\" \",\"hang_muc\":\"\",\"tien\":56,\"tien_uoc_bcgd\":78},{\"lh_nv\":\"XE02.1\",\"thay_the_sc\":\" \",\"hang_muc\":\"\",\"tien\":89,\"tien_uoc_bcgd\":90},{\"lh_nv\":\"XE02\",\"thay_the_sc\":\" \",\"hang_muc\":\"\",\"tien\":11,\"tien_uoc_bcgd\":12},{\"lh_nv\":\"XE04\",\"thay_the_sc\":\" \",\"hang_muc\":\"\",\"tien\":123,\"tien_uoc_bcgd\":1411}],\"bt\":[{\"lh_nv\":\"XE05\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0},{\"lh_nv\":\"XE01\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0},{\"lh_nv\":\"XE03\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0},{\"lh_nv\":\"XE01.1\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0},{\"lh_nv\":\"XE02.1\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0},{\"lh_nv\":\"XE02\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0},{\"lh_nv\":\"XE04\",\"tien_phuong_an\":0,\"tien_bao_lanh\":0,\"tien_boi_thuong\":0}]}",
+  "Respone": "{\"state_info\":{\"status\":\"OK\",\"message_code\":null,\"message_body\":null,\"signature\":null,\"errors\":null},\"data_info\":-1,\"out_value\":{}}"
+}

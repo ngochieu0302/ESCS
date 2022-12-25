@@ -1,0 +1,111 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div id="modalThemLichNghi" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thêm lần nghỉ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="FrmThongTinLichNghi" name="FrmThongTinLichNghi" novalidate="novalidate" method="post">
+                    <input type="hidden" name="bt"/>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Ngày bắt đầu</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" display-format="date" value-format="number" required="" name="ngay_bd" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Giờ bắt đầu</label>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input class="form-control input-small time" required="" name="gio_phut_bd" type="text">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="ti-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Ngày kết thúc</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" display-format="date" value-format="number" required="" name="ngay_kt" placeholder="mm/dd/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="_required">Giờ kết thúc</label>
+                                <div class="input-group bootstrap-timepicker timepicker">
+                                    <input class="form-control input-small time" required="" name="gio_phut_kt" type="text">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <span class="ti-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="dvi_gdinh" class="_required">Chi nhánh</label>
+                                <div class="input-group">
+                                    <select class="select2 form-control custom-select" id="dvi_gdinh" required="" name="ma_doi_tac" style="width: 100%; height:36px;"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cb_gd" class="_required">Cán bộ</label>
+                                <div class="input-group">
+                                    <select class="select2 form-control custom-select" required="" name="ma" style="width: 100%; height:36px;"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="_required">Nội dung</label>
+                                <textarea class="form-control" name="noi_dung" required="" rows="3" placeholder="Nội dung"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-80 ml-2" id="btnXoaLichNghi">
+                    <i class="fa fa-trash mr-2"></i>Xóa
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-80 ml-2" id="btnDuyetLichNghi">
+                    <i class="fa fa-trash mr-2"></i>Duyệt
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-80 ml-2" id="btnLuuLichNghi">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm wd-90 mg-t-22" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

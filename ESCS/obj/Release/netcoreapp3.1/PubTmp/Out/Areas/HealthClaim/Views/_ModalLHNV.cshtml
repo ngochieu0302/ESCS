@@ -1,0 +1,184 @@
+﻿<div class="modal fade show" id="modalLHNV" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document" style="max-width: 95vw; margin-top:10px;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Thông tin quyền lợi bảo hiểm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body px-2 py-0">
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="card border mb-2">
+                            <div class="card mb-0">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row">
+                                        <div class="col-12" id="navThongTinQuyenLoiDKBS">
+                                            <div class="table-responsive" style="max-height:71vh">
+                                                <table class="table table-bordered" style="border-collapse: separate; border-spacing: 0;">
+                                                    <thead class="font-weight-bold card-title-bg-primary" style="position: sticky; top: 0;">
+                                                        <tr>
+                                                            <th rowspan="2" style="text-align:center; width:400px; vertical-align:middle;">Tên Quyền lợi bảo hiểm</th>
+                                                            <th colspan="5" style="text-align:center">Quyền lợi bảo hiểm gốc</th>
+                                                            <th colspan="2" style="text-align:center">Quyền lợi đã sử dụng</th>
+                                                            <th colspan="2" style="text-align:center">Quyền lợi còn lại</th>
+                                                        </tr>
+                                                        <tr class="text-center uppercase">
+                                                            <th>Số lần(ngày)/năm</th>
+                                                            <th>Số tiền giới hạn(ngày)/năm</th>
+                                                            <th>Quyền lợi/năm</th>
+                                                            <th>Tỷ lệ đồng</th>
+                                                            <th>Số ngày chờ</th>
+                                                            <th>Số lần(ngày)</th>
+                                                            <th>Quyền lợi/năm</th>
+                                                            <th>Số lần(ngày)</th>
+                                                            <th>Quyền lợi/năm</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="modalLHNVDanhSach">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalLHNVDanhSachTemplate">
+    <% if(chi_chon_la == 1){ %>
+    @* ap dung chi duoc chon la *@
+    <% _.forEach(danh_sach, function(item, index) { %>
+    <% var thu_tu_cha_con = item.lh_nv.split('.').length - 1 %>
+
+    <% if(item.check_ql_la != '1'){ %>
+    <% if(thu_tu_cha_con == 0){ %>
+    <tr style="cursor:pointer;color:black">
+        <td>
+            <a>
+                <%= item.ten_hien_thi %>[<%= item.lh_nv %>]
+            </a>
+        </td>
+        <td class="text-center"><%- item.so_lan_ngay %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td class="text-center"><%- item.dong_bh %> % </td>
+        <td class="text-center"><%- item.so_ngay_cho %></td>
+        <td class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } else{ %>
+    <% var pd = thu_tu_cha_con * 15 %>
+    <tr style="cursor:pointer;color:black">
+        <td style="font-style: italic; padding-left: <%- pd %>px">
+            <a>
+                <%= item.ten_hien_thi %>[<%= item.lh_nv %>]
+            </a>
+        </td>
+        <td class="text-center"><%- item.so_lan_ngay %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td class="text-center"><%- item.dong_bh %> % </td>
+        <td class="text-center"><%- item.so_ngay_cho %></td>
+        <td class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } %>
+    <% }else{ %>
+    <% if(thu_tu_cha_con == 0){ %>
+    <tr data-val="<%= item.lh_nv %>" style="cursor:pointer;color:blue" onclick="onChonLHNV(this)">
+        <td>
+            <a>
+                <%= item.ten_hien_thi %>[<%= item.lh_nv %>]
+            </a>
+        </td>
+        <td class="text-center"><%- item.so_lan_ngay %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td class="text-center"><%- item.dong_bh %> % </td>
+        <td class="text-center"><%- item.so_ngay_cho %></td>
+        <td class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } else{ %>
+    <% var pd = thu_tu_cha_con * 15 %>
+    <tr data-val="<%= item.lh_nv %>" style="cursor:pointer;color:#3bb4fc" onclick="onChonLHNV(this)">
+        <td style="font-style: italic; padding-left: <%- pd %>px">
+            <a>
+                <%= item.ten_hien_thi %>[<%= item.lh_nv %>]
+            </a>
+        </td>
+        <td class="text-center"><%- item.so_lan_ngay %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td class="text-center"><%- item.dong_bh %> % </td>
+        <td class="text-center"><%- item.so_ngay_cho %></td>
+        <td class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } %>
+    <% } %>
+    <% }) %>
+    <% }else{ %>
+    @* Khong ap dung chi duoc chon la *@
+    <% _.forEach(danh_sach, function(item, index) { %>
+    <% var thu_tu_cha_con = item.lh_nv.split('.').length - 1 %>
+
+    <% if(thu_tu_cha_con == 0){ %>
+    <tr data-val="<%= item.lh_nv %>" style="        cursor: pointer;
+        color: blue
+" onclick="onChonLHNV(this)">
+        <td style="font-weight: bold">
+            <a>
+                <%= item.ten_hien_thi %>[<%= item.lh_nv %>]
+            </a>
+        </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.dong_bh %> % </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_ngay_cho %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } else{ %>
+    <% var pd = thu_tu_cha_con * 15 %>
+    <tr data-val="<%= item.lh_nv %>" style="cursor:pointer;color:blue" onclick="onChonLHNV(this)">
+        <td style="font-style: italic; padding-left: <%- pd %>px">
+            <a>
+                <%= item.ten_hien_thi %>[<%= item.lh_nv %>]
+            </a>
+        </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.dong_bh %> % </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_ngay_cho %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay_duyet %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_duyet) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay_con %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam_con) %></td>
+    </tr>
+    <% } %>
+    <% })} %>
+</script>

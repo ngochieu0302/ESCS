@@ -1,0 +1,141 @@
+﻿@*  Danh sách lần tiếp nhận đóng hồ sơ template *@
+<script type="text/html" id="DanhSachLanTiepNhanDongHSBodyTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center">
+            <%- item.ngay_ht %>
+        </td>
+        <td><%- item.noi_dung %></td>
+        <td class="text-center"><%- item.nsd %></td>
+        <td class="text-center"><%- item.trang_thai %></td>
+        <td class="text-center"><%- item.so_luong_hs %></td>
+        <td class="text-center">
+            <a href="#" onclick="editLanTiepNhanDongHs('<%- item.so_id %>')" data-toggle="modal" data-target="#" data-backdrop="static" data-keyboard="false">
+                <i class="far fa-file-alt" title="Xem/sửa chi tiết lần tiếp nhận"></i>
+            </a>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="xoaLanTiepNhanDongHs('<%- item.so_id %>')"><i class="fas fa-trash-alt" title="Xóa lần tiếp nhận"></i></a>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.5px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*  Danh sách hồ sơ chờ đóng tab 2 *@
+<script type="text/html" id="TableSearchDanhSachHoSoChoDongTemplate">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="so_hs" value="<%- item.so_hs %>" />
+            <input type="hidden" data-field="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" data-field="ngay_chuyen_tt" value="<%- item.ngay_chuyen_tt %>" />
+            <input type="hidden" data-field="tien" value="<%- item.tien %>" />
+            <input type="hidden" data-field="tien_thue" value="<%- item.tien_thue %>" />
+            <input type="hidden" data-field="tien_vat" value="<%- item.tien_vat %>" />
+            <input type="hidden" data-field="ten" value="<%- item.ten %>" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" <% if(item.checked){ %>checked<% } %> data-field="bt" value="<%- item.bt%>" onchange="onChonHoSoChoDong(this)" id="ttbt_<%- item.bt%>_<%- sott %>" class="custom-control-input ttbt_item">
+                <label class="custom-control-label" for="ttbt_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center"><%- item.ngay_chuyen_tt %></td>
+        <td class="text-center"><%- item.nguoi_chuyen_tt %></td>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-center"><%- ESUtil.formatMoney(item.tien_vat) %></td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 9){
+    for(var i = 0; i < 9 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*  Danh sách hồ sơ đề nghị đóng tab 3 *@
+<script type="text/html" id="TableDeNghiHoSoChoDongTemplate">
+    <% if(data.length > 0){%>
+    <% var sott = 1 %>
+    <%_.forEach(data, function(item, index) { %>
+    <tr class="row_item thanhToanChiTiet" data-search="<%- ESUtil.xoaKhoangTrangText(item.so_hs)%>">
+        <td class="text-center">
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="so_hs" value="<%- item.so_hs %>" />
+            <input type="hidden" data-field="so_id_hs" value="<%- item.so_id_hs %>" />
+            <input type="hidden" data-field="ngay_chuyen_tt" value="<%- item.ngay_chuyen_tt %>" />
+            <input type="hidden" data-field="tien" value="<%- item.tien %>" />
+            <input type="hidden" data-field="tien_thue" value="<%- item.tien_thue %>" />
+            <input type="hidden" data-field="tien_vat" value="<%- item.tien_vat %>" />
+            <input type="hidden" data-field="ten" value="<%- item.ten %>" />
+            <input type="hidden" data-field="pttt" value="<%- item.pttt %>" />
+            <input type="hidden" data-field="ma_ngan_hang" value="<%- item.ma_ngan_hang %>" />
+            <input type="hidden" data-field="ma_chi_nhanh" value="<%- item.ma_chi_nhanh %>" />
+            <input type="hidden" data-field="tk_cmt" value="<%- item.tk_cmt %>" />
+            <input type="hidden" data-field="ten_ngan_hang" value="<%- item.ten_ngan_hang %>" />
+            <input type="hidden" data-field="dien_giai" value="<%- item.dien_giai %>" />
+            <input type="hidden" data-field="trang_thai" value="<%- item.trang_thai %>" />
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" disabled="disabled" <% if(item.checked){ %>checked<% } %> data-field="bt" value="<%- item.bt%>" onchange="onChonHoSoChoDong(this)" id="ttct_<%- item.bt%>_<%- sott %>" class="custom-control-input ttct_item">
+                <label class="custom-control-label" for="ttct_<%- item.bt%>_<%- sott %>">&nbsp;</label>
+            </div>
+        </td>
+        <td class="text-center"><%- item.ngay_chuyen_tt %></td>
+        <td class="text-center"><%- item.nguoi_chuyen_tt %></td>
+        <td class="text-center">
+            <%- item.so_hs %>
+        </td>
+        <td class="text-center"><%- ESUtil.formatMoney(item.tien_vat) %></td>
+        <td class="text-center"><%- item.pttt %></td>
+        <td class="text-center"><%- item.ten %></td>
+        <td class="text-center"><%- item.tk_cmt %></td>
+        <td><%- item.ten_ngan_hang %></td>
+        <td><%- item.dien_giai %></td>
+        <td class="text-center">
+            <a href="#" onclick="xoaHoSoDeNghiDong(this)">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </td>
+        <% sott++ %>
+    </tr>
+    <% })}%>
+    <% if(data.length < 9){
+    for(var i = 0; i < 9 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

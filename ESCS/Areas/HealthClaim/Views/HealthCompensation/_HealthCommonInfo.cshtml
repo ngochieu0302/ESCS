@@ -1,0 +1,146 @@
+﻿<div class="card mb-0 h-100" id="navThongTinHoSo">
+    <ul class="nav nav-tabs profile-tab" role="tablist">
+        <li class="nav-item shown">
+            <a class="nav-link active" data-toggle="tab" href="#navThongTinChung" role="tab" aria-selected="true">
+                <span class="d-none d-md-block">
+                    <i class="fas fa-info-circle"></i> Thông tin chung
+                </span>
+                <span class="d-block d-md-none">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+            </a>
+        </li>
+        <li class="nav-item shown" onclick="xemQuaTrinhXuLy('navQuaTrinhGiaiQuyet')">
+            <a class="nav-link" data-toggle="tab" href="#navQuaTrinhGiaiQuyet" role="tab" aria-selected="false">
+                <span class="d-none d-md-block">
+                    <i class="fas fa-eye"></i> Quá trình giải quyết
+                </span>
+                <span class="d-block d-md-none">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content border border-top-0 scrollable">
+        <div class="tab-pane p-0 active" id="navThongTinChung" role="tabpanel">
+            <div class="card-body p-1">
+                <div class="border mb-2 rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                        <h5 class="m-0">Thông tin hồ sơ</h5>
+                    </div>
+                    <table class="table" id="HealthGuaranteeCommon">
+                        <tr>
+                            <td>Ngày mở hsbt</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày thông báo</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Nguồn thông báo</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Trạng thái xử lý</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tổng tiền yêu cầu</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tổng tiền duyệt</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="border mb-3 rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg">
+                        <h5 class="m-0">Khách hàng</h5>
+                        <span>
+                            <a href="#" id="btnSuaThongTinNDBH">
+                                <i class="far fa-edit"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <table class="table" id="HealthGuaranteeCustomer">
+                        <tbody>
+                            <tr>
+                                <td>Tên</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Số HĐBH</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Đơn vị cấp</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Số GCN</td>
+                                <td data-field="gcn">
+                                    <span style="float:right">
+                                        <a href="#" data-toggle="modal" data-target="#HealthGuaranteeCertificate">
+                                            <i class="fas fa-eye" title="Xem chi tiết quyền lợi bảo hiểm"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tên NĐBH</td>
+                                <td data-field="ten_ndbh">Nguyễn Trần Vân Anh</td>
+                            </tr>
+                            <tr>
+                                <td>CMT/Hộ chiếu</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Điện thoại</td>
+                                <td data-field="dien_thoai">
+                                    <span style="float:right">
+                                        <a href="#"><i class="fal fa-phone-rotary" title="Gọi điện thoại"></i></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hiệu lực BH</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Người liên hệ</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>SĐT liên hệ</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Email liên hệ</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--second tab-->
+        <div class="tab-pane p-0" id="navQuaTrinhGiaiQuyet" role="tabpanel">
+            <div class="card-body p-1">
+                <div class="border rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg border-bottom">
+                        <h5 class="m-0">Quá trình giải quyết</h5>
+                        <span><a href="#" id="btnXemTienTrinhGiaiQuyet" data-toggle="modal" @*data-target="#modalCarFlowChart"*@><i class="far fa-stream"></i></a></span>
+                    </div>
+                    <div class="timeline mt-2" id="navQuaTrinhGiaiQuyetTimeLine"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

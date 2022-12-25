@@ -1,0 +1,998 @@
+﻿@*Phương pháp tính khấu hao*@
+<script type="text/html" id="modalThemKhauHao_template">
+    <%if(ds_khau_hao.length > 0){
+    _.forEach(ds_khau_hao, function(item,index) { %>
+    <tr class="khau_hao">
+        <td>
+            <input type="hidden" data-field="bt" name="bt" value="<%- item.bt%>" />
+            <input type="text" name="tuoi_xe_tu" data-field="tuoi_xe_tu" required maxlength="4" value="<%- item.tuoi_xe_tu %>" autocomplete="off" placeholder="Tuổi xe từ" class="floating-input decimal" />
+        </td>
+        <td>
+            <input type="text" name="tuoi_xe_toi" data-field="tuoi_xe_toi" maxlength="4" required value="<%- item.tuoi_xe_toi %>" autocomplete="off" placeholder="Từ xe tới" class="floating-input decimal" />
+        </td>
+        <td>
+            <input type="text" name="tl_khau_hao" data-field="tl_khau_hao" maxlength="4" required value="<%- item.tl_khau_hao %>" autocomplete="off" placeholder="Tỷ lệ khấu hao" class="floating-input decimal" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaKhauHao(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_khau_hao.length < 8){
+    for(var i = 0; i < 8 - ds_khau_hao.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Phương pháp tính khấu hao loại xe*@
+<script type="text/html" id="modalThemKhauHaoLoaiXe_template">
+    <%if(ds_khau_hao_loai_xe.length > 0){
+    _.forEach(ds_khau_hao_loai_xe, function(item,index) { %>
+    <tr class="khau_hao_loai_xe">
+        <td>
+            <input type="hidden" data-field="bt" name="bt" value="<%- item.bt%>" />
+            <input type="text" name="tuoi_xe_tu" data-val="<%- item.tuoi_xe_tu%>" data-field="tuoi_xe_tu" required maxlength="4" value="<%- item.tuoi_xe_tu %>" autocomplete="off" placeholder="Tuổi xe từ" class="floating-input decimal tuoi_xe_tu" />
+        </td>
+        <td>
+            <input type="text" name="tuoi_xe_toi" data-val="<%- item.tuoi_xe_toi%>" data-field="tuoi_xe_toi" maxlength="4" required value="<%- item.tuoi_xe_toi %>" autocomplete="off" placeholder="Từ xe tới" class="floating-input decimal tuoi_xe_toi">
+        </td>
+        <td>
+            <input type="text" name="he_so_tl" data-val="<%- item.he_so_tl%>" data-field="he_so_tl" maxlength="4" required value="<%- item.he_so_tl %>" autocomplete="off" placeholder="Hệ số tỷ lệ" class="floating-input decimal he_so_tl">
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaKhauHaoLoaiXe(this)"></i>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(ds_khau_hao_loai_xe.length < 8){
+    for(var i = 0; i < 8 - ds_khau_hao_loai_xe.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Danh sách ngày hiển thị khấu hao*@
+<script type="text/html" id="tblDsKhauHao_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <tr style="cursor: pointer; text-align:center" id="ds_ngay_ad_kh_<%- item.ngay_ad %>" onclick="getDetailKhauHao('<%- item.ngay_ad %>')" class="item-ngay_ad">
+        <td style="font-weight:bold"><%- item.ngay_ad_hthi %></td>
+    </tr>
+    <%})}%>
+    <% if(ds_ngay_ad.length < 8){
+    for(var i = 0; i < 8 - ds_ngay_ad.length;i++ ){
+    %>
+    <tr>
+        <td style="height:34.6px;"></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Danh sách loại xe phân trang*@
+<script type="text/html" id="danhSachLoaiXeTemplate">
+    <% _.forEach(ds_loai_xe, function(item, index) { %>
+    <div class="custom-control custom-checkbox" data-text="<%- item.ten %>">
+        <input type="checkbox" id="<%- item.ma %>_loai_xe" value="<%- item.ma %>" class="custom-control-input item-ds_loai_xe single_checked">
+        <label class="custom-control-label" for="<%- item.ma %>_loai_xe"><%- item.ten %></label>
+    </div>
+    <%})%>
+</script>
+
+@*Phương pháp tính giảm trừ*@
+<script type="text/html" id="modalThemGiamTru_template">
+    <%if(ds_giam_tru.length > 0){
+    _.forEach(ds_giam_tru, function(item,index) { %>
+    <tr>
+        <td>
+            <input type="text" name="tu_ngay" data-field="tu_ngay" maxlength="2" required value="<%- item.tu_ngay %>" autocomplete="off" placeholder="Từ ngày" class="floating-input decimal tu_ngay" />
+        </td>
+        <td>
+            <input type="text" name="toi_ngay" data-field="toi_ngay" maxlength="2" required value="<%- item.toi_ngay %>" autocomplete="off" placeholder="Tới ngày" class="floating-input decimal toi_ngay" />
+        </td>
+        <td>
+            <input type="text" name="tl_giam" data-field="tl_giam" maxlength="3" required value="<%- item.tl_giam %>" autocomplete="off" placeholder="Tỷ lệ giảm trừ" class="floating-input decimal tl_giam" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaGiamTru(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_giam_tru.length < 5){
+    for(var i = 0; i < 5 - ds_giam_tru.length;i++ ){
+    %>
+    <tr>
+        <td style="height: 37.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Phương pháp tính giảm trừ xe máy*@
+<script type="text/html" id="modalThemGiamTruXM_template">
+    <%if(ds_giam_tru.length > 0){
+    _.forEach(ds_giam_tru, function(item,index) { %>
+    <tr>
+        <td>
+            <input type="text" name="tu_ngay" data-field="tu_ngay" maxlength="2" required value="<%- item.tu_ngay %>" autocomplete="off" placeholder="Từ ngày" class="floating-input decimal tu_ngay" />
+        </td>
+        <td>
+            <input type="text" name="toi_ngay" data-field="toi_ngay" maxlength="2" required value="<%- item.toi_ngay %>" autocomplete="off" placeholder="Tới ngày" class="floating-input decimal toi_ngay" />
+        </td>
+        <td>
+            <input type="text" name="tl_giam" data-field="tl_giam" maxlength="3" required value="<%- item.tl_giam %>" autocomplete="off" placeholder="Tỷ lệ giảm trừ" class="floating-input decimal tl_giam" />
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaGiamTruXM(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_giam_tru.length < 5){
+    for(var i = 0; i < 5 - ds_giam_tru.length;i++ ){
+    %>
+    <tr>
+        <td style="height: 37.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Phương pháp tính giảm trừ dkbs*@
+<script type="text/html" id="modalThemGiamTruDKBS_template">
+    <%if(ds_giam_tru_dkbs.length > 0){
+    _.forEach(ds_giam_tru_dkbs, function(item,index) { %>
+    <tr>
+        <td>
+            <a href="#" data-val="<%- item.ma_dkbs%>" data-field="ma_dkbs" name="ma_dkbs"><%- item.ten %></a>
+            <a href="#" data-val="<%- item.ten%>" data-field="ten" name="ten" style="display:none"></a>
+        </td>
+        <td>
+            <input type="text" name="tl_giam" data-val="<%- item.tl_giam%>" data-field="tl_giam" required maxlength="3" value="<%- item.tl_giam %>" autocomplete="off" placeholder="Tỷ lệ giảm" class="floating-input decimal tl_giam" />
+        </td>
+        <td>
+            <input type="text" name="tien_giam" data-val="<%- item.tien_giam%>" data-field="tien_giam" maxlength="18" required value="<%- ESUtil.formatMoney(item.tien_giam) %>" autocomplete="off" placeholder="Tiềm giảm" class="number floating-input tien_giam">
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaGiamTru(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_giam_tru_dkbs.length < 4){
+    for(var i = 0; i < 4 - ds_giam_tru_dkbs.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Phương pháp tính giảm trừ dkbs xe máy*@
+<script type="text/html" id="modalThemGiamTruDKBSXM_template">
+    <%if(ds_giam_tru_dkbs.length > 0){
+    _.forEach(ds_giam_tru_dkbs, function(item,index) { %>
+    <tr>
+        <td>
+            <a href="#" data-val="<%- item.ma_dkbs%>" data-field="ma_dkbs" name="ma_dkbs"><%- item.ten %></a>
+            <a href="#" data-val="<%- item.ten%>" data-field="ten" name="ten" style="display:none"></a>
+        </td>
+        <td>
+            <input type="text" name="tl_giam" data-val="<%- item.tl_giam%>" data-field="tl_giam" required maxlength="3" value="<%- item.tl_giam %>" autocomplete="off" placeholder="Tỷ lệ giảm" class="floating-input decimal tl_giam" />
+        </td>
+        <td>
+            <input type="text" name="tien_giam" data-val="<%- item.tien_giam%>" data-field="tien_giam" maxlength="18" required value="<%- ESUtil.formatMoney(item.tien_giam) %>" autocomplete="off" placeholder="Tiềm giảm" class="number floating-input tien_giam">
+        </td>
+        <td class="text-center">
+            <i class="fa fa-times text-danger cursor-pointer" onclick="xoaGiamTruXM(this)"></i>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_giam_tru_dkbs.length < 4){
+    for(var i = 0; i < 4 - ds_giam_tru_dkbs.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Load danh sách ngày hiển thị cấu hình phương pháp tính giảm trừ bảo hiểm*@
+<script type="text/html" id="tblDsNgayGiamTru_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <a class="nav-link text-center item-ngay_ad" data-ngay="<%- item.ngay_ad %>" onclick="getDetailReduce('<%- item.ngay_ad %>')" style="cursor:pointer" data_ngay_ad="<%- item.ngay_ad %>" data-toggle="pill" role="tab" aria-selected="true"><b class="font-weight-bold"><%- item.ngay_ad_hthi %></b></a>
+    <% })}%>
+</script>
+@*Cấu hình bồi thường xe ô tô*@
+<script type="text/html" id="modalCauHinhXeOto_template">
+    <% if(ds_xe_oto.length > 0){ %>
+    <% _.forEach(ds_xe_oto, function(item,index) { %>
+    <tr class="row_item">
+        <td style="display: none;">
+            <input type="text" class="floating-input ma" autocomplete="off" maxlength="50" data-field="ma" data-val="<%- item.ma %>" value="<%- item.ma %>">
+        </td>
+        <td style="text-align: left;">
+            <input type="text" class="floating-input name" readonly autocomplete="off" maxlength="100" data-field="name" data-val="<%- item.name %>" value="<%- item.name %>">
+        </td>
+        <% if(item.loai === 'HS') { %>
+        <td style="text-align: center;">
+            <div class="col-sm-12">
+                <% if(item.value == 'C'){ %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" checked="checked" data-field="value" name="value" class="custom-control-input checkbox" id="checkbox_hs_<%- item.ma%>">
+                    <label class="custom-control-label" for="checkbox_hs_<%- item.ma%>"></label>
+                </div>
+                <% } else { %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" data-field="value" name="value" class="custom-control-input checkbox" id="checkbox_hs_<%- item.ma%>">
+                    <label class="custom-control-label" for="checkbox_hs_<%- item.ma%>"></label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <% }else if(item.loai == 'TT'){ %>
+        <td>
+            <div>
+                <% if(item.value == 'T') { %>
+                <div class="form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" checked="checked" type="radio" data-field="value" name="value" id="checkbox_hs_<%- item.ma%>_T" value="T">
+                    <label class="form-check-label" style="font-size:12px; width: 113px;" for="checkbox_hs_<%- item.ma%>_T">Trước thuế</label>
+                </div>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" type="radio" data-field="value" name="value" id="checkbox_hs_<%- item.ma%>_S" value="S">
+                    <label class="form-check-label" style="font-size:12px;" for="checkbox_hs_<%- item.ma%>_S">Sau thuế</label>
+                </div>
+                <% } else { %>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" type="radio" data-field="value" name="value" id="checkbox_hs_<%- item.ma%>_T" value="T">
+                    <label class="form-check-label" style="font-size:12px; width: 113px;" for="checkbox_hs_<%- item.ma%>_T">Trước thuế</label>
+                </div>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" checked="checked" type="radio" data-field="value" name="value" id="checkbox_hs_<%- item.ma%>_S" value="S">
+                    <label class="form-check-label" style="font-size:12px;" for="checkbox_hs_<%- item.ma%>_S">Sau thuế</label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <% }else if(item.loai == 'TL'){ %>
+        <td style="text-align: right;">
+            <input type="text" class="floating-input number value" autocomplete="off" maxlength="3" placeholder="Nhập tỷ lệ bồi thường toàn bộ" data-field="value" value="<%- item.value %>">
+        </td>
+        <% } %>
+    </tr>
+    <% })} %>
+    <% if(ds_xe_oto.length < 9){
+    for(var i = 0; i < 9 - ds_xe_oto.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Load danh sách ngày hiển thị cấu hình bồi thường xe ô tô*@
+<script type="text/html" id="tblDsNgayCauHinhXe_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <tr style="cursor: pointer; text-align:center" id="ds_ngay_ad_ch_<%- item.ngay_ad %>" onclick="getDetailCauHinhXe('<%- item.ngay_ad %>')" class="item-ngay_ad">
+        <td style="font-weight:bold"><%- item.ngay_ad_hthi %></td>
+    </tr>
+    <%})}%>
+    <% if(ds_ngay_ad.length < 8){
+    for(var i = 0; i < 8 - ds_ngay_ad.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Template danh sách ngày KPI*@
+<script type="text/html" id="tblDsNgayKPI_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <tr style="cursor: pointer; text-align:center" data-val="<%- item.ngay_ad %>" id="ds_ngay_ad_<%- item.ngay_ad%>" onclick="getListTien('<%- item.ngay_ad %>')" class="item-ngay_ad">
+        <td style="font-weight:bold"><%= item.ngay_ad_hthi %></td>
+    </tr>
+    <%})}%>
+
+    <% if(ds_ngay_ad.length < 6){
+    for(var i = 0; i < 6 - ds_ngay_ad.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Template danh sách tiền KPI*@
+<script type="text/html" id="tblDsTienKPI_template">
+    <% if(ds_tien.length > 0){
+    _.forEach(ds_tien, function(item,index) { %>
+    <tr style="cursor: pointer; text-align:center" data-val="<%- item.tien %>" id="ds_tien_<%- item.tien%>" class="item-tien" onclick="getDataDetail('<%- item.ngay_ad %>','<%- item.tien %>')">
+        <td style="font-weight:bold"><%=ESUtil.formatMoney(item.tien)%></td>
+    </tr>
+    <%})}%>
+
+    <% if(ds_tien.length < 6){
+    for(var i = 0; i < 6- ds_tien.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Template tiến trình KPI*@
+<script type="text/html" id="tblTienTrinhKPI_template">
+    <% if(danh_sach_kpi.length > 0){ %>
+    <% _.forEach(danh_sach_kpi, function(item,index) { %>
+    <tr class="row_item">
+        <td style="display: none;">
+            <input type="text" class="floating-input ma" autocomplete="off" maxlength="50" data-field="ma" value="<%- item.ma %>">
+        </td>
+        <td style="text-align: left;">
+            <input type="text" class="floating-input name" readonly autocomplete="off" maxlength="100" data-field="name" value="<%- item.name %>">
+        </td>
+        <td style="text-align: right;">
+            <input type="text" class="floating-input number value" autocomplete="off" maxlength="5" data-field="value" value="<%- item.value %>">
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(danh_sach_kpi.length < 11){
+    for(var i = 0; i < 11 - danh_sach_kpi.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Cấu hình bồi thường*@
+<script type="text/html" id="modalCauHinhBoiThuong_template">
+    <%if(ds_boi_thuong.length > 0){ %>
+    <% _.forEach(ds_boi_thuong, function(item,index) { %>
+    <tr class="row-item">
+        <td class="text-center" style="vertical-align: middle;"><%- item.stt %></td>
+        <td style="font-weight: bold; vertical-align: middle;">
+            <%if(item.quy_trinh == 'GD'){ %>
+            Giám định
+            <% } else if (item.quy_trinh == 'CCCT'){ %>
+            Contact Center
+            <% } else if (item.quy_trinh == 'CHUNG'){ %>
+            Chung
+            <% } else if (item.quy_trinh == 'BT'){ %>
+            Bồi thường
+            <% } %>
+        </td>
+        <td style="vertical-align: middle;">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" value="<%- item.ma%>" />
+            <input type="hidden" data-field="stt" data-val="<%- item.stt %>" value="<%- item.stt%>" />
+            <input type="hidden" data-field="quy_trinh" data-val="<%- item.quy_trinh %>" value="<%- item.quy_trinh%>" />
+            <input type="hidden" data-field="ung_dung" data-val="<%- item.ung_dung %>" value="<%- item.ung_dung%>" />
+            <input type="hidden" data-field="ten" data-val="<%- item.ten %>" value="<%- item.ten%>" />
+            <input type="text" style="font-weight:bold" name="ten" disabled required value="<%- item.ten %>" autocomplete="off" class="floating-input" />
+        </td>
+        <% if(item.ma == 'TY_LE_BOI_THUONG' || item.ma == 'SO_LAN_NHAC_GD'|| item.ma == 'KC_LAN_NHAC_GD' || item.ma == 'SO_HS_MO_TRONG_NGAY'|| item.ma == 'TL_THAM_GIA_LAM_TRON') { %>
+        <td style="text-align: right; vertical-align: middle;">
+            <input type="text" class="floating-input number gia_tri" autocomplete="off" maxlength="3" placeholder="<%- item.ten %>" data-field="gia_tri" value="<%- item.gia_tri %>">
+        </td>
+        <% }
+        else if(item.ma == 'UOC_TON_THAT_BCGD')
+        {%>
+        <td style="text-align: right; vertical-align: middle;">
+            <input type="text" class="floating-input number gia_tri" autocomplete="off" maxlength="20" placeholder="<%- item.ten %>" data-field="gia_tri" value="<%- ESUtil.formatMoney(item.gia_tri) %>">
+        </td>
+        <%}
+        else if(item.ma == 'PP_TINH_BOI_THUONG') {%>
+        <td style="text-align: center;">
+            <div class="col-sm-12">
+                <% if(item.gia_tri === 'T') { %>
+                <div class="form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" checked="checked" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_T" value="T">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_T">Trước </label>
+                </div>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_S" value="S">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_S">Sau thuế</label>
+                </div>
+                <% } else { %>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_T" value="T">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_T">Trước thuế</label>
+                </div>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" checked="checked" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_S" value="S">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_S">Sau thuế</label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <% } else { %>
+        <td style="text-align: center; vertical-align: middle;">
+            <div class="col-sm-12">
+                <% if(item.gia_tri == 'C'){ %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" checked="checked" onchange="onChangeCaiDat('<%- item.ma%>')" data-field="gia_tri" name="gia_tri" class="custom-control-input checkbox" id="checkbox_bt_<%- item.ma%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.ma%>"></label>
+                </div>
+                <% } else { %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" data-field="gia_tri" onchange="onChangeCaiDat('<%- item.ma%>')" name="gia_tri" class="custom-control-input checkbox" id="checkbox_bt_<%- item.ma%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.ma%>"></label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <%}%>
+    </tr>
+    <% })} %>
+    <% if(ds_boi_thuong.length < 12){
+    for(var i = 0; i < 12 -  ds_boi_thuong.length;i++ ){
+    %>
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="height:38.2px;"></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Cấu hình bồi thường xe máy*@
+<script type="text/html" id="modalCauHinhBoiThuongXM_template">
+    <%if(ds_boi_thuong.length > 0){ %>
+    <% _.forEach(ds_boi_thuong, function(item,index) { %>
+    <tr class="row-item">
+        <td class="text-center" style="vertical-align: middle;"><%- item.stt %></td>
+        <td style="font-weight: bold; vertical-align: middle;">
+            <%if(item.quy_trinh == 'GD'){ %>
+            Giám định
+            <% } else if (item.quy_trinh == 'CCCT'){ %>
+            Contact Center
+            <% } else if (item.quy_trinh == 'CHUNG'){ %>
+            Chung
+            <% } else if (item.quy_trinh == 'BT'){ %>
+            Bồi thường
+            <% } %>
+        </td>
+        <td style="vertical-align: middle;">
+            <input type="hidden" data-field="ma" name="ma" data-val="<%- item.ma %>" value="<%- item.ma%>" />
+            <input type="hidden" data-field="stt" data-val="<%- item.stt %>" value="<%- item.stt%>" />
+            <input type="hidden" data-field="quy_trinh" data-val="<%- item.quy_trinh %>" value="<%- item.quy_trinh%>" />
+            <input type="hidden" data-field="ung_dung" data-val="<%- item.ung_dung %>" value="<%- item.ung_dung%>" />
+            <input type="hidden" data-field="ten" data-val="<%- item.ten %>" value="<%- item.ten%>" />
+            <input type="text" style="font-weight:bold" name="ten" disabled required value="<%- item.ten %>" autocomplete="off" class="floating-input" />
+        </td>
+        <% if(item.ma == 'TY_LE_BOI_THUONG' || item.ma == 'SO_LAN_NHAC_GD'|| item.ma == 'KC_LAN_NHAC_GD' || item.ma == 'SO_HS_MO_TRONG_NGAY'|| item.ma == 'TL_THAM_GIA_LAM_TRON') { %>
+        <td style="text-align: right; vertical-align: middle;">
+            <input type="text" class="floating-input number gia_tri" autocomplete="off" maxlength="3" placeholder="<%- item.ten %>" data-field="gia_tri" value="<%- item.gia_tri %>">
+        </td>
+        <% }
+        else if(item.ma == 'UOC_TON_THAT_BCGD')
+        {%>
+        <td style="text-align: right; vertical-align: middle;">
+            <input type="text" class="floating-input number gia_tri" autocomplete="off" maxlength="20" placeholder="<%- item.ten %>" data-field="gia_tri" value="<%- ESUtil.formatMoney(item.gia_tri) %>">
+        </td>
+        <%}
+        else if(item.ma == 'PP_TINH_BOI_THUONG') {%>
+        <td style="text-align: center;">
+            <div class="col-sm-12">
+                <% if(item.gia_tri === 'T') { %>
+                <div class="form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" checked="checked" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_T" value="T">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_T">Trước </label>
+                </div>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_S" value="S">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_S">Sau thuế</label>
+                </div>
+                <% } else { %>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_T" value="T">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_T">Trước thuế</label>
+                </div>
+                <div class="form-check form-check" style="margin-right:unset">
+                    <input class="form-check-input material-inputs with-gap radio" checked="checked" type="radio" data-field="gia_tri" name="gia_tri" id="checkbox_bt_<%- item.ma%>_S" value="S">
+                    <label class="form-check-label" style="font-size: 12px; width: 90px;" for="checkbox_bt_<%- item.ma%>_S">Sau thuế</label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <% } else { %>
+        <td style="text-align: center; vertical-align: middle;">
+            <div class="col-sm-12">
+                <% if(item.gia_tri == 'C'){ %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" checked="checked" onchange="onChangeCaiDat('<%- item.ma%>')" data-field="gia_tri" name="gia_tri" class="custom-control-input checkbox" id="checkbox_bt_<%- item.ma%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.ma%>"></label>
+                </div>
+                <% } else { %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" data-field="gia_tri" onchange="onChangeCaiDat('<%- item.ma%>')" name="gia_tri" class="custom-control-input checkbox" id="checkbox_bt_<%- item.ma%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.ma%>"></label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <%}%>
+    </tr>
+    <% })} %>
+    <% if(ds_boi_thuong.length < 12){
+    for(var i = 0; i < 12 -  ds_boi_thuong.length;i++ ){
+    %>
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="height:38.2px;"></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Template danh sách ngày áp dụng cấu hình bồi thường*@
+<script type="text/html" id="tblDsNgayCauHinhBoiThuong_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <a class="nav-link text-center item-ngay_ad" data-ngay="<%- item.ngay_ad %>" onclick="getDetailCompensation('<%- item.ngay_ad %>')" style="cursor:pointer" data_ngay_ad="<%- item.ngay_ad %>" data-toggle="pill" role="tab" aria-selected="true"><b class="font-weight-bold"><%- item.ngay_ad_hthi %></b></a>
+    <% })}%>
+</script>
+@*Cấu hình hồ sơ - chứng từ*@
+<script type="text/html" id="tblDanhSachHoSo_template">
+    <%if(ds_ho_so.length > 0){
+    _.forEach(ds_ho_so, function(item,index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <%- index + 1%>
+        </td>
+        <td class="text-left">
+            <input type="hidden" data-field="ma" value="<%- item.ma %>" />
+            <input type="text" style="font-weight:bold" data-field="ten_giay_to" name="ten" disabled value="<%- item.ten_giay_to %>" autocomplete="off" class="floating-input" />
+        </td>
+        <td style="text-align: center;" onclick="chonHSBatBuoc(this)">
+            <div class="col-sm-12">
+                <% if(item.bat_buoc == 'C'){ %>
+                <div class="custom-control custom-checkbox custom-control-inline" style="margin:unset;">
+                    <input type="checkbox" checked="checked" data-field="bat_buoc" name="bat_buoc" class="custom-control-input checkbox" id="chon_hs_<%- item.ma %>">
+                    <label class="custom-control-label" for="chon_hs_<%- item.ma %>">&nbsp;</label>
+                </div>
+                <% } else { %>
+                <div class="custom-control custom-checkbox custom-control-inline" style="margin:unset;">
+                    <input type="checkbox" data-field="bat_buoc" name="bat_buoc" class="custom-control-input checkbox" id="chon_hs_<%- item.ma %>">
+                    <label class="custom-control-label" for="chon_hs_<%- item.ma %>">&nbsp;</label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <td class="text-center cursor-pointer">
+            <%if(item.loai !== null &&  item.loai !== ''){%>
+            <a href="#" data-field="loai" data-val="<%- item.loai %>" name="loai" onclick="chonLoaiHSGT(this)"><%- item.ten_loai_giay_to %></a>
+            <%}else{%>
+            <a href="#" data-field="loai" data-val="<%- item.loai %>" name="loai" onclick="chonLoaiHSGT(this)">Chọn loại hồ sơ</a>
+            <%}%>
+        </td>
+    </tr>
+    <% })} %>
+    <% if(ds_ho_so.length < 12){
+    for(var i = 0; i < 12 -  ds_ho_so.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Template ngày áp dụng cấu hình hồ sơ chứng từ*@
+<script type="text/html" id="tblDsNgayCauHinhHoSoCT_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <a class="nav-link text-center item-ngay_ad" data-ngay="<%- item.ngay_ad %>" onclick="getListBuoc('<%- item.ngay_ad %>')" style="cursor:pointer" data_ngay_ad="<%- item.ngay_ad %>" data-toggle="pill" role="tab" aria-selected="true"><b class="font-weight-bold"><%- item.ngay_ad_hthi %></b></a>
+    <% })}%>
+</script>
+@*Template các bước cấu hình hồ sơ chứng từ*@
+<script type="text/html" id="tblCacBuocCauHinhHoSoCT_template">
+    <% if(ds_buoc.length > 0){
+    _.forEach(ds_buoc, function(item,index) { %>
+    <a class="nav-link text-center item-buoc border-top" data-buoc="<%- item.ma %>" onclick="getDetailHoSoGiayTo('<%- item.ma %>')" style="cursor:pointer" data_buoc="<%- item.ma %>" data-toggle="pill" role="tab" aria-selected="true"><b class="font-weight-bold"><%- item.ten %></b></a>
+    <% })}%>
+</script>
+@*Template loại hồ sơ giấy tờ*@
+<script type="text/html" id="modalLoaiHSGTTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox" data-text="">
+        <input type="checkbox" id="loai_hsgt_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonLoaiHSGTItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="loai_hsgt_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+@*Template cấu hình SLA*@
+<script type="text/html" id="tblCauHinhSLATemplate">
+    <%if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr class="row_item">
+        <td class="text-center">
+            <input type="hidden" data-field="stt" data-val="<%- item.stt %>" value="<%- item.stt%>" />
+            <%- item.stt %>
+        </td>
+        <td class="text-left font-weight-bold">
+            <input type="hidden" data-field="ma" data-val="<%- item.ma %>" value="<%- item.ma%>" />
+            <input type="hidden" data-field="buoc_thuc_hien" data-val="<%- item.buoc_thuc_hien %>" value="<%- item.buoc_thuc_hien%>" />
+            <span><%- item.buoc_thuc_hien %></span>
+        </td>
+        <td class="text-right">
+            <input type="text" name="tien_tu" data-field="tien_tu" data-val="<%- item.tien_tu %>" required value="<%=ESUtil.formatMoney(item.tien_tu)%>" autocomplete="off" placeholder="Tiền từ" class="floating-input number tien_tu">
+        </td>
+        <td class="text-right">
+            <input type="text" name="tien_toi" data-field="tien_toi" data-val="<%- item.tien_toi %>" value="<%=ESUtil.formatMoney(item.tien_toi)%>" autocomplete="off" placeholder="Tiền tới" class="floating-input number tien_toi">
+        </td>
+        <td class="text-right">
+            <input type="text" name="tgian" data-field="tgian" data-val="<%- item.tgian %>" value="<%- item.tgian %>" autocomplete="off" placeholder="Thời gian" class="floating-input number tgian">
+        </td>
+        <td class="text-right">
+            <input type="text" name="tgian_noti" data-field="tgian_noti" data-val="<%- item.tgian_noti %>" value="<%- item.tgian_noti %>" autocomplete="off" placeholder="Thời gian noti" class="floating-input number tgian_noti">
+        </td>
+        <td style="text-align: center;">
+            <div class="col-sm-12">
+                <% if(item.tgian_hanh_chinh == 'C'){ %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" checked="checked" data-field="tgian_hanh_chinh" name="tgian_hanh_chinh" class="custom-control-input checkbox" id="checkbox_bt_<%- item.ma%>_<%- item.tien_tu%>_<%- item.tien_toi%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.ma%>_<%- item.tien_tu%>_<%- item.tien_toi%>"></label>
+                </div>
+                <% } else { %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" data-field="tgian_hanh_chinh" name="tgian_hanh_chinh" class="custom-control-input checkbox" id="checkbox_bt_<%- item.ma%>_<%- item.tien_tu%>_<%- item.tien_toi%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.ma%>_<%- item.tien_tu%>_<%- item.tien_toi%>"></label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="addRowSLA(this)">
+                <i class="far fa-plus-square"></i>
+            </a>
+            <a href="#" onclick="removeRowSLA(this)" class="d-none">
+                <i class="fal fa-trash-alt ml-2"></i>
+            </a>
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(data.length < 11){
+    for(var i = 0; i < 11 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:36.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="tblDsNgayCauHinhSLA_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <tr style="cursor: pointer; text-align:center" data-val="<%- item.ngay_ad %>" data-so-id="<%-item.so_id%>" id="ds_ngay_ad_sla_<%- item.ngay_ad %>" onclick="getDetailCauHinhSLA('<%- item.ngay_ad %>')" class="item-ngay_ad">
+        <td style="font-weight:bold"><%- item.ngay_ad_hthi %></td>
+    </tr>
+    <%})}%>
+
+    <% if(ds_ngay_ad.length < 9){
+    for(var i = 0; i < 9 - ds_ngay_ad.length;i++ ){
+    %>
+    <tr>
+        <td style="height:36.5px;"></td>
+    </tr>
+    <% }} %>
+</script>
+
+
+@*Template cấu hình phân công gd theo địa bàn*@
+<script type="text/html" id="modalCHDanhSachTinhThanhTemplate">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" id="tinh_thanh_tat_ca" onchange="chonTatCaTinhThanh(this)" class="custom-control-input">
+        <label class="custom-control-label" for="tinh_thanh_tat_ca"><b style="font-weight:bold">Chọn tất cả tỉnh thành</b></label>
+    </div>
+    <% _.forEach(danh_sach, function(item, index) { %>
+    <div class="custom-control custom-checkbox divItemTinhThanh" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_tinh) %>">
+        <% if(item.chon !== undefined && item.chon) {%>
+        <input type="checkbox" id="provice_<%- item.ma_tinh %>" onchange="onChangeTinhThanh()" value="<%- item.ma_tinh %>" class="custom-control-input item-provice" checked="checked">
+        <%}else{%>
+        <input type="checkbox" id="provice_<%- item.ma_tinh %>" onchange="onChangeTinhThanh()" value="<%- item.ma_tinh %>" class="custom-control-input item-provice">
+        <%}%>
+        <label class="custom-control-label" for="provice_<%- item.ma_tinh %>"><%- item.ten_tinh %></label>
+    </div>
+    <%})%>
+</script>
+
+<script type="text/html" id="modalCHDanhSachQuanHuyenTemplate">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" id="quan_huyen_tat_ca" onchange="chonTatCaQuanHuyen(this)" class="custom-control-input">
+        <label class="custom-control-label" for="quan_huyen_tat_ca"><b style="font-weight:bold">Chọn tất cả quận huyện</b></label>
+    </div>
+    <% _.forEach(danh_sach, function(item, index) { %>
+    <div class="custom-control custom-checkbox divItemQuanHuyen" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_quan) %>">
+        <% if(item.chon !== undefined && item.chon) {%>
+        <input type="checkbox" id="district_<%- item.ma_quan %>_<%- item.ma_tinh %>" onchange="onChangeQuanHuyen()" value="<%- item.ma_quan %>" class="custom-control-input item-district" checked="checked">
+        <%}else{%>
+        <input type="checkbox" id="district_<%- item.ma_quan %>_<%- item.ma_tinh %>" onchange="onChangeQuanHuyen()" value="<%- item.ma_quan %>" class="custom-control-input item-district">
+        <%}%>
+        <label class="custom-control-label" for="district_<%- item.ma_quan %>_<%- item.ma_tinh %>"><%- item.ten_quan %> - <%- item.ten_tinh %></label>
+    </div>
+    <%})%>
+</script>
+
+<script type="text/html" id="modalCHDanhSachDonViXuLyTemplate">
+    <% if(danh_sach.length > 0){%>
+    <% _.forEach(danh_sach, function(item, index) { %>
+    <div class="custom-control custom-checkbox divItemDonViXuLy" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_quan) %>">
+        <% if(item.chon !== undefined && item.chon) {%>
+        <input type="checkbox" data-branch="<%- item.ma %>" id="branch_<%- item.ma%>" value="<%- item.ma %>" class="custom-control-input modalCHDanhSachDonViXlyItem item-branch single_checked" checked="checked">
+        <%}else{%>
+        <input type="checkbox" data-branch="<%- item.ma %>" id="branch_<%- item.ma%>" value="<%- item.ma %>" class="custom-control-input modalCHDanhSachDonViXlyItem item-branch single_checked">
+        <%}%>
+        <label class="custom-control-label" style="cursor:pointer;" for="branch_<%- item.ma%>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="tblCauHinhPhanCongTemplate">
+    <% if(arrChiNhanh.length > 0){
+    _.forEach(arrChiNhanh, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- index+1 %></td>
+        <td class="text-center">
+            <input style="cursor:pointer;" type="text" class="form-control floating-input <%- (item.ma_tinh != null && item.ma_tinh != '')?'hasValue':'' %> ma_tinh" data-field="ma_tinh" data-val="<%- item.ma_tinh %>" value="<%- item.ten_tinh %>" placeholder="Chọn tỉnh thành" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer;" type="text" class="form-control floating-input <%- (item.ma_quan != null && item.ma_quan != '')?'hasValue':'' %> ma_quan" data-field="ma_quan" data-val="<%- item.ma_quan %>" value="<%- item.ten_quan %>" onclick="chonMaQuan(this,'<%- item.ma_tinh%>', '<%- index %>','top top-right')" placeholder="Chọn quận huyện" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="form-control floating-input <%- (item.ma_chi_nhanh_bt != null && item.ma_chi_nhanh_bt != '')?'hasValue':'' %> dsDVBT" data-field="ma_chi_nhanh_bt" data-val="<%- item.ma_chi_nhanh_bt %>" value="<%- item.ten_chi_nhanh_bt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(arrChiNhanh.length < 13){
+    for(var i = 0; i < 13 - arrChiNhanh.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="modalChonMaChiNhanhTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox" data-text="<%- item.ten_tat.toLowerCase() %>">
+        <input type="checkbox" name="chon_ma_chi_nhanh" id="ma_chi_nhanh_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonMaChiNhanhItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="ma_chi_nhanh_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalChonQuanHuyenTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox" data-text="<%- item.ten_quan.toLowerCase() %>">
+        <input type="checkbox" name="chon_quan_huyen" onchange="chonQuan(this)" id="ma_quan_<%- item.ma_quan %>" value="<%- item.ma_quan %>" class="custom-control-input modalChonQuanHuyenItem">
+        <label class="custom-control-label" style="cursor:pointer;" for="ma_quan_<%- item.ma_quan %>"><%- item.ten_quan %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="tblDanhSachCauHinhPhanCong_template">
+    <% if(data.length > 0){ %>
+    <%_.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- index+1 %></td>
+        <td class="text-center">
+            <%- item.nv_hthi %>
+        </td>
+        <td class="text-center">
+            <%- item.ten_tinh %>
+        </td>
+        <td class="text-center">
+            <%- item.ten_quan %>
+        </td>
+        <td class="text-center">
+            <%- item.ten_chi_nhanh_bt %>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="suaThongTinCauHinh('<%- item.ma_doi_tac%>','<%- item.ma_tinh%>', '<%- item.nv %>')">
+                <i class="fas fa-edit" title="Sửa thông tin"></i>
+            </a>
+        </td>
+        <td class="text-center">
+            <a href="#" onclick="xoaThongTinCauHinh('<%- item.ma_doi_tac%>','<%- item.ma_tinh%>', '<%- item.nv %>')">
+                <i class="fas fa-trash-alt" title="Xóa thông tin"></i>
+            </a>
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(data.length < 13){
+    for(var i = 0; i < 13 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:34px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="tblCHBenGDMD_template">
+    <% if(data.length > 0){ %>
+    <%_.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- index+1 %></td>
+        <td class="text-center">
+            <%- item.ten %>
+        </td>
+        <td class="text-center cursor-pointer">
+            <a href="#" onclick="openModalGDMD_MQH('<%- item.doi_tuong %>', '<%- item.mac_dinh %>', '<%- item.ma_moi_qhe %>', '<%- item.nv%>')"><%- item.ma_moi_qhe_ten %></a>
+        </td>
+        <td style="text-align: center;">
+            <div class="col-sm-12">
+                <% if(item.mac_dinh == 'C'){ %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" checked="checked" onchange="onChangeCHBenGDMD('<%- item.doi_tuong%>','<%- item.ma_moi_qhe%>', '<%- item.nv %>')" data-field="mac_dinh" name="mac_dinh" class="custom-control-input checkbox" id="checkbox_bt_<%- item.doi_tuong%>_<%- item.nv%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.doi_tuong%>_<%- item.nv%>"></label>
+                </div>
+                <% } else { %>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" data-field="mac_dinh" onchange="onChangeCHBenGDMD('<%- item.doi_tuong%>','<%- item.ma_moi_qhe%>', '<%- item.nv %>')" name="mac_dinh" class="custom-control-input checkbox" id="checkbox_bt_<%- item.doi_tuong%>_<%- item.nv%>">
+                    <label class="custom-control-label" for="checkbox_bt_<%- item.doi_tuong%>_<%- item.nv%>"></label>
+                </div>
+                <% } %>
+            </div>
+        </td>
+    </tr>
+    <% })} %>
+
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.5px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Cấu hình xử lý bồi thường*@
+@*Template ngày áp dụng cấu hình hồ sơ chứng từ*@
+<script type="text/html" id="tblDsNgayCauHinhXLBT_template">
+    <% if(ds_ngay_ad.length > 0){
+    _.forEach(ds_ngay_ad, function(item,index) { %>
+    <a class="nav-link text-center item-ngay_ad" data-ngay="<%- item.ngay_ad %>" onclick="getDetailCauHinhXuLy('<%- item.ngay_ad %>')" style="cursor:pointer" data_ngay_ad="<%- item.ngay_ad %>" data-toggle="pill" role="tab" aria-selected="true"><b class="font-weight-bold"><%- item.ngay_ad_hthi %></b></a>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCauHinhXuLyBoiThuongXeTemplate">
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <tr class="row_item cauHinhXuLyBTXe" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_tim) %>">
+        <td class="text-center font-weight-bold">
+            <%- index + 1%>
+            <input type="hidden" data-field="ma" data-val="<%- item.ma%>" />
+        </td>
+        <td class="text-left font-weight-bold">
+            <%- item.ten %> - <span class="font-12 font-italic">(<%- item.ma%>)</span>
+        </td>
+        <td class="text-center">
+            <div class="custom-control custom-switch">
+                <% if(item.gdvht == "C") {%>
+                <input type="checkbox" data-field="gdvht_gdvtt" id="gdvht_<%- index %>_<%- item.gdvht%>" value="<%- item.gdvht %>" class="custom-control-input checkbox gdvht" checked="checked" onchange="onChonGDVHTXe(this)">
+                <%}else{%>
+                <input type="checkbox" data-field="gdvht_gdvtt" id="gdvht_<%- index %>_<%- item.gdvht%>" value="<%- item.gdvht %>" class="custom-control-input checkbox gdvht" onchange="onChonGDVHTXe(this)">
+                <%}%>
+                <label class="custom-control-label" style="cursor:pointer;" for="gdvht_<%- index %>_<%- item.gdvht%>"></label>
+            </div>
+        </td>
+        <td class="text-center">
+            <div class="custom-control custom-switch">
+                <% if(item.gdvtt == "C") {%>
+                <input type="checkbox" data-field="gdvtt_btv" id="gdvtt_<%- index %>_<%- item.gdvtt%>" value="<%- item.gdvtt %>" class="custom-control-input checkbox gdvtt" checked="checked" onchange="onChonGDVTTXe(this)">
+                <%}else{%>
+                <input type="checkbox" data-field="gdvtt_btv" id="gdvtt_<%- index %>_<%- item.gdvtt%>" value="<%- item.gdvtt %>" class="custom-control-input checkbox gdvtt" onchange="onChonGDVTTXe(this)">
+                <%}%>
+                <label class="custom-control-label" style="cursor:pointer;" for="gdvtt_<%- index %>_<%- item.gdvtt%>"></label>
+            </div>
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td colspan="4" class="text-center">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalCauHinhXuLyBoiThuongXeMayTemplate">
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <tr class="row_item cauHinhXuLyBTXeMay" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_tim) %>">
+        <td class="text-center font-weight-bold">
+            <%- index + 1%>
+            <input type="hidden" data-field="ma" data-val="<%- item.ma%>" />
+        </td>
+        <td class="text-left font-weight-bold">
+            <%- item.ten %> - <span class="font-12 font-italic">(<%- item.ma%>)</span>
+        </td>
+        <td class="text-center">
+            <div class="custom-control custom-switch">
+                <% if(item.gdvht == "C") {%>
+                <input type="checkbox" data-field="gdvht_gdvtt" id="gdvht_<%- index %>_<%- item.gdvht%>" value="<%- item.gdvht %>" class="custom-control-input checkbox gdvht" checked="checked" onchange="onChonGDVHTXeMay(this)">
+                <%}else{%>
+                <input type="checkbox" data-field="gdvht_gdvtt" id="gdvht_<%- index %>_<%- item.gdvht%>" value="<%- item.gdvht %>" class="custom-control-input checkbox gdvht" onchange="onChonGDVHTXeMay(this)">
+                <%}%>
+                <label class="custom-control-label" style="cursor:pointer;" for="gdvht_<%- index %>_<%- item.gdvht%>"></label>
+            </div>
+        </td>
+        <td class="text-center">
+            <div class="custom-control custom-switch">
+                <% if(item.gdvtt == "C") {%>
+                <input type="checkbox" data-field="gdvtt_btv" id="gdvtt_<%- index %>_<%- item.gdvtt%>" value="<%- item.gdvtt %>" class="custom-control-input checkbox gdvtt" checked="checked" onchange="onChonGDVTTXeMay(this)">
+                <%}else{%>
+                <input type="checkbox" data-field="gdvtt_btv" id="gdvtt_<%- index %>_<%- item.gdvtt%>" value="<%- item.gdvtt %>" class="custom-control-input checkbox gdvtt" onchange="onChonGDVTTXeMay(this)">
+                <%}%>
+                <label class="custom-control-label" style="cursor:pointer;" for="gdvtt_<%- index %>_<%- item.gdvtt%>"></label>
+            </div>
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td colspan="4" class="text-center">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>

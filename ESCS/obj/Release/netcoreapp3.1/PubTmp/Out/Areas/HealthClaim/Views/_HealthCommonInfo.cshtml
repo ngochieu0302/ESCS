@@ -1,0 +1,50 @@
+﻿<div class="card mb-0 h-100" id="navThongTinHoSo">
+    <ul class="nav nav-tabs profile-tab" role="tablist">
+        <li class="nav-item shown">
+            <a class="nav-link active" data-toggle="tab" href="#navThongTinChung" role="tab" aria-selected="true">
+                <span class="d-none d-md-block">
+                    <i class="fas fa-info-circle"></i> Thông tin chung
+                </span>
+                <span class="d-block d-md-none">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+            </a>
+        </li>
+        <li class="nav-item shown">
+            <a class="nav-link" data-toggle="tab" href="#navThongTinLienHe" role="tab" aria-selected="false">
+                <span class="d-none d-md-block">
+                    <i class="fas fa-clinic-medical"></i> Thông tin CSYT
+                </span>
+                <span class="d-block d-md-none">
+                    <i class="fas fa-history"></i>
+                </span>
+            </a>
+        </li>
+        <li class="nav-item" onclick="xemQuaTrinhXuLy('navQuaTrinhGiaiQuyet')">
+            <a class="nav-link" data-toggle="tab" href="#navQuaTrinhGiaiQuyet" role="tab" aria-selected="false">
+                <span class="d-none d-md-block">
+                    <i class="fas fa-history mr-1"></i> Quá trình xử lý
+                </span>
+                <span class="d-block d-md-none">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content border border-top-0 scrollable">
+        <div class="tab-pane active p-0" id="navThongTinChung" role="tabpanel"></div>
+        <div class="tab-pane p-0" id="navThongTinLienHe" role="tabpanel"></div>
+        <div class="tab-pane p-0" id="navQuaTrinhGiaiQuyet" role="tabpanel">
+            <div class="card-body p-1">
+                <div class="border rounded">
+                    <div class="d-flex justify-content-between align-items-center p-2 card-title-bg border-bottom">
+                        <h5 class="m-0">Quá trình giải quyết</h5>
+                        <span><a href="#" id="btnXemTienTrinhGiaiQuyet" data-toggle="modal" @*data-target="#modalCarFlowChart"*@><i class="far fa-stream"></i></a></span>
+                    </div>
+                    <div class="timeline mt-2" id="navQuaTrinhGiaiQuyetTimeLine"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

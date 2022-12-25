@@ -1,0 +1,16 @@
+﻿<script type="text/html" id="cau_hinh_he_so_template">
+    <% if(data.length > 0){
+    var stt = 1;
+    _.forEach(data, function(item,index) { %>
+    <tr onclick="rowSelected(this)">
+        <td class="text-center"><%- stt %></td>
+        <td>
+            <input class="form-control floating-input nsd" value="<%- item.ten_nsd %>" col-val="<%- item.nsd %>" name="nsd" disabled="disabled" style="background-color: white">
+        </td>
+        <td>
+            <input class="floating-input number text-center he_so" max="5" type="text" style="cursor:pointer" value="<%- item.he_so %>" name="he_so">
+        </td>
+        <% stt ++ %>
+    </tr>
+    <% })} %>
+</script>

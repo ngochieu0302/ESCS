@@ -1,0 +1,43 @@
+﻿<script type="text/html" id="bodyTableDsNguoiThuDoiTemplate">
+    <% if(data_info.length > 0){
+    _.forEach(data_info, function(item, index) { %>
+    <tr class="ntba-row ntba-item-<%- item.bt %>">
+        <td>
+            <% if(item.so_id_td_ntba == null || item.so_id_td_ntba == 0){%>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" data-tien="<%- item.tien %>" data-bt="<%- item.bt %>" data-info="<%- JSON.stringify(item) %>" onchange="checkItem(this)" class="custom-control-input ntba-item" value="<%- item.bt %>" id="tableDsNguoiThuDoiCheck_<%- item.bt %>" />
+                <label class="custom-control-label" for="tableDsNguoiThuDoiCheck_<%- item.bt %>"><b style="font-weight:bold">&nbsp;</b></label>
+            </div>
+            <% } else {%>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" checked="checked" disabled="disabled" data-tien="<%- item.tien %>" data-bt="<%- item.bt %>" data-info="<%- JSON.stringify(item) %>" onchange="checkItem(this)" class="custom-control-input ntba-item" value="<%- item.bt %>" id="tableDsNguoiThuDoiCheck_<%- item.bt %>" />
+                <label class="custom-control-label" for="tableDsNguoiThuDoiCheck_<%- item.bt %>"><b style="font-weight:bold">&nbsp;</b></label>
+            </div>
+            <% }%>
+        </td>
+        <td>
+            <input type="text" class="wd-140-f floating-input" id="bodyTableDsNguoiThuDoi_Ten_<%- item.bt %>" value="<%- item.ten %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" class="number wd-80-f floating-input" onchange="tinhLaiTien(this)" id="bodyTableDsNguoiThuDoi_Tien_<%- item.bt %>" value="<%- ESUtil.formatMoney(item.tien) %>" />
+        </td>
+        <td><input type="text" class="wd-100-f floating-input" id="bodyTableDsNguoiThuDoi_Dthoai_<%- item.bt %>" value="<%- item.dthoai %>" /></td>
+        <td><input type="text" class="wd-360-f floating-input" id="bodyTableDsNguoiThuDoi_Diachi_<%- item.bt %>" value="<%- item.dia_chi %>" /></td>
+        <td><input type="text" class="wd-360-f floating-input" id="bodyTableDsNguoiThuDoi_GhiChu_<%- item.bt %>" value="<%- item.ghi_chu %>" /></td>
+    </tr>
+    <% })} %>
+    <% if(data_info.length < 6){
+    for(var i = 0; i < 6 - data_info.length;i++ ){
+    %>
+    <tr>
+        <td>
+            <div class="tabulator-cell" role="gridcell" tabulator-field="sott" title="" style="width: 55px; text-align: center; height: 20px;">&nbsp;<div class="tabulator-col-resize-handle"></div><div class="tabulator-col-resize-handle prev"></div></div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

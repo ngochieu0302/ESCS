@@ -1,0 +1,201 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Phân tích theo địa bàn";
+    Layout = "~/Views/Shared/_LayoutScroll.cshtml";
+}
+<div class="row page-titles">
+    <div class="col-md-5 col-12 d-flex justify-content-start align-self-center">
+        <h5 class="mb-0 px-3 border-right"><a class="text-themecolor" style="color:blue" href="Index">Phân tích nghiệp vụ</a></h5>
+        <h5 class="mb-0 pl-3"><a class="text-subcolor" href="IndexDT">Phân tích đối tượng</a></h5>
+    </div>
+    <div class="col-md-7 col-12 align-self-center justify-content-end d-flex">
+        <form class="form-inline" name="frmSearch" method="post">
+            <div class="form-group m-0 mr-3">
+                @*<label for="inputEmail3" class="pr-0 col-sm-4 col-form-label">Đối tác</label>*@
+                <select class="select2 form-control custom-select" name="ma_doi_tac" style="width:200px">
+                </select>
+            </div>
+            <div class="form-group m-0 mr-3">
+                @*<label for="inputEmail3" class="pr-0 col-sm-4 col-form-label">Chi nhánh</label>*@
+                <select class="select2 form-control custom-select" name="ma_chi_nhanh" style="width:200px">
+                </select>
+            </div>
+            <div class="form-group m-0">
+                @*<label for="inputEmail3" class="pr-0 col-sm-4 col-form-label">Nhóm</label>*@
+                <select class="select2 form-control custom-select" name="nhom" style="width:100px">
+                    <option value="TUAN">Tuần</option>
+                    <option value="THANG">Tháng</option>
+                    <option value="NAM" selected="selected">Năm</option>
+                    <option value="QUY">Quý</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row row-cols-6" id="tong_hop">
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div id="don_vi_bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div id="nghiep_vu_pie"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div id="thoi_gian_bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h3 class="card-title">Số lượng hồ sơ, tỷ trọng theo số tiền bồi thường</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="border-0 font-weight-normal">Nhóm</th>
+                                    <th class="text-center font-weight-normal">Số lượng</th>
+                                    <th class="text-right border-0 font-weight-normal">Số tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody id="so_tien_list">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h3 class="card-title">Top 10 hồ sơ có số tiền lớn nhất</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="max-height:273px">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="border-0 font-weight-normal">Đối tượng</th>
+                                    <th class="text-center font-weight-normal">Số hồ sơ</th>
+                                    <th class="text-right border-0 font-weight-normal">Số tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top_10_list">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles{
+    <style>
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0,0,0,.125);
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1.25rem;
+        }
+
+        .campaign {
+            height: 260px;
+            position: relative;
+        }
+
+            .campaign .ct-series-a .ct-area {
+                fill-opacity: 0.2;
+                fill: url(#gradient);
+            }
+
+            .campaign .ct-series-a .ct-line,
+            .campaign .ct-series-a .ct-point {
+                stroke: #21c1d6;
+                stroke-width: 2px;
+            }
+
+            .campaign .ct-series-b .ct-area {
+                fill: #1e88e5;
+                fill-opacity: 0.1;
+            }
+
+            .campaign .ct-series-b .ct-line,
+            .campaign .ct-series-b .ct-point {
+                stroke: #1e88e5;
+                stroke-width: 2px;
+            }
+
+            .campaign .ct-series-a .ct-point,
+            .campaign .ct-series-b .ct-point {
+                stroke-width: 6px;
+            }
+
+        .table td, .table th {
+            padding: .75rem;
+        }
+
+        .table tbody {
+            font-size: 0.875rem;
+        }
+
+        .row > div {
+            padding-right: 0px;
+        }
+
+        .fixed-header thead th {
+            background-color: white;
+            color: #67757c;
+        }
+
+        .text-content {
+            color: rgb(30, 136, 229);
+        }
+    </style>
+}
+
+<partial name="_Template.cshtml" />
+
+@section Scripts{
+    <script src="~/js/app/Admin/services/PartnerListService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Admin/services/BranchListService.js" asp-append-version="true"></script>
+    <script src="~/libs/highchart/highcharts.src.js" asp-append-version="true"></script>
+    <script src="~/libs/highchart/highcharts-more.js" asp-append-version="true"></script>
+    <script src="~/libs/highchart/highcharts-3d.js" asp-append-version="true"></script>
+    <script src="~/libs/highchart/modules/solid-gauge.js" asp-append-version="true"></script>
+    <script src="~/libs/highchart/modules/wordcloud.js" asp-append-version="true"></script>
+    <script src="~/js/app/Dashboard/services/DashboardService.js" asp-append-version="true"></script>
+    <script src="~/js/app/Dashboard/CarDetailNV.js" asp-append-version="true"></script>
+}

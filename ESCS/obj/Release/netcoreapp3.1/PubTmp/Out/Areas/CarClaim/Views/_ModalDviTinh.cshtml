@@ -1,0 +1,34 @@
+﻿<div id="modalDviTinh" class="modal-drag" style="width:200px; z-index:9999999;">
+    <div class="modal-drag-header mx-2">
+        <h5><span class="modal-drag-title">Chọn đơn vị tính</span> <span data-dismiss="modal-drag"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input id="inputSearch_DviTinh" type="text" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalDviTinhElementSelect">
+
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalDviTinhDanhSach">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-drag-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="btnChonDviTinh">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalDviTinhDanhSachTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox dsdvitinh" id="dsdvitinh_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="dvitinh_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalDviTinhItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="dvitinh_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>

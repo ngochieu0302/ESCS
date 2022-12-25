@@ -1,0 +1,12 @@
+// ###############################################
+// Dropdown
+// ###############################################
+.dropdown-menu.show {
+	display: block;
+	max-height: 330px;
+	overflow: auto;
+	scrollbar-color: #d6dee1 #fff;
+}
+.dropdown::-webkit-scrollbar-track {
+	background-color: #fff;
+}

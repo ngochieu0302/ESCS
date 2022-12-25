@@ -1,0 +1,27 @@
+.table {
+    margin-bottom: $table-margin-bottom;
+}
+
+.table thead th,
+.table tfoot th,
+.table th {
+    font-weight: $font-weight-bold;
+}
+
+.fixed-header {
+	overflow-y: scroll;
+	flex-grow: 1;
+}
+.fixed-header thead th {
+	position: sticky;
+	top: 0;
+	background-color: #1e88e5;
+	color: #fff;
+	z-index:1;
+}
+
+.fixed-header tfoot {
+	position: sticky;
+	bottom: 0;
+	background-color: #f8f9fa;
+}

@@ -1,0 +1,48 @@
+﻿<script type="text/html" id="tableMucDo_AI_template">
+    <% if(mdtt.length > 0){ %>
+    <% _.forEach(mdtt, function(item,index) { %>
+    <tr row-val="<%- item.ma %>" data-search="<%- item.ten.toLowerCase() %>">
+        <% var stt = item.ma %>
+        <% if (stt.includes('.')) stt = stt.split('').filter(n => n != '.').join('') %>;
+        <td><input id='ma_muc_do_<%- stt %>' type="text" name="ma_muc_do" maxlength="50" col-ma-muc-do="<%- item.ma %>" class="floating-input" value="<%- item.ma %>" readonly="" /></td>
+        <td><input id='ten_muc_do_<%- stt %>' type="text" name="ten_muc_do" maxlength="50" col-ten-muc-do="<%- item.ma %>" class="floating-input" value="<%- item.ten %>" readonly="" /></td>
+        <td>
+            <select id='thay_the_sc_<%- stt %>' class="select2 form-control custom-select" name="thay_the_sc">
+                <option value="">Chọn phương án</option>
+                <option value="T">Thay thế</option>
+                <option value="S">Sửa chữa</option>
+            </select>
+        </td>
+        <td><input id='ma_mapping_<%- stt %>' type="text" name="ma_mapping" maxlength="50" col-ma-mapping="<%- item.ma %>" class="floating-input" autocomplete="off" value="<%- item.ma_mapping %>" /></td>
+        <td><input id='ten_mapping_<%- stt %>' type="text" name="ten_mapping" maxlength="200" col-ten-mapping="<%- item.ma %>" class="floating-input" autocomplete="off" value="<%- item.ten_mapping %>" /></td>
+        <td><input id='ten_tat_mapping_<%- stt %>' type="text" name="ten_tat_mapping" maxlength="100" col-ten-tat-mapping="<%- item.ma %>" class="floating-input" autocomplete="off" value="<%- item.ten_tat_mapping %>" /></td>
+    </tr>
+    <% }) %>
+    <% }%>
+</script>
+
+<script type="text/html" id="HangMuc_template">
+    <% if(hang_muc.length > 0){
+    _.forEach(hang_muc, function(item,index) { %>
+    <tr row-val="<%- item.ma %>" data-search="<%- item.ten.toLowerCase() %>">
+        <td><input id='ma_hang_muc_<%- item.ma %>' type="text" name="ma_hang_muc" maxlength="50" col-ma-hang-muc="<%- item.ma %>" class="floating-input" value="<%- item.ma %>" readonly="" /></td>
+        <td><input id='ten_hang_muc_<%- item.ma %>' type="text" name="ten_hang_muc" maxlength="50" col-ten-hang-muc="<%- item.ma %>" class="floating-input" value="<%- item.ten %>" readonly="" /></td>
+        <td><input id='ma_mapping_ai_<%- item.ma %>' type="text" name="ma_mapping_ai" maxlength="50" col-ma-mapping-ai="<%- item.ma %>" class="floating-input" value="<%- item.ma_mapping_ai %>" /></td>
+        <td><input id='ten_mapping_ai_<%- item.ma %>' type="text" name="ten_mapping_ai" maxlength="200" col-ten-mapping-ai="<%- item.ma %>" class="floating-input" value="<%- item.ten_mapping_ai %>" /></td>
+        <td><input id='ten_tat_mapping_ai_<%- item.ma %>' type="text" name="ten_tat_mapping_ai" maxlength="100" col-ten-tat-mapping-ai="<%- item.ma %>" class="floating-input" value="<%- item.ten_tat_mapping_ai %>" /></td>
+    </tr>
+    <% })}%>
+</script>
+
+<script type="text/html" id="BaoGia_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr row-val="<%- item.gara %>" data-search="<%- item.ten_gara.toLowerCase() %>" style="cursor:pointer" onclick="suaBaoGiaDichVu('<%- JSON.stringify(item) %>')">
+        <td><%- item.ten_gara %></td> 
+        <td><%- item.token %></td>
+        <td class="text-center"><%- item.ngay_hl_hthi %></td>
+        <td class="text-center"><%- item.ngay_kt_hthi %></td>
+        <td class="text-center"><%- item.ap_dung_hthi %></td>
+    </tr>
+    <% })}%>
+</script>

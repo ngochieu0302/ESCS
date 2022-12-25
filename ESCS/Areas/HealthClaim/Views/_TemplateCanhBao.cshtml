@@ -1,0 +1,55 @@
+﻿<script type="text/html" id="danhSachCanhBaoTemplate">
+    <% if(danh_sach.so_luong_cb > 0){%>
+    <div class="esmodal-title d-flex justify-content-between">
+        <ul class="navbar-nav float-right">
+            <li class="nav-item dropdown">
+                <a style="padding: 0 !important" class="nav-link dropdown" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span style="color: #ff8c0096; font-size: 18px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <i style="font-size: 17px;" class="text-danger">Có <span class="text-danger"><%- danh_sach.so_luong_cb%></span> thông báo cảnh báo</i>
+                </a>
+                <div class="dropdown-menu mailbox dropdown-menu-left scale-up pt-0" style="margin-top: 21px; border: 1px solid #ccc; width: 400px !important; margin-left: -105px !important; transform: translate3d(0px, 43px, 0px) !important; height: 100vh;">
+                  <ul class="list-style-none">
+                        <li>
+                            <div class="border-bottom rounded-top p-2 text-center" style="background-color: #edeff0 ">
+                                <h5 class="font-weight-medium mb-0">Danh sách thông báo cảnh báo</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="message-center message-body position-relative" id="canhBao">
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <button type="button" class="close" data-dismiss="esmodal" aria-hidden="true">×</button>
+    </div>
+    <% }else{ %>
+    <button type="button" class="close" data-dismiss="esmodal" aria-hidden="true">×</button>
+    <% } %>
+</script>
+
+@*Xem danh sách thông báo cảnh báo*@
+<script type="text/html" id="canhBao_template">
+    <%if(danh_sach.length > 0){ %>
+    <%_.forEach(danh_sach, function(item,index) { %>
+    <a href="javascript:void(0)" id="notify-item-<%- item.so_id %>" class="message-item d-flex align-items-center border-bottom p-1">
+        <span class="position-relative d-inline-block">
+            <span class="dot n-noi-dung-tin-nhan-dot"></span>
+        </span>
+        <div class="d-inline-block v-middle pl-2">
+            <p class="font-14 mb-0 mt-1 text-danger"><%- item.noi_dung %></p>
+            <span class="font-10 text-nowrap d-block text-muted"><%- item.ngay %></span>
+        </div>
+    </a>
+    <% })} else { %>
+    <a href="#" class="message-item d-flex align-items-center border-bottom p-1">
+        <div class="d-inline-block v-middle pl-2" style="margin:0 auto">
+            <p class="font-12 mb-0 mt-1 text-dark">Không có cảnh báo</p>
+        </div>
+    </a>
+    <% } %>
+</script>

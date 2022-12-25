@@ -1,0 +1,34 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>THÔNG BÁO TRÌNH PHÊ DUYỆT TỪ CHỐI BỒI THƯỜNG</title>
+</head>
+<body style="font-family: 'Tahoma';font-size: 14px;line-height: 1.6;">
+    <div style="border:1px solid #035299; border-radius:12px; margin:5px; background-color:azure">
+        <div style="width: 710px; margin: 0 auto;">
+            <h2 style="color: #035299; text-align: center">TRÌNH PHÊ DUYỆT TỪ CHỐI BỒI THƯỜNG</h2>
+            <div style="padding: 8px; text-align: justify;">
+
+                <p style="font-family: 'Tahoma'; font-size: 14px;">Kính gửi : <span style="color: #035299">Ban lãnh đạo</span></p>
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top:5px;">
+                    - Hồ sơ yêu cầu bồi thường xe ô tô <span style="color: #035299;">@mail.doi_tuong</span> với số hồ sơ bồi
+                    thường <span style="color: #035299;">@mail.so_hs</span>
+                    đã được @mail.thong_tin_btv hoàn thiện và trình phê duyệt từ chối đến ban lãnh đạo để xét duyệt.
+                </p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; margin-top: 5px;">Kính mong ban lãnh đạo xem xét, phê duyệt từ chối bồi thường để thực hiện giải quyết bồi thường theo quy định.</p>
+
+                <p style="font-family: 'Tahoma'; font-size: 14px; color: #035299; font-weight: bold; margin-top: 15px;">Trân trọng cảm ơn!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

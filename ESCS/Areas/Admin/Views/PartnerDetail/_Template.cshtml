@@ -1,0 +1,125 @@
+﻿<script type="text/html" id="modalThemCauHinhXeTemplate">
+    <% if(arrChiNhanh.length > 0){
+    _.forEach(arrChiNhanh, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- index+1 %></td>
+        <td>
+            <a data-field="ma_chi_nhanh_ql" data-val="<%- item.ma_chi_nhanh_ql %>"><%- item.ten_chi_nhanh_ql %></a>
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer;" type="text" class="floating-input <%- (item.ma_chi_nhanh_gd!=null && item.ma_chi_nhanh_gd!='')?'hasValue':'' %> dsDVGD" data-field="ma_chi_nhanh_gd" data-val="<%- item.ma_chi_nhanh_gd %>" value="<%- item.ten_chi_nhanh_gd %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="floating-input <%- (item.ma_chi_nhanh_bt!=null && item.ma_chi_nhanh_bt!='')?'hasValue':'' %> dsDVBT" data-field="ma_chi_nhanh_bt" data-val="<%- item.ma_chi_nhanh_bt %>" value="<%- item.ten_chi_nhanh_bt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="floating-input <%- (item.ma_chi_nhanh_tt!=null && item.ma_chi_nhanh_tt!='')?'hasValue':'' %> dsDVTT" data-field="ma_chi_nhanh_tt" data-val="<%- item.ma_chi_nhanh_tt %>" value="<%- item.ten_chi_nhanh_tt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+    </tr>
+    <% })} %>
+</script>
+
+<script type="text/html" id="modalThemCauHinhXeMayTemplate">
+    <% if(arrChiNhanh.length > 0){
+    _.forEach(arrChiNhanh, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- index+1 %></td>
+        <td>
+            <a data-field="ma_chi_nhanh_ql" data-val="<%- item.ma_chi_nhanh_ql %>"><%- item.ten_chi_nhanh_ql %></a>
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer;" type="text" class="floating-input <%- (item.ma_chi_nhanh_gd!=null && item.ma_chi_nhanh_gd!='')?'hasValue':'' %> dsDVGD" data-field="ma_chi_nhanh_gd" data-val="<%- item.ma_chi_nhanh_gd %>" value="<%- item.ten_chi_nhanh_gd %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="floating-input <%- (item.ma_chi_nhanh_bt!=null && item.ma_chi_nhanh_bt!='')?'hasValue':'' %> dsDVBT" data-field="ma_chi_nhanh_bt" data-val="<%- item.ma_chi_nhanh_bt %>" value="<%- item.ten_chi_nhanh_bt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="floating-input <%- (item.ma_chi_nhanh_tt!=null && item.ma_chi_nhanh_tt!='')?'hasValue':'' %> dsDVTT" data-field="ma_chi_nhanh_tt" data-val="<%- item.ma_chi_nhanh_tt %>" value="<%- item.ten_chi_nhanh_tt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+    </tr>
+    <% })} %>
+</script>
+
+<script type="text/html" id="modalThemCauHinhNgTemplate">
+    <% if(arrChiNhanh.length > 0){
+    _.forEach(arrChiNhanh, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- index+1 %></td>
+        <td>
+            <a style="cursor:pointer" data-field="ma_chi_nhanh_ql" data-val="<%- item.ma_chi_nhanh_ql %>"><%- item.ten_chi_nhanh_ql %></a>
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="floating-input <%- (item.ma_chi_nhanh_bt!=null && item.ma_chi_nhanh_bt!='')?'hasValue':'' %> dsDVBT_NG" data-field="ma_chi_nhanh_bt" data-val="<%- item.ma_chi_nhanh_bt %>" value="<%- item.ten_chi_nhanh_bt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+        <td class="text-center">
+            <input style="cursor:pointer" type="text" class="floating-input <%- (item.ma_chi_nhanh_tt!=null && item.ma_chi_nhanh_tt!='')?'hasValue':'' %> dsDVTT_NG" data-field="ma_chi_nhanh_tt" data-val="<%- item.ma_chi_nhanh_tt %>" value="<%- item.ten_chi_nhanh_tt %>" onclick="chonMaChiNhanh(this, '<%- index %>','top top-right')" placeholder="Chọn đơn vị xử lý" readonly="readonly">
+        </td>
+    </tr>
+    <% })} %>
+</script>
+
+<script type="text/html" id="modalChonMaChiNhanhTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox" data-text="<%- item.ten_tat.toLowerCase() %>">
+        <input type="checkbox" name="chon_ma_chi_nhanh" id="ma_chi_nhanh_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonMaChiNhanhItem single_checked">
+        <label class="custom-control-label" style="cursor:pointer;" for="ma_chi_nhanh_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="edit_cau_hinh_template">
+    <% if(arrCauHinh.length > 0){
+    _.forEach(arrCauHinh, function(item,index) { %>
+    <tr>
+        <td>
+            <select class="select2 form-control custom-select ma_dvi_gd" required="" style="height:36px;">
+                <option value="">Chọn đơn vị</option>
+                <% if(arrChiNhanh.length > 0){
+                _.forEach(arrChiNhanh, function(item1,index) { %>
+                <option value="<%- item1.ma %>" <% if(item1.ma == item.ma_chi_nhanh_gd){ %>selected="selected"<% } %>>
+                        <%- item1.ten_tat %>
+                    </option>
+                <% })}%>
+            </select>
+        </td>
+        <td>
+            <select class="select2 form-control custom-select ma_dvi_bt" required="" style="height:36px;">
+                <option value="">Chọn đơn vị</option>
+                <% if(arrChiNhanh.length > 0){
+                _.forEach(arrChiNhanh, function(item1,index) { %>
+                <option value="<%- item1.ma %>" <% if(item1.ma == item.ma_chi_nhanh_bt){ %>selected="selected"<% } %>>
+                        <%- item1.ten_tat %>
+                    </option>
+                <% })}%>
+            </select>
+        </td>
+        <td>
+            <select class="select2 form-control custom-select ma_dvi_chi" required="" style="height:36px;">
+                <option value="">Chọn đơn vị</option>
+                <% if(arrChiNhanh.length > 0){
+                _.forEach(arrChiNhanh, function(item1,index) { %>
+                <option value="<%- item1.ma %>" <% if(item1.ma == item.ma_chi_nhanh_tt){ %>selected="selected"<% } %>>
+                        <%- item1.ten_tat %>
+                    </option>
+                <% })}%>
+            </select>
+        </td>
+        <td>
+            <div class="input-group">
+                <input type="text" autocomplete="off" class="form-control datepicker tu_ngay" name="ngay_d" display-format="date" value-format="number" placeholder="mm/dd/yyyy" value="<%- parseInt(item.tu_ngay).numberToDate() %>">
+                <div class="input-group-append">
+                    <span class="input-group-text"><span class="ti-calendar"></span></span>
+                </div>
+            </div>
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-primary btn-sm remove_config">
+                <i class="ti-close"></i>
+            </button>
+        </td>
+    </tr>
+    <% })} %>
+</script>

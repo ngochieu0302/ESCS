@@ -1,0 +1,372 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS
+@model ESCS.MODEL.ESCS.bh_bt_ho_so_giay_to_link
+@{
+    ViewData["Title"] = "Bổ sung hồ sơ giấy tờ";
+    Layout = "~/Views/Shared/_LayoutMobile.cshtml";
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var logo = "images/logo-icon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var logo_ung_dung = setting.cai_dat.Where(n => n.loai == "LOGO_DANG_NHAP").FirstOrDefault();
+        logo = logo_ung_dung != null && !string.IsNullOrEmpty(logo_ung_dung.url_anh) ? logo_ung_dung.url_anh : logo;
+    }
+}
+<input type="hidden" id="short_link" value="@Model.short_link" />
+<div id="page404" class="d-none" style="position: relative; height: 100vh;">
+    <section class="main-content-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                        </div>
+                        <h2 class="h1">Không xác định được đường dẫn</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="page_ddos" class="d-none" style="position: relative; height: 100vh;">
+    <section class="main-content-error">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="error">
+                        <div class="container-error-404">
+                            <div class="clip"><div class="shadow"><span class="digit thirdThree"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit secondTwo"></span></div></div>
+                            <div class="clip"><div class="shadow"><span class="digit firstOne"></span></div></div>
+                        </div>
+                        <h2 class="h1">Bạn đã truy cập ứng dụng quá nhiều lần trong một khoảng thời gian ngắn. Vui lòng chờ đợi 5 phút để có thể tiếp tục thực hiện.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="preloader" class="d-none">
+    <div class="book">
+        <div class="inner">
+            <div class="left"></div>
+            <div class="middle"></div>
+            <div class="right"></div>
+        </div>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+<div id="trang_chu" style="overflow-x: hidden;">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container-fuild header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                            <a class="navbar-brand" href="#">
+                                <img src="/@logo" alt="Logo" class="rounded app_logo" style="width:120px">
+                            </a>
+                            <span class="slogan d-block app_ten_cty_bh field-name"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content rounded" style="margin-top: 95px;">
+            <div class="container-xl mx-auto">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-10 col-md-12 col-12 mx-auto px-2">
+                        <div class="card border mb-0" >
+                            <div class="card-header" >
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600;"><i class="fa fa-search mr-2"></i>Tìm kiếm biển số xe, giấy chứng nhận</h6>
+                            </div>
+                            <div class="search-wrap">
+                                <div class="container " style="padding: 10px;">
+                                <div id="divTimKiem"  style="letter-spacing: 1px;">
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-xl mx-auto">
+                <div class="footer-inner col-lg-10 col-sm-10 col-md-12 col-12 py-3 mx-auto">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-12 mx-auto text-center px-2 boSungHoSo">
+                            <a href="#" class="btn btn-button " id="btnTimKiem"><i class=" mr-2" aria-hidden="true"></i>Tìm Kiếm</a>
+                        </div>
+                    </div>
+                </div>
+        </footer>
+    </div>
+</div>
+<div id="danh_sach_xe" class="d-none">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex " style="padding: 10px;">
+                            <div>
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600;"><i class="fa fa-list-alt mr-2" aria-hidden="true"></i> Danh Sách Xe</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" id="divThongTinXe" >
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+                 <div class="container-xl mx-auto">
+                <div class="footer-inner col-lg-10 col-sm-10 col-md-12 col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-12 mx-auto text-center px-2 boSungHoSo">
+                             <a href="#" id="btnQuayLai" class="btn btn-button"><i class="fa fa-arrow-circle-left mr-2" aria-hidden="true"></i> Trở lại</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div id="chi_tiet_giay_chung_nhan" class="d-none">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between" style="font-size:20px;">
+                            <div>
+                                <a id="btnQuayLaiDSX" href="#" class="field-name"><i class="fa fa-chevron-left mr-2" aria-hidden="true"></i> Trở lại</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                    <div class="card border mb-3 ">
+                    <div class="card-header">
+                       <h6 class="mb-0" style="color: #424D54; font-weight: 600;"><i class="fa fa-car mr-2 "></i>Thông tin giấy chứng nhận</h6>
+                    </div>
+                    <div class="col-12" id="divChiTietGCN">
+
+                    </div>
+                    </div>
+                    <div class="card border mb-3 ">
+                    <div class="card-header">
+                    <h6 class="mb-0" style="color: #424D54; font-weight: 600;"><i class="fa fa-car mr-2 "></i>Thông tin xe</h6>
+                    </div>
+                    <div class="col-12" id="divTTX">
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+        </section>
+        <footer>
+                 <div class="container-xl mx-auto">
+                <div class="footer-inner col-lg-10 col-sm-10 col-md-12 col-12 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-12 mx-auto text-center px-2 boSungHoSo">
+                            <a href="#" id="btnTiepTuc" class="btn btn-button">Khai báo vụ tổn thất </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div id="khai_bao_ton_that" class="d-none">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between" style="font-size:20px;">
+                            <div>
+                                <a id="btnQuayLaiDS" href="#" class="field-name"><i class="fa fa-chevron-left mr-2" aria-hidden="true"></i> Trở lại</a>
+                            </div>
+                            <div>
+                                <a  class="field-name">Khai báo vụ tổn thất</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border " >
+                         <div id="divKhaiBaoVuTonThatNTB">
+
+                        </div>         
+                         <div id="divKhaiBaoVuTonThatNLH">
+
+                        </div>    
+                </div>
+            </div>
+            </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-xl mx-auto">
+                <div class="footer-inner col-lg-10 col-sm-10 col-md-12 col-12 p-2 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-12 mx-auto text-center pl-0 pr-1">
+                            <a href="#" id="btnTTDB" class="btn btn-button">Thông tin diễn biến</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div id="thong_tin_dien_bien" class="d-none">
+    <div class="site-wrapper">
+        <div class="main-overlay"></div>
+        <section class="main-wrapper">
+            <header class="header-personal">
+                <div class="container header-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-12 d-flex justify-content-between" style="font-size:20px;">
+                            <div>
+                                <a id="btnQuayLaiTTLH" href="#" class="field-name"><i class="fa fa-chevron-left mr-2" aria-hidden="true"></i> Trở lại</a>
+                            </div>
+                            <div>
+                                <a class="field-name">Khai báo vụ tổn thất</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </section>
+        <section class="main-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border ">
+                            <div class="card-header">
+                                  <h6 class="mb-0" style="color: #424D54; font-weight: 600;">Thời gian địa điểm xảy ra tổn thất</h6>
+                            </div>
+                            <div id="divTGDDTT">
+
+                            </div>
+                            <div class="card-header">
+                                <h6 class="mb-0" style="color: #424D54; font-weight: 600;">Diễn biến</h6>
+                            </div>
+                            <div id="divDB">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container-xl mx-auto">
+                <div class="footer-inner col-lg-10 col-sm-10 col-md-12 col-12 p-2 py-3 mx-auto">
+                    <div class="row d-flex align-items-center gy-4">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-12 mx-auto text-center pl-0 pr-1">
+                            <a href="#" id="btnTLBT" class="btn btn-button">Khai báo thông tin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div id="device-detect" class="d-none">
+    <section class="main-wrapper">
+        <header class="header-personal">
+            <div class="container header-top">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- site logo-->
+                        <a class="navbar-brand" href="#">
+                            <img src="/@logo" alt="logo" class="rounded" width="150" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+
+    <section class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <img class="img-fluid" src="~/images/warning.png" style="max-width:60px" />
+                    <p class="mg-t-25 mg-b-15 font-weight-bold">Thiết bị hỗ trợ không đúng</p>
+                    <p>Landing Page chỉ được sử dụng trên các thiết bị: điện thoại, máy tính bảng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<partial name="_Template.cshtml" />
+<partial name="_Modal.cshtml" />
+@section Scripts{
+    <script src="~/js/common/Service.js" asp-append-version="true"></script>
+    <script src="~/js/common/ModalService.js" asp-append-version="true"></script>
+    <script src="~/js/common/FormService.js" asp-append-version="true"></script>
+    <script src="~/js/common/NotifyService.js" asp-append-version="true"></script>
+    <script src="~/js/app/CommonService.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESLoading.js" asp-append-version="true"></script>
+    <script src="~/js/common/ESUtil.js" asp-append-version="true"></script>
+    <script src="~/libs/block-ui/jquery.blockUI.js" asp-append-version="true"></script>
+    <script src="~/js/app/ClaimOnline/claimOnline.js"></script>
+}

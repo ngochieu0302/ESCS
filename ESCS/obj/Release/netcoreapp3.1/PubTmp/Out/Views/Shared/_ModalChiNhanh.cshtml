@@ -1,0 +1,40 @@
+﻿<div id="modalChonChiNhanh" class="modal-drag" style="width:350px; z-index:9999999; ">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn đơn vị xử lý</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" id="modalChonChiNhanhTimKiem" onclick="onFocusTimKiem(this)" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control">
+                <input type="hidden" id="modalChonChiNhanhTimKiem_ma">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:250px;" id="modalChonChiNhanhDanhSach"></div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="border-top: 1px solid #e9ecef;">
+        <button type="button" class="btn btn-primary btn-sm wd-90" id="ModalChonChiNhanh_btnChonDonVi">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<script type="text/html" id="modalChonChiNhanhDanhSachTemplate">
+    <div class="border rounded mb-2">
+        <div class="d-flex justify-content-between align-items-center py-1" style="background-color: #f7f7f7;">
+            <div class="custom-control custom-checkbox ml-2">
+                <input type="checkbox" onchange="onChonTatCaDonVi(this)" id="chon_tat_ca" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="chon_tat_ca">Chọn tất cả đơn vị</label>
+            </div>
+        </div>
+    </div>
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox modalChonChiNhanhDanhSachItem ml-2" data-text="<%- ESUtil.xoaKhoangTrangText(item.ten_tat) %>">
+        <input type="checkbox" id="chi_nhanh_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalChonChiNhanh" onclick="onChonDonVi(this)">
+        <label class="custom-control-label" style="cursor:pointer;" for="chi_nhanh_<%- item.ma %>"><%- item.ten_tat %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+

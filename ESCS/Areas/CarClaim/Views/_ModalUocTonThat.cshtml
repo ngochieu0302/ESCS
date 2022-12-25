@@ -1,0 +1,87 @@
+﻿<div id="modalUocTonThat" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Ước tổn thất</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="frmUocTonThat" name="frmUocTonThat" method="post">
+                    <input type="hidden" name="ma_doi_tac" value="" />
+                    <input type="hidden" name="so_id" value="" />
+                    <input type="hidden" name="so_id_hd" value="" />
+                    <input type="hidden" name="so_id_dt" value="" />
+                    <div class="row">
+                        <div class="col col-12">
+                            <div class="table-responsive" style="max-height:380px">
+                                <table id="tableDSUocTonThatNV" class="table table-bordered fixed-header" style="width:100%">
+                                    <thead class="font-weight-bold">
+                                        <tr class="text-center uppercase">
+                                            <th>Loại hình nghiệp vụ</th>
+                                            <th width="13%">Số tiền ước</th>
+                                            <th width="13%">% Thuế</th>
+                                            <th width="13%">Tiền thuế</th>
+                                            <th width="13%">Tổng cộng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dsUocTonThatNV"></tbody>
+                                    <tfoot>
+                                        <tr class="text-left card-title-bg">
+                                            <td>
+                                                <a href="#" id="btnThemLHNV">
+                                                    <i class="fas fa-plus-square mr-2"></i>Thêm nghiệp vụ
+                                                </a>
+                                            </td>
+                                            <td class="font-weight-bold text-right">
+                                                <b style="font-weight:bold" id="tt_xe_tong_so_tien_uoc_nv">0</b>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td class="font-weight-bold text-right">
+                                                <b style="font-weight:bold" id="tt_xe_tong_tien_thue_nv">0</b>
+                                            </td>
+                                            <td class="font-weight-bold text-right">
+                                                <b style="font-weight:bold" id="tt_xe_tong_cong_nv">0</b>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="display:block;">
+                <button type="button" class="btn btn-primary btn-sm mg-t-22" id="btnChuyenCore"><i class="fas fa-angle-double-right mr-1"></i>Chuyển core</button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22 float-right" data-dismiss="modal"><i class="fas fa-window-close mr-2"></i>Đóng</button>
+                <button type="button" class="btn btn-primary btn-sm mg-t-22 float-right" id="btnLuuDongUocTT"><i class="fas fa-hdd mr-2"></i>Lưu & đóng</button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 mg-t-22 float-right" id="btnLuuUocTT"><i class="fas fa-save mr-2"></i>Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="dsUocTonThatNV_template">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr class="row-item">
+        <td>
+            <input type="hidden" data-field="lh_nv" value="<%- item.lh_nv %>" />
+            <a href="#" data-field="ten_lhnv" data-val="<%- item.ten_lhnv %>"><%- item.ten_lhnv %></a>
+        </td>
+        <td class="text-right">
+            <input type="text" data-field="uoc_ton_that" class="number floating-input" value="<%- ESUtil.formatMoney(item.uoc_ton_that) %>" />
+        </td>
+        <td>
+            <input type="text" max="10" maxlength="3" data-field="tl_thue" class="decimal floating-input" value="<%- item.tl_thue %>" />
+            <%- item.pt_thue %>
+        </td>
+        <td class="text-right">
+            <a href="#" data-field="tien_thue">0</a>
+        </td>
+        <td class="text-right">
+            <a href="#" data-field="tong_cong">0</a>
+        </td>
+    </tr>
+    <% })}%>
+</script>

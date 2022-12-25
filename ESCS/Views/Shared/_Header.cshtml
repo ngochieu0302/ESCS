@@ -1,0 +1,294 @@
+﻿@using Microsoft.AspNetCore.Http
+@using ESCS.COMMON.Contants
+@using ESCS.COMMON.Common
+@using Newtonsoft.Json
+@using ESCS.MODEL.ESCS.ModelView
+@using ESCS.MODEL.ESCS
+@{
+    var session = Context.Request.Cookies[ESCSConstants.ESCS_TOKEN]?.ToString();
+    escs_nguoi_dung user = JsonConvert.DeserializeObject<escs_nguoi_dung>(Utilities.DecryptByKey(session, ESCS.COMMON.Http.AppSettings.KeyEryptData));
+
+
+    string key_google = ESCS.Common.EscsUtils.dv_google == null ? "" : ESCS.Common.EscsUtils.dv_google.key;
+
+    var domainName = Context.Request.Scheme + "://" + Context.Request.Host.Value.ToString().ToLower();
+    if (domainName.Contains("localhost") || domainName.Contains(ESCS.COMMON.Http.AppSettings.AppDomain))
+        domainName = ESCS.COMMON.Http.AppSettings.AppDomainLive;
+    ht_cai_dat setting = ESCS.Common.EscsUtils.cai_dat.Where(n => n.domain == domainName).FirstOrDefault();
+
+    var logo = "images/logo-light-icon.png";
+    if (setting != null && setting.cai_dat.Count() > 0)
+    {
+        var logo_ung_dung = setting.cai_dat.Where(n => n.loai == "LOGO_WEB_APP").FirstOrDefault();
+        logo = logo_ung_dung != null && !string.IsNullOrEmpty(logo_ung_dung.url_anh) ? logo_ung_dung.url_anh : logo;
+    }
+}
+
+
+<style>
+    .dot {
+        height: 6px;
+        width: 6px;
+        background-color: #1e88e5;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 6px;
+    }
+
+        .dot.active {
+            background-color: unset;
+        }
+
+    #userHover:hover {
+        cursor: pointer;
+    }
+</style>
+<input class="d-none" type="hidden" id="escs_ma_doi_tac" value="@user?.ma_doi_tac" />
+<input class="d-none" type="hidden" id="escs_tai_khoan" value="@user?.nsd" />
+<input class="d-none" type="hidden" id="escs_ten_nguoi_dung" value="@user?.ten" />
+<input class="d-none" type="hidden" id="escs_ma_chi_nhanh" value="@user?.ma_chi_nhanh" />
+<input class="d-none" type="hidden" id="escs_phong" value="@user?.phong" />
+<input class="d-none" type="hidden" id="escs_dv_google" value="@key_google" />
+<header class="topbar" data-navbarbg="skin1">
+    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+        <div class="navbar-header" data-logobg="skin1">
+            <a href="javascript:void(0)" class="nav-toggler waves-light d-block d-md-none">
+                <i class="ti-menu ti-close"></i>
+            </a>
+            <a class="navbar-brand" href="../">
+                <b class="logo-icon">
+                    <img src="/@logo" class="light-logo logo_main" id="layoutpage-logo" style="width: 34px; height: 34px;" />
+                </b>
+                <span class="logo-text">
+                    @setting?.doi_tac.ten_tat
+                </span>
+            </a>
+            <a class="topbartoggler d-block d-md-none waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="ti-more"></i>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin1">
+            <ul class="navbar-nav mr-auto float-left">
+                <li class="nav-item">
+                    <a class="nav-link sidebartoggler d-none d-md-block" href="javascript:void(0)">
+                        <i class="ti-menu"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav float-right">
+                <li class="nav-item pr-2" style="width:310px;">
+                    <div class="input-group py-2" style="margin-top: 0.15rem !important;">
+                        <input type="text" name="tim" class="form-control autocomplete" autocomplete="off" id="frmThongTinTimKiemHoSo" placeholder="Tìm kiếm nhanh: Nhập số hồ sơ/Biển xe/Tên KH" style="border: none">
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="frmThongTinTimKiemHoSo">
+                                <a href="#" id="btnTimKiemHoSo_Dashboard"><i class="fas fa-search" title="Tìm kiếm hồ sơ"></i></a>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="btnHuongDanSuDungLayout" href="/document" target="_blank" title="Tài liệu hướng dẫn">
+                        <i class="fas fa-question-circle"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/leave" title="Lịch nghỉ">
+                        <i class="fas fa-house-leave"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" title="Thông báo hồ sơ mới" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-file-alt"></i>
+                        <div class="notify">
+                            <span id="app-notify-not-read-contract" class=""></span>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu mailbox dropdown-menu-right scale-up">
+                        <ul class="list-style-none">
+                            <li>
+                                <div class="border-bottom rounded-top py-3 px-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="font-weight-medium mb-0">Danh sách hồ sơ mới</h5>
+                                    <small><a href="javascript:void(0)">Xem tất cả</a></small>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="message-center message-body position-relative" id="app_notify_contract"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" title="Thông báo hồ sơ mới" id="btnShowNotify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <div class="notify">
+                            <span id="app-notify-not-read" class=""></span>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu mailbox dropdown-menu-right scale-up" aria-labelledby="2">
+                        <ul class="list-style-none">
+                            <li>
+                                <div class="border-bottom rounded-top py-3 px-3 d-flex justify-content-between align-items-center">
+                                    <h5 class="font-weight-medium mb-0">Danh sách tin nhắn</h5>
+                                    <small><a href="javascript:void(0)" onclick="xemTatCaNoiDungTinNhan()">Xem tất cả</a></small>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="message-center message-body position-relative" id="app_notify"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user fa-lg profile-pic rounded-circle"></i>
+                    </a>
+                    <div class="dropdown-menu mailbox dropdown-menu-right scale-up" style="max-height:unset!important">
+                        <ul class="dropdown-user list-style-none">
+                            <li id="userHover" onclick="gotoInformation()">
+                                <div class="dw-user-box p-3 d-flex">
+                                    <div class="u-img">
+                                        <img src="/@user?.anh_dai_dien" alt="user" class="rounded" width="80">
+                                    </div>
+                                    <div class="u-text ml-2 align-self-center">
+                                        <h4 class="mb-0">@user?.ten</h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="dropdown-divider"></li>
+                            <li class="user-list">
+                                <a href="javascript:void(0)" class="px-3 py-2">
+                                    <i class="mdi mdi-sitemap mr-2"></i>Chi nhánh: @user?.ten_chi_nhanh
+                                </a>
+                            </li>
+                            <li class="user-list">
+                                <a href="javascript:void(0)" class="px-3 py-2">
+                                    <i class="fas fa-building mr-2"></i>Phòng ban: @user?.ten_phong
+                                </a>
+                            </li>
+                            <li class="user-list">
+                                <a href="javascript:void(0)" class="px-3 py-2">
+                                    <i class="fas fa-user-alt mr-2"></i>Email: @user?.email
+                                </a>
+                            </li>
+                            <li class="user-list">
+                                <a href="javascript:void(0)" class="px-3 py-2">
+                                    <i class="fas fa-envelope mr-2"></i>Điện thoại: @user?.dthoai
+                                </a>
+                            </li>
+                            <li class="user-list">
+                                <a href="javascript:void(0)" class="px-3 py-2" data-toggle="modal" data-target="#modalChangePass">
+                                    <i class="fas fa-key mr-2"></i>Đổi mật khẩu
+                                </a>
+                            </li>
+                            <li role="separator" class="dropdown-divider"></li>
+                            <li class="user-list">
+                                <a href="javascript:void(0)" class="px-3 py-2 logout">
+                                    <i class="fa fa-power-off mr-2"></i>Thoát
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<partial name="_ModalTimKiemHoSo.cshtml" />
+
+<script type="text/html" id="app_notify_template">
+    <%if(data_info.data.length > 0){
+    _.forEach(data_info.data, function(el) {
+    if(el.doc_noi_dung===1){
+    %>
+    <a href="javascript:void(0)" id="notify-item-<%- el.gid %>" onclick="readNotify('<%- el.gid %>','<%- el.ctiet_xem %>','<%- el.ctiet_ma_doi_tac %>','<%- el.ctiet_so_id %>','<%- el.ctiet_hanh_dong %>')" class="message-item d-flex align-items-center border-bottom p-1">
+        <span class="position-relative d-inline-block">
+            <span class="dot active"></span>
+        </span>
+        <div class="d-inline-block v-middle pl-2">
+            <p class="font-12 mb-0 mt-1 text-dark"><%- el.nd_tom_tat %></p>
+            <span class="font-10 text-nowrap d-block text-muted"><%- el.tg_thong_bao_hthi %></span>
+        </div>
+    </a>
+    <% }
+    else
+    {
+    %>
+    <a href="javascript:void(0)" id="notify-item-<%- el.gid %>" onclick="readNotify('<%- el.gid %>','<%- el.ctiet_xem %>','<%- el.ctiet_ma_doi_tac %>','<%- el.ctiet_so_id %>','<%- el.ctiet_hanh_dong %>')" class="message-item d-flex align-items-center border-bottom p-1">
+        <span class="position-relative d-inline-block">
+            <span class="dot n-noi-dung-tin-nhan-dot"></span>
+        </span>
+        <div class="d-inline-block v-middle pl-2 n-noi-dung-tin-nhan">
+            <p class="font-12 mb-0 mt-1 text-dark font-weight-bold"><%- el.nd_tom_tat %></p>
+            <span class="font-10 text-nowrap d-block text-muted font-weight-bold"><%- el.tg_thong_bao_hthi %></span>
+        </div>
+    </a>
+    <%
+    }})
+    %>
+    <a href="javascript:void(0)" id="notify_xem_them" class="message-item d-flex align-items-center border-bottom p-1">
+        <div class="d-inline-block v-middle pl-2" style="margin:0 auto">
+            <p class="font-12 mb-0 mt-1" onclick="xemThemNoiDungThongBao('<%- trang+1 %>')" style="color:#1e88e5">Xem thêm</p>
+        </div>
+    </a>
+    <%
+    }
+    else
+    {
+    %>
+    <a href="javascript:void(0)" class="message-item d-flex align-items-center border-bottom p-1">
+        <div class="d-inline-block v-middle pl-2" style="margin:0 auto">
+            <p class="font-12 mb-0 mt-1 text-dark">Không có tin nhắn hiển thị</p>
+        </div>
+    </a>
+    <%
+    }%>
+</script>
+<script type="text/html" id="app_notify_contract_template">
+    <%if(data_info.data.length > 0){
+    _.forEach(data_info.data, function(el) {
+    if(el.doc_noi_dung===1){
+    %>
+    <a href="javascript:void(0)" id="notify-item-<%- el.gid %>" onclick="readNotify('<%- el.gid %>','<%- el.ctiet_xem %>','<%- el.ctiet_ma_doi_tac %>','<%- el.ctiet_so_id %>','<%- el.ctiet_hanh_dong %>')" class="message-item d-flex align-items-center border-bottom p-1">
+        <span class="position-relative d-inline-block">
+            <span class="dot active"></span>
+        </span>
+        <div class="d-inline-block v-middle pl-2">
+            <p class="font-12 mb-0 mt-1 text-dark"><%- el.nd_tom_tat %></p>
+            <span class="font-10 text-nowrap d-block text-muted"><%- el.tg_thong_bao_hthi %></span>
+        </div>
+    </a>
+    <% }
+    else
+    {
+    %>
+    <a href="javascript:void(0)" id="notify-item-<%- el.gid %>" onclick="readNotify('<%- el.gid %>','<%- el.ctiet_xem %>','<%- el.ctiet_ma_doi_tac %>','<%- el.ctiet_so_id %>','<%- el.ctiet_hanh_dong %>')" class="message-item d-flex align-items-center border-bottom p-1">
+        <span class="position-relative d-inline-block">
+            <span class="dot n-noi-dung-tin-nhan-dot"></span>
+        </span>
+        <div class="d-inline-block v-middle pl-2 n-noi-dung-tin-nhan">
+            <p class="font-12 mb-0 mt-1 text-dark font-weight-bold"><%- el.nd_tom_tat %></p>
+            <span class="font-10 text-nowrap d-block text-muted font-weight-bold"><%- el.tg_thong_bao_hthi %></span>
+        </div>
+    </a>
+    <%
+    }})
+    %>
+    <a href="javascript:void(0)" id="notify_xem_them" class="message-item d-flex align-items-center border-bottom p-1">
+        <div class="d-inline-block v-middle pl-2" style="margin:0 auto">
+            <p class="font-12 mb-0 mt-1" onclick="xemThemNoiDungThongBao('<%- trang+1 %>')" style="color:#1e88e5">Xem thêm</p>
+        </div>
+    </a>
+    <%
+    }
+    else
+    {
+    %>
+    <a href="javascript:void(0)" class="message-item d-flex align-items-center border-bottom p-1">
+        <div class="d-inline-block v-middle pl-2" style="margin:0 auto">
+            <p class="font-12 mb-0 mt-1 text-dark">Không có tin nhắn hiển thị</p>
+        </div>
+    </a>
+    <%
+    }%>
+</script>

@@ -1,0 +1,12 @@
+.btn-group-justified {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+}
+
+.btn-group-justified > .btn, .btn-group-justified > .btn-group {
+	display: table-cell;
+	float: none;
+	width: 20%;
+}

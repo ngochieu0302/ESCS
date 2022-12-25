@@ -1,0 +1,1845 @@
+﻿<script type="text/html" id="navNghiepVuTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <li class="breadcrumb-item" data-lhnv="<%- item.ma %>"><a href="#" onclick="xemToTrinhNghiepVu('<%- item.loai_trinh %>','<%- item.ma %>','<%- item.nv_trinh %>')"><%- item.ten %></a></li>
+    <%})}%>
+</script>
+<script type="text/html" id="navNghiepVuNGUOITemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <li class="breadcrumb-item" data-lan="<%- item.lan %>"><a href="#" onclick="xemToTrinhConNguoi('<%- item.loai_trinh %>', '<%- item.lan %>')">Lần bảo lãnh <%- item.lan_blvp_hien_thi %></a></li>
+    <%})}%>
+</script>
+@*Trình duyệt giám định - Vật chất xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_VCX_XE_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-center"><%- item.vu_tt_ten %></td>
+        <td>
+            <a href="#" onclick="openModalImages('<%- item.ten %>')"><%- item.ten %></a>
+        </td>
+        <td class="text-center"><%- item.muc_do_ten %></td>
+        <td class="text-center"><%= item.thay_the_sc_ten %></td>
+        <td class="text-center"><%= item.chinh_hang_ten %></td>
+        <td class="text-center"><%= item.thu_hoi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia_giam_dinh) %></td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt giám định - Người ngồi trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_NG_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt giám định - Hàng hóa trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_HH_HANG_HOA_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia) %></td>
+        <td class="text-center"><%- item.dvi_tinh_ten %></td>
+        <td class="text-center"><%- item.so_luong_tt %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt giám định - TNDS về người*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_TNDS_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt giám định - TNDS về tài sản*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_GIAM_DINH_TNDS_TAI_SAN_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia) %></td>
+        <td class="text-center"><%- item.dvi_tinh_ten %></td>
+        <td class="text-center"><%- item.so_luong_tt %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt phương án - Vật chất xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_VCX_XE_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-center"><%- item.vu_tt_ten %></td>
+        <td class="text-left">
+            <a href="#" onclick="openModalImages('<%- item.ten_hang_muc %>')"><%- item.ten_hang_muc %></a>
+        </td>
+        <td class="text-center"><%- item.muc_do_ten %></td>
+        <td class="text-center"><%= item.thay_the_sc_ten %></td>
+        <td class="text-center"><%= item.chinh_hang_ten %></td>
+        <td class="text-center"><%= item.thu_hoi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_cong) %></td>
+        @*<td class="text-right"><%- ESUtil.formatMoney(item.tien_vtu_dx) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_nhan_cong_dx) %></td>*@
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia_duyet_dx) %></td>
+        @*<td class="text-right">
+            <input type="text" readonly="readonly" onchange="updateTien(this, '<%- item.bt %>', '<%- item.nhom %>','TIEN_VTU_DUYET')" autocomplete="off" data-field="tien_vtu_duyet" class="number floating-input form-control" style="width:100%" value="<%- ESUtil.formatMoney(item.tien_vtu_duyet) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" readonly="readonly" onchange="updateTien(this, '<%- item.bt %>', '<%- item.nhom %>','TIEN_NHAN_CONG_DUYET')" autocomplete="off" data-field="tien_nhan_cong_duyet" class="number floating-input form-control" style="width:100%" value="<%- ESUtil.formatMoney(item.tien_nhan_cong_duyet) %>" />
+        </td>
+        <td class="text-right">
+            <input type="text" readonly="readonly" onchange="updateTien(this, '<%- item.bt %>', '<%- item.nhom %>','TIEN_KHAC_DUYET')" autocomplete="off" data-field="tien_khac_duyet" class="number floating-input form-control" style="width:100%" value="<%- ESUtil.formatMoney(item.tien_khac_duyet) %>" />
+        </td>*@
+    <td class="text-right">
+        <%- ESUtil.formatMoney(item.tien_duyet) %>
+        @*<input type="hidden" data-field="bt" value="<%- item.bt %>" />
+        <input type="hidden" data-field="nhom" value="<%- item.nhom %>" />
+        <input type="hidden" data-field="hang_muc" value="<%- item.hang_muc %>" />
+        <input type="text" autocomplete="off" id="vcx_hang_muc_<%- item.bt %>" data-field="tien_duyet" class="form-control number floating-input" readonly value="<%- ESUtil.formatMoney(item.tien_duyet) %>" />*@
+    </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt phương án - Người ngồi trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_NG_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr class="row_item">
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-left"><%- item.dia_chi %></td>
+        <td class="text-center"><%- item.muc_do_ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right">
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="nhom" value="<%- item.nhom %>" />
+            <input type="hidden" data-field="hang_muc" value="<%- item.hang_muc %>" />
+            <input type="text" onchange="updateTien(this, '<%- item.bt %>', '<%- item.nhom %>')" autocomplete="off" data-field="tien_duyet" class="number floating-input" style="width:100%" value="<%- ESUtil.formatMoney(item.tien_duyet) %>" />
+        </td>
+        @*<td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt phương án - Hàng hóa trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_HH_HANG_HOA_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr class="row_item">
+        <td><%- item.ten %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia) %></td>
+        <td class="text-center"><%- item.dvi_tinh_ten %></td>
+        <td class="text-center"><%- item.so_luong_tt %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right">
+            <%- ESUtil.formatMoney(item.tien_duyet) %>
+        </td>
+        @*<td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt phương án - TNDS về người*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_TNDS_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr class="row_item">
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right">
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="nhom" value="<%- item.nhom %>" />
+            <input type="hidden" data-field="hang_muc" value="<%- item.hang_muc %>" />
+            <input type="text" onchange="updateTien(this, '<%- item.bt %>', '<%- item.nhom %>')" autocomplete="off" data-field="tien_duyet" class="number floating-input" style="width:100%" value="<%- ESUtil.formatMoney(item.tien_duyet) %>" />
+        </td>
+        @*<td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt giám định - TNDS về tài sản*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_DUYET_GIA_TNDS_TAI_SAN_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr class="row_item">
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia) %></td>
+        <td class="text-center"><%- item.dvi_tinh_ten %></td>
+        <td class="text-center"><%- item.so_luong_tt %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right">
+            <input type="hidden" data-field="bt" value="<%- item.bt %>" />
+            <input type="hidden" data-field="nhom" value="<%- item.nhom %>" />
+            <input type="hidden" data-field="hang_muc" value="<%- item.hang_muc %>" />
+            <input type="text" onchange="updateTien(this, '<%- item.bt %>', '<%- item.nhom %>')" autocomplete="off" data-field="tien_duyet" class="number floating-input" style="width:100%" value="<%- ESUtil.formatMoney(item.tien_duyet) %>" />
+        </td>
+        @*<td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt bảo lãnh - Vật chất xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_VCX_XE_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-center"><%- item.vu_tt_ten %></td>
+        <td class="text-left">
+            <a href="#" onclick="openModalImages('<%- item.ten_hang_muc%>')"><%- item.ten_hang_muc%></a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia_duyet) %></td>
+        <td class="text-right"><%- item.pt_khau_hao %></td>
+        <td class="text-right"><%- item.pt_bao_hiem %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        @*<td class="text-center">
+            <% if(item.dkbs != null){ %>
+            <a href="#" data-field="dkbs" data-val="<%- item.dkbs %>" onclick="showDKBS(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Điều khoản bổ sung"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="dkbs" data-val="" data-ngay="<%- item.ngay%>" onclick="showDKBS(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Điều khoản bổ sung"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null){ %>
+            <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu %>" onclick="showGhiChu(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="ghi_chu" data-val="" onclick="showGhiChu(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bảo lãnh - Người ngồi trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_NG_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bảo lãnh - Hàng hóa trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_HH_HANG_HOA_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_khau_hao %></td>
+        <td class="text-right"><%- item.pt_bao_hiem %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bảo lãnh - TNDS về người*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_TNDS_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bảo lãnh - TNDS về tài sản*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BAO_LANH_TNDS_TAI_SAN_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_khau_hao %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 4){
+    for(var i = 0; i < 4 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt bồi thường - Vật chất xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_VCX_XE_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <% console.log(danh_sach) %>
+    <tr>
+        <td class="text-center"><%- item.vu_tt_ten %></td>
+        <td class="text-left">
+            <a href="#" onclick="openModalImages('<%- item.ten_hang_muc%>')"><%- item.ten_hang_muc%></a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-right"><%- item.pt_khau_hao %></td>
+        <td class="text-right"><%- item.pt_bao_hiem %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        @*<td class="text-center">
+            <% if(item.dkbs != null){ %>
+            <a href="#" data-field="dkbs" data-val="<%- item.dkbs %>" onclick="showDKBS(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Điều khoản bổ sung"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="dkbs" data-val="" onclick="showDKBS(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Điều khoản bổ sung"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null){ %>
+            <a href="#" data-field="ghi_chu" data-val="<%- item.ghi_chu %>" onclick="showGhiChu(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="ghi_chu" data-val="" onclick="showGhiChu(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bồi thường - Người ngồi trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_NG_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        @*<td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 4){
+    for(var i = 0; i < 4 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bồi thường - Hàng hóa trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_HH_HANG_HOA_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_khau_hao %></td>
+        <td class="text-right"><%- item.pt_bao_hiem %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 6){
+    for(var i = 0; i < 6 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bồi thường - TNDS về người*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_TNDS_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 6){
+    for(var i = 0; i < 6 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt bồi thường - TNDS về tài sản*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_BOI_THUONG_TNDS_TAI_SAN_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.vu_tt_ten %></td>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet_pa) %></td>
+        <td class="text-right"><%- item.pt_khau_hao %></td>
+        <td class="text-right"><%- item.pt_giam_tru %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null){ %>
+            <a href="#" data-field="nguyen_nhan" onclick="showNguyenNhan(this)" data-val="<%- item.nguyen_nhan %>" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% }else{ %>
+            <a data-field="nguyen_nhan" data-val="" onclick="showNguyenNhan(this)" class="cursor-pointer combobox">
+                <i class="far fa-file-alt" title="Nguyên nhân"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 6){
+    for(var i = 0; i < 6 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt từ chối - Vật chất xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_VCX_XE_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-center"><%- item.vu_tt_ten %></td>
+        <td class="text-left">
+            <a href="#" onclick="openModalImages('<%- item.ten_hang_muc%>')"><%- ESUtil.rutGonText(25, item.ten_hang_muc) %></a>
+        </td>
+        <td class="text-center"><%- item.muc_do_ten %></td>
+        <td class="text-center"><%= item.thay_the_sc_ten %></td>
+        <td class="text-center"><%= item.chinh_hang_ten %></td>
+        <td class="text-center"><%= item.thu_hoi_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_cong) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia_duyet_dx) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt từ chối - Người ngồi trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_NG_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-left"><%- item.ten %></td>
+        <td class="text-left"><%- item.dia_chi %></td>
+        <td class="text-center"><%- item.muc_do_ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt từ chối - Hàng hóa trên xe*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_HH_HANG_HOA_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia) %></td>
+        <td class="text-center"><%- item.dvi_tinh_ten %></td>
+        <td class="text-center"><%- item.so_luong_tt %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt từ chối - TNDS về người*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_TNDS_NGUOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center">
+            <a href="#" data-val="<%- item.thuong_tat %>" data-field="thuong_tat" onclick="danhGiaThuongTat(this)" class="thuong_tat combobox">
+                <% if(item.pttt_tu != null && item.pttt_toi!=null && item.pttt_tu !=0 && item.pttt_toi!=0){
+                if(item.pttt_tu == item.pttt_toi)
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }
+                else
+                {
+                %>
+                <p style="margin:0px; font-size:10px"><i>(<%- item.pttt_tu %>% - <%- item.pttt_toi %>%, <%- ESUtil.formatMoney(item.pttt_tu* ESConstants.TNDS_VE_NGUOI/100) %> - <%- ESUtil.formatMoney(item.pttt_toi* ESConstants.TNDS_VE_NGUOI/100) %>)</i></p>
+                <%
+                }}
+                %>
+            </a>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+@*Trình duyệt từ chối - TNDS về tài sản*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_TU_CHOI_TNDS_TAI_SAN_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten %></td>
+        <td><%- item.dia_chi %></td>
+        <td class="text-center"><%= item.muc_do_ten %></td>
+        <td class="text-center"><%- item.so_luong %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.gia) %></td>
+        <td class="text-center"><%- item.dvi_tinh_ten %></td>
+        <td class="text-center"><%- item.so_luong_tt %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_tt) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_dx_pa) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.mo_ta != null && item.mo_ta!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="<%- item.mo_ta %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showMoTa(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showGhiChu(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Ghi chú"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 5){
+    for(var i = 0; i < 5 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt bảo lãnh con người*@
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_BAO_LANH_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietQuyenLoi('<%- item.loai_trinh %>','<%- item.id_qloi %>')" data-id-qloi="<%- item.id_qloi %>">
+        <td><%- item.nhom_nguyen_nhan %></td>
+        <td class="text-center">
+            <% if(item.chan_doan != null && item.chan_doan!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showChanDoan(this)" data-field="chan_doan" data-val="<%- item.chan_doan %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showChanDoan(this)" data-field="chan_doan" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-left"><%- item.ten_quyen_loi %></td>
+        <td class="text-center"><%- item.so_ngay_yc %></td>
+        <td class="text-center"><%- item.so_ngay_duyet %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 2){
+    for(var i = 0; i < 2 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_BAO_LANH_CT_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten_loai_chi_phi %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null && item.nguyen_nhan!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="nguyen_nhan" data-val="<%- item.nguyen_nhan %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="chan_doan" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 3){
+    for(var i = 0; i < 3 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:38.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt phương án con người*@
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_DUYET_GIA_LAN_KHAM_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietLanKham('<%- item.loai_trinh %>', '<%- item.lan %>')" data-lan="<%- item.lan %>">
+        <td class="text-center"><%- item.lan_kham_hien_thi %></td>
+        <td class="text-center"><%- item.ngay_vv %></td>
+        <td class="text-left"><%- item.ten_nguyen_nhan %></td>
+        <td class="text-center"><%- item.hinh_thuc_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+    </tr>
+    <% })}%>
+</script>
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_DUYET_GIA_QLOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietQLoi('<%- item.loai_trinh %>', '<%- item.lan %>', '<%- item.id_qloi %>')" data-lan="<%- item.lan %>" data-id-qloi="<%- item.id_qloi %>">
+        <td><%- item.ten_lhnv %></td>
+        <td class="text-center">
+            <% if(item.chan_doan != null && item.chan_doan!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showChanDoan(this)" data-field="chan_doan" data-val="<%- item.chan_doan %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showChanDoan(this)" data-field="chan_doan" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+    </tr>
+    <% })}%>
+</script>
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_DUYET_GIA_QLOI_CT_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten_loai_chi_phi %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null && item.nguyen_nhan!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="nguyen_nhan" data-val="<%- item.nguyen_nhan %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="chan_doan" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+</script>
+
+@*Trình duyệt từ chối con người*@
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_TU_CHOI_LAN_KHAM_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietLanKham('<%- item.loai_trinh %>', '<%- item.lan %>')" data-lan="<%- item.lan %>">
+        <td class="text-center"><%- item.lan_kham_hien_thi %></td>
+        <td class="text-center"><%- item.ngay_vv %></td>
+        <td class="text-left"><%- item.ten_nguyen_nhan %></td>
+        <td class="text-center"><%- item.hinh_thuc_ten %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+    </tr>
+    <% })}%>
+</script>
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_TU_CHOI_QLOI_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietQLoi('<%- item.loai_trinh %>', '<%- item.lan %>', '<%- item.id_qloi %>')" data-lan="<%- item.lan %>" data-id-qloi="<%- item.id_qloi %>">
+        <td><%- item.ten_lhnv %></td>
+        <td class="text-center">
+            <% if(item.chan_doan != null && item.chan_doan!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showChanDoan(this)" data-field="chan_doan" data-val="<%- item.chan_doan %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showChanDoan(this)" data-field="chan_doan" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+    </tr>
+    <% })}%>
+</script>
+<script type="text/html" id="TABLE_BODY_NG_TRINH_DUYET_TU_CHOI_QLOI_CT_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td><%- item.ten_loai_chi_phi %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_yc) %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tong_tien_giam) %></td>
+        <td class="text-center">
+            <% if(item.nguyen_nhan != null && item.nguyen_nhan!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="nguyen_nhan" data-val="<%- item.nguyen_nhan %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="chan_doan" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien_duyet) %></td>
+        <td class="text-center">
+            <% if(item.ghi_chu != null && item.ghi_chu!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="ghi_chu" data-val="<%- item.ghi_chu %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showNguyenNhan(this)" data-field="ghi_chu" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>
+    </tr>
+    <% })}%>
+</script>
+
+@*Trình duyệt thanh toán*@
+<script type="text/html" id="TABLE_BODY_TRINH_THANH_TOAN_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-center"><%- item.so_hs %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        @*<td class="text-center"><%- item.pttt %></td>*@
+        <td class="text-left"><%- item.ten %></td>
+        @*<td class="text-center"><%- item.tk_cmt %></td>*@
+        @*<td><%- item.ten_ngan_hang %></td>*@
+        @*<td class="text-center">
+            <% if(item.dien_giai != null && item.dien_giai!=""){ %>
+            <a href="#" class="cursor-pointer combobox" onclick="showDienGiai(this)" data-field="mo_ta" data-val="<%- item.dien_giai %>">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% }else{ %>
+            <a class="cursor-pointer combobox" onclick="showDienGiai(this)" data-field="mo_ta" data-val="">
+                <i class="far fa-file-alt" title="Mô tả"></i>
+            </a>
+            <% } %>
+        </td>*@
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 3){
+    for(var i = 0; i < 3 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        @*<td></td>
+        <td></td>
+        <td></td>
+        <td></td>*@
+    </tr>
+    <% }} %>
+</script>
+
+@*Trình duyệt tạm ứng bồi thường*@
+<script type="text/html" id="TABLE_BODY_XE_TRINH_DUYET_TAM_UNG_BT_TEMPLATE">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item, index) { %>
+    <tr>
+        <td class="text-center"><%- item.pttt %></td>
+        <td><%- item.ten %></td>
+        <td class="text-center"><%- item.tk_cmt %></td>
+        <td class="text-center"><%- item.ten_ngan_hang %></td>
+        <td class="text-right"><%- ESUtil.formatMoney(item.tien) %></td>
+        <td><%- item.nd %></td>
+    </tr>
+    <% })}%>
+    <% if(danh_sach.length < 3){
+    for(var i = 0; i < 3 - danh_sach.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.2px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+
+@*  Danh sách ảnh *@
+<script type="text/html" id="lstImage_template">
+    <% if(arrLoai.length > 0){ %>
+    <% _.forEach(arrLoai, function(iteml,indexl) { %>
+    <% if(iteml.so_luong_tai_lieu > 0){ %>
+    <div style="border-radius: 3px; text-align: center; background-color: #ececec; padding: 3px 0px; margin: 5px 0px; border: 1px solid #607d8b; ">
+        <p class="m-0 font-weight-bold">
+            <%- iteml.ten_loai_tai_lieu %>
+        </p>
+    </div>
+    <% if(arrAnh.length > 0){
+    _.forEach(arrAnh, function(item,index) { %>
+    <% if(item.loai == iteml.loai_tai_lieu){ %>
+    <div class="pt-1" id="nhom_anh_<%- index %>">
+        <p class="m-0 font-weight-bold"><a href="#" onclick="onToggleImg('<%- index %>')"><%- item.nhom %></a></p>
+    </div>
+    <ul class="docs-pictures clearfix">
+        <% _.forEach(item.children, function(image,index_anh) { %>
+        <li class="p-1">
+            <input type="checkbox" id="img<%- image.bt %>" class="nhom_anh_ton_that_<%- index %> mt-1" value="<%- image.bt %>" name="ds_anh_xe">
+            <p class="fileNameImage mt-1" style="cursor:pointer"><%- image.ten_file %></p>
+            <% if(_.includes([".jpg", ".png", ".gif",".jpeg"], image.extension)){ %>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-ngay="<%- image.ngay %>" data-nsd="<%- image.nsd%>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+            <% }else if(_.includes([".pdf", ".doc", ".docx"], image.extension)){ %>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/pdf-image.png" alt="<%- image.ten_file %>">
+            <% } else if(_.includes([".xml"], image.extension)){%>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/xml.png" alt="<%- image.ten_file %>">
+            <% } else if(_.includes([".xlsx", ".xls"], image.extension)){%>
+            <img data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>" data-cnhanh="<%- image.ma_chi_nhanh %>" src="/images/excel-logo.jpg" alt="<%- image.ten_file %>">
+            <% } %>
+        </li>
+        <% }) %>
+    </ul>
+    <% } %>
+    <% })} %>
+    <% } %>
+    <% }) %>
+    <% } %>
+</script>
+@*  Danh sách lịch sử trình duyệt *@
+<script type="text/html" id="tblDanhSachTrinhDuyetTemplate">
+    <% if(trinh_duyet.length > 0){
+    _.forEach(trinh_duyet, function(lich_su_trinh_duyet, index) { %>
+    <tr style="cursor:pointer" onclick="xemChiTietNguoiTrinh(this, '<%- lich_su_trinh_duyet.noi_dung_duyet %>')">
+        <td class="text-left"><%- lich_su_trinh_duyet.nguoi_duyet %></td>
+        <td class="text-center"><%- lich_su_trinh_duyet.phe_duyet=='1'?'Duyệt chính':'Kiểm tra' %></td>
+        <td class="text-center"><%- lich_su_trinh_duyet.ngay_duyet== null?'Chưa duyệt': lich_su_trinh_duyet.ngay_duyet %></td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td class="text-center" colspan="3">Chưa có dữ liệu</td>
+    </tr>
+    <% } %>
+</script>
+
+@*  Danh sách tài liệu hồ sơ hình ảnh *@
+<script type="text/html" id="dsHinhAnhHangMucTemplate">
+    <% if(danh_sach.length > 0){ %>
+    <% _.forEach(danh_sach, function(item,index) { %>
+    <div class="imagesCategory" style="display: table-row" data-search="<%- ESUtil.xoaKhoangTrangText(item.nhom) %>">
+        <p style="margin-bottom:5px;">
+            <a href="#"><%- item.nhom %></a>
+        </p>
+        <% _.forEach(item.children, function(image,index_anh) { %>
+        <div style="width:60px; height:60px; margin-right:10px; margin-bottom:5px; cursor:pointer;float:left;">
+            <img style="width: 100%; height:100%; border-radius:10px" data-original="" location-x="<%- image.x %>" location-y="<%- image.y %>" data-ngay="<%- image.ngay%>" data-nsd="<%- image.nsd%>" data-id="<%- image.so_id %>" data-bt="<%- image.bt %>" data-ma-file="<%- image.ma_file %>" data-pm="<%- image.pm %>"  data-cnhanh="<%- image.ma_chi_nhanh %>"  src="data:image/png;base64, <%- image.duong_dan %>" alt="<%- image.ten_file %>">
+        </div>
+        <% }) %>
+    </div>
+    <% })} %>
+
+</script>
+

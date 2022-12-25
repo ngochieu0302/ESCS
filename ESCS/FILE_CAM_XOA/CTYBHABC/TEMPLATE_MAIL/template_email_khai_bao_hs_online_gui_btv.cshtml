@@ -1,0 +1,50 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+    string ma_mau = "#035299";
+    if (@mail.ma_doi_tac == "ATACC")
+    {
+        ma_mau = "#e002ac";
+    }
+}
+<html>
+<head>
+    <title>THÔNG BÁO XÁC NHẬN BẢO LÃNH VIỆN PHÍ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+    <div style="border: 1px solid #035299; border-radius: 5px; background-color: azure; font-family: 'Tahoma'; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <div style="margin-top:20px;">
+                <img style="width:170px" src="@mail.logo_email" alt="Logo" />
+            </div>
+            <h3 style="color: @ma_mau; text-align: center;">
+                THÔNG BÁO KHÁCH HÀNG ĐÃ KHAI BÁO HỒ SƠ ONLINE
+            </h3>
+
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">
+                    Kính gửi: <span style="color: @ma_mau;">@mail.ten_btv</span>
+                </p>
+                <p style="margin: 8px 0px;">
+                    Hệ thống thông báo khách hàng đã khai báo hồ sơ online có số hồ sơ: @mail.so_hs
+                </p>
+                <p style="margin: 8px 0px;">
+                    Tên khách hàng: @mail.ten_kh
+                </p>
+                <p style="margin: 8px 0px;">
+                    Số điện thoại: @mail.dien_thoai
+                </p>
+                <p style="margin: 8px 0px;">
+                    Email liên hệ: @mail.email_lhe
+                </p>
+                <p style="margin: 8px 0px;">Đề nghi bộ phận bồi thường thực hiện các bước tiếp theo theo quy định.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

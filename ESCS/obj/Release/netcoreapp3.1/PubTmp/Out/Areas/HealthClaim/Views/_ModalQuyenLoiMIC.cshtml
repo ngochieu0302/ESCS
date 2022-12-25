@@ -1,0 +1,106 @@
+﻿<div class="modal fade show" id="modalXemQuyenLoiMIC" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document" style="max-width: 95vw; margin-top:10px;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Quyền lợi chi tiết GCN bảo hiểm hệ thống MIC</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body px-2 py-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="margin-bottom:0px; min-height:580px">
+                            <div class="card mb-0">
+                                <div class="card-body" style="padding:0px">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="tab-pane px-0 py-2" id="tabThongTinQuyenLoiMIC" role="tabpanel">
+                                                <div class="table-responsive" style="max-height:70vh">
+                                                    <table class="table table-bordered" style="border-collapse: separate; border-spacing: 0;">
+                                                        <thead class="font-weight-bold card-title-bg-primary" style="position: sticky; top: 0;">
+                                                            <tr>
+                                                                <th style="text-align:center;">Tên Quyền lợi bảo hiểm</th>
+                                                                <th style="text-align:center; width:98px">Mã quyền lợi</th>
+                                                                <th style="text-align:center; width:120px">Mã quyền lợi cha</th>
+                                                                <th style="text-align:center; width:120px">Giới hạn lần/ngày</th>
+                                                                <th style="text-align:center; width:125px">Giới hạn tiền/ngày</th>
+                                                                <th style="text-align:center; width:100px">Giới hạn năm</th>
+                                                                <th style="text-align:center; width:80px">Tỷ lệ đồng</th>
+                                                                <th style="text-align:center; width:95px">Số ngày chờ</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="dsQuyenLoiMIC">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 py-2">
+                        <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                            <i class="fas fa-window-close mr-2"></i>Đóng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Danh sách quyền lợi MIC*@
+<script type="text/html" id="dsQuyenLoiMICTemplate">
+    <% _.forEach(lstQl, function(item, index) { %>
+    <% var thu_tu_cha_con = item.lh_nv.split('.').length - 1 %>
+    <% if(thu_tu_cha_con == 0){ %>
+    <tr>
+        <td style="font-weight: bold">
+            <a href="#" onclick="xemChiTietSuDung('<%- item.lh_nv %>')">
+                <%= item.ten_hien_thi %>(<%= item.lh_nv %>)
+            </a>
+        </td>
+        <td style="font-weight: bold" class="text-center"><%- item.lh_nv_text %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.lh_nv_ct_text %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_lan_ngay %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td style="font-weight: bold" class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td style="font-weight: bold" class="text-center"><%- item.dong_bh %> % </td>
+        <td style="font-weight: bold" class="text-center"><%- item.so_ngay_cho %></td>
+    </tr>
+    <% } else{ %>
+    <% var pd = thu_tu_cha_con * 15 %>
+    <tr>
+        <td style="font-style: italic; padding-left: <%- pd %>px">
+            <a href="#" onclick="xemChiTietSuDung('<%- item.lh_nv %>')">
+                <%= item.ten_hien_thi %>(<%= item.lh_nv %>)
+            </a>
+        </td>
+        <td style="font-style: italic;" class="text-center"><%- item.lh_nv_text %></td>
+        <td style="font-style: italic;" class="text-center"><%- item.lh_nv_ct_text %></td>
+        <td style="font-style: italic;" class="text-center"><%- item.so_lan_ngay %></td>
+        <td style="font-style: italic;" class="text-right"><%- ESUtil.formatMoney(item.tien_lan_ngay) %></td>
+        <td style="font-style: italic;" class="text-right"><%- ESUtil.formatMoney(item.tien_nam) %></td>
+        <td style="font-style: italic;" class="text-center"><%- item.dong_bh %> % </td>
+        <td style="font-style: italic;" class="text-center"><%- item.so_ngay_cho %></td>
+    </tr>
+    <% } %>
+    <%})%>
+
+    <% if(lstQl.length < 12){
+    for(var i = 0; i < 12 - lstQl.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>

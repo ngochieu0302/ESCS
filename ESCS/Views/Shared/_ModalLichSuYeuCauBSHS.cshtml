@@ -1,0 +1,60 @@
+﻿<div id="modalLichSuYeuCauBSHS" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-modal="true" role="dialog">
+    <div class="modal-dialog" style="max-width: 50%;">
+        <div class="modal-content">
+            <div class="modal-header p-2">
+                <h5 class="modal-title">Thông tin lịch sử yêu cầu BSHS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body p-2">
+                <div class="row">
+                    <div class="col col-12">
+                        <div class="table-responsive">
+                            <table id="" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th style="width:45px">STT</th>
+                                        <th style="width:125px">Ngày yêu cầu</th>
+                                        <th>Người yêu cầu</th>
+                                        <th>Tên giấy tờ yêu cầu bổ sung</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="danhSachHoSoGiayToYeuCau">
+                                </tbody>
+                            </table>
+                            <div id="danhSachHoSoGiayToYeuCau_pagination" class="mt-2 px-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <button type="button" class="btn btn-primary btn-sm wd-85 mr-0" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="danhSachHoSoGiayToYeuCauTemplate">
+    <% if(data.length > 0){ %>
+    <% _.forEach(data, function(item,index) { %>
+    <tr>
+        <td class="text-center"><%- item.sott %></td>
+        <td class="text-center"><%- item.ngay %></td>
+        <td class="text-center"><%- item.nsd %></td>
+        <td class="text-center"><%- item.ten %></td>
+    </tr>
+    <% })} %>
+
+    <% if(data.length < 8){
+    for(var i = 0; i < 8 - data.length;i++ ){
+    %>
+    <tr>
+        <td style="height:35.1px;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% }} %>
+</script>
+

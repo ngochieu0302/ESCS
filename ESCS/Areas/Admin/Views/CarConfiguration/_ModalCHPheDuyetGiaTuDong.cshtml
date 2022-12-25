@@ -1,0 +1,474 @@
+﻿<style>
+    #tableHangMucGiaTuDong thead tr th {
+        padding: 0.3rem !important;
+    }
+
+    #tableHangMucGiaTuDong tbody tr td {
+        padding: 0.3rem !important;
+    }
+
+    .ul_duyet_gia_tu_dong li {
+        list-style-type: none;
+    }
+
+    .ul_duyet_gia_tu_dong {
+        padding: unset;
+        margin-top: 15px;
+    }
+
+    .modalCHPheDuyetGiaTuDongContent {
+        height: 500px;
+        overflow: auto;
+    }
+
+    .ul_duyet_gia_tu_dong_ngay_ad li {
+        list-style-type: none;
+    }
+
+    .ul_duyet_gia_tu_dong_ngay_ad {
+        padding: unset;
+        margin-top: 15px;
+    }
+
+    .width-dvi {
+        width: 70%;
+        float: left;
+    }
+
+    .width-tien {
+        width: 30%;
+        float: left;
+    }
+</style>
+<div id="modalCHPheDuyetGiaTuDong" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" style="max-width:95%">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Cấu hình duyệt giá tự động</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a; padding:0px">
+                <div class="row p-2">
+                    <div class="col-2" style="padding-right:0px;">
+                        <div class="card border mb-0">
+                            <div class="card-body p-2" style="height:75.5vh;overflow-y:auto">
+                                <h6>Ngày áp dụng</h6>
+                                <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical" id="modalCHPheDuyetGiaTuDongNgayAD">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="row p-2" style="padding-top:0px !important">
+                            <div class="col-12" style="padding-left:0px;">
+                                <div class="d-flex justify-content-between" style="background-color:#f8f9fa">
+                                    <ul class="nav nav-pills font-weight-bold" role="tablist" id="modalCHPheDuyetGiaTuDongTabList">
+                                        <li class="nav-item" style="cursor:pointer">
+                                            <a class="nav-link active" data-toggle="tab" id="tabCHDonViGaraHangXeHieuXeMenu" onclick="hienThiTabCHDuyetGia('tabCHDonViGaraHangXeHieuXe')" role="tab" aria-controls="home" aria-selected="true">
+                                                Đơn vị/gara/hãng xe/hiệu xe
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style="cursor:pointer">
+                                            <a class="nav-link" data-toggle="tab" role="tab" id="tabCHHangMucMucDoGiaMenu" onclick="hienThiTabCHDuyetGia('tabCHHangMucMucDoGia')" aria-controls="profile" aria-selected="false">
+                                                Hạng mục/mức độ tổn thất/giá tối đa áp dụng
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 tabCHDonViGaraHangXeHieuXe">
+                            <div class="col-4 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 68vh;overflow-y: auto;">
+                                        <div>
+                                            <input type="text" class="form-control" id="modalCHPheDuyetGiaTuDongDviADTkiem" placeholder="Tìm kiếm đơn vị" />
+                                        </div>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetGiaTuDongDviAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 68vh;overflow-y: auto;">
+                                        <div>
+                                            <input type="text" class="form-control" id="modalCHPheDuyetGiaTuDongGaraADTkiem" placeholder="Tìm kiếm gara" />
+                                        </div>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetGiaTuDongGaraAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 68vh;overflow-y: auto;">
+                                        <div>
+                                            <input type="text" class="form-control" id="modalCHPheDuyetGiaTuDongHangHieuXeADTkiem" placeholder="Tìm kiếm hãng/hiệu xe" />
+                                        </div>
+                                        <div style="margin-top:15px; margin-bottom:15px;" id="modalCHPheDuyetGiaTuDongHangHieuXeAD">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 tabCHHangMucMucDoGia" style="padding-top:0px !important">
+                            <div class="col-12 pl-0" style="margin-bottom:0.5rem;">
+                                <div class="btn-group float-left tabCHHangMucMucDoGia_Nhap">
+                                    <a class="btn btn-light rounded py-0" onclick="onClickCHDGChonHangHieuXe(this)" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                        <span style="font-size:13px; color:#009efb"><i class="fas fa-filter"></i> Bộ chọn hãng/hiệu xe</span>
+                                    </a>
+                                    <input type="hidden" id="chdg_arr_hang_xe" value="" />
+                                    <input type="hidden" id="chdg_arr_hieu_xe" value="" />
+                                </div>
+                                <div class="btn-group float-left tabCHHangMucMucDoGia_Nhap">
+                                    <a class="btn btn-light rounded py-0" onclick="onClickCHDGChonMDTT(this)" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                        <span style="font-size:13px; color:#009efb"><i class="fas fa-filter"></i> Bộ chọn mức độ tổn thất</span>
+                                    </a>
+                                    <input type="hidden" id="chdg_arr_muc_do_tt" value="" />
+                                </div>
+                                <div class="btn-group float-left tabCHHangMucMucDoGia_Nhap">
+                                    <a class="btn btn-light rounded py-0" onclick="onClickCHDGChonHangMuc(this)" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                        <span style="font-size:13px; color:#009efb"><i class="fas fa-filter"></i> Bộ chọn hạng mục xe</span>
+                                    </a>
+                                    <input type="hidden" id="chdg_arr_hang_muc" value="" />
+                                </div>
+                                <div class="btn-group float-right">
+                                    <button class="btn btn-sm btn-primary" id="modalCHPheDuyetGiaTuDongDsDaCauHinh">Hiển thị hạng mục đã cấu hình</button>
+                                    <button class="btn btn-sm btn-primary" id="modalCHPheDuyetGiaTuDongDsDaCauHinh_Them">Thêm cấu hình hạng mục</button>
+                                </div>
+                            </div>
+                            <div class="col-12 pl-0">
+                                <div class="card border mb-0">
+                                    <div class="card-body p-2" style="height: 65vh;overflow-y: auto;">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered fixed-header" id="tableHangMucGiaTuDong">
+                                                <thead class="font-weight-bold">
+                                                    <tr class="text-center uppercase">
+                                                        <th style="width:200px; vertical-align:middle" rowspan="2">Hãng/hiệu xe</th>
+                                                        <th style="vertical-align:middle" rowspan="2">Tên hạng mục</th>
+                                                        <th style="width:200px;vertical-align:middle" rowspan="2">Mức độ tổn thất</th>
+                                                        <th style="width:200px" colspan="2">Chính hãng<br /><i style="font-weight:initial">(Số tiền tối đa áp dụng)</i></th>
+                                                        <th style="width:200px" colspan="2">Không chính hãng<br /><i style="font-weight:initial">(Số tiền tối đa áp dụng)</i></th>
+
+                                                    </tr>
+                                                    <tr class="text-center uppercase">
+                                                        <th style="width:100px">Tiền thay thế</th>
+                                                        <th style="width:100px">Tiền sửa chữa</th>
+                                                        <th style="width:100px">Tiền thay thế</th>
+                                                        <th style="width:100px">Tiền sửa chữa</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tableHangMucGiaTuDongBody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="tableHangMucGiaTuDongBody_pagination" class="mt-2 px-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2 tabCHSoTienToiDa" style="padding-top:0px !important"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm float-left tabCHDonViGaraHangXeHieuXe" id="btnThemNgayADDuyetGiaTuDong">
+                    <i class="fas fa-plus mr-2"></i>Thêm ngày áp dụng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right" id="btnLuuCauHinhDuyetGia">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCHPheDuyetGiaTuDongNhapNgayAD" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Nhập ngày áp dụng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" style="background-color:#54667a0a; padding:0px">
+                <form name="frmCHPheDuyetGiaTuDongNhapNgayAD" method="post">
+                    <div class="row mg-t-6 p-2">
+                        <div class="col col-12">
+                            <div class="form-group">
+                                <label for="ngay_d">Ngày áp dụng</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker" autocomplete="off" name="ngay_ad" display-format="date" value-format="number" placeholder="dd/mm/yyyy">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="padding: 0.1em 0.8em !important;"><span class="ti-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-2"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnLuuCHPheDuyetGiaTuDongNhapNgayAD">
+                    <i class="fa fa-save mr-2"></i>Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCHPheDuyetGiaChonHangHieuXe" class="modal-drag" style="width:300px; z-index:9999999;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn hãng hiệu xe</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" style="height:25px" id="modalCHPheDuyetGiaChonHangHieuXeTkiem" onclick="onFocus(this)" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:400px;" id="modalCHPheDuyetGiaChonHangHieuXeContent"></div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="border-top: 1px solid #e9ecef;">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right mb-1" id="modalCHPheDuyetGiaChonHangHieuXe_Chon">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<div id="modalCHPheDuyetGiaChonMDTT" class="modal-drag" style="width:300px; z-index:9999999;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn mức độ tổn thất</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" style="height:25px" id="modalCHPheDuyetGiaChonMDTTTkiem" onclick="onFocus(this)" autocomplete="off" placeholder="Tìm kiếm thông tin" class="form-control">
+            </div>
+            <div class="col-12 mt-2 scrollable" style="max-height:400px;" id="modalCHPheDuyetGiaChonMDTTContent"></div>
+        </div>
+    </div>
+    <div class="modal-drag-footer" style="border-top: 1px solid #e9ecef;">
+        <button type="button" class="btn btn-primary btn-sm wd-90 float-right mb-1" id="modalCHPheDuyetGiaChonMDTT_Chon">
+            <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+        </button>
+    </div>
+</div>
+
+<div id="modalHangMucTonThat" class="modal-drag" style="width: 550px; z-index: 9999999; margin-top: -100px; margin-left: 200px;">
+    <div class="modal-drag-header border-bottom">
+        <h5 style="margin-left:10px;"><span class="modal-drag-title">Chọn hạng mục</span> <span data-dismiss="modal-drag" style="margin-right:10px;"><i class="fa fa-times"></i></span></h5>
+    </div>
+    <div class="modal-drag-content" style="padding-top:5px;">
+        <div class="row">
+            <div class="col-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="inputTimKiemHangMuc" autocomplete="off" placeholder="Tìm kiếm hạng mục" value="" />
+                    <input type="hidden" id="inputTimKiemHangMuc_ma" />
+                    <div class="input-group-append">
+                        <label class="input-group-text">
+                            <a href="javascript:void(0)" onclick="getPagingHangMuc(1)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-2 scrollable py-2" style="max-height:550px;" id="dsHangMuc">
+
+            </div>
+            <div id="dsHangMuc_pagination" class="mt-2 px-2"></div>
+            <div class="col-12">
+                <button type="button" class="btn btn-primary btn-sm wd-90 float-right mb-1" id="modalCHPheDuyetGiaChonHangMuc_Chon">
+                    <i class="fas fa-mouse-pointer mr-2"></i> Chọn
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="modalCHPheDuyetGiaChonMDTTContentTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox modalCHPheDuyetGiaChonMDTTContentItem" data-text="<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" id="chdg_muc_do_tt_<%- item.ma %>" value="<%- item.ma %>" class="custom-control-input modalCHPheDuyetGiaChonMDTTContentChon">
+        <label class="custom-control-label" style="cursor:pointer;" for="chdg_muc_do_tt_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetGiaChonHangHieuXeContentTemplate">
+    <% if(danh_sach.length > 0){
+    _.forEach(danh_sach, function(item,index) { %>
+    <div class="custom-control custom-checkbox modalCHPheDuyetGiaChonMDTTContentItem" data-text="">
+        <input type="checkbox" data_hang_xe="<%- item.hang_xe %>" data_hieu_xe="<%- item.hieu_xe %>" id="chdg_hang_hieu_xe_<%- item.hang_xe+'_'+item.hieu_xe %>" value="<%- item.hang_xe+'/'+item.hieu_xe %>" class="custom-control-input modalCHPheDuyetGiaChonHangHieuXeContentChon">
+        <label class="custom-control-label" style="cursor:pointer;" for="chdg_hang_hieu_xe_<%- item.hang_xe+'_'+item.hieu_xe %>"><%- item.hang_xe+'/'+item.hieu_xe %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="dsHangMucTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <div class="custom-control custom-checkbox hangmuc" id="hangmuc_<%- item.ma %>" data-text="<%- item.ma.toLowerCase() %>-<%- item.ten.toLowerCase() %>">
+        <input type="checkbox" class="custom-control-input modalDanhSachHangMucItem single_checked" onchange="onChonHangMuc(this)" id="hang_muc_<%- item.ma %>" value="<%- item.ma %>" data-val="<%- item.ma %>" data-name="<%- item.ten%>">
+        <label class="custom-control-label cursor-pointer" for="hang_muc_<%- item.ma %>"><%- item.ten %></label>
+    </div>
+    <% })}else{ %>
+    <div class="text-center" style="width:100%">Chưa có dữ liệu</div>
+    <% } %>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetGiaTuDongNgayADTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <a class="nav-link" onclick="layChiTietCHDuyetGiaTuDong('<%- item.ngay_ad %>')" style="cursor:pointer" data_ngay_ad="<%- item.ngay_ad %>" data-toggle="pill" role="tab" aria-selected="true">Ngày áp dụng: <b class="font-weight-bold"><%- item.ngay_ad_hthi %></b></a>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetGiaTuDongDviADTemplate">
+    <% if(data.length > 0){%>
+    <div>
+        <div class="width-dvi">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaDviCHDuyetGia(this)" id="modalCHPheDuyetGiaTuDongDviADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetGiaTuDongDviADTatCa">Áp dụng cho tất cả đơn vị</label>
+            </div>
+        </div>
+        <div class="width-tien">
+            Số tiền tối đa
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="modalCHPheDuyetGiaTuDongDviADItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten_tat) %>">
+        <div class="width-dvi">
+            <div class="custom-control custom-checkbox">
+                <% if(item.checked == 'C'){%>
+                <input type="checkbox" data_ma_dvi="<%- item.ma %>" checked="checked" id="modalCHPheDuyetGiaTuDongDviADItem_<%- item.ma %>" class="custom-control-input">
+                <% } else {%>
+                <input type="checkbox" data_ma_dvi="<%- item.ma %>" id="modalCHPheDuyetGiaTuDongDviADItem_<%- item.ma %>" class="custom-control-input">
+                <% }%>
+                <label class="custom-control-label" for="modalCHPheDuyetGiaTuDongDviADItem_<%- item.ma %>"><%- item.ten_tat %></label>
+            </div>
+        </div>
+        <div class="width-tien">
+            <input type="text" data_ma_dvi="<%- item.ma %>" style="height:20px" class="number form-control" value="<%- ESUtil.formatMoney(item.so_tien) %>" placeholder="Số tiền tối đa" />
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetGiaTuDongGaraADTemplate">
+    <% if(data.length > 0){%>
+    <div style="height:21px;">
+        <div style="width:50%; float:left;">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaGaraCHDuyetGia(this)" id="modalCHPheDuyetGiaTuDongGaraADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetGiaTuDongGaraADTatCa">Áp dụng cho tất cả gara</label>
+            </div>
+        </div>
+        <div style="width:50%; float:left; text-align:right;">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input checkbox" onchange="onChkHienThiGaraAD(this)" id="chkHienThiGaraAD">
+                <label class="custom-control-label" for="chkHienThiGaraAD">Gara đang áp dụng</label>
+            </div>
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="modalCHPheDuyetGiaTuDongGaraItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.ten) %>">
+        <div class="custom-control custom-checkbox">
+            <% if(item.checked == 'C'){%>
+            <input type="checkbox" data_ma_gara="<%- item.ma %>" checked="checked" id="modalCHPheDuyetGiaTuDongGaraItem_<%- item.ma %>" class="custom-control-input">
+            <% } else {%>
+            <input type="checkbox" data_ma_gara="<%- item.ma %>" id="modalCHPheDuyetGiaTuDongGaraItem_<%- item.ma %>" class="custom-control-input">
+            <% }%>
+            <label class="custom-control-label" for="modalCHPheDuyetGiaTuDongGaraItem_<%- item.ma %>"><%- item.ten %></label>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="modalCHPheDuyetGiaTuDongHangHieuXeADTemplate">
+    <% if(data.length > 0){%>
+    <div style="height:21px;">
+        <div style="width:50%; float:left;">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" onchange="chonTatCaHangHieuXeCHDuyetGia(this)" id="modalCHPheDuyetGiaTuDongHangHieuXeADTatCa" class="custom-control-input">
+                <label class="custom-control-label font-weight-bold" for="modalCHPheDuyetGiaTuDongHangHieuXeADTatCa">Áp dụng cho tất cả</label>
+            </div>
+        </div>
+        <div style="width:50%; float:left; text-align:right">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input checkbox" onchange="onChkHienThiHangHieuXeAD(this)" id="chkHienThiHangHieuXeAD">
+                <label class="custom-control-label" for="chkHienThiHangHieuXeAD">Hãng/hiệu xe áp dụng</label>
+            </div>
+        </div>
+    </div>
+    <%
+    _.forEach(data, function(item,index) { %>
+    <div class="modalCHPheDuyetGiaTuDongHangHieuXeItem" data-search="<%- ESUtil.xoaKhoangTrangText(item.hang_xe+'/'+item.ma) %>">
+        <div class="custom-control custom-checkbox">
+            <% if(item.checked == 'C'){%>
+            <input type="checkbox" data_hang_xe="<%- item.hang_xe %>" data_hieu_xe="<%- item.ma %>" checked="checked" id="modalCHPheDuyetGiaTuDongHangHieuXeItem_<%- item.hang_xe+'_'+item.ma %>" class="custom-control-input">
+            <% } else {%>
+            <input type="checkbox" data_hang_xe="<%- item.hang_xe %>" data_hieu_xe="<%- item.ma %>" id="modalCHPheDuyetGiaTuDongHangHieuXeItem_<%- item.hang_xe+'_'+item.ma %>" class="custom-control-input">
+            <% }%>
+            <label class="custom-control-label" for="modalCHPheDuyetGiaTuDongHangHieuXeItem_<%- item.hang_xe+'_'+item.ma %>"><%- item.hang_xe+'/'+item.ma %></label>
+        </div>
+    </div>
+    <% })}%>
+</script>
+
+<script type="text/html" id="tableHangMucGiaTuDongBodyTemplate">
+    <% if(data.length > 0){
+    _.forEach(data, function(item,index) { %>
+    <tr class="tableHangMucGiaTuDongBodyRow">
+        <td>
+            <%- item.hang_xe+'/'+item.hieu_xe %>
+            <input type="hidden" data-field="hang_xe" value="<%- item.hang_xe %>" />
+            <input type="hidden" data-field="hieu_xe" value="<%- item.hieu_xe %>" />
+        </td>
+        <td>
+            <%- item.hang_muc_ten %>
+            <input type="hidden" data-field="hang_muc" value="<%- item.hang_muc %>" />
+        </td>
+        <td class="text-center">
+            <%- item.muc_do_ten %>
+            <input type="hidden" data-field="muc_do" value="<%- item.muc_do %>" />
+        </td>
+        <td>
+            <input type="text" data-field="tien_thay_the_c" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_thay_the_c) %>">
+        </td>
+        <td>
+            <input type="text" data-field="tien_sua_chua_c" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_sua_chua_c) %>">
+        </td>
+        <td>
+            <input type="text" data-field="tien_thay_the_k" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_thay_the_k) %>">
+        </td>
+        <td>
+            <input type="text" data-field="tien_sua_chua_k" class="number floating-input" value="<%- ESUtil.formatMoney(item.tien_sua_chua_k) %>">
+        </td>
+    </tr>
+    <% })}else{ %>
+    <tr>
+        <td colspan="7" class="text-center">
+            Chưa có dữ liệu
+        </td>
+    </tr>
+    <% } %>
+</script>

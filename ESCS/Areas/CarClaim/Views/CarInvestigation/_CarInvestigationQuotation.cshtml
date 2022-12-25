@@ -1,0 +1,357 @@
+﻿<style>
+    .card-title-bg-primary {
+        background-color: #1e88e5;
+        color: white;
+    }
+
+    #bodyDsBaoGiaGaraDoc tr td {
+        cursor: all-scroll;
+    }
+
+    #bodyDsBaoGiaGaraDoc td:hover {
+        background-color: #e8eef3;
+    }
+
+    #bodyDsBaoGiaGaraDoc td {
+        padding: 0px;
+    }
+
+        #bodyDsBaoGiaGaraDoc td a {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 8px;
+        }
+
+    .ttbaogia_HBG {
+        color: red !important;
+    }
+
+    #dsAnhBaoGiaGara input {
+        color: white !important;
+        position: absolute !important;
+        z-index: 9;
+        opacity: 1;
+        width: 16px;
+        height: 16px;
+        margin-left: 3px !important;
+    }
+    #tableDuLieuOCRBaoGiaGara td {
+        padding: 0.35rem;
+        vertical-align: middle;
+    }
+
+    #tableDuLieuOCRBaoGiaGara .card-title-bg {
+        background-color: #f8f9fa;
+    }
+  
+</style>
+<!-- Modal thông tin bao gia -->
+<div id="CarCompensationQuotation" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 98%; margin:10px auto;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title" id="CarCompensationQuotationLabel">Đề xuất phương án khắc phục</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body py-1" style="height:590px">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Danh sách các Gara báo giá</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form id="frmSelectedGara" name="frmSelectedGara" novalidate="novalidate" method="post">
+                            <input type="hidden" name="bt_gara" value="" />
+                            <input type="hidden" name="gara" value="" />
+                        </form>
+                        <div class="table-responsive" style="max-height:190px;">
+                            <table id="tableDsGaraBaoGia" class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th style="width: 40px;"></th>
+                                        <th style="width: 40px;">STT</th>
+                                        <th>Tên cơ sở sửa chữa, báo giá</th>
+                                        <th style="width: 145px;">Đối tượng</th>
+                                        <th style="width: 145px;">Báo giá</th>
+                                        <th style="width: 110px;">Ngày báo giá</th>
+                                        <th style="width: 120px;">Ngày KT báo giá</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Tổng duyệt</th>
+                                        <th style="width:60px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="garaBaoGia">
+                                </tbody>
+                                <tfoot>
+                                    <tr class="card-title-bg" style="height:45px;">
+                                        <td colspan="4">
+                                            <a href="#" class="d-none btn btn-sm btn-primary mr-2" id="btnChuyenBaoGia">
+                                                <i class="fas fa-share mr-1"></i> Chuyển báo giá sang gara
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-primary" id="btnOCRBaoGia">
+                                                <i class="fas fa-qrcode mr-1"></i> OCR báo giá
+                                            </a>
+                                            <a href="#" class="mr-2 float-right" id="btnGaraBaoGiaSoSanh" style="padding-top:6px">
+                                                <i class="fas fa-exchange-alt mr-1"></i>So sánh báo giá
+                                            </a>
+                                        </td>
+                                        <td colspan="6" class="text-right" style="vertical-align: middle;">
+                                            @*<a href="javascript:void(0)" class="mr-2" title="Download mẫu excel báo giá" id="btnDownloadMauBaoGia">
+                                                    <i class="fas fa-download mr-2"></i>Download mẫu báo giá
+                                                </a>*@
+                                            <div class="dropdown mr-2" style="width:110px; display:initial;">
+                                                <a href="#" role="button" id="dropdownMenuLinkDownload" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-download mr-2"></i>Download mẫu báo giá
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkDownload">
+                                                    <a class="dropdown-item" id="btnDownloadMauBaoGia" href="javascript:void(0)" style="font-size:12px; padding: 0.3rem 0.5rem !important;">
+                                                        Mẫu mặc định hệ thống
+                                                    </a>
+                                                    @*<a class="dropdown-item" id="btnDownloadMauBaoGiaDoc" href="javascript:void(0)" style="font-size:12px; padding: 0.3rem 0.5rem !important;">
+                                                        Mẫu theo hạng mục gara báo giá
+                                                    </a>*@
+                                                </div>
+                                            </div>
+                                            <div class="dropdown mr-2" style="width:110px; display:initial;">
+                                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-upload mr-2"></i>Upload báo giá
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" id="btnUploadMauBaoGia" href="javascript:void(0)" style="font-size:12px; padding: 0.3rem 0.5rem !important;">
+                                                        <label for="file_upload_bao_gia">Mẫu mặc định hệ thống</label>
+                                                    </a>
+                                                    @*<a class="dropdown-item" id="btnuploadmaubaogiadoc" href="javascript:void(0)" style="font-size:12px; padding: 0.3rem 0.5rem !important;">
+                                                            <label for="file_upload_bao_gia_doc">mẫu theo hạng mục gara báo giá</label>
+                                                        </a>*@
+                                                </div>
+                                            </div>
+                                            @*<a href="javascript:void(0)" id="btnUploadMauBaoGia" class="mr-3" title="Upload mẫu excel báo giá">
+                                                    <label for="file_upload_bao_gia"><i class="fas fa-upload mr-2"></i>Upload báo giá</label>
+                                                </a>
+                                                <a href="javascript:void(0)" id="btnUploadMauBaoGiaDoc" class="mr-3" title="Upload mẫu excel báo giá">
+                                                    <label for="file_upload_bao_gia_doc"><i class="fas fa-upload mr-2"></i>Upload báo giá dọc</label>
+                                                </a>*@
+                                            <a href="#" id="btnDsGaraHopTac" class="mr-2" data-toggle="inline-popup" data-target="#dsGaraHopTac" data-backdrop="static" data-placement="bottom bottom-right">
+                                                <i class="fa fa-bars mr-2"></i>Danh sách gara hợp tác
+                                            </a>
+                                            <a href="#" class="btnThemBaoGia mr-2" data-toggle="inline-popup" data-target="#themBaoGia" data-backdrop="static" data-placement="bottom bottom-right">
+                                                <i class="fas fa-plus-square mr-2"></i>Thêm Gara báo giá
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-3 pr-0">
+                        <div>
+                            <div class="input-group py-2" style="padding-top:0px !important">
+                                <input type="text" id="inputTimKiemHangMucBaoGia" class="form-control autocomplete" autocomplete="off" placeholder="Tìm kiếm hạng mục">
+                                <div class="input-group-append">
+                                    <label class="input-group-text">
+                                        <a href="#" ><i class="fas fa-search" title="Tìm kiếm hang mục"></i></a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 pl-0" style="text-align:right">
+                        <span id="tinhToanBGHienThi" style="display:block; margin-top: 7px">
+                            <span class="mr-2">Giá trị xe: <span class="tinhToanBGGiaTriXe" style="color:red; font-weight:bold;">0</span></span>
+                            <span class="mr-2">Số tiền bảo hiểm: <span class="tinhToanBGSoTienBH" style="color:red; font-weight:bold;">0</span></span>
+                            <span class="mr-2">Tỷ lệ BH: <span class="tinhToanBGTyLeBH" style="color:red; font-weight:bold;">0</span></span>
+                            <span class="mr-2">Tỷ lệ tổn thất/STBH: <span class="tinhToanBGTyLeTonThat" style="color:red; font-weight:bold;">0</span></span>
+                            <span class="mr-2" id="tinhToanBGBoiThuongToanBo">
+                                <a href="#" id="btnBoiThuongToanBo"><i class="fas fa-car-crash mr-1"></i> Bồi thường toàn bộ</a>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="col-3" style="padding-left:0px !important">
+                        <div style="float:left; margin-top: 7px">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input checkbox" id="chk_tu_dong_gia_goi_y">
+                                <label class="custom-control-label" for="chk_tu_dong_gia_goi_y">Tự động đề xuất giá</label>
+                            </div>
+                        </div>
+                        <div style="float:right; margin-top: 7px">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input checkbox" id="chk_tu_dong_de_xuat">
+                                <label class="custom-control-label" for="chk_tu_dong_de_xuat">Giá đề xuất bằng giá gara báo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @*fixed-header style="width:131%"*@
+                        <div class="table-responsive" style="max-height:330px;">
+                            <table id="tableDsHMTTBaoGia" class="table table-bordered" style="width:120%">
+                                <thead class="font-weight-bold card-title-bg-primary" style="position:sticky;top:0">
+                                    <tr class="text-center uppercase">
+                                        <th rowspan="2" style="vertical-align: middle; width: 40px;">STT</th>
+                                        <th rowspan="2" style="vertical-align: middle; width: 40px;"></th>
+                                        <th rowspan="2" style="vertical-align: middle;">Hạng mục bồi thường</th>
+                                        <th rowspan="2" style="vertical-align: middle;">Mức độ</th>
+                                        <th style="width:75px; vertical-align: middle;" rowspan="2">Thay thế</th>
+                                        <th rowspan="2" style="vertical-align: middle; width:60px">SL</th>
+                                        <th style="width:80px; vertical-align: middle;" rowspan="2">Giá TTGĐ</th>
+                                        <th style="width:343px" colspan="4">Tiền gara báo giá</th>
+                                        <th style="width:227px" colspan="3">Tiền đề xuất duyệt</th>
+                                        <th style="vertical-align: middle;" colspan="3">Giảm giá (%)  trước tính toán</th>
+                                        <th style="width:60px; vertical-align: middle;" rowspan="2">Ghi chú</th>
+                                    </tr>
+                                    <tr class="text-center uppercase">
+                                        <th style="width:90px;">Giá hợp tác</th>
+                                        <th style="width:105px">Tổng tiền V.Tư</th>
+                                        <th style="width:90px">Nhân công</th>
+                                        <th style="width:90px">Tiền sơn</th>
+                                        @*<th style="width:97px">Tổng cộng</th>*@
+
+                                        <th style="width:105px">Tổng tiền V.Tư</th>
+                                        <th style="width:90px">Nhân công</th>
+                                        <th style="width:90px">Tiền sơn</th>
+
+                                        <th style="width:100px">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="chkGiamGiaBGVtu" checked="checked">
+                                                <label class="custom-control-label" for="chkGiamGiaBGVtu">V.tư</label>
+                                            </div>
+                                        </th>
+                                        <th style="width:105px">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="chkGiamGiaBGNhanCong" checked="checked">
+                                                <label class="custom-control-label" for="chkGiamGiaBGNhanCong">Nhân công</label>
+                                            </div>
+                                        </th>
+                                        <th style="width:100px">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="chkGiamGiaBGSon" checked="checked">
+                                                <label class="custom-control-label" for="chkGiamGiaBGSon">Sơn</label>
+                                            </div>
+                                        </th>
+
+                                        @*<th style="width:97px">Tổng cộng</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody id="garaBaoGiaCT">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm" id="btnThemHangMucGaraBao" onclick="capNhatThongTinHangMuc(this, 'B','THEM_MOI', 'custom')">
+                    <i class="fas fa-plus mr-1"></i>Chọn thêm hạng mục báo giá
+                </button>
+                @*<button type="button" class="btn btn-primary btn-sm d-none ml-0" id="btnTrinhPA">
+                    <i class="fas fa-share-square mr-1"></i>Trình duyệt giá
+                </button>*@
+
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal" id="btnBaoGiaGara_close">
+                    <i class="fas fa-window-close mr-1"></i>Đóng
+                </button>
+                @*<button type="button" class="btn btn-primary btn-sm float-right" id="btnLapPASC_BG">
+            <i class="fas fa-paste mr-1"></i>Lập phương án bồi thường
+        </button>*@
+                @*<button type="button" class="btn btn-primary btn-sm wd-130 float-right" id="btnTrinhPAVCX">
+            <i class="fas fa-share-square mr-1"></i>Trình phương án
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-100 btn-phan-cap float-right" id="btnHuyDuyetPAVCX">
+            <i class="fas fa-plus-square mr-1"></i>Hủy Duyệt
+        </button>
+        <button type="button" class="btn btn-primary btn-sm wd-130 btn-phan-cap float-right" id="btnDuyetPAVCX">
+            <i class="fas fa-plus-square mr-1"></i>Duyệt phương án
+        </button>*@
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnLuuBaoGiaGara">
+                    <i class="fas fa-save mr-1"></i>Lưu
+                </button>
+                <button type="button" class="btn btn-primary btn-sm float-right" id="btnKetThucBaoGia">
+                    <i class="fas fa-stop-circle mr-1"></i>Kết thúc báo giá
+                </button>
+                <button type="button" class="btn btn-primary btn-sm float-right" id="btnHuyKetThucBaoGia">
+                    <i class="fas fa-times mr-1"></i>Hủy kết thúc báo giá
+                </button>
+
+                @*<button type="button" class="btn btn-primary btn-sm wd-180 float-right d-none" id="btnYeuCauSuaChua">
+            <i class="fas fa-wrench mr-1"></i>Gửi yêu cầu sửa chữa
+        </button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popoverDKBS" class="popover popover-x popover-default" style="display:none; width:600px">
+    <div class="arrow"></div>
+    <h3 class="popover-header popover-title">
+        <span class="close pull-right" data-dismiss="popover-x" onclick="dongPopover(this)">&times;</span>Chọn điều khoản bổ sung
+    </h3>
+    <div class="popover-body popover-content">
+        <div class="row">
+            <div class="col-12" id="divDKBS">
+            </div>
+        </div>
+    </div>
+    <div class="popover-footer">
+        <button type="button" class="btn btn-primary btn-sm wd-85" id="chonDKBS">
+            <i class="far fa-check mr-2"></i>Chọn
+        </button>
+    </div>
+</div>
+<!-- Modal thông tin bao gia -->
+<div id="modalBaoGiaDoc" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 97%; margin:10px auto;">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <h4 class="modal-title">Báo giá gara</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:500px;">
+                            <table id="tableDsBaoGiaGaraDoc" class="table table-bordered" style="width:100%">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th rowspan="2" style="vertical-align:middle; width:250px;">Hạng mục</th>
+                                        <th colspan="4">Vật tư</th>
+                                        <th colspan="4">Nhân công</th>
+                                        <th colspan="4">Sơn</th>
+                                    </tr>
+                                    <tr class="text-center uppercase">
+                                        <th style="width: 250px;">Tên</th>
+                                        <th>Số lượng</th>
+                                        <th>Số tiền</th>
+                                        <th style="width:55px">Tỷ lệ</th>
+                                        <th style="width: 250px;">Tên</th>
+                                        <th>Số tiền</th>
+                                        <th style="width:55px">Tỷ lệ</th>
+                                        <th style="width:55px">Tách</th>
+                                        <th style="width: 250px;">Tên</th>
+                                        <th>Số tiền</th>
+                                        <th style="width:55px">Tỷ lệ</th>
+                                        <th style="width:55px">Tách</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyDsBaoGiaGaraDoc">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" data-dismiss="modal">
+                    <i class="fas fa-window-close mr-1"></i>Đóng
+                </button>
+                <button type="button" class="btn btn-primary btn-sm wd-85 float-right" id="btnLuuBaoGiaGaraDoc">
+                    <i class="fas fa-save mr-1"></i>Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

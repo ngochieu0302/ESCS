@@ -1,0 +1,113 @@
+﻿<style>
+    #dropdownGDVHT {
+        border: 1px solid rgb(233, 236, 239);
+        width: 250px;
+        box-shadow: rgb(106, 160, 201) -2px 4px 10px 0px;
+        position: absolute;
+        left: 0px;
+        transform: translate3d(593px, -103px, 0px);
+        top: 0px;
+        will-change: transform;
+    }
+
+    #dropdownGDVTT {
+        border: 1px solid rgb(233, 236, 239);
+        width: 250px;
+        box-shadow: rgb(106, 160, 201) -2px 4px 10px 0px;
+        position: absolute;
+        left: -50px;
+        transform: translate3d(593px, -103px, 0px);
+        top: 35px;
+        will-change: transform;
+    }
+</style>
+<div class="row">
+    <div class="col-12 pr-0">
+        <div class="card mb-0">
+            <div class="card-body p-0">
+                <div class="border rounded" style="height:78vh; overflow: scroll;">
+                    @*Thông tin vụ tổn thất*@
+                    <div class="col-12 px-0">
+                        <form name="frmDienBienTonThat" method="post">
+                            <div class="col-12 mt-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="font-weight-bold">&nbsp;1. Thông tin vụ tổn thất</h6>
+                                </div>
+                                <table class="table table-bordered fixed-header">
+                                    <tr>
+                                        <th style="width: 130px; color: #000; vertical-align: middle;">Vụ tổn thất</th>
+                                        <th colspan="3">
+                                            <select class="form-control custom-select select2" style="width:100%;" name="vu_tt" id="vu_tt">
+                                            </select>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-12" id="tblDienBienTonThat">
+                            </div>
+                        </form>
+                    </div>
+                    @*Thông tin lần giám định*@
+                    <div class="col-12 px-0">
+                        <form name="frmThongTinGiamDinh" method="post">
+                            <div class="col-12 mt-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="font-weight-bold">&nbsp;2. Thông tin lần giám định</h6>
+                                </div>
+                                <table class="table table-bordered fixed-header">
+                                    <tr>
+                                        <td style="width: 130px; color: #000; font-weight: bold; vertical-align: middle; ">Lần giám định</td>
+                                        <td colspan="3">
+                                            <select class="form-control custom-select select2" style="width:100%;" name="lan_gd" id="lan_gd"></select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-12" id="tblThongTinGiamDinh"></div>
+                        </form>
+                    </div>
+                    @*Đại diện các bên tham gia giám định*@
+                    <div class="col-12 mt-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="font-weight-bold">&nbsp;3. Đại diện các bên tham gia giám định</h6>
+                        </div>
+                        <div class="table-responsive" style="max-height:208px">
+                            <table class="table table-striped table-bordered fixed-header">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width: 200px;">Đại diện</th>
+                                        <th style="width: 270px;">Họ và tên</th>
+                                        <th style="width: 100px;">Điện thoại</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center" id="tblThongTinCacBenThamGiaGD"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*Thông tin hồ sơ giấy tờ*@
+                   <div class="col-12 mt-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="font-weight-bold">&nbsp;4. Thông tin hồ sơ giấy tờ</h6>
+                        </div>
+                        <div class="table-responsive" style="max-height:350px">
+                            <table class="table table-striped table-bordered fixed-header">
+                                <thead class="font-weight-bold">
+                                    <tr class="text-center uppercase">
+                                        <th style="width: 200px;">Tên giấy tờ</th>
+                                        <th style="width: 170px;">Ngày cung cấp</th>
+                                        <th style="width: 100px;">Loại</th>
+                                        <th style="width: 100px;">Hợp lệ</th>
+                                        <th>Trạng thái</th>
+                                        <th>Yêu cầu bổ sung</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center" id="tblThongTinHoSoGiayToYKien"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

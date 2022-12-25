@@ -1,0 +1,107 @@
+﻿<div class="row">
+    <div class="col-12 px-0">
+        <div class="card mb-0">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Danh sách hóa đơn, chứng từ</h5>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-sm btn-primary float-right" id="btnDocOCRHoaDon"><i class="fa fa-qrcode mr-2"></i>OCR hóa đơn</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive" style="max-height:215px">
+                            <!-- Chứng từ hóa đơn, thanh toán -->
+                            <table class="table table-bordered fixed-header">
+                                <thead class="font-weight-bold card-title-bg-primary">
+                                    <tr class="text-center uppercase">
+                                        <th width="8%">Ngày CT</th>
+                                        <th width="10%">Mẫu</th>
+                                        <th width="10%">Ký hiệu</th>
+                                        <th width="9%">Số</th>
+                                        <th width="30%">Nội dung</th>
+                                        <th width="9%">Số tiền</th>
+                                        <th width="9%">Thuế</th>
+                                        <th width="9%">Tổng cộng</th>
+                                        <th width="3%"></th>
+                                        <th width="3%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="step3_chung_tu"></tbody>
+                                <tfoot>
+                                    <tr class="text-left card-title-bg">
+                                        <td colspan="2" class="text-left">
+                                            <a href="#" id="btnThemHoaDonChungTu" title="Thêm hóa đơn, chứng từ">
+                                                <i class="fas fa-plus-square mr-2"></i>Thêm hóa đơn, chứng từ
+                                            </a>
+                                        </td>
+                                        <td colspan="2" class="text-left">
+                                            <a href="#" onclick="chonDonViPhatHanhHoaDon(this)" title="Đọc hóa đơn điện tử">
+                                                <i class="far fa-file-invoice-dollar mr-2"></i>Đọc hóa đơn
+                                            </a>
+                                        </td>
+                                        <td class="text-center font-weight-bold">
+                                            Tổng cộng
+                                        </td>
+                                        <td class="text-right font-weight-bold chung_tu_tong_tien">0</td>
+                                        <td class="text-right font-weight-bold chung_tu_tong_thue">0</td>
+                                        <td class="text-right font-weight-bold chung_tu_tong_cong">0</td>
+                                        <td class="font-weight-bold"></td>
+                                        <td class="font-weight-bold"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-0" >
+            <div class="card-body p-0">
+                <div class="d-flex justify-content-between align-items-center py-2 card-title-bg">
+                    <h5 class="mb-0">Danh sách người thụ hưởng bồi thường</h5>
+                </div>
+                <div class="table-responsive" style="max-height:280px">
+                    <!-- Danh sách người thụ hưởng -->
+                    <table id="tblCarCompensationContentStep4_benefit" class="table table-bordered fixed-header">
+                        <thead class="font-weight-bold card-title-bg-primary">
+                            <tr class="text-center uppercase">
+                                <th width="3%"></th>
+                                <th width="25%">Tên đơn vị thụ hưởng</th>
+                                <th width="9%">Số TK</th>
+                                <th width="23%">Ngân hàng</th>
+                                <th width="25%">Nội dung</th>
+                                <th width="9%">Số tiền</th>
+                                <th width="3%"></th>
+                                <th width="3%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="step3_thu_huong"></tbody>
+                        <tfoot>
+                            <tr class="text-left card-title-bg">
+                                <td colspan="3" class="text-left">
+                                    <a href="#" id="btnThemNguoiThuHuong" title="Thêm người thụ hưởng">
+                                        <i class="fas fa-plus-square mr-2"></i>Thêm người thụ hưởng
+                                    </a>
+                                </td>
+                                <td class="font-weight-bold text-center" colspan="2">
+                                    Tổng cộng
+                                </td>
+                                <td class="font-weight-bold text-right thu_huong_tong">0</td>
+                                <td class="font-weight-bold"></td>
+                                <td class="font-weight-bold"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,46 @@
+﻿@using ESCS.COMMON.Response;
+@using ESCS.MODEL.ESCS;
+@using RazorEngine.Text;
+@{
+    Layout = null;
+    var data = ViewBag.Data as BaseResponse<ThongTinEmail<ThongBaoGiamDinh>>;
+    var mail = data.data_info.mail;
+}
+<html>
+<head>
+    <title>THÔNG BÁO TRẠNG THÁI HỒ SƠ BỔ SUNG ĐẦY ĐỦ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+    <div style="border:1px solid #035299; border-radius:5px; background-color:azure; font-family: 'Tahoma' ; font-size: 14px; line-height: 1.5;">
+        <div style="width: 710px; margin: 0 auto;">
+            <h3 style="color: #035299; text-align: center">
+                THÔNG BÁO TRẠNG THÁI HỒ SƠ BỔ SUNG ĐẦY ĐỦ
+                <br>Số hồ sơ: @mail.so_hs
+            </h3>
+            <div style="padding: 8px; text-align: justify;">
+                <p style="margin: 8px 0px;">Kính gửi: <span style="color: #035299;">@mail.nguoi_lh</span></p>
+                
+                <p style="margin: 8px 0px;">
+                    Công ty chúng tôi đã nhận được hồ sơ bổ sung của NĐBH là Ông(bà) <span style="color: #035299;">@mail.ten_khach</span> có tham gia bảo hiểm chăm sóc sức khỏe của @mail.ma_doi_tac_ql.
+                </p>
+                <p style="margin: 8px 0px;">
+                    Sau khi xem xét hồ sơ, chúng tôi có đủ cơ sở xem xét và thanh toán chi phí đã xác nhận theo đúng quy định, Quý khách đã bổ sung đầy đủ chứng từ.
+                </p>
+                
+                <p style="color: #035299; margin: 8px 0px;"><span>@mail.ten_cong_ty</span></p>
+                <ul style="line-height: 20px; margin: 8px 0px;">
+                    <li>Địa chỉ: <span style="color: #035299">@mail.dchi_dt</span></li>
+                    <li>Số điện thoại: <span style="color: #035299">@mail.dien_thoai_btv</span></li>
+                    <li>Tên cán bộ: <span style="color: #035299">@mail.ten_cb</span></li>
+                    <li>Email: <span style="color: #035299">@mail.email_btv</span></li>
+                </ul>
+                <p style="margin: 8px 0px;">Rất mong sớm nhận được phản hồi của khách hàng.</p>
+                
+                <p style="margin: 8px 0px; color: #035299; font-weight: bold">Trân trọng cảm ơn !</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

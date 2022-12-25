@@ -1,0 +1,35 @@
+﻿.modal-drag-content {
+    padding: 15px;
+}
+
+.modal-drag-footer {
+    padding: 5px 15px;
+}
+
+.modal-drag-header [data-dismiss='modal-drag'] {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+    color: #455a64;
+}
+
+.modal-drag-header {
+    height: 32px;
+    padding: 5px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+.modal-drag.open {
+    display: block;
+}
+
+.modal-drag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    display: none;
+}

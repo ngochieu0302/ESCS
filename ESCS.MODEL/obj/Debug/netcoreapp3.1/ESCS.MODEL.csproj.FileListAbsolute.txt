@@ -1,0 +1,12 @@
+D:\ESCS\ESCS.MODEL\bin\Debug\netcoreapp3.1\ESCS.MODEL.deps.json
+D:\ESCS\ESCS.MODEL\bin\Debug\netcoreapp3.1\ESCS.MODEL.dll
+D:\ESCS\ESCS.MODEL\bin\Debug\netcoreapp3.1\ESCS.MODEL.pdb
+D:\ESCS\ESCS.MODEL\bin\Debug\netcoreapp3.1\ESCS.COMMON.dll
+D:\ESCS\ESCS.MODEL\bin\Debug\netcoreapp3.1\ESCS.COMMON.pdb
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.csprojAssemblyReference.cache
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.AssemblyInfoInputs.cache
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.AssemblyInfo.cs
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.csproj.CoreCompileInputs.cache
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.csproj.CopyComplete
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.dll
+D:\ESCS\ESCS.MODEL\obj\Debug\netcoreapp3.1\ESCS.MODEL.pdb
